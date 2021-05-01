@@ -14,4 +14,24 @@ public class Persona {
     this.numeroDocumento = numeroDocumento;
     this.contacto = contacto;
   }
+
+  public String getApellido() {
+    return apellido;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public TipoDeDocumento getTipoDocumento() {
+    return tipoDocumento;
+  }
+
+  public int getNumeroDocumento() {
+    return numeroDocumento;
+  }
+
+  public Contacto getContacto() {
+    return contacto;
+  }
 }

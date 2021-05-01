@@ -11,7 +11,13 @@ public class Usuario extends UsuarioBase{
   private LocalDate fechaNacimiento;
   private List<Mascota> mascotasRegistradas;
 
+  public int getIdDuenio() {
+    return idDuenio;
+  }
+
   void registrarUnaMascota(Mascota mascota){
     mascotasRegistradas.add(mascota);
   }º
+
+  
 }

@@ -12,4 +12,20 @@ public class Contacto {
     this.telefono = telefono;
     this.email = email;
   }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public String getApellido() {
+    return apellido;
+  }
+
+  public int getTelefono() {
+    return telefono;
+  }
+
+  public String getEmail() {
+    return email;
+  }
 }
