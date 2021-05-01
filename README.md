@@ -24,6 +24,8 @@ Ayudante: fedekiwo
 
 ----
 
+<br><br><br><br><br><br>
+
 # Plantilla del Proyecto
 
 
