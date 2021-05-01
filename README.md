@@ -1,4 +1,29 @@
-# java-base-project
+# Rescate de Patitas
+
+## Trabajo Práctico - GRUPO 7 - Diseño de Sistemas - 2021 - Jueves Mañana
+
+| ALUMNO                            | LEGAJO        |               
+| ----------------------------------|:-------------:|
+| Alexis Herasimiuk                 | 167.251-4     |
+| Ian Crespi                        | 167.397-0     |
+| Emmanuel Lazarte                  | 168.926-5     |
+| Nicolás Williman                  | ???.???-?     |
+| Federico Silva                    | ???.???-?     |
+| Camil Loyola                      | ???.???-?     |
+
+
+Ayudante: fedekiwo
+
+----
+
+## Diagrama de Clases
+
+![diagramaDeClases](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/dds-utn/2021-ju-ma-grupo-7/main/diagramaDeClases.plantuml?token=AKL4DPUCCHGKQ4VV227VBSLAS3XM4)
+
+
+
+
+
 
 Esta es una plantilla de proyecto diseñada para: 
 
