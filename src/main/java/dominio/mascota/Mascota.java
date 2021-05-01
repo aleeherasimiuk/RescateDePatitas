@@ -69,18 +69,9 @@ public class Mascota {
     return idMascota;
   }
 
-
-  
-
-
-
-
-  
-
-
-  
-
-
+  public int getIdDuenio(){
+    return idDuenio;
+  }
 }
 
 
