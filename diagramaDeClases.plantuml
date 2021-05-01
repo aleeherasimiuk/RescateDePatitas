@@ -1,0 +1,131 @@
+@startuml RescateDePatitas
+
+
+class Persona{
+  apellido
+  nombre
+  tipoDeDocumento
+  númeroDeDocumento
+  contacto
+
+}
+
+class Contacto{
+  apellido
+  nombre
+  teléfono
+  email
+}
+
+class Mascota{
+  idDueño
+  idMascota
+  clase
+  nombre
+  apodo
+  edad
+  sexo
+  descripcionFísica
+  fotos[]
+  características[]
+}
+
+enum Clase{
+  GATO
+  PERRO
+}
+
+
+enum TipoDeDocumento{
+  DNI
+  LC /' Libreta Cívica '/
+  LE /' Libreta de Enrolamiento '/
+  CI /' Cédula de Identidad '/
+  PASAPORTE
+}
+
+
+
+class EncuentroDeMascota{
+  persona
+  mascota
+  fotos[]
+  descripcion
+  lugarDelEncuentro
+  fechaDelEncuentro
+
+}
+
+class Coordenadas{
+  latitud
+  longitud
+}
+
+class UsuarioBase{
+  nombreDeUsuario
+  contraseña
+}
+
+class Administrador{
+
+  agregarUnaCaracterística()
+  eliminarUnaCaracterística()
+
+}
+
+class Usuario{
+  persona
+  idDueño
+  fechaDeNacimiento
+  mascotasRegistradas[]
+  registrarUnaMascota()
+}
+
+
+class RescateDePatitas{
+
+  mascotasRegistradas[]
+  mascotasEncontradas[]
+  dueñosRegistrados[]
+  últimasMascotasEncontradas()
+  confirmarMascotaEncontrada()
+  notificarAlDueño()
+}
+
+
+class Característica{
+  título
+  opciones[]
+}
+
+class Características{
+  caracteristicas[]
+}
+
+class ValidadorContraseña{
+  validarContraseña()
+}
+
+
+UsuarioBase -> ValidadorContraseña
+Usuario -u-|> UsuarioBase
+EncuentroDeMascota -u-> Persona
+EncuentroDeMascota -d-> Mascota
+RescateDePatitas -l-> "*" Mascota
+RescateDePatitas -l-> "*" EncuentroDeMascota
+Persona -> TipoDeDocumento
+Usuario -u-> Persona
+Persona -l-> Contacto
+Mascota -l-> Clase
+Usuario -d->"*" Mascota
+Administrador -u-|> UsuarioBase
+EncuentroDeMascota -> Coordenadas
+Características ->"*" Característica
+Usuario ..>"usa" Características
+Administrador ..>"modifica" Características
+
+
+
+
+@enduml
+
