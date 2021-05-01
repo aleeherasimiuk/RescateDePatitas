@@ -61,6 +61,10 @@ public class Mascota {
     return sexo;
   }
 
+  public String getDescripcionFisica(){
+    return descripcionFisica;
+  }
+
 
   
 

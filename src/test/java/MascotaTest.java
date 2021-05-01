@@ -21,13 +21,23 @@ public class MascotaTest {
       3,
       Sexo.MACHO
     );
+
+    pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
   }
 
   @Test
   void pupiEsUnGatoDeTresAños(){
     assertEquals(pupi.getApodo(), "Pupi");
+    assertEquals(pupi.getNombre(), "Pupi");
     assertEquals(pupi.getSexo(), Sexo.MACHO);
     assertEquals(pupi.getClase(), Clase.GATO);
   }
+
+  @Test
+  void pupiEsUnSiamesMarronConManchas(){
+    assertEquals(pupi.getDescripcionFisica(), "Un gato siamés, marrón con manchas blancas");
+  }
+
+
   
 }
