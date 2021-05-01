@@ -1,5 +1,6 @@
 package dominio.usuarios;
 
+import dominio.mascota.Mascota;
 import dominio.personas.Persona;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public class Usuario extends UsuarioBase{
 
   void registrarUnaMascota(Mascota mascota){
     mascotasRegistradas.add(mascota);
-  }º
+  }
 
   
 }
