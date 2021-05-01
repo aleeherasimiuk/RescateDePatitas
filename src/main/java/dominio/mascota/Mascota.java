@@ -65,6 +65,10 @@ public class Mascota {
     return descripcionFisica;
   }
 
+  public int getId(){
+    return idMascota;
+  }
+
 
   
 
