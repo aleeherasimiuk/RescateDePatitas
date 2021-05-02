@@ -82,8 +82,7 @@ class Usuario{
 }
 
 
-class RescateDePatitas{
-
+class Registro{
   mascotasRegistradas[]
   mascotasEncontradas[]
   dueñosRegistrados[]
@@ -111,8 +110,8 @@ UsuarioBase -> ValidadorContraseña
 Usuario -u-|> UsuarioBase
 EncuentroDeMascota -u-> Persona
 EncuentroDeMascota -d-> Mascota
-RescateDePatitas -l-> "*" Mascota
-RescateDePatitas -l-> "*" EncuentroDeMascota
+Registro -l-> "*" Mascota
+Registro -l-> "*" EncuentroDeMascota
 Persona -> TipoDeDocumento
 Usuario -u-> Persona
 Persona -l-> Contacto
