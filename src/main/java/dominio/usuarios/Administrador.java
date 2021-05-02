@@ -1,7 +1,7 @@
 package dominio.usuarios;
 
 import java.util.List;
-import dominio.personas.*;
+
 import dominio.caracteristicas.Caracteristica;
 import dominio.caracteristicas.Caracteristicas;
 
