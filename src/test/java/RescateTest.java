@@ -28,7 +28,7 @@ public class RescateTest {
         new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"));
     Usuario user = new Usuario(carlos, LocalDate.now(), "carloskpo123", "pupitoteamo");
 
-    pupi = new Mascota(0,0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    pupi = new Mascota(0, user.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
@@ -38,7 +38,7 @@ public class RescateTest {
     
     registro.registrarRescate(pedro, 0, null, "parece ser un gato siames",null, LocalDate.now());
     
-    felix = new Mascota(1,1, Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+    felix = new Mascota(1, user.getIdDuenio(), Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
     user.registrarUnaMascota(registro, felix);
     registro.registrarRescate(pedro, 1, null, "perro negro con mancha blanca en la panza",null, LocalDate.now().plusDays(-15));
     
