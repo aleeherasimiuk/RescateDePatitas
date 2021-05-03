@@ -15,6 +15,7 @@ public class MascotaTest {
   @BeforeEach
   void setup(){
     pupi = new Mascota(
+      0,  
       0,
       Clase.GATO,
       "Pupi",
@@ -48,6 +49,7 @@ public class MascotaTest {
   void pupiEsElSuperGatoCosmico(){
     assertEquals(pupi.getId(), 0);
   }
+ 
 
   
 }

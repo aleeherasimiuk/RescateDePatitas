@@ -13,7 +13,10 @@ public class Administrador extends UsuarioBase{
   void eliminarUnaCaracteristica(Caracteristicas caracteristicas, String titulo){
     //caracteristicas.borrarCaracteristica(titulo);
   }
-
-  public Administrador() {
+  public Administrador(String nombreUsuario, String contrasenia) {
+    super(nombreUsuario, contrasenia);
+    // TODO Auto-generated constructor stub
   }
+
+  
 }

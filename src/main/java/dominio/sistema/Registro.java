@@ -1,5 +1,6 @@
 package dominio.sistema;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,24 +23,33 @@ public class Registro {
     this.mascotasRegistradas.add(mascota);
   }
 
-  public void confirmarMascotaEncontrada(Persona persona, int idMascota, List<String> fotos, String descripcion, Coordenadas lugar) {
+  public void registrarRescate(Persona persona, int idMascota, List<String> fotos, String descripcion,
+      Coordenadas lugar, LocalDate fecha) {
     // TODO validar que ningun campo sea null
-    if (fotos.size() < 1) {
-      throw new RuntimeException("La cantidad de fotos debe ser como minimo 1."); // TODO ver si necesitamos crear una excepcion custom
-    }
+   /* if (fotos.size() < 1) {
+      throw new RuntimeException("La cantidad de fotos debe ser como minimo 1."); // TODO ver si necesitamos crear una
+                                                                                  // excepcion custom
+    }*/
 
-    Mascota mascota = this.mascotasRegistradas
-                          .stream()
-                          .filter(m -> m.getId() == idMascota)
-                          .collect(Collectors.toList())
-                          .get(0);
+    Mascota mascota = buscarMascota(idMascota);
 
-    if (mascota == null) {
-      throw new RuntimeException("Mascota no registrada");
-    }
-
-    Rescate rescate = new Rescate(persona, mascota, fotos, descripcion, lugar);
-
+    Rescate rescate = new Rescate(persona, mascota,descripcion,fecha);
+    rescate.setFotos(fotos);
+    rescate.setLugar(lugar);
+    
     this.rescates.add(rescate);
+  }
+
+  public List<Mascota> mascotasEncontradasEnLosUltimos10Dias() {
+    return this.rescates.stream().filter(rescate -> rescate.sucedioDentroDeLosUltimos10Dias())
+        .map(rescate -> rescate.getMascota()).collect(Collectors.toList());
+  }
+
+  public int cantDeMascotasRegistradas() {
+    return mascotasRegistradas.size();
+  }
+
+  public Mascota buscarMascota(int idMascota) {
+   return this.mascotasRegistradas.stream().filter(m -> m.getId() == idMascota).collect(Collectors.toList()).get(0);
   }
 }
