@@ -7,12 +7,12 @@ public class Caracteristica {
 	private List<String> opciones;
 	
 	public Caracteristica(String titulo, List<String> opciones) { 
-		this.titulo = titulo;
+		this.titulo = titulo.toUpperCase();
 		this.opciones = opciones;
 	}
 
-	public void agregarOpciones(String titulo) {
-		opciones.add(titulo);
+	public void agregarOpciones(String opcion) {
+		opciones.add(opcion);
 	}
 
 	public String getTitulo() {
