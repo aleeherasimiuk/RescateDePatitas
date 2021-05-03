@@ -25,11 +25,6 @@ public class Registro {
 
   public void registrarRescate(Persona persona, int idMascota, List<String> fotos, String descripcion,
       Coordenadas lugar, LocalDate fecha) {
-    // TODO validar que ningun campo sea null
-   /* if (fotos.size() < 1) {
-      throw new RuntimeException("La cantidad de fotos debe ser como minimo 1."); // TODO ver si necesitamos crear una
-                                                                                  // excepcion custom
-    }*/
 
     Mascota mascota = buscarMascota(idMascota);
 
