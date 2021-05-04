@@ -65,4 +65,6 @@ public class Lista<T> extends ArrayList<T>{
     return (int) this.stream().filter(condition).count();
   }
 
+  
+
 }

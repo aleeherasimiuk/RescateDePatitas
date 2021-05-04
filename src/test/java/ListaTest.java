@@ -66,7 +66,6 @@ public class ListaTest {
 
   }
 
-
   boolean esPar(int unNumero){
     return unNumero % 2 == 0;
   }
