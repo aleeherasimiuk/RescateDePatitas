@@ -44,16 +44,13 @@ enum TipoDeDocumento{
   PASAPORTE
 }
 
-
-
-class EncuentroDeMascota{
+class Rescate{
   persona
   mascota
   fotos[]
   descripcion
-  lugarDelEncuentro
-  fechaDelEncuentro
-
+  ubicacion
+  fecha
 }
 
 class Coordenadas{
@@ -82,8 +79,7 @@ class Usuario{
 }
 
 
-class RescateDePatitas{
-
+class Registro{
   mascotasRegistradas[]
   mascotasEncontradas[]
   dueñosRegistrados[]
@@ -109,17 +105,17 @@ class ValidadorContraseña{
 
 UsuarioBase -> ValidadorContraseña
 Usuario -u-|> UsuarioBase
-EncuentroDeMascota -u-> Persona
-EncuentroDeMascota -d-> Mascota
-RescateDePatitas -l-> "*" Mascota
-RescateDePatitas -l-> "*" EncuentroDeMascota
+Rescate -u-> Persona
+Rescate -d-> Mascota
+Registro -l-> "*" Mascota
+Registro -l-> "*" Rescate
 Persona -> TipoDeDocumento
 Usuario -u-> Persona
 Persona -l-> Contacto
 Mascota -l-> Clase
 Usuario -d->"*" Mascota
 Administrador -u-|> UsuarioBase
-EncuentroDeMascota -> Coordenadas
+Rescate -> Coordenadas
 Características ->"*" Característica
 Usuario ..>"usa" Características
 Administrador ..>"modifica" Características
