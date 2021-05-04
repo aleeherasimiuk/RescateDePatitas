@@ -10,7 +10,7 @@ import dominio.ubicacion.Coordenadas;
 import java.time.temporal.ChronoUnit;
 
 public class Rescate {
-  private Rescatista rescatista; // TODO chequear si esto no deberia ser Rescatista
+  private Rescatista rescatista;
   private Mascota mascota;
   private List<String> fotos;
   private String descripcion;
@@ -39,6 +39,18 @@ public class Rescate {
 
   public Mascota getMascota() {
     return this.mascota;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
+  }
+
+  public Coordenadas getLugar() {
+    return lugar;
+  }
+
+  public int telefonoDeContacto(){
+    return rescatista.getContacto().getTelefono();
   }
 
 }

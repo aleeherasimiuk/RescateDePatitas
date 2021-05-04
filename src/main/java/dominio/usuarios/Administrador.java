@@ -26,5 +26,9 @@ public class Administrador {
     caracteristicas.borrarCaracteristica(titulo);
   }
 
+  public String getNombreDeUsuario(){
+    return usuario.getNombreUsuario();
+  }
+
   
 }

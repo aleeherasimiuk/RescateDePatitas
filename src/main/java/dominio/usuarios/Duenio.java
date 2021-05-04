@@ -34,4 +34,8 @@ public class Duenio extends Persona {
     registro.registrarMascota(mascota);
   }
 
+  public String getNombreDeUsuario(){
+    return usuario.getNombreUsuario();
+  }
+
 }

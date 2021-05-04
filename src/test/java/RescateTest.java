@@ -11,7 +11,6 @@ import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.personas.Contacto;
-import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
 import dominio.sistema.Registro;
 import dominio.sistema.Rescate;

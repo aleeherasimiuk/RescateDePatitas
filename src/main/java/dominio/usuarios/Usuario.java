@@ -7,4 +7,15 @@ public class Usuario {
   }
   private String contrasenia;
   private String nombreUsuario;
+
+  public String getContrasenia() {
+    return contrasenia;
+  }
+
+  public String getNombreUsuario() {
+    return nombreUsuario;
+  }
+
+
+  
 }

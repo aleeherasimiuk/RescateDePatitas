@@ -16,5 +16,9 @@ public class Rescatista extends Persona{
     this.direccion = direccion;
   }
 
+  public String getDireccion(){
+    return direccion;
+  }
+
   
 }

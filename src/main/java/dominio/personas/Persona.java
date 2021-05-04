@@ -38,4 +38,8 @@ public abstract class Persona {
   public Contacto getContacto() {
     return contacto;
   }
+
+  public LocalDate getFechaNacimiento() {
+    return fechaNacimiento;
+  }
 }
