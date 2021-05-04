@@ -1,5 +1,6 @@
 package dominio.mascota;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class Mascota {
     this.apodo = apodo;
     this.edad = edad;
     this.sexo = sexo;
+    caracteristicas = new HashMap<String, String>();
   }
 
   public void setDescripcionFisica(String descripcionFisica) {
@@ -35,6 +37,14 @@ public class Mascota {
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
     this.caracteristicas.put(caracteristica, valor);
+  }
+
+  public String obtenerCaracteristica(String caracteristica){
+    if(!caracteristicas.containsKey(caracteristica)){
+      throw new RuntimeException("La mascota no contiene la característica deseada");
+    }
+
+    return this.caracteristicas.get(caracteristica);
   }
 
   public Clase getClase() {
