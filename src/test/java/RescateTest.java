@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dominio.Rescatista;
 import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
@@ -14,7 +15,8 @@ import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
 import dominio.sistema.Registro;
 import dominio.sistema.Rescate;
-import dominio.usuarios.Usuario;
+import dominio.usuarios.Duenio;
+
 
 public class RescateTest {
   Registro registro;
@@ -24,23 +26,27 @@ public class RescateTest {
   @BeforeEach
   void iniciarRegistro() {
     registro = new Registro();
-    Persona carlos = new Persona("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
-        new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"));
-    Usuario user = new Usuario(carlos, LocalDate.now(), "carloskpo123", "pupitoteamo");
 
-    pupi = new Mascota(0, user.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Duenio carlos = new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
+        new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "pupitoteamo",
+        LocalDate.now().minusYears(18));
+
+    pupi = new Mascota(0, carlos.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
-    user.registrarUnaMascota(registro, pupi);
-    Persona pedro = new Persona("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
-        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"));
+    carlos.registrarUnaMascota(registro, pupi);
+
+    Rescatista pedro = new Rescatista("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
+        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), LocalDate.now().minusYears(24),
+        "Calle Falsa 123");
+
     
-    registro.registrarRescate(pedro, 0, null, "parece ser un gato siames",null, LocalDate.now());
+    registro.registrarRescate(pedro, 0, "parece ser un gato siames",null, LocalDate.now(), "https://unafoto.com");
     
-    felix = new Mascota(1, user.getIdDuenio(), Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
-    user.registrarUnaMascota(registro, felix);
-    registro.registrarRescate(pedro, 1, null, "perro negro con mancha blanca en la panza",null, LocalDate.now().plusDays(-15));
+    felix = new Mascota(1, carlos.getIdDuenio(), Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+    carlos.registrarUnaMascota(registro, felix);
+    registro.registrarRescate(pedro, 1, "perro negro con mancha blanca en la panza", null, LocalDate.now().plusDays(-15), "https://otrafoto.com");
     
     
   }

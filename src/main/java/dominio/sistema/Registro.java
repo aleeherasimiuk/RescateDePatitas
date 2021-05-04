@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import dominio.Rescatista;
 import dominio.mascota.Mascota;
-import dominio.personas.Persona;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
 
@@ -23,13 +23,15 @@ public class Registro {
     this.mascotasRegistradas.add(mascota);
   }
 
-  public void registrarRescate(Persona persona, int idMascota, List<String> fotos, String descripcion,
-      Coordenadas lugar, LocalDate fecha) {
+  public void registrarRescate(Rescatista rescatista, int idMascota, String descripcion,
+      Coordenadas lugar, LocalDate fecha, String... fotos) {
 
     Mascota mascota = buscarMascota(idMascota);
 
-    Rescate rescate = new Rescate(persona, mascota,descripcion,fecha);
-    rescate.setFotos(fotos);
+    Rescate rescate = new Rescate(rescatista, mascota, descripcion, fecha);
+    for (String foto : fotos) {
+      rescate.agregarUnaFoto(foto);
+    }
     rescate.setLugar(lugar);
     
     this.rescates.add(rescate);
