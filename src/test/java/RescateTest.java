@@ -14,7 +14,7 @@ import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
 import dominio.sistema.Registro;
 import dominio.sistema.Rescate;
-import dominio.usuarios.Usuario;
+import dominio.usuarios.Duenio;
 
 public class RescateTest {
   Registro registro;
@@ -26,7 +26,7 @@ public class RescateTest {
     registro = new Registro();
     Persona carlos = new Persona("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
         new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"));
-    Usuario user = new Usuario(carlos, LocalDate.now(), "carloskpo123", "pupitoteamo");
+    Duenio user = new Duenio(carlos, LocalDate.now(), "carloskpo123", "pupitoteamo");
 
     pupi = new Mascota(0, user.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 

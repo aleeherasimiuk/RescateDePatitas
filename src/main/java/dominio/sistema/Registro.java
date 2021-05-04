@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 import dominio.mascota.Mascota;
 import dominio.personas.Persona;
 import dominio.ubicacion.Coordenadas;
-import dominio.usuarios.Usuario;
+import dominio.usuarios.Duenio;
 
 public class Registro {
-  private List<Usuario> dueniosRegistrados = new ArrayList<Usuario>();
+  private List<Duenio> dueniosRegistrados = new ArrayList<Duenio>();
   private List<Mascota> mascotasRegistradas = new ArrayList<Mascota>();
   private List<Rescate> rescates = new ArrayList<Rescate>();
 
-  public void registrarDuenio(Usuario duenio) {
+  public void registrarDuenio(Duenio duenio) {
     this.dueniosRegistrados.add(duenio);
   }
 
