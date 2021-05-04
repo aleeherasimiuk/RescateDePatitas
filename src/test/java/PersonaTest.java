@@ -10,8 +10,8 @@ class PersonaTest {
 	@Test
 	void elNombreDeSusanaNoEsSusano() {
 		Persona susana = this.SusanaPersona();
-
-		assertFalse(susana.getNombre().equals("Susano"));
+		
+		assertNotEquals(susana.getNombre(), "Susano");
 	}
 
 	@Test
