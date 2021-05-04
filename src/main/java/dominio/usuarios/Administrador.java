@@ -7,8 +7,8 @@ public class Administrador {
 
   private Usuario usuario;
 
-  public Administrador(Usuario usuario) {
-    this.usuario = usuario;
+  public Administrador(String username, String password) {
+    this.usuario = new Usuario(username, password);
   }
 
   public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones){
