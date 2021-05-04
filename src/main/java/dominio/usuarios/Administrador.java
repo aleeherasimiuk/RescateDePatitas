@@ -3,7 +3,13 @@ package dominio.usuarios;
 import dominio.caracteristicas.Caracteristica;
 import dominio.caracteristicas.Caracteristicas;
 
-public class Administrador extends Usuario {
+public class Administrador {
+
+  private Usuario usuario;
+
+  public Administrador(Usuario usuario) {
+    this.usuario = usuario;
+  }
 
   public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones){
     Caracteristica caracteristica = new Caracteristica(titulo);
@@ -16,13 +22,8 @@ public class Administrador extends Usuario {
   }
 
   public void eliminarUnaCaracteristica(Caracteristicas caracteristicas, String titulo){
-    //caracteristicas.borrarCaracteristica(titulo);
-  }
 
-  public Administrador(String nombreUsuario, String contrasenia) {
-    super(nombreUsuario, contrasenia);
-    // TODO Auto-generated constructor stub
-
+    caracteristicas.borrarCaracteristica(titulo);
   }
 
   
