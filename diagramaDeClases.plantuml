@@ -4,6 +4,7 @@
 class Persona{
   apellido
   nombre
+  fechaDeNacimiento
   tipoDeDocumento
   númeroDeDocumento
   contacto
@@ -15,6 +16,10 @@ class Contacto{
   nombre
   teléfono
   email
+}
+
+class Rescatista{
+  direccion
 }
 
 class Mascota{
@@ -45,7 +50,7 @@ enum TipoDeDocumento{
 }
 
 class Rescate{
-  persona
+  rescatista
   mascota
   fotos[]
   descripcion
@@ -58,22 +63,23 @@ class Coordenadas{
   longitud
 }
 
-class UsuarioBase{
+class Usuario{
   nombreDeUsuario
   contraseña
 }
 
 class Administrador{
 
+  usuario
+
   agregarUnaCaracterística()
   eliminarUnaCaracterística()
 
 }
 
-class Usuario{
-  persona
+class Dueño{
+  usuario
   idDueño
-  fechaDeNacimiento
   mascotasRegistradas[]
   registrarUnaMascota()
 }
@@ -103,21 +109,22 @@ class ValidadorContraseña{
 }
 
 
-UsuarioBase -> ValidadorContraseña
-Usuario -u-|> UsuarioBase
-Rescate -u-> Persona
+Rescatista -u-|> Persona
+Rescate -l-> Rescatista
+Usuario -> ValidadorContraseña
+Dueño -u-> Usuario
 Rescate -d-> Mascota
 Registro -l-> "*" Mascota
 Registro -l-> "*" Rescate
 Persona -> TipoDeDocumento
-Usuario -u-> Persona
+Dueño -u-|> Persona
 Persona -l-> Contacto
 Mascota -l-> Clase
-Usuario -d->"*" Mascota
-Administrador -u-|> UsuarioBase
+Dueño -d->"*" Mascota
+Administrador -u-> Usuario
 Rescate -> Coordenadas
 Características ->"*" Característica
-Usuario ..>"usa" Características
+Dueño ..>"usa" Características
 Administrador ..>"modifica" Características
 
 

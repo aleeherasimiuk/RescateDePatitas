@@ -1,6 +1,6 @@
 package dominio.personas;
 
-public class Persona {
+public abstract class Persona {
   private String apellido;
   private String nombre;
   private TipoDeDocumento tipoDocumento;

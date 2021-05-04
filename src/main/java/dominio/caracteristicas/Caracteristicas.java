@@ -32,5 +32,15 @@ public class Caracteristicas {
 		return caracteristicas.stream().filter((caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()))).findAny().orElseThrow(CaracteristicaNoDisponible::new);
 	}
 
+  private List<Caracteristica> caracteristicas = new ArrayList<>();
+
+  public void agregarCaracteristica(Caracteristica unaCaracteristica){
+    caracteristicas.add(unaCaracteristica);
+  }
+
+  public List<String> opcionesDe(String nombreCaracteristica){
+    return caracteristicas.stream().findAny(caracteristica -> caracteristica.titulo().equals(nombreCaracteristica))
+  }
+
 }
 

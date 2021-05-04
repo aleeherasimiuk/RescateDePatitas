@@ -24,7 +24,7 @@ public class RescateTest {
   @BeforeEach
   void iniciarRegistro() {
     registro = new Registro();
-    Persona carlos = new Persona("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
+    Usuario carlos = new Usuario("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
         new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"));
     Usuario user = new Usuario(carlos, LocalDate.now(), "carloskpo123", "pupitoteamo");
 
@@ -33,7 +33,7 @@ public class RescateTest {
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
     user.registrarUnaMascota(registro, pupi);
-    Persona pedro = new Persona("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
+    Usuario pedro = new Usuario("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
         new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"));
     
     registro.registrarRescate(pedro, 0, null, "parece ser un gato siames",null, LocalDate.now());

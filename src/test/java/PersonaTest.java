@@ -1,5 +1,3 @@
-package test.java;
-
 import dominio.personas.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,8 +18,7 @@ class PersonaTest {
 
 		assertEquals("Susanita", susana.getContacto().getNombre());
 	}
-
-	//
+	
 	private Contacto SusanitaContacto() {
 		return new Contacto("Susanita", "Gimenez", 47732311, "susanita@gmail.com");
 	}
