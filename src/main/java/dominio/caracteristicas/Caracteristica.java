@@ -12,8 +12,8 @@ public class Caracteristica {
 		this.opciones = new ArrayList<String>();
 	}
 
-	public void agregarOpciones(String opcion) {
-		opciones.add(opcion);
+	public void agregarOpcion(String opcion) {
+		opciones.add(opcion.toUpperCase());
 	}
 
 	public String getTitulo() {
@@ -21,6 +21,6 @@ public class Caracteristica {
 	}
 	
 	public Boolean tieneEstaOpcion(String opcion) {
-		return opciones.contains(opcion);
+		return opciones.contains(opcion.toUpperCase());
 	}
 }

@@ -27,6 +27,10 @@ public class Caracteristicas {
 		if (existeCaracteristica(caracteristica.getTitulo()))
 			throw new RuntimeException("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo");
 	}
-	
+
+	public Caracteristica obtenerCaracteristica(String titulo){
+		return caracteristicas.stream().filter((caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()))).findAny().orElseThrow(CaracteristicaNoDisponible::new);
+	}
+
 }
 

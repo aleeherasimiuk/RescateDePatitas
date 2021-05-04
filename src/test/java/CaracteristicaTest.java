@@ -1,21 +1,31 @@
-package test.java;
-//import main.java.dominio.caracteristicas.*;
 import dominio.caracteristicas.*;
+import dominio.usuarios.Administrador;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CaracteristicaTest {
+
+	Administrador administrador;
+	Caracteristicas caracteristicas;
+
+	@BeforeEach
+	void setup(){
+
+		caracteristicas = new Caracteristicas();
+		
+		administrador = new Administrador("UnUsuario", "UnaContraseña");
+		administrador.agregarUnaCaracteristica(caracteristicas, "COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
+
+		administrador.agregarUnaCaracteristica(caracteristicas, "CASTRADO", "SI", "NO");
+
+	}
 	
 	@Test
 	void losColoresPrimariosEsUnaCaracteristica() {	
-		Caracteristica coloresPrimarios = this.coloresPrimarios();
-		
+		Caracteristica coloresPrimarios = caracteristicas.obtenerCaracteristica("colores-primarios");
 		assertTrue(coloresPrimarios.tieneEstaOpcion("rojo"));
 		assertTrue(coloresPrimarios.tieneEstaOpcion("azul"));
 		assertTrue(coloresPrimarios.tieneEstaOpcion("amarillo"));
@@ -23,35 +33,29 @@ class CaracteristicaTest {
 
 	@Test
 	void laCastracionEsUnaCaracteristica() {
-		Caracteristica castracion = new Caracteristica("castracion", this.respuestaSiNo());
-		
-		assertTrue(castracion.tieneEstaOpcion("s"));
-		assertTrue(castracion.tieneEstaOpcion("n"));
+		Caracteristica castracion = caracteristicas.obtenerCaracteristica("castrado");
+
+		assertTrue(castracion.tieneEstaOpcion("SI"));
+		assertTrue(castracion.tieneEstaOpcion("NO"));
 	}
 	
-	private Caracteristica coloresPrimarios(){
-		List<String> colores = Arrays.asList("rojo", "azul", "amarillo");
-
-		return new Caracteristica("colores-primarios", colores);
-	}
-	private List<String> respuestaSiNo(){
-		return Arrays.asList("s", "n");
-	}
 
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe(){
-		Caracteristicas caracteristicas = new Caracteristicas();
-
-		List<String> si_no = Arrays.asList(new String[]{"SI", "NO"});
-
-		Caracteristica caracteristica1 = new Caracteristica("Castrado", si_no);
-		Caracteristica caracteristica2 = new Caracteristica("CASTRADO", si_no);
-
-		caracteristicas.agregarCaracteristica(caracteristica1);
-
-		Exception exception = assertThrows(RuntimeException.class, () -> caracteristicas.agregarCaracteristica(caracteristica2));
+		
+		Exception exception = assertThrows(RuntimeException.class, 
+			() -> administrador.agregarUnaCaracteristica(caracteristicas, "castrado", "SI", "NO", "NO SE"));
 		assertEquals("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo", exception.getMessage());
 	}
+
+	@Test
+	void siBuscoUnaCaracteristicaQueNoExisteDaError(){
+		
+		Exception exception = assertThrows(CaracteristicaNoDisponible.class, 
+			() -> caracteristicas.obtenerCaracteristica("TIENE-MANCHA"));
+		assertEquals("La característica que se intenta buscar no existe", exception.getMessage());
+	}
+
 
 
 }
