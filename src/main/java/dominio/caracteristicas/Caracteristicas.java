@@ -11,11 +11,8 @@ public class Caracteristicas {
 	}
 	
 	public void agregarCaracteristica(Caracteristica caracteristica) {
-		if (existeCaracteristica(caracteristica.getTitulo())){
-			throw new RuntimeException("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo");
-		}else {
-			caracteristicas.add(caracteristica);
-		}
+		validarCaracteristica(caracteristica);
+		caracteristicas.add(caracteristica);
 	}
 
 	public void borrarCaracteristica(String titulo) {
@@ -25,5 +22,11 @@ public class Caracteristicas {
 	public boolean existeCaracteristica(String titulo){
 		return caracteristicas.stream().anyMatch(caracteristica-> caracteristica.getTitulo().equals(titulo.toUpperCase()));
 	}
+
+	private void validarCaracteristica(Caracteristica caracteristica){
+		if (existeCaracteristica(caracteristica.getTitulo()))
+			throw new RuntimeException("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo");
+	}
+	
 }
 
