@@ -15,9 +15,9 @@ public class Mascota {
   private List<String> fotos;
   private Map<String, String> caracteristicas;
 
-
-  public Mascota(int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
+  public Mascota(int idMascota, int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
     this.idDuenio = idDuenio;
+    this.idMascota = idMascota;
     this.clase = clase;
     this.nombre = nombre;
     this.apodo = apodo;
@@ -29,11 +29,9 @@ public class Mascota {
     this.descripcionFisica = descripcionFisica;
   }
 
-
   public void agregarUnaFoto(String url) {
     this.fotos.add(url);
   }
-
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
     this.caracteristicas.put(caracteristica, valor);
@@ -47,11 +45,9 @@ public class Mascota {
     return nombre;
   }
 
-
   public String getApodo() {
     return apodo;
   }
-
 
   public int getEdad() {
     return edad;
@@ -61,17 +57,15 @@ public class Mascota {
     return sexo;
   }
 
-  public String getDescripcionFisica(){
+  public String getDescripcionFisica() {
     return descripcionFisica;
   }
 
-  public int getId(){
+  public int getId() {
     return idMascota;
   }
 
-  public int getIdDuenio(){
+  public int getIdDuenio() {
     return idDuenio;
   }
 }
-
-

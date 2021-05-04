@@ -1,4 +1,5 @@
 package dominio.usuarios;
+
 import dominio.caracteristicas.Caracteristica;
 import dominio.caracteristicas.Caracteristicas;
 
@@ -18,7 +19,11 @@ public class Administrador extends UsuarioBase{
     //caracteristicas.borrarCaracteristica(titulo);
   }
 
-  public Administrador(String username, String password) {
-    
+  public Administrador(String nombreUsuario, String contrasenia) {
+    super(nombreUsuario, contrasenia);
+    // TODO Auto-generated constructor stub
+
   }
+
+  
 }
