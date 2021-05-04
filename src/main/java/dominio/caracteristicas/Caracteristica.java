@@ -23,4 +23,8 @@ public class Caracteristica {
 	public Boolean tieneEstaOpcion(String opcion) {
 		return opciones.contains(opcion.toUpperCase());
 	}
+
+	public List<String> opciones(){
+		return opciones;
+	}
 }
