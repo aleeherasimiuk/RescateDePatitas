@@ -1,7 +1,7 @@
 @startuml RescateDePatitas
 
 
-class Persona{
+abstract class Persona{
   apellido
   nombre
   fechaDeNacimiento
