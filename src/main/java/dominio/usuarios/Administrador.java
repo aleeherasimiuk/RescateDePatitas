@@ -3,7 +3,7 @@ package dominio.usuarios;
 import dominio.caracteristicas.Caracteristica;
 import dominio.caracteristicas.Caracteristicas;
 
-public class Administrador extends UsuarioBase{
+public class Administrador extends Usuario {
 
   public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones){
     Caracteristica caracteristica = new Caracteristica(titulo);
