@@ -1,13 +1,14 @@
 package dominio.caracteristicas;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import dominio.util.Lista;
+
 public class Caracteristicas {
-	private List<Caracteristica> caracteristicas;
+	private Lista<Caracteristica> caracteristicas;
 	
 	public Caracteristicas() {
-		this.caracteristicas = new ArrayList<>();
+		this.caracteristicas = new Lista<>();
 	}
 	
 	public void agregarCaracteristica(Caracteristica caracteristica) {
@@ -20,7 +21,7 @@ public class Caracteristicas {
 	}
 
 	public boolean existeCaracteristica(String titulo){
-		return caracteristicas.stream().anyMatch(caracteristica-> caracteristica.getTitulo().equals(titulo.toUpperCase()));
+		return caracteristicas.contains(caracteristica-> caracteristica.getTitulo().equals(titulo.toUpperCase()));
 	}
 
 	private void validarCaracteristica(Caracteristica caracteristica){
@@ -29,8 +30,12 @@ public class Caracteristicas {
 	}
 
 	public Caracteristica obtenerCaracteristica(String titulo){
-		return caracteristicas.stream().filter((caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()))).findAny().orElseThrow(CaracteristicaNoDisponible::new);
+		return caracteristicas.find(caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()));
 	}
+
+  public List<String> opcionesDe(String nombreCaracteristica){
+    return caracteristicas.find(caracteristica -> caracteristica.getTitulo().equals(nombreCaracteristica)).opciones();
+  }
 
 }
 

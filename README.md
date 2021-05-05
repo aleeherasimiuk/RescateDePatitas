@@ -8,7 +8,7 @@
 | Ian Crespi                        | 167.397-0     |
 | Emmanuel Lazarte                  | 168.926-5     |
 | Nicolás Williman                  | ???.???-?     |
-| Federico Silva                    | ???.???-?     |
+| Federico Silva                    | 167.439-0     |
 | Camil Loyola                      | ???.???-?     |
 
 
@@ -23,6 +23,52 @@ Ayudante: fedekiwo
 
 
 ----
+
+# Justificaciones de Diseño
+
+
+1 - Relación Usuario - Dueño - Administrador - Persona - Rescatista
+
+En primer lugar surgió la abstracción persona dado que son atributos (y posiblemente en el futuro comportamiento) que comparten tanto un `Dueño` como un `Rescatista`.
+
+De la misma manera, existen en el sistema `Usuario`s que son los dueños de las mascotas, que poseen usuario y contraseña al igual que los `Administrador`es. 
+
+Nos debatimos entre las posibilidades de herencia y composición.
+
+Finalmente se decide que `Dueño` y `Administrador` tengan como atributo a `Usuario`; `Dueño` y `Rescatista` heredan de `Persona`, y el `Rescate` tiene como atributo a un `Rescatista`.
+
+De esta manera nos evitamos (en el caso de que `Rescatista` herede de `Persona`), que un Dueño sea un Rescatista, así como que un `Rescate` pueda ser registrado por un `Dueño`
+
+2 - No queremos usar Singleton
+
+La clase `Registro` contiene los registros de los `Dueño`s, `Mascota`s y `Rescate`s; como sabemos debe haber un único registro en el sistema. Decidimos acordar que exista una única instancia de `Registro` en el sistema que sea usado en todo momento. 
+Lo mismo sucede con la clase `Características` que contiene todas las `Caracteristica`s que el `Administrador` ha decidido.
+
+3 - Mayor robustez y extensibilidad en `Característica`
+
+`Característica` es más robusto y extensible ya que predefinimos las posibles opciones para cada característica, y en el futuro se podrán hacer consultas sobre ellas (por ejemplo, filtrar castrados).
+Evitando que suceda algo como lo siguiente
+
+```java
+mascota.agregarCaracteristica("Castrado", "SI")
+otraMascota.agregarCaracteristica("Castrada", "negativo")
+```
+
+Por otro lado, los títulos y opciones se pasan a mayúsculas para lograr mayor consistencia.
+
+
+4 - IDs para identificar `Dueño` y `Mascota`
+
+`Dueño` y `Mascota` tienen ID's ya que Dueño tiene una serie de mascotas y cada mascota además debe conocer a su dueño. Para no provocar una referencia circular, decidimos que sea mediante ID's. 
+Los registros quedan centralizados en la clase `Registro`
+
+
+
+
+
+
+
+
 
 # Plantilla del Proyecto
 
