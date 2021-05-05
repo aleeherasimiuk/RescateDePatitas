@@ -23,8 +23,6 @@ class Rescatista{
 }
 
 class Mascota{
-  idDueño
-  idMascota
   clase
   nombre
   apodo
@@ -69,9 +67,7 @@ class Usuario{
 }
 
 class Administrador{
-
   usuario
-
   agregarUnaCaracterística()
   eliminarUnaCaracterística()
 
@@ -79,29 +75,46 @@ class Administrador{
 
 class Dueño{
   usuario
-  idDueño
   mascotasRegistradas[]
   registrarUnaMascota()
+  esMiMascota()
 }
 
 
-class Registro{
-  mascotasRegistradas[]
-  mascotasEncontradas[]
+class RepositorioUsuarios{
   dueñosRegistrados[]
+  administradoresRegistrados[]
+  registrarAdminsitrador()
+  registrarDueño()
+}
+
+class RepositorioMascotas{
+  mascotasRegistradas[]
+  registrarMascota()
+  obtenerDueñoDe()
+}
+
+class RepositorioRescates{
+  mascotasEncontradas[]
   últimasMascotasEncontradas()
   confirmarMascotaEncontrada()
-  notificarAlDueño()
+  registrarRescate()
 }
 
 
 class Característica{
   título
   opciones[]
+  agregarOpcion()
+  tieneEstaOpcion()
 }
 
-class Características{
-  caracteristicas[]
+class RepositorioCaracteristicas{
+  características[]
+  agregarCaracteristica()
+  borrarCaracteristica()
+  obtenerCaracteristica()
+  opcionesDe()
 }
 
 class ValidadorContraseña{
@@ -114,8 +127,10 @@ Rescate -l-> Rescatista
 Usuario -> ValidadorContraseña
 Dueño -u-> Usuario
 Rescate -d-> Mascota
-Registro -l-> "*" Mascota
-Registro -l-> "*" Rescate
+RepositorioMascotas -l-> "*" Mascota
+RepositorioRescates -u-> "*" Rescate
+RepositorioUsuarios -l-> "*" Administrador
+RepositorioUsuarios -r-> "*" Dueño
 Persona -> TipoDeDocumento
 Dueño -u-|> Persona
 Persona -l-> Contacto
@@ -123,9 +138,9 @@ Mascota -l-> Clase
 Dueño -d->"*" Mascota
 Administrador -u-> Usuario
 Rescate -> Coordenadas
-Características ->"*" Característica
-Dueño ..>"usa" Características
-Administrador ..>"modifica" Características
+RepositorioCaracteristicas ->"*" Característica
+Dueño ..>"usa" RepositorioCaracteristicas
+Administrador ..>"modifica" RepositorioCaracteristicas
 
 
 
