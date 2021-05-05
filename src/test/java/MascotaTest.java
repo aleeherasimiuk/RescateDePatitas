@@ -41,6 +41,18 @@ public class MascotaTest {
   void pupiEsElSuperGatoCosmico(){
     assertEquals(pupi.getId(), 0);
   }
+
+  @Test
+  void losIdsSeAsignanBien(){
+    Mascota mascota0 = new Mascota(0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Mascota mascota1 = new Mascota(0, Clase.GATO, "Pupo", "Pupo", 4, Sexo.MACHO);
+    Mascota mascota2 = new Mascota(0, Clase.GATO, "Pupa", "Pupa", 5, Sexo.HEMBRA);
+
+    assertEquals(mascota0.getId(), 0);
+    assertEquals(mascota1.getId(), 1);
+    assertEquals(mascota2.getId(), 2);
+    
+  }
  
 
   

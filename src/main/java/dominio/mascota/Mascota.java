@@ -16,6 +16,7 @@ public class Mascota {
   private String descripcionFisica;
   private Lista<String> fotos;
   private Map<String, String> caracteristicas;
+  private static int idSiguiente = 0;
 
   public Mascota(int idMascota, int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
     this.idDuenio = idDuenio;
@@ -27,6 +28,10 @@ public class Mascota {
     this.sexo = sexo;
     caracteristicas = new HashMap<String, String>();
     this.fotos = new Lista<String>();
+  }
+
+  public Mascota(int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
+    this(idSiguiente++, idDuenio, clase, nombre, apodo, edad, sexo);
   }
 
   public void setDescripcionFisica(String descripcionFisica) {
