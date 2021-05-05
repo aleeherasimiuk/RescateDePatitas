@@ -19,7 +19,7 @@ public class ValidadorContrasenia {
         throw new RuntimeException("Contraseña vulnerable, elegir otra, por favor.");
       }
     } catch (IOException e) {
-      throw new RuntimeException("No se pudo verificar la seguridad de su contraseña.");
+      throw new RuntimeException("¡Lo sentimos! Por un error interno no se pudo verificar la seguridad de su contraseña.");
     }
   }
 }
