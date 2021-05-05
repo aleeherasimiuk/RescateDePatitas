@@ -7,9 +7,9 @@
 | Alexis Herasimiuk                 | 167.251-4     |
 | Ian Crespi                        | 167.397-0     |
 | Emmanuel Lazarte                  | 168.926-5     |
-| Nicolás Williman                  | ???.???-?     |
+| Nicolás Williman                  | 163.690-0     |
 | Federico Silva                    | 167.439-0     |
-| Camil Loyola                      | ???.???-?     |
+| Camil Loyola                      | 161.626-2     |
 
 
 Ayudante: fedekiwo
