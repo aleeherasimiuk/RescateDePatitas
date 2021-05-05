@@ -24,4 +24,7 @@ public class RepositorioMascotas {
     return repositorio.size();
   }
 
+  public void eliminarMascota(Mascota mascota){
+    repositorio.remove(mascota);
+  }
 }

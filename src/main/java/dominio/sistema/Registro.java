@@ -39,7 +39,4 @@ public class Registro {
   }
 
 
-  public Duenio duenioDe(Mascota mascota){
-    return dueniosRegistrados.find(duenio -> duenio.esMiMascota(mascota));
-  }
 }
