@@ -15,39 +15,39 @@ class ValidadorContraseniaTest {
 	
 	@Test
 	void noEsUnaClaveSeguraSoloPonerNumeros() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("123456"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("123456789"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456789"));
 	}
 	
 	@Test
 	void noEsUnaClaveSeguraUsarNombresDeComics() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("batman"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("iceman"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("superman"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("batman"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("iceman"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("superman"));
 	}
 	
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDeColores() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("orange"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("black"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("orange"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("black"));
 	}
 
 	@Test
-	void noEsUnaClaveSeguraUsarNombreDePersonas() {		
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("andrea"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("thomas"));
+	void noEsUnaClaveSeguraUsarNombreDePersonas() {
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("andrea"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("thomas"));
 	}
 
 	@Test
-	void esUnaClaveSeguraUsarFrases() {		
-		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("cuestionesdelavida"));
-		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("unaensaladafria"));
-		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("undiadeveranoquiendiria"));
+	void esUnaClaveSeguraUsarFrases() {
+		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("cuestionesdelavida"));
+		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("unaensaladafria"));
+		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("undiadeveranoquiendiria"));
 	}
 
 	@Test
-	void esSeguraUnaClaveAlfanumericaConSimbolos() {		
-		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("123asd123.0?"));
+	void esSeguraUnaClaveAlfanumericaConSimbolos() {
+		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("123asd123.0?"));
 	}
 
 }

@@ -13,7 +13,7 @@ public class ValidadorContrasenia {
     this.fileName = FileSystems.getDefault().getPath("10k-most-common.txt").toString();
   }
 
-  public void validadorContrasenia(String contrasenia) {
+  public void validarContrasenia(String contrasenia) {
     try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
       if (stream.anyMatch(elemento -> elemento.contentEquals(contrasenia))) {
         throw new RuntimeException("Contraseña vulnerable, elegir otra, por favor.");
