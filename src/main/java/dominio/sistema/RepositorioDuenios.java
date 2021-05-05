@@ -6,8 +6,9 @@ import dominio.util.Lista;
 
 public class RepositorioDuenios {
   private Lista<Duenio> repositorio;
+  private static final RepositorioDuenios INSTANCE = new RepositorioDuenios();
 
-  public RepositorioDuenios(Lista<Duenio> repositorio) {
+  private RepositorioDuenios() {
     this.repositorio = new Lista<>();
   }
 
@@ -21,5 +22,9 @@ public class RepositorioDuenios {
 
   public void eliminarDuenio(Duenio duenio){
     repositorio.remove(duenio);
+  }
+
+  public static RepositorioDuenios getINSTANCE() {
+    return INSTANCE;
   }
 }

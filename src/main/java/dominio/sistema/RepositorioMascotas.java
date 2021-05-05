@@ -11,8 +11,9 @@ import java.util.List;
 
 public class RepositorioMascotas {
   private Lista<Mascota> repositorio;
+  private static final RepositorioMascotas INSTANCE = new RepositorioMascotas();
 
-  public RepositorioMascotas() {
+  private RepositorioMascotas() {
     this.repositorio = new Lista<>();
   }
 
@@ -26,5 +27,9 @@ public class RepositorioMascotas {
 
   public void eliminarMascota(Mascota mascota){
     repositorio.remove(mascota);
+  }
+
+  public static RepositorioMascotas getINSTANCE() {
+    return INSTANCE;
   }
 }

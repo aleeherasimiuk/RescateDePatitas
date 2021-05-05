@@ -4,7 +4,6 @@ import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
-import dominio.sistema.Registro;
 import dominio.util.Lista;
 
 import java.time.LocalDate;
