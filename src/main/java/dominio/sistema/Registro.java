@@ -22,8 +22,8 @@ public class Registro {
     this.mascotasRegistradas.add(mascota);
   }
 
-  public void registrarRescate(Rescatista rescatista, int idMascota, String descripcion,
-      Coordenadas lugar, LocalDate fecha, String... fotos) {
+  public void registrarRescate(Rescatista rescatista, int idMascota, String descripcion, Coordenadas lugar,
+      LocalDate fecha, String... fotos) {
 
     Mascota mascota = buscarMascota(idMascota);
 
@@ -32,7 +32,7 @@ public class Registro {
       rescate.agregarUnaFoto(foto);
     }
     rescate.setLugar(lugar);
-    
+
     this.rescates.add(rescate);
   }
 
@@ -45,6 +45,6 @@ public class Registro {
   }
 
   public Mascota buscarMascota(int idMascota) {
-   return mascotasRegistradas.find(m -> m.getId() == idMascota);
+    return mascotasRegistradas.find(m -> m.getId() == idMascota);
   }
 }

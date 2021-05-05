@@ -16,28 +16,27 @@ public class ListaTest {
   Lista<Integer> unaLista;
 
   @BeforeEach
-  void setup(){
-    unaLista = new Lista<Integer>(1,2,3,4,5,6,7,8,9,10);
+  void setup() {
+    unaLista = new Lista<Integer>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
   }
 
-
   @Test
-  void laSumaDa55(){
+  void laSumaDa55() {
     assertEquals(unaLista.fold(Integer::sum), 55);
   }
 
   @Test
-  void laSumaDeLosDoblesEs110(){
+  void laSumaDeLosDoblesEs110() {
     assertEquals(unaLista.map(this::doble).fold(Integer::sum), 110);
   }
 
   @Test
-  void hay5NumerosPares(){
+  void hay5NumerosPares() {
     assertEquals(unaLista.count(this::esPar), 5);
   }
 
   @Test
-  void losNumerosParesSon246810(){
+  void losNumerosParesSon246810() {
     assertTrue(unaLista.filter(this::esPar).contains(2));
     assertTrue(unaLista.filter(this::esPar).contains(4));
     assertTrue(unaLista.filter(this::esPar).contains(6));
@@ -48,9 +47,8 @@ public class ListaTest {
     assertFalse(unaLista.filter(this::esPar).contains(5));
   }
 
-
   @Test
-  void mascotasCastradas(){
+  void mascotasCastradas() {
 
     Mascota mascota1 = new Mascota(0, 0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
     Mascota mascota2 = new Mascota(1, 0, Clase.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
@@ -66,14 +64,12 @@ public class ListaTest {
 
   }
 
-  boolean esPar(int unNumero){
+  boolean esPar(int unNumero) {
     return unNumero % 2 == 0;
   }
 
-  int doble(int unNumero){
+  int doble(int unNumero) {
     return unNumero * 2;
   }
 
-
-  
 }

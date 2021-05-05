@@ -6,7 +6,7 @@ import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
 
-public class Rescatista extends Persona{
+public class Rescatista extends Persona {
 
   private String direccion;
 
@@ -16,9 +16,8 @@ public class Rescatista extends Persona{
     this.direccion = direccion;
   }
 
-  public String getDireccion(){
+  public String getDireccion() {
     return direccion;
   }
 
-  
 }
