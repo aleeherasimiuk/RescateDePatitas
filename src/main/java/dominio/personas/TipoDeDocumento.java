@@ -1,9 +1,5 @@
 package dominio.personas;
 
 public enum TipoDeDocumento {
-  DNI,
-  LC,
-  LE,
-  CI,
-  PASAPORTE
+  DNI, LC, LE, CI, PASAPORTE
 }

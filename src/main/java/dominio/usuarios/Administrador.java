@@ -11,7 +11,7 @@ public class Administrador {
     this.usuario = new Usuario(username, password);
   }
 
-  public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones){
+  public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones) {
     Caracteristica caracteristica = new Caracteristica(titulo);
 
     for (String opcion : opciones) {
@@ -21,14 +21,13 @@ public class Administrador {
     caracteristicas.agregarCaracteristica(caracteristica);
   }
 
-  public void eliminarUnaCaracteristica(Caracteristicas caracteristicas, String titulo){
+  public void eliminarUnaCaracteristica(Caracteristicas caracteristicas, String titulo) {
 
     caracteristicas.borrarCaracteristica(titulo);
   }
 
-  public String getNombreDeUsuario(){
+  public String getNombreDeUsuario() {
     return usuario.getNombreUsuario();
   }
 
-  
 }

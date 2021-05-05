@@ -15,21 +15,19 @@ public class Duenio extends Persona {
   private Lista<Mascota> mascotasRegistradas;
   private static int idSiguiente = 0;
 
-  public Duenio(int idDuenio, String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
-      String nombreUsuario, String contrasenia, LocalDate fechaNacimiento) {
+  public Duenio(int idDuenio, String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento,
+      Contacto contacto, String nombreUsuario, String contrasenia, LocalDate fechaNacimiento) {
     super(apellido, nombre, tipoDocumento, numeroDocumento, contacto, fechaNacimiento);
     this.usuario = new Usuario(nombreUsuario, contrasenia);
     this.idDuenio = idDuenio;
     this.mascotasRegistradas = new Lista<>();
-
   }
-
 
   public Duenio(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
-      String nombreUsuario, String contrasenia, LocalDate fechaNacimiento) { 
-    this(idSiguiente++, apellido, nombre, tipoDocumento, numeroDocumento, contacto, nombreUsuario, contrasenia, fechaNacimiento);
+      String nombreUsuario, String contrasenia, LocalDate fechaNacimiento) {
+    this(idSiguiente++, apellido, nombre, tipoDocumento, numeroDocumento, contacto, nombreUsuario, contrasenia,
+        fechaNacimiento);
   }
-  
 
   public int getIdDuenio() {
     return idDuenio;
@@ -40,7 +38,7 @@ public class Duenio extends Persona {
     registro.registrarMascota(mascota);
   }
 
-  public String getNombreDeUsuario(){
+  public String getNombreDeUsuario() {
     return usuario.getNombreUsuario();
   }
 

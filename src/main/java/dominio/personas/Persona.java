@@ -10,7 +10,8 @@ public abstract class Persona {
   private Contacto contacto;
   private LocalDate fechaNacimiento;
 
-  public Persona(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto, LocalDate fechaNacimiento) {
+  public Persona(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
+      LocalDate fechaNacimiento) {
     this.apellido = apellido;
     this.nombre = nombre;
     this.tipoDocumento = tipoDocumento;
