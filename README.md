@@ -8,7 +8,7 @@
 | Ian Crespi                        | 167.397-0     |
 | Emmanuel Lazarte                  | 168.926-5     |
 | Nicolás Williman                  | ???.???-?     |
-| Federico Silva                    | ???.???-?     |
+| Federico Silva                    | 167.439-0     |
 | Camil Loyola                      | ???.???-?     |
 
 

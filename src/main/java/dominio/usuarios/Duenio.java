@@ -5,15 +5,14 @@ import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
 import dominio.sistema.Registro;
+import dominio.util.Lista;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Duenio extends Persona {
   private Usuario usuario;
   private int idDuenio;
-  private List<Mascota> mascotasRegistradas;
+  private Lista<Mascota> mascotasRegistradas;
   private static int idSiguiente = 0;
 
   public Duenio(int idDuenio, String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
@@ -21,7 +20,7 @@ public class Duenio extends Persona {
     super(apellido, nombre, tipoDocumento, numeroDocumento, contacto, fechaNacimiento);
     this.usuario = new Usuario(nombreUsuario, contrasenia);
     this.idDuenio = idDuenio;
-    this.mascotasRegistradas = new ArrayList<>();
+    this.mascotasRegistradas = new Lista<>();
 
   }
 

@@ -1,18 +1,18 @@
 package dominio.sistema;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import dominio.Rescatista;
 import dominio.mascota.Mascota;
 import dominio.ubicacion.Coordenadas;
+import dominio.util.Lista;
+
 import java.time.temporal.ChronoUnit;
 
 public class Rescate {
   private Rescatista rescatista;
   private Mascota mascota;
-  private List<String> fotos;
+  private Lista<String> fotos;
   private String descripcion;
   private Coordenadas lugar;
   private LocalDate fecha;
@@ -22,7 +22,7 @@ public class Rescate {
     this.mascota = mascota;
     this.descripcion = descripcion;
     this.fecha = fecha;
-    this.fotos = new ArrayList<String>();
+    this.fotos = new Lista<String>();
   }
 
   public void agregarUnaFoto(String url){
