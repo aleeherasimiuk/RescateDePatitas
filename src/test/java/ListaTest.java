@@ -52,9 +52,9 @@ public class ListaTest {
   @Test
   void mascotasCastradas(){
 
-    Mascota mascota1 = new Mascota(0, 0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-    Mascota mascota2 = new Mascota(1, 0, Clase.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
-    Mascota mascota3 = new Mascota(2, 0, Clase.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA);
+    Mascota mascota1 = new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Mascota mascota2 = new Mascota(Clase.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
+    Mascota mascota3 = new Mascota(Clase.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA);
 
     mascota1.agregarUnaCaracteristica("CASTRADO", "SI");
     mascota2.agregarUnaCaracteristica("CASTRADO", "SI");

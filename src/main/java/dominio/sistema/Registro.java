@@ -22,10 +22,8 @@ public class Registro {
     this.mascotasRegistradas.add(mascota);
   }
 
-  public void registrarRescate(Rescatista rescatista, int idMascota, String descripcion,
+  public void registrarRescate(Rescatista rescatista, Mascota mascota, String descripcion,
       Coordenadas lugar, LocalDate fecha, String... fotos) {
-
-    Mascota mascota = buscarMascota(idMascota);
 
     Rescate rescate = new Rescate(rescatista, mascota, descripcion, fecha);
     for (String foto : fotos) {
@@ -44,7 +42,7 @@ public class Registro {
     return mascotasRegistradas.size();
   }
 
-  public Mascota buscarMascota(int idMascota) {
-   return mascotasRegistradas.find(m -> m.getId() == idMascota);
+  public Duenio duenioDe(Mascota mascota){
+    return dueniosRegistrados.find(duenio -> duenio.esMiMascota(mascota));
   }
 }
