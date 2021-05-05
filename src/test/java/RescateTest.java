@@ -26,27 +26,22 @@ public class RescateTest {
   void iniciarRegistro() {
     registro = new Registro();
 
-    Duenio carlos = new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
-        new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "pupitoteamo",
-        stringAFecha("01/01/2002"));
+    Duenio carlos = crearACarlos();
 
-    pupi = new Mascota(0, carlos.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-
+    pupi = crearAPupi();
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
     carlos.registrarUnaMascota(registro, pupi);
 
-    Rescatista pedro = new Rescatista("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
-        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), stringAFecha("02/02/1996"),
-        "Calle Falsa 123");
+    Rescatista pedro = crearAPedro();
 
-    registro.registrarRescate(pedro, 0, "parece ser un gato siames", null, LocalDate.now(), "https://unafoto.com");
-
-    felix = new Mascota(1, carlos.getIdDuenio(), Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+    
+    registro.registrarRescate(pedro, pupi, "parece ser un gato siames",null, LocalDate.now(), "https://unafoto.com");
+    
+    felix = crearAFelix();
     carlos.registrarUnaMascota(registro, felix);
-    registro.registrarRescate(pedro, 1, "perro negro con mancha blanca en la panza", null,
-        LocalDate.now().plusDays(-15), "https://otrafoto.com");
-
+    registro.registrarRescate(pedro, felix, "perro negro con mancha blanca en la panza", null, LocalDate.now().plusDays(-15), "https://otrafoto.com");
+    
   }
 
   @Test
@@ -68,4 +63,25 @@ public class RescateTest {
     return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }
 
+  private Duenio crearACarlos(){
+    return new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
+      new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "pupitoteamo",
+      stringAFecha("01/01/2002"));
+  }
+
+  private Rescatista crearAPedro() {
+    return new Rescatista("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
+        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), stringAFecha("02/02/1996"),
+        "Calle Falsa 123");
+  }
+
+  private Mascota crearAPupi() {
+    return new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+  }
+
+
+  private Mascota crearAFelix() {
+    return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+  }
+  
 }

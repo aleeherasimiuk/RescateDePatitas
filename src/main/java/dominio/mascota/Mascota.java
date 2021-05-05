@@ -6,8 +6,6 @@ import java.util.Map;
 import dominio.util.Lista;
 
 public class Mascota {
-  private int idDuenio;
-  private int idMascota;
   private Clase clase;
   private String nombre;
   private String apodo;
@@ -16,11 +14,8 @@ public class Mascota {
   private String descripcionFisica;
   private Lista<String> fotos;
   private Map<String, String> caracteristicas;
-  private static int idSiguiente = 0;
 
-  public Mascota(int idMascota, int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
-    this.idDuenio = idDuenio;
-    this.idMascota = idMascota;
+  public Mascota(Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
     this.clase = clase;
     this.nombre = nombre;
     this.apodo = apodo;
@@ -28,10 +23,6 @@ public class Mascota {
     this.sexo = sexo;
     caracteristicas = new HashMap<String, String>();
     this.fotos = new Lista<String>();
-  }
-
-  public Mascota(int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
-    this(idSiguiente++, idDuenio, clase, nombre, apodo, edad, sexo);
   }
 
   public void setDescripcionFisica(String descripcionFisica) {
@@ -76,13 +67,5 @@ public class Mascota {
 
   public String getDescripcionFisica() {
     return descripcionFisica;
-  }
-
-  public int getId() {
-    return idMascota;
-  }
-
-  public int getIdDuenio() {
-    return idDuenio;
   }
 }
