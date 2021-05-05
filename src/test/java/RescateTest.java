@@ -1,7 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class RescateTest {
 
     Duenio carlos = new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
         new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "pupitoteamo",
-        LocalDate.now().minusYears(18));
+        stringAFecha("01/01/2002"));
 
     pupi = new Mascota(0, carlos.getIdDuenio(), Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 
@@ -37,7 +37,7 @@ public class RescateTest {
     carlos.registrarUnaMascota(registro, pupi);
 
     Rescatista pedro = new Rescatista("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
-        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), LocalDate.now().minusYears(24),
+        new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), stringAFecha("02/02/1996"),
         "Calle Falsa 123");
 
     
@@ -63,6 +63,10 @@ public class RescateTest {
   @Test
   void felixSePerdioHaceMucho() {
     assertFalse(registro.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
+  }
+
+  LocalDate stringAFecha(String fecha){
+    return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }
   
 }

@@ -14,15 +14,7 @@ public class MascotaTest {
 
   @BeforeEach
   void setup(){
-    pupi = new Mascota(
-      0,  
-      0,
-      Clase.GATO,
-      "Pupi",
-      "Pupi",
-      3,
-      Sexo.MACHO
-    );
+    pupi = new Mascota(0, 0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
   }

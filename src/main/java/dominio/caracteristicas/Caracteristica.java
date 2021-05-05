@@ -1,15 +1,15 @@
 package dominio.caracteristicas;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import dominio.util.Lista;
 
 public class Caracteristica {
 	private String titulo;
-	private List<String> opciones;
+	private Lista<String> opciones;
 	
 	public Caracteristica(String titulo) { 
 		this.titulo = titulo.toUpperCase();
-		this.opciones = new ArrayList<String>();
+		this.opciones = new Lista<String>();
 	}
 
 	public void agregarOpcion(String opcion) {
@@ -20,11 +20,11 @@ public class Caracteristica {
 		return this.titulo;
 	}
 	
-	public Boolean tieneEstaOpcion(String opcion) {
+	public boolean tieneEstaOpcion(String opcion) {
 		return opciones.contains(opcion.toUpperCase());
 	}
 
-	public List<String> opciones(){
+	public Lista<String> opciones(){
 		return opciones;
 	}
 }

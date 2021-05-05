@@ -48,13 +48,6 @@ class CaracteristicaTest {
 		assertEquals("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo", exception.getMessage());
 	}
 
-	@Test
-	void siBuscoUnaCaracteristicaQueNoExisteDaError(){
-		
-		Exception exception = assertThrows(CaracteristicaNoDisponible.class, 
-			() -> caracteristicas.obtenerCaracteristica("TIENE-MANCHA"));
-		assertEquals("La característica que se intenta buscar no existe", exception.getMessage());
-	}
 
 
 

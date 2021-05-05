@@ -1,7 +1,9 @@
 package dominio.mascota;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+
+import dominio.util.Lista;
 
 public class Mascota {
   private int idDuenio;
@@ -12,7 +14,7 @@ public class Mascota {
   private int edad;
   private Sexo sexo;
   private String descripcionFisica;
-  private List<String> fotos;
+  private Lista<String> fotos;
   private Map<String, String> caracteristicas;
 
   public Mascota(int idMascota, int idDuenio, Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
@@ -23,6 +25,8 @@ public class Mascota {
     this.apodo = apodo;
     this.edad = edad;
     this.sexo = sexo;
+    caracteristicas = new HashMap<String, String>();
+    this.fotos = new Lista<String>();
   }
 
   public void setDescripcionFisica(String descripcionFisica) {
@@ -35,6 +39,14 @@ public class Mascota {
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
     this.caracteristicas.put(caracteristica, valor);
+  }
+
+  public String obtenerCaracteristica(String caracteristica){
+    if(!caracteristicas.containsKey(caracteristica)){
+      return null;
+    }
+
+    return this.caracteristicas.get(caracteristica);
   }
 
   public Clase getClase() {
