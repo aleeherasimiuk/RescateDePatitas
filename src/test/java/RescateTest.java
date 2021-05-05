@@ -16,12 +16,12 @@ import dominio.sistema.Registro;
 import dominio.sistema.Rescate;
 import dominio.usuarios.Duenio;
 
-
 public class RescateTest {
   Registro registro;
   Mascota pupi;
   Rescate rescatePupi;
   Mascota felix;
+
   @BeforeEach
   void iniciarRegistro() {
     registro = new Registro();
@@ -44,22 +44,22 @@ public class RescateTest {
     
   }
 
-  @Test 
+  @Test
   void hayAlMenosUnaMascotaRegistrada() {
-    assertTrue(registro.cantDeMascotasRegistradas()>0);
+    assertTrue(registro.cantDeMascotasRegistradas() > 0);
   }
-  
+
   @Test
   void ayerSePerdioPupi() {
     assertTrue(registro.mascotasEncontradasEnLosUltimos10Dias().contains(pupi));
   }
-  
+
   @Test
   void felixSePerdioHaceMucho() {
     assertFalse(registro.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
 
-  LocalDate stringAFecha(String fecha){
+  LocalDate stringAFecha(String fecha) {
     return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }
 

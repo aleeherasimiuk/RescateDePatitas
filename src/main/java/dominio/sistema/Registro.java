@@ -30,7 +30,7 @@ public class Registro {
       rescate.agregarUnaFoto(foto);
     }
     rescate.setLugar(lugar);
-    
+
     this.rescates.add(rescate);
   }
 

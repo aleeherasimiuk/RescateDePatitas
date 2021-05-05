@@ -37,8 +37,8 @@ public class Mascota {
     this.caracteristicas.put(caracteristica, valor);
   }
 
-  public String obtenerCaracteristica(String caracteristica){
-    if(!caracteristicas.containsKey(caracteristica)){
+  public String obtenerCaracteristica(String caracteristica) {
+    if (!caracteristicas.containsKey(caracteristica)) {
       return null;
     }
 

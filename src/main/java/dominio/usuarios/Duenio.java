@@ -18,7 +18,6 @@ public class Duenio extends Persona {
     super(apellido, nombre, tipoDocumento, numeroDocumento, contacto, fechaNacimiento);
     this.usuario = new Usuario(nombreUsuario, contrasenia);
     this.mascotasRegistradas = new Lista<>();
-
   }
 
 
@@ -27,7 +26,7 @@ public class Duenio extends Persona {
     registro.registrarMascota(mascota);
   }
 
-  public String getNombreDeUsuario(){
+  public String getNombreDeUsuario() {
     return usuario.getNombreUsuario();
   }
 
