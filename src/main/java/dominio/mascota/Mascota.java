@@ -41,7 +41,7 @@ public class Mascota {
 
   public String obtenerCaracteristica(String caracteristica){
     if(!caracteristicas.containsKey(caracteristica)){
-      throw new RuntimeException("La mascota no contiene la característica deseada");
+      return null;
     }
 
     return this.caracteristicas.get(caracteristica);
