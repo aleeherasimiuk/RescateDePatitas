@@ -38,9 +38,6 @@ public class Registro {
     return rescates.filter(Rescate::sucedioDentroDeLosUltimos10Dias).map(Rescate::getMascota);
   }
 
-  public int cantDeMascotasRegistradas() {
-    return mascotasRegistradas.size();
-  }
 
   public Duenio duenioDe(Mascota mascota){
     return dueniosRegistrados.find(duenio -> duenio.esMiMascota(mascota));

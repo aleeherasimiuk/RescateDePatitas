@@ -1,7 +1,7 @@
 package dominio.usuarios;
 
 import dominio.caracteristicas.Caracteristica;
-import dominio.caracteristicas.Caracteristicas;
+import dominio.caracteristicas.RepositorioCaracteristicas;
 
 public class Administrador {
 
@@ -11,19 +11,19 @@ public class Administrador {
     this.usuario = new Usuario(username, password);
   }
 
-  public void agregarUnaCaracteristica(Caracteristicas caracteristicas, String titulo, String... opciones) {
+  public void agregarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo, String... opciones) {
     Caracteristica caracteristica = new Caracteristica(titulo);
 
     for (String opcion : opciones) {
       caracteristica.agregarOpcion(opcion);
     }
 
-    caracteristicas.agregarCaracteristica(caracteristica);
+    repositorioCaracteristicas.agregarCaracteristica(caracteristica);
   }
 
-  public void eliminarUnaCaracteristica(Caracteristicas caracteristicas, String titulo) {
+  public void eliminarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo) {
 
-    caracteristicas.borrarCaracteristica(titulo);
+    repositorioCaracteristicas.borrarCaracteristica(titulo);
   }
 
   public String getNombreDeUsuario() {

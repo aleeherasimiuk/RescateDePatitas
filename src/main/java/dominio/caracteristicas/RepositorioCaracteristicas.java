@@ -4,10 +4,10 @@ import java.util.List;
 
 import dominio.util.Lista;
 
-public class Caracteristicas {
+public class RepositorioCaracteristicas {
 	private Lista<Caracteristica> caracteristicas;
 
-	public Caracteristicas() {
+	public RepositorioCaracteristicas() {
 		this.caracteristicas = new Lista<>();
 	}
 
