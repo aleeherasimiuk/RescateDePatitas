@@ -14,40 +14,40 @@ class ValidadorContraseniaTest {
 	}
 	
 	@Test
-	void noEsUnaClaveSeguraSoloPonerNumeros() {		
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("123456"));
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("123456789"));
+	void noEsUnaClaveSeguraSoloPonerNumeros() {
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("123456"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("123456789"));
 	}
 	
 	@Test
-	void noEsUnaClaveSeguraUsarNombresDeComics() {		
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("batman"));
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("iceman"));
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("superman"));
+	void noEsUnaClaveSeguraUsarNombresDeComics() {
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("batman"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("iceman"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("superman"));
 	}
 	
 	@Test
-	void noEsUnaClaveSeguraUsarNombreDeColores() {		
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("orange"));
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("black"));
+	void noEsUnaClaveSeguraUsarNombreDeColores() {
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("orange"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("black"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDePersonas() {		
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("andrea"));
-		assertTrue(validadorContrasenia.esVulnerableLaContrasenia("thomas"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("andrea"));
+		assertThrows(RuntimeException.class, () -> validadorContrasenia.validadorContrasenia("thomas"));
 	}
 
 	@Test
 	void esUnaClaveSeguraUsarFrases() {		
-		assertFalse(validadorContrasenia.esVulnerableLaContrasenia("cuestionesdelavida"));
-		assertFalse(validadorContrasenia.esVulnerableLaContrasenia("unaensaladafria"));
-		assertFalse(validadorContrasenia.esVulnerableLaContrasenia("undiadeveranoquiendiria"));
+		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("cuestionesdelavida"));
+		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("unaensaladafria"));
+		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("undiadeveranoquiendiria"));
 	}
 
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {		
-		assertFalse(validadorContrasenia.esVulnerableLaContrasenia("123asd123.0?"));
+		assertDoesNotThrow(() -> validadorContrasenia.validadorContrasenia("123asd123.0?"));
 	}
 
 }
