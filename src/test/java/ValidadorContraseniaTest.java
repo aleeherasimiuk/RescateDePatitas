@@ -7,25 +7,25 @@ import dominio.usuarios.ValidadorContrasenia;
 
 class ValidadorContraseniaTest {
 	ValidadorContrasenia validadorContrasenia;
-	
+
 	@BeforeEach
 	void setup() {
-		validadorContrasenia = new ValidadorContrasenia();		
+		validadorContrasenia = new ValidadorContrasenia();
 	}
-	
+
 	@Test
 	void noEsUnaClaveSeguraSoloPonerNumeros() {
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456"));
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456789"));
 	}
-	
+
 	@Test
 	void noEsUnaClaveSeguraUsarNombresDeComics() {
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("batman"));
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("iceman"));
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("superman"));
 	}
-	
+
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDeColores() {
 		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("orange"));
@@ -48,6 +48,7 @@ class ValidadorContraseniaTest {
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
 		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("123asd123.0?"));
+
 	}
 
 }

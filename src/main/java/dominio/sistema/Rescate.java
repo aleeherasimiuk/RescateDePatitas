@@ -25,7 +25,7 @@ public class Rescate {
     this.fotos = new Lista<String>();
   }
 
-  public void agregarUnaFoto(String url){
+  public void agregarUnaFoto(String url) {
     fotos.add(url);
   }
 
@@ -49,7 +49,7 @@ public class Rescate {
     return lugar;
   }
 
-  public int telefonoDeContacto(){
+  public int telefonoDeContacto() {
     return rescatista.getContacto().getTelefono();
   }
 

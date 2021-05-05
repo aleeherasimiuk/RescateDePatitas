@@ -13,7 +13,7 @@ public class MascotaTest {
   private Mascota pupi;
 
   @BeforeEach
-  void setup(){
+  void setup() {
     pupi = new Mascota(0, 0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
 
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
@@ -21,7 +21,7 @@ public class MascotaTest {
 
   @Test
   @DisplayName("Pupi es un gato macho de tres años")
-  void pupiEsUnGatoDeTresAños(){
+  void pupiEsUnGatoDeTresAños() {
     assertEquals(pupi.getApodo(), "Pupi");
     assertEquals(pupi.getNombre(), "Pupi");
     assertEquals(pupi.getSexo(), Sexo.MACHO);
@@ -31,19 +31,18 @@ public class MascotaTest {
 
   @Test
   @DisplayName("Pupi es un gato siamés, marrón con manchas blancas")
-  void pupiEsUnSiamesMarronConManchas(){
+  void pupiEsUnSiamesMarronConManchas() {
     assertEquals(pupi.getDescripcionFisica(), "Un gato siamés, marrón con manchas blancas");
   }
 
-
   @Test
   @DisplayName("Pupi es el gato 0")
-  void pupiEsElSuperGatoCosmico(){
+  void pupiEsElSuperGatoCosmico() {
     assertEquals(pupi.getId(), 0);
   }
 
   @Test
-  void losIdsSeAsignanBien(){
+  void losIdsSeAsignanBien() {
     Mascota mascota0 = new Mascota(0, Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
     Mascota mascota1 = new Mascota(0, Clase.GATO, "Pupo", "Pupo", 4, Sexo.MACHO);
     Mascota mascota2 = new Mascota(0, Clase.GATO, "Pupa", "Pupa", 5, Sexo.HEMBRA);
@@ -51,9 +50,7 @@ public class MascotaTest {
     assertEquals(mascota0.getId(), 0);
     assertEquals(mascota1.getId(), 1);
     assertEquals(mascota2.getId(), 2);
-    
-  }
- 
 
-  
+  }
+
 }

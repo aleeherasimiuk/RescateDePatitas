@@ -12,19 +12,19 @@ class CaracteristicaTest {
 	Caracteristicas caracteristicas;
 
 	@BeforeEach
-	void setup(){
+	void setup() {
 
 		caracteristicas = new Caracteristicas();
-		
+
 		administrador = new Administrador("UnUsuario", "UnaContraseña");
 		administrador.agregarUnaCaracteristica(caracteristicas, "COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
 
 		administrador.agregarUnaCaracteristica(caracteristicas, "CASTRADO", "SI", "NO");
 
 	}
-	
+
 	@Test
-	void losColoresPrimariosEsUnaCaracteristica() {	
+	void losColoresPrimariosEsUnaCaracteristica() {
 		Caracteristica coloresPrimarios = caracteristicas.obtenerCaracteristica("colores-primarios");
 		assertTrue(coloresPrimarios.tieneEstaOpcion("rojo"));
 		assertTrue(coloresPrimarios.tieneEstaOpcion("azul"));
@@ -38,17 +38,15 @@ class CaracteristicaTest {
 		assertTrue(castracion.tieneEstaOpcion("SI"));
 		assertTrue(castracion.tieneEstaOpcion("NO"));
 	}
-	
 
 	@Test
-	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe(){
-		
-		Exception exception = assertThrows(RuntimeException.class, 
-			() -> administrador.agregarUnaCaracteristica(caracteristicas, "castrado", "SI", "NO", "NO SE"));
-		assertEquals("Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo", exception.getMessage());
+	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
+
+		Exception exception = assertThrows(RuntimeException.class,
+				() -> administrador.agregarUnaCaracteristica(caracteristicas, "castrado", "SI", "NO", "NO SE"));
+		assertEquals(
+				"Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo",
+				exception.getMessage());
 	}
-
-
-
 
 }

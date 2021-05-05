@@ -6,7 +6,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Lista<T> extends ArrayList<T>{
+public class Lista<T> extends ArrayList<T> {
 
   public Lista(Collection<? extends T> c) {
     super(c);
@@ -20,25 +20,25 @@ public class Lista<T> extends ArrayList<T>{
   }
 
   @SafeVarargs
-  public Lista(T... elements){
+  public Lista(T... elements) {
     for (T object : elements) {
       this.add(object);
     }
   }
 
-  public Lista<T> filter(Predicate<T> condition){
+  public Lista<T> filter(Predicate<T> condition) {
 
     Lista<T> nuevaLista = new Lista<T>();
 
     for (T t : this) {
-      if(condition.test(t))
+      if (condition.test(t))
         nuevaLista.add(t);
     }
 
     return nuevaLista;
   }
 
-  public <R> Lista<R> map(Function<T, R> mapper){
+  public <R> Lista<R> map(Function<T, R> mapper) {
 
     Lista<R> nuevaLista = new Lista<R>(this.size());
 
@@ -49,22 +49,20 @@ public class Lista<T> extends ArrayList<T>{
     return nuevaLista;
   }
 
-  public boolean contains(Predicate<T> condition){
+  public boolean contains(Predicate<T> condition) {
     return this.stream().anyMatch(condition);
   }
 
-  public T find(Predicate<T> condition){
+  public T find(Predicate<T> condition) {
     return this.stream().filter(condition).findFirst().orElse(null);
   }
 
-  public T fold(BinaryOperator<T> accumulator){
+  public T fold(BinaryOperator<T> accumulator) {
     return this.stream().reduce(accumulator).orElse(null);
   }
 
-  public int count(Predicate<T> condition){
+  public int count(Predicate<T> condition) {
     return (int) this.stream().filter(condition).count();
   }
-
-  
 
 }
