@@ -20,7 +20,7 @@ public class Caracteristica {
 		return this.titulo;
 	}
 	
-	public Boolean tieneEstaOpcion(String opcion) {
+	public boolean tieneEstaOpcion(String opcion) {
 		return opciones.contains(opcion.toUpperCase());
 	}
 
