@@ -1,5 +1,7 @@
 package dominio.usuarios;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Usuario {
 
   private String contrasenia;
@@ -8,7 +10,7 @@ public class Usuario {
   public Usuario(String nombreUsuario, String contrasenia) {
     this.nombreUsuario = nombreUsuario;
     new ValidadorContrasenia().validarContrasenia(contrasenia);
-    this.contrasenia = contrasenia;
+    this.contrasenia = BCrypt.hashpw(contrasenia, BCrypt.gensalt());
   }
 
   public String getContrasenia() {
@@ -18,5 +20,4 @@ public class Usuario {
   public String getNombreUsuario() {
     return nombreUsuario;
   }
-
 }
