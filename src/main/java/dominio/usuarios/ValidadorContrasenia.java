@@ -7,12 +7,12 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class ValidadorContrasenia {
-	private String fileName;
-	
-	public ValidadorContrasenia() {
-		this.fileName = FileSystems.getDefault().getPath("10k-most-common.txt").toString();
-	}
-  
+  private String fileName;
+
+  public ValidadorContrasenia() {
+    this.fileName = FileSystems.getDefault().getPath("10k-most-common.txt").toString();
+  }
+
   public void validadorContrasenia(String contrasenia) {
     try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
       if (stream.anyMatch(elemento -> elemento.contentEquals(contrasenia))) {
