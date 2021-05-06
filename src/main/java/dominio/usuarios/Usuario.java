@@ -13,6 +13,10 @@ public class Usuario {
     this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   }
 
+  public String getPassword() {
+    return password;
+  }
+  
   public String getUsername() {
     return username;
   }
