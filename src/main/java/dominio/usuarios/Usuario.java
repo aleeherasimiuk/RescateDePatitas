@@ -1,22 +1,19 @@
 package dominio.usuarios;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class Usuario {
 
-  private String contrasenia;
-  private String nombreUsuario;
+  private String password;
+  private String username;
 
-  public Usuario(String nombreUsuario, String contrasenia) {
-    this.nombreUsuario = nombreUsuario;
-    new ValidadorContrasenia().validarContrasenia(contrasenia);
-    this.contrasenia = contrasenia;
+  public Usuario(String username, String password) {
+    this.username = username;
+    PasswordValidator.validarPassword(password);
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   }
 
-  public String getContrasenia() {
-    return contrasenia;
+  public String getUsername() {
+    return username;
   }
-
-  public String getNombreUsuario() {
-    return nombreUsuario;
-  }
-
 }
