@@ -19,7 +19,7 @@ public class RepositorioRescates {
     repositorio.add(rescate);
   }
 
-  public List<Mascota> mascotasEncontradasEnLosUltimos10Dias() {
+  public Lista<Mascota> mascotasEncontradasEnLosUltimos10Dias() {
     return repositorio.filter(Rescate::sucedioDentroDeLosUltimos10Dias).map(Rescate::getMascota);
   }
 
