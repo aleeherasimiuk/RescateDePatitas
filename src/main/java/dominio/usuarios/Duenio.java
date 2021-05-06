@@ -4,6 +4,7 @@ import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioMascotas;
 import dominio.util.Lista;
 
 import java.time.LocalDate;
@@ -20,9 +21,9 @@ public class Duenio extends Persona {
   }
 
 
-  public void registrarUnaMascota(Registro registro, Mascota mascota) {
+  public void registrarUnaMascota(Mascota mascota) {
     mascotasRegistradas.add(mascota);
-    registro.registrarMascota(mascota);
+    RepositorioMascotas.getINSTANCE().registrarMascota(mascota);
   }
 
   public String getNombreDeUsuario() {
@@ -32,5 +33,6 @@ public class Duenio extends Persona {
   public boolean esMiMascota(Mascota mascota){
     return mascotasRegistradas.contains(mascota);
   }
+
 
 }

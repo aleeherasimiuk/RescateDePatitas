@@ -1,8 +1,8 @@
-package dominio.sistema;
+package dominio.rescate;
 
 import java.time.LocalDate;
 
-import dominio.Rescatista;
+import dominio.rescate.Rescatista;
 import dominio.mascota.Mascota;
 import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
