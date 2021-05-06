@@ -1,6 +1,7 @@
-package dominio.sistema;
+package dominio.repositorio;
 
 import dominio.mascota.Mascota;
+import dominio.rescate.Rescate;
 import dominio.util.Lista;
 
 import java.util.List;

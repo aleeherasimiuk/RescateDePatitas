@@ -1,4 +1,5 @@
-import dominio.caracteristicas.*;
+import dominio.mascota.Caracteristica;
+import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
 
 import static org.junit.jupiter.api.Assertions.*;

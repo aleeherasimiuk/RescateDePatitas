@@ -1,4 +1,4 @@
-package dominio.sistema;
+package dominio.repositorio;
 
 import dominio.mascota.Mascota;
 import dominio.util.Lista;

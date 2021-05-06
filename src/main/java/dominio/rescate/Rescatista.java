@@ -1,12 +1,11 @@
-package dominio;
+package dominio.rescate;
 
 import java.time.LocalDate;
 
 import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
-import dominio.sistema.RepositorioRescates;
-import dominio.sistema.Rescate;
+import dominio.repositorio.RepositorioRescates;
 
 public class Rescatista extends Persona {
 

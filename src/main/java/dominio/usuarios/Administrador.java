@@ -1,7 +1,7 @@
 package dominio.usuarios;
 
-import dominio.caracteristicas.Caracteristica;
-import dominio.caracteristicas.RepositorioCaracteristicas;
+import dominio.mascota.Caracteristica;
+import dominio.repositorio.RepositorioCaracteristicas;
 
 public class Administrador {
 
