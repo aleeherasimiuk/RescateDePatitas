@@ -15,39 +15,39 @@ class ValidadorContraseniaTest {
 
 	@Test
 	void noEsUnaClaveSeguraSoloPonerNumeros() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("123456789"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("123456"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("123456789"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombresDeComics() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("batman"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("iceman"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("superman"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("batman"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("iceman"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("superman"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDeColores() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("orange"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("black"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("orange"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("black"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDePersonas() {
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("andrea"));
-		assertThrows(RuntimeException.class, () -> validadorContrasenia.validarContrasenia("thomas"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("andrea"));
+		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("thomas"));
 	}
 
 	@Test
 	void esUnaClaveSeguraUsarFrases() {
-		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("cuestionesdelavida"));
-		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("unaensaladafria"));
-		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("undiadeveranoquiendiria"));
+		assertDoesNotThrow(() -> PasswordValidator.validate("Cuestionesdelavida2"));
+		assertDoesNotThrow(() -> PasswordValidator.validate("Unaensaladafria3"));
+		assertDoesNotThrow(() -> PasswordValidator.validate("Undiadeveranoquiendiria8"));
 	}
 
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
-		assertDoesNotThrow(() -> validadorContrasenia.validarContrasenia("123asd123.0?"));
+		assertDoesNotThrow(() -> PasswordValidator.validate("123Asd123.0?"));
 
 	}
 
