@@ -20,13 +20,13 @@ public class PasswordValidator {
   private static final String ERROR_COMMON = "Contraseña vulnerable, elegir otra, por favor.";
 
 
-  public static void validatePassword(String password) {
+  public static void validate(String password) {
     isCommon(password);
-    validate(password, x -> x.length() >= 8, ERROR_LENGTH);
-    validate(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
+    validateCondition(password, x -> x.length() >= 8, ERROR_LENGTH);
+    validateCondition(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
   }
 
-  private static void validate(String password, Predicate<String> validator, String mensajeDeError) {
+  private static void validateCondition(String password, Predicate<String> validator, String mensajeDeError) {
     if (!validator.test(password)) throw new RuntimeException(mensajeDeError);
   }
 

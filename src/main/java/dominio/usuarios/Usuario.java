@@ -9,10 +9,14 @@ public class Usuario {
 
   public Usuario(String username, String password) {
     this.username = username;
-    PasswordValidator.validarPassword(password);
+    PasswordValidator.validate(password);
     this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   }
 
+  public String getPassword() {
+    return password;
+  }
+  
   public String getUsername() {
     return username;
   }

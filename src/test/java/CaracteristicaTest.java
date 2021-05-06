@@ -14,7 +14,7 @@ class CaracteristicaTest {
 	static void setup() {
 		Administrador administrador;
 
-		administrador = new Administrador("UnUsuario", "UnaContraseña");
+		administrador = new Administrador("UnUsuario", "UnaContraseña1");
 		administrador.agregarUnaCaracteristica("COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
 
 		administrador.agregarUnaCaracteristica("CASTRADO", "SI", "NO");

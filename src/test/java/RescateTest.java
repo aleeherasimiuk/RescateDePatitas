@@ -15,6 +15,7 @@ import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.personas.Contacto;
 import dominio.personas.TipoDeDocumento;
+import dominio.rescate.Coordenadas;
 import dominio.rescate.Rescate;
 import dominio.usuarios.Duenio;
 
@@ -31,6 +32,7 @@ public class RescateTest {
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
     Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames",LocalDate.now().minusDays(1));
+    rescatePupi.setLugar(new Coordenadas(-50., -50.));
     Duenio carlos = crearACarlos();
 
     carlos.registrarUnaMascota(pupi);
@@ -38,6 +40,7 @@ public class RescateTest {
     felix = crearAFelix();
     carlos.registrarUnaMascota(felix);
     Rescate rescateFelix = new Rescate(pedro, felix, "perro negro con mancha blanca en la panza",LocalDate.now().plusDays(-15));
+    rescateFelix.setLugar(new Coordenadas(-55., -55.));
 
     pedro.registrarRescate(rescatePupi);
     pedro.registrarRescate(rescateFelix);
@@ -64,7 +67,7 @@ public class RescateTest {
 
   private Duenio crearACarlos(){
     return new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
-      new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "pupitoteamo",
+      new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "Pupitoteamo1",
       stringAFecha("01/01/2002"));
   }
 
