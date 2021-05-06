@@ -12,6 +12,7 @@ public class RepositorioUsuarios {
 
   private RepositorioUsuarios() {
     this.repoDuenio = new Lista<>();
+    this.repoAdministrador = new Lista<>();
   }
 
   public void registrarDuenio(Duenio duenio){
@@ -30,7 +31,7 @@ public class RepositorioUsuarios {
     repoAdministrador.add(administrador);
   }
 
-  public void eliminarDuenio(Administrador administrador){
+  public void eliminarAdministrador(Administrador administrador){
     repoAdministrador.remove(administrador);
   }
 
