@@ -10,7 +10,7 @@ public class Usuario {
   public Usuario(String username, String password) {
     this.username = username;
     PasswordValidator.validate(password);
-    this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+    this.password = BCrypt.hashpw(password,BCrypt.gensalt(12));
   }
 
   public String getPassword() {

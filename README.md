@@ -39,12 +39,8 @@ Finalmente se decide que `Dueño` y `Administrador` tengan como atributo a `Usua
 
 De esta manera nos evitamos (en el caso de que `Rescatista` herede de `Persona`), que un Dueño sea un Rescatista, así como que un `Rescate` pueda ser registrado por un `Dueño`
 
-2 - No queremos usar Singleton
 
-La clase `Registro` contiene los registros de los `Dueño`s, `Mascota`s y `Rescate`s; como sabemos debe haber un único registro en el sistema. Decidimos acordar que exista una única instancia de `Registro` en el sistema que sea usado en todo momento. 
-Lo mismo sucede con la clase `Características` que contiene todas las `Caracteristica`s que el `Administrador` ha decidido.
-
-3 - Mayor robustez y extensibilidad en `Característica`
+2 - Mayor robustez y extensibilidad en `Característica`
 
 `Característica` es más robusto y extensible ya que predefinimos las posibles opciones para cada característica, y en el futuro se podrán hacer consultas sobre ellas (por ejemplo, filtrar castrados).
 Evitando que suceda algo como lo siguiente
@@ -57,12 +53,26 @@ otraMascota.agregarCaracteristica("Castrada", "negativo")
 Por otro lado, los títulos y opciones se pasan a mayúsculas para lograr mayor consistencia.
 
 
-4 - IDs para identificar `Dueño` y `Mascota`
+3 - Se deciden usar Singleton para los repositorios de nuestras identidades
 
-`Dueño` y `Mascota` tienen ID's ya que Dueño tiene una serie de mascotas y cada mascota además debe conocer a su dueño. Para no provocar una referencia circular, decidimos que sea mediante ID's. 
-Los registros quedan centralizados en la clase `Registro`
+Por el hecho de que solo debe haber un unico repositorio para evitar inconsistencias y no generar que al buscar un Dueño o una Mascota etc. halla
+multiples repositorios en donde los puedan encontrar.
 
 
+4 - Los atributos y los metodos de la clase validar contraseña son estatico. La clase, al no ser mutable, no debriamos
+encontrar problemas.
+
+
+5 - Las contraseñas mas comunes las importamos como un archivo de texto (.txt) de tal manera que agregar contraseñas
+sea tan sencillo como agregar una nueva linea en ese mismo archivo. 
+Las validaciones las planteamos como una serie de pasos en la que agregar una nueva validacion es tan simple como llamar
+a la funcion `validate` con una condicion sobre un String lanzando exceptions al encontrarse con que no paso una validacion.
+
+
+6 - Se evaluo la longuitud de la clave que cumpla con los requisitos solicitados por la OWASP.
+
+
+7 - Decidimos hashear las contraseñas para lograr una mayor seguridad al momento de guardarlas.
 
 
 

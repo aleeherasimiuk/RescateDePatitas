@@ -1,9 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import dominio.usuarios.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dominio.usuarios.PasswordValidator;
+import org.mindrot.jbcrypt.BCrypt;
 
 class ValidadorContraseniaTest {
 	PasswordValidator validadorContrasenia;
@@ -49,6 +51,12 @@ class ValidadorContraseniaTest {
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
 		assertDoesNotThrow(() -> PasswordValidator.validate("123Asd123.0?"));
 
+	}
+
+	@Test
+	void testHashPassword(){
+		Usuario usuario = new Usuario("JorgeLanata", "ensaladA10");
+		assertTrue (BCrypt.checkpw("ensaladA10",usuario.getPassword()));
 	}
 
 }
