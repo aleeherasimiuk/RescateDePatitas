@@ -62,8 +62,8 @@ class Coordenadas{
 }
 
 class Usuario{
-  nombreDeUsuario
-  contraseña
+  username
+  password
 }
 
 class Administrador{
@@ -117,14 +117,14 @@ class RepositorioCaracteristicas{
   opcionesDe()
 }
 
-class ValidadorContraseña{
-  validarContraseña()
+class PasswordValidator{
+  validatePassword()
 }
 
 
 Rescatista -u-|> Persona
 Rescate -l-> Rescatista
-Usuario -> ValidadorContraseña
+Usuario -> PasswordValidator
 Dueño -u-> Usuario
 Rescate -d-> Mascota
 RepositorioMascotas -l-> "*" Mascota

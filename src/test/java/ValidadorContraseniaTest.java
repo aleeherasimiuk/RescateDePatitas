@@ -3,14 +3,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.usuarios.ValidadorContrasenia;
+import dominio.usuarios.PasswordValidator;
 
 class ValidadorContraseniaTest {
-	ValidadorContrasenia validadorContrasenia;
+	PasswordValidator validadorContrasenia;
 
 	@BeforeEach
 	void setup() {
-		validadorContrasenia = new ValidadorContrasenia();
+		validadorContrasenia = new PasswordValidator();
 	}
 
 	@Test

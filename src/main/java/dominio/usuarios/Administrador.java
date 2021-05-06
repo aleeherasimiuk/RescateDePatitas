@@ -26,8 +26,7 @@ public class Administrador {
     repositorioCaracteristicas.borrarCaracteristica(titulo);
   }
 
-  public String getNombreDeUsuario() {
-    return usuario.getNombreUsuario();
+  public String getUsername() {
+    return usuario.getUsername();
   }
-
 }
