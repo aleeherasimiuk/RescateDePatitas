@@ -4,17 +4,13 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class Usuario {
 
-  private String contrasenia;
+  private String password;
   private String nombreUsuario;
 
-  public Usuario(String nombreUsuario, String contrasenia) {
+  public Usuario(String nombreUsuario, String password) {
     this.nombreUsuario = nombreUsuario;
-    new ValidadorContrasenia().validarContrasenia(contrasenia);
-    this.contrasenia = BCrypt.hashpw(contrasenia, BCrypt.gensalt());
-  }
-
-  public String getContrasenia() {
-    return contrasenia;
+    ValidadorContrasenia.validarPassword(password);
+    this.password = BCrypt.hashpw(password, BCrypt.gensalt());
   }
 
   public String getNombreUsuario() {

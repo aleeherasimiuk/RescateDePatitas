@@ -4,22 +4,39 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class ValidadorContrasenia {
-  private String fileName;
+  private static final String FILENAME = "10k-most-common.txt";
+  private static final String PATH = FileSystems.getDefault().getPath(FILENAME).toString();
 
-  public ValidadorContrasenia() {
-    this.fileName = FileSystems.getDefault().getPath("10k-most-common.txt").toString();
+  private static final String ERROR_IO = "No se pudo verificar la seguridad de su contraseña.";
+
+  private static final String REGEX_UPPER_LOWER_NUMBER = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*";
+
+  private static final String ERROR_LENGTH = "La contraseña debe contener como minimo 8 caracteres.";
+  private static final String ERROR_UPPER_LOWER_NUMBER = "La contraseña debe contener como minimo: una minuscula, una mayuscula y un numero";
+  private static final String ERROR_COMMON = "Contraseña vulnerable, elegir otra, por favor.";
+
+
+  public static void validarPassword(String password) {
+    esComun(password);
+    validar(password, x -> x.length() >= 8, ERROR_LENGTH);
+    validar(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
   }
 
-  public void validarContrasenia(String contrasenia) {
-    try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-      if (stream.anyMatch(elemento -> elemento.contentEquals(contrasenia))) {
-        throw new RuntimeException("Contraseña vulnerable, elegir otra, por favor.");
+  private static void validar(String password, Predicate<String> func, String mensajeDeError) {
+    if (!func.test(password)) throw new RuntimeException(mensajeDeError);
+  }
+
+  private static void esComun(String password) {
+    try (Stream<String> stream = Files.lines(Paths.get(PATH))) {
+      if (stream.anyMatch(elemento -> elemento.contentEquals(password))) {
+        throw new RuntimeException(ERROR_COMMON);
       }
     } catch (IOException e) {
-      throw new RuntimeException("No se pudo verificar la seguridad de su contraseña.");
+      throw new RuntimeException(ERROR_IO);
     }
   }
 }
