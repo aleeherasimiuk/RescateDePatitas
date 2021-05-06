@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class ValidadorContrasenia {
+public class PasswordValidator {
   private static final String FILENAME = "10k-most-common.txt";
   private static final String PATH = FileSystems.getDefault().getPath(FILENAME).toString();
 
@@ -26,8 +26,8 @@ public class ValidadorContrasenia {
     validar(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
   }
 
-  private static void validar(String password, Predicate<String> func, String mensajeDeError) {
-    if (!func.test(password)) throw new RuntimeException(mensajeDeError);
+  private static void validar(String password, Predicate<String> validator, String mensajeDeError) {
+    if (!validator.test(password)) throw new RuntimeException(mensajeDeError);
   }
 
   private static void esComun(String password) {
