@@ -3,6 +3,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import dominio.repositorio.RepositorioMascotas;
+import dominio.repositorio.RepositorioRescates;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,46 +19,43 @@ import dominio.rescate.Rescate;
 import dominio.usuarios.Duenio;
 
 public class RescateTest {
-  Registro registro;
+  RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
+  RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
   Mascota pupi;
-  Rescate rescatePupi;
   Mascota felix;
 
   @BeforeEach
   void iniciarRegistro() {
-    registro = new Registro();
-
-    Duenio carlos = crearACarlos();
-
+    Rescatista pedro = crearAPedro();
     pupi = crearAPupi();
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
 
-    carlos.registrarUnaMascota(registro, pupi);
+    Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames",LocalDate.now().minusDays(1));
+    Duenio carlos = crearACarlos();
 
-    Rescatista pedro = crearAPedro();
+    carlos.registrarUnaMascota(pupi);
 
-    
-    registro.registrarRescate(pedro, pupi, "parece ser un gato siames",null, LocalDate.now(), "https://unafoto.com");
-    
     felix = crearAFelix();
-    carlos.registrarUnaMascota(registro, felix);
-    registro.registrarRescate(pedro, felix, "perro negro con mancha blanca en la panza", null, LocalDate.now().plusDays(-15), "https://otrafoto.com");
-    
+    carlos.registrarUnaMascota(felix);
+    Rescate rescateFelix = new Rescate(pedro, felix, "perro negro con mancha blanca en la panza",LocalDate.now().plusDays(-15));
+
+    pedro.registrarRescate(rescatePupi);
+    pedro.registrarRescate(rescateFelix);
   }
 
   @Test
   void hayAlMenosUnaMascotaRegistrada() {
-    assertTrue(registro.cantDeMascotasRegistradas() > 0);
+    assertTrue(repoMascotas.cantDeMascotasRegistradas() > 0);
   }
 
   @Test
   void ayerSePerdioPupi() {
-    assertTrue(registro.mascotasEncontradasEnLosUltimos10Dias().contains(pupi));
+    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(pupi));
   }
 
   @Test
   void felixSePerdioHaceMucho() {
-    assertFalse(registro.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
+    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
 
   LocalDate stringAFecha(String fecha) {
