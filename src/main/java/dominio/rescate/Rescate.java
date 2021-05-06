@@ -2,9 +2,7 @@ package dominio.rescate;
 
 import java.time.LocalDate;
 
-import dominio.rescate.Rescatista;
 import dominio.mascota.Mascota;
-import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
 
 import java.time.temporal.ChronoUnit;
