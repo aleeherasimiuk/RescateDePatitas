@@ -11,7 +11,7 @@ public class ValidadorContrasenia {
   private static final String FILENAME = "10k-most-common.txt";
   private static final String PATH = FileSystems.getDefault().getPath(FILENAME).toString();
 
-  private static final String ERROR_IO = "No se pudo verificar la seguridad de su contraseña.";
+  private static final String ERROR_IO = "¡Lo sentimos! Por un error interno no se pudo verificar la seguridad de su contraseña.";
 
   private static final String REGEX_UPPER_LOWER_NUMBER = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*";
 

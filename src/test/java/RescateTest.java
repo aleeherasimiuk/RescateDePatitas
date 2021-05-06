@@ -6,14 +6,13 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.Rescatista;
+import dominio.rescate.Rescatista;
 import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.personas.Contacto;
 import dominio.personas.TipoDeDocumento;
-import dominio.sistema.Registro;
-import dominio.sistema.Rescate;
+import dominio.rescate.Rescate;
 import dominio.usuarios.Duenio;
 
 public class RescateTest {

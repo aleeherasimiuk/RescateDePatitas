@@ -1,4 +1,4 @@
-package dominio.caracteristicas;
+package dominio.mascota;
 
 import dominio.util.Lista;
 
