@@ -9,23 +9,23 @@ import org.junit.jupiter.api.Test;
 class CaracteristicaTest {
 
 	Administrador administrador;
-	Caracteristicas caracteristicas;
+	RepositorioCaracteristicas repositorioCaracteristicas;
 
 	@BeforeEach
 	void setup() {
 
-		caracteristicas = new Caracteristicas();
+		repositorioCaracteristicas = new RepositorioCaracteristicas();
 
 		administrador = new Administrador("UnUsuario", "UnaContraseña");
-		administrador.agregarUnaCaracteristica(caracteristicas, "COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
+		administrador.agregarUnaCaracteristica(repositorioCaracteristicas, "COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
 
-		administrador.agregarUnaCaracteristica(caracteristicas, "CASTRADO", "SI", "NO");
+		administrador.agregarUnaCaracteristica(repositorioCaracteristicas, "CASTRADO", "SI", "NO");
 
 	}
 
 	@Test
 	void losColoresPrimariosEsUnaCaracteristica() {
-		Caracteristica coloresPrimarios = caracteristicas.obtenerCaracteristica("colores-primarios");
+		Caracteristica coloresPrimarios = repositorioCaracteristicas.obtenerCaracteristica("colores-primarios");
 		assertTrue(coloresPrimarios.tieneEstaOpcion("rojo"));
 		assertTrue(coloresPrimarios.tieneEstaOpcion("azul"));
 		assertTrue(coloresPrimarios.tieneEstaOpcion("amarillo"));
@@ -33,7 +33,7 @@ class CaracteristicaTest {
 
 	@Test
 	void laCastracionEsUnaCaracteristica() {
-		Caracteristica castracion = caracteristicas.obtenerCaracteristica("castrado");
+		Caracteristica castracion = repositorioCaracteristicas.obtenerCaracteristica("castrado");
 
 		assertTrue(castracion.tieneEstaOpcion("SI"));
 		assertTrue(castracion.tieneEstaOpcion("NO"));
@@ -43,7 +43,7 @@ class CaracteristicaTest {
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
 
 		Exception exception = assertThrows(RuntimeException.class,
-				() -> administrador.agregarUnaCaracteristica(caracteristicas, "castrado", "SI", "NO", "NO SE"));
+				() -> administrador.agregarUnaCaracteristica(repositorioCaracteristicas, "castrado", "SI", "NO", "NO SE"));
 		assertEquals(
 				"Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo",
 				exception.getMessage());

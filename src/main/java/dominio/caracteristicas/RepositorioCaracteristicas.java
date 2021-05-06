@@ -2,12 +2,14 @@ package dominio.caracteristicas;
 
 import java.util.List;
 
+import dominio.sistema.RepositorioMascotas;
 import dominio.util.Lista;
 
-public class Caracteristicas {
+public class RepositorioCaracteristicas {
 	private Lista<Caracteristica> caracteristicas;
+	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 
-	public Caracteristicas() {
+	private RepositorioCaracteristicas() {
 		this.caracteristicas = new Lista<>();
 	}
 
@@ -38,4 +40,7 @@ public class Caracteristicas {
 		return caracteristicas.find(caracteristica -> caracteristica.getTitulo().equals(nombreCaracteristica)).opciones();
 	}
 
+	public static RepositorioCaracteristicas getINSTANCE() {
+		return INSTANCE;
+	}
 }
