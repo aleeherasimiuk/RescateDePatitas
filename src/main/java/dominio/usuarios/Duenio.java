@@ -14,9 +14,9 @@ public class Duenio extends Persona {
   private Lista<Mascota> mascotasRegistradas;
 
   public Duenio(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
-      String nombreUsuario, String contrasenia, LocalDate fechaNacimiento) {
+      String username, String password, LocalDate fechaNacimiento) {
     super(apellido, nombre, tipoDocumento, numeroDocumento, contacto, fechaNacimiento);
-    this.usuario = new Usuario(nombreUsuario, contrasenia);
+    this.usuario = new Usuario(username, password);
     this.mascotasRegistradas = new Lista<>();
   }
 
@@ -27,7 +27,7 @@ public class Duenio extends Persona {
   }
 
   public String getNombreDeUsuario() {
-    return usuario.getNombreUsuario();
+    return usuario.getUsername();
   }
 
   public boolean esMiMascota(Mascota mascota){
