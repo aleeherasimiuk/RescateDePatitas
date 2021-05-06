@@ -11,14 +11,14 @@ public class Administrador {
     this.usuario = new Usuario(username, password);
   }
 
-  public void agregarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo, String... opciones) {
+  public void agregarUnaCaracteristica(String titulo, String... opciones) {
     Caracteristica caracteristica = new Caracteristica(titulo);
 
     for (String opcion : opciones) {
       caracteristica.agregarOpcion(opcion);
     }
 
-    repositorioCaracteristicas.agregarCaracteristica(caracteristica);
+    RepositorioCaracteristicas.getINSTANCE().agregarCaracteristica(caracteristica);
   }
 
   public void eliminarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo) {

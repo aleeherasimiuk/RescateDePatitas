@@ -2,7 +2,6 @@ package dominio.caracteristicas;
 
 import java.util.List;
 
-import dominio.sistema.RepositorioMascotas;
 import dominio.util.Lista;
 
 public class RepositorioCaracteristicas {

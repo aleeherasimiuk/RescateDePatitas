@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import dominio.personas.Contacto;
 import dominio.personas.Persona;
 import dominio.personas.TipoDeDocumento;
+import dominio.sistema.RepositorioRescates;
+import dominio.sistema.Rescate;
 
 public class Rescatista extends Persona {
 
@@ -20,4 +22,7 @@ public class Rescatista extends Persona {
     return direccion;
   }
 
+  public void registrarRescate(Rescate rescate){
+    RepositorioRescates.getINSTANCE().registrarRescate(rescate);
+  }
 }

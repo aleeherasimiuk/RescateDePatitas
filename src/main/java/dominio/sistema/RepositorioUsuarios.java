@@ -4,11 +4,11 @@ import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
 import dominio.util.Lista;
 
-public class RepositorioDuenios {
+public class RepositorioUsuarios {
   private Lista<Duenio> repositorio;
-  private static final RepositorioDuenios INSTANCE = new RepositorioDuenios();
+  private static final RepositorioUsuarios INSTANCE = new RepositorioUsuarios();
 
-  private RepositorioDuenios() {
+  private RepositorioUsuarios() {
     this.repositorio = new Lista<>();
   }
 
@@ -24,7 +24,7 @@ public class RepositorioDuenios {
     repositorio.remove(duenio);
   }
 
-  public static RepositorioDuenios getINSTANCE() {
+  public static RepositorioUsuarios getINSTANCE() {
     return INSTANCE;
   }
 }

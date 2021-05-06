@@ -1,12 +1,8 @@
 package dominio.sistema;
 
-import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
-import dominio.mascota.Sexo;
 import dominio.util.Lista;
 
-import javax.crypto.MacSpi;
-import java.util.List;
 
 
 public class RepositorioMascotas {
