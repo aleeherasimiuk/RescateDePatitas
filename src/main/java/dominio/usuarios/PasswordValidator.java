@@ -20,17 +20,17 @@ public class PasswordValidator {
   private static final String ERROR_COMMON = "Contraseña vulnerable, elegir otra, por favor.";
 
 
-  public static void validarPassword(String password) {
-    esComun(password);
-    validar(password, x -> x.length() >= 8, ERROR_LENGTH);
-    validar(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
+  public static void validatePassword(String password) {
+    isCommon(password);
+    validate(password, x -> x.length() >= 8, ERROR_LENGTH);
+    validate(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
   }
 
-  private static void validar(String password, Predicate<String> validator, String mensajeDeError) {
+  private static void validate(String password, Predicate<String> validator, String mensajeDeError) {
     if (!validator.test(password)) throw new RuntimeException(mensajeDeError);
   }
 
-  private static void esComun(String password) {
+  private static void isCommon(String password) {
     try (Stream<String> stream = Files.lines(Paths.get(PATH))) {
       if (stream.anyMatch(elemento -> elemento.contentEquals(password))) {
         throw new RuntimeException(ERROR_COMMON);
