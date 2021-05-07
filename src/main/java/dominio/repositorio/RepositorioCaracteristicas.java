@@ -9,6 +9,8 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 	private static final String CARACTERISTICA_NOT_FOUND = "Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo";
 
+	private RepositorioCaracteristicas(){}
+	
 	@Override
 	public void registrar(Caracteristica caracteristica) {
 		validarCaracteristica(caracteristica);
