@@ -39,5 +39,9 @@ public abstract class Repositorio<T> {
   public int contar(Predicate<T> condicion){
     return repositorio.count(condicion);
   }
+
+  public boolean existe(Predicate<T> condicion){
+    return repositorio.contains(condicion);
+  }
   
 }

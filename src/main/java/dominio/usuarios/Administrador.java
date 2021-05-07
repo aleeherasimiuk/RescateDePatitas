@@ -18,7 +18,7 @@ public class Administrador {
       caracteristica.agregarOpcion(opcion);
     }
 
-    RepositorioCaracteristicas.getINSTANCE().agregarCaracteristica(caracteristica);
+    RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica);
   }
 
   public void eliminarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo) {

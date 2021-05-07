@@ -26,4 +26,8 @@ public class Caracteristica {
 	public Lista<String> opciones() {
 		return opciones;
 	}
+
+	public boolean esEstaCaracteristica(String titulo){
+		return this.titulo.equals(titulo.toUpperCase());
+	}
 }
