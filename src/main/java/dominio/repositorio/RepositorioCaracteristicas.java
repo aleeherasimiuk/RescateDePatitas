@@ -41,4 +41,6 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 	public static RepositorioCaracteristicas getINSTANCE() {
 		return INSTANCE;
 	}
+
+
 }
