@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescates;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +47,7 @@ public class RescateTest {
 
   @Test
   void hayAlMenosUnaMascotaRegistrada() {
-    assertTrue(repoMascotas.cantDeMascotasRegistradas() > 0);
+    assertTrue(repoMascotas.cantidadRegistros() > 0);
   }
 
   @Test
