@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescates;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +45,12 @@ public class RescateTest {
 
     pedro.registrarRescate(rescatePupi);
     pedro.registrarRescate(rescateFelix);
+  }
+
+  @AfterEach
+  void resetear(){
+    repoRescates.vaciar();
+    repoMascotas.vaciar();
   }
 
   @Test

@@ -43,5 +43,9 @@ public abstract class Repositorio<T> {
   public boolean existe(Predicate<T> condicion){
     return repositorio.contains(condicion);
   }
+
+  public void vaciar(){
+    repositorio.clear();
+  }
   
 }
