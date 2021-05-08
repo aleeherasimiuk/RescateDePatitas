@@ -62,11 +62,6 @@ class Administrador{
 }
 
 class Dueño{
-  apellido
-  nombre
-  fechaDeNacimiento
-  documento
-  contacto
   mascotasRegistradas[]
   registrarUnaMascota()
   esMiMascota()
@@ -112,19 +107,22 @@ class PasswordValidator{
 }
 
 class Rescatista{
+  direccion
+  registrarRescate()
+}
+
+class DatosPersona{
   apellido
   nombre
   fechaDeNacimiento
   documento
   contacto
-  direccion
-  registrarRescate()
 }
 
-Rescatista -u-> Documento
-Rescatista -l-> Contacto
-Dueño -u-> Documento
-Dueño -r-> Contacto
+Dueño -u-> DatosPersona
+Rescatista -u-> DatosPersona
+DatosPersona -r-> Documento
+DatosPersona -l-> Contacto
 Rescate -l-> Rescatista
 Usuario -> PasswordValidator
 Dueño -u-|> Usuario
@@ -133,7 +131,7 @@ RepositorioMascotas -l-> "*" Mascota
 RepositorioRescates -u-> "*" Rescate
 RepositorioUsuarios -l-> "*" Administrador
 RepositorioUsuarios -r-> "*" Dueño
-Documento -l-> TipoDeDocumento
+Documento -r-> TipoDeDocumento
 Mascota -l-> Clase
 Dueño -d->"*" Mascota
 Administrador -u-|> Usuario
