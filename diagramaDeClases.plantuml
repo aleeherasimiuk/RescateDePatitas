@@ -1,15 +1,5 @@
 @startuml RescateDePatitas
 
-class Persona{
-  apellido
-  nombre
-  fechaDeNacimiento
-  tipoDeDocumento
-  númeroDeDocumento
-  contacto
-
-}
-
 class Contacto{
   apellido
   nombre
@@ -33,6 +23,10 @@ enum Clase{
   PERRO
 }
 
+class Documento{
+  tipo
+  numero
+}
 
 enum TipoDeDocumento{
   DNI
@@ -62,14 +56,17 @@ class Usuario{
 }
 
 class Administrador{
-  usuario
   agregarUnaCaracterística()
   eliminarUnaCaracterística()
 
 }
 
 class Dueño{
-  usuario
+  apellido
+  nombre
+  fechaDeNacimiento
+  documento
+  contacto
   mascotasRegistradas[]
   registrarUnaMascota()
   esMiMascota()
@@ -114,7 +111,21 @@ class PasswordValidator{
   validatePassword()
 }
 
-Rescate -u-> Persona
+class Rescatista{
+  apellido
+  nombre
+  fechaDeNacimiento
+  documento
+  contacto
+  direccion
+  registrarRescate()
+}
+
+Rescatista -u-> Documento
+Rescatista -l-> Contacto
+Dueño -u-> Documento
+Dueño -r-> Contacto
+Rescate -l-> Rescatista
 Usuario -> PasswordValidator
 Dueño -u-|> Usuario
 Rescate -d-> Mascota
@@ -122,9 +133,7 @@ RepositorioMascotas -l-> "*" Mascota
 RepositorioRescates -u-> "*" Rescate
 RepositorioUsuarios -l-> "*" Administrador
 RepositorioUsuarios -r-> "*" Dueño
-Persona -> TipoDeDocumento
-Dueño -u-> Persona
-Persona -l-> Contacto
+Documento -l-> TipoDeDocumento
 Mascota -l-> Clase
 Dueño -d->"*" Mascota
 Administrador -u-|> Usuario
