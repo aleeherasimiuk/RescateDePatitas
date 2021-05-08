@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescates;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -81,9 +80,7 @@ public class RescateTest {
     return new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
   }
 
-
   private Mascota crearAFelix() {
     return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
   }
-  
 }
