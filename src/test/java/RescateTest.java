@@ -14,6 +14,7 @@ import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
+import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
 import dominio.rescate.Coordenadas;
 import dominio.rescate.Rescate;
@@ -67,14 +68,18 @@ public class RescateTest {
   }
 
   private Duenio crearACarlos() {
-    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento,
         new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), stringAFecha("01/01/2002"));
+
     return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
   }
 
   private Rescatista crearAPedro() {
-    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", TipoDeDocumento.DNI, 21789654,
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento,
         new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com"), stringAFecha("02/02/1996"));
+
     return new Rescatista(datosPersona, "Calle Falsa 123");
   }
 
