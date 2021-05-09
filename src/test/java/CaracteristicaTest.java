@@ -1,11 +1,21 @@
 import dominio.mascota.Caracteristica;
+import dominio.mascota.Clase;
+import dominio.mascota.Mascota;
+import dominio.mascota.Sexo;
+import dominio.personas.Contacto;
+import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.rescate.Rescatista;
 import dominio.usuarios.Administrador;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
@@ -47,4 +57,21 @@ class CaracteristicaTest {
 				exception.getMessage());
 	}
 
+	private Duenio crearACarlos(){
+		return new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
+				new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "Pupitoteamo1",
+				stringAFecha("01/01/2002"));
+	}
+
+	private Mascota crearAPupi() {
+		return new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+	}
+
+	private Mascota crearAFelix() {
+		return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+	}
+
+	private LocalDate stringAFecha(String fecha) {
+		return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+	}
 }

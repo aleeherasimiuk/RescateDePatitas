@@ -41,6 +41,8 @@ public class Mascota {
   }
 
   private void validarCaracteristica(String caracteristica, String valor) {
+    valor.toUpperCase();
+    caracteristica.toUpperCase();
     RepositorioCaracteristicas r = RepositorioCaracteristicas.getINSTANCE();
     if(r.existeCaracteristica(caracteristica)){
       Caracteristica c = r.obtenerCaracteristica(caracteristica);
