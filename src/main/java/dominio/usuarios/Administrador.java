@@ -3,12 +3,10 @@ package dominio.usuarios;
 import dominio.mascota.Caracteristica;
 import dominio.repositorio.RepositorioCaracteristicas;
 
-public class Administrador {
-
-  private Usuario usuario;
+public class Administrador extends Usuario{
 
   public Administrador(String username, String password) {
-    this.usuario = new Usuario(username, password);
+    super(username, password);
   }
 
   public void agregarUnaCaracteristica(String titulo, String... opciones) {
@@ -21,12 +19,7 @@ public class Administrador {
     RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica);
   }
 
-  public void eliminarUnaCaracteristica(RepositorioCaracteristicas repositorioCaracteristicas, String titulo) {
-
-    repositorioCaracteristicas.borrarCaracteristica(titulo);
-  }
-
-  public String getUsername() {
-    return usuario.getUsername();
+  public void eliminarUnaCaracteristica(String titulo) {
+    RepositorioCaracteristicas.getINSTANCE().borrarCaracteristica(titulo);
   }
 }

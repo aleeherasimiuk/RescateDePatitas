@@ -1,25 +1,10 @@
 @startuml RescateDePatitas
 
-
-abstract class Persona{
-  apellido
-  nombre
-  fechaDeNacimiento
-  tipoDeDocumento
-  númeroDeDocumento
-  contacto
-
-}
-
 class Contacto{
   apellido
   nombre
   teléfono
   email
-}
-
-class Rescatista{
-  direccion
 }
 
 class Mascota{
@@ -38,6 +23,10 @@ enum Clase{
   PERRO
 }
 
+class Documento{
+  tipo
+  numero
+}
 
 enum TipoDeDocumento{
   DNI
@@ -67,19 +56,16 @@ class Usuario{
 }
 
 class Administrador{
-  usuario
   agregarUnaCaracterística()
   eliminarUnaCaracterística()
 
 }
 
 class Dueño{
-  usuario
   mascotasRegistradas[]
   registrarUnaMascota()
   esMiMascota()
 }
-
 
 class RepositorioUsuarios{
   dueñosRegistrados[]
@@ -101,7 +87,6 @@ class RepositorioRescates{
   registrarRescate()
 }
 
-
 class Característica{
   título
   opciones[]
@@ -121,29 +106,38 @@ class PasswordValidator{
   validatePassword()
 }
 
+class Rescatista{
+  direccion
+  registrarRescate()
+}
 
-Rescatista -u-|> Persona
+class DatosPersona{
+  apellido
+  nombre
+  fechaDeNacimiento
+  documento
+  contacto
+}
+
+Dueño -u-> DatosPersona
+Rescatista -u-> DatosPersona
+DatosPersona -r-> Documento
+DatosPersona -l-> Contacto
 Rescate -l-> Rescatista
 Usuario -> PasswordValidator
-Dueño -u-> Usuario
+Dueño -u-|> Usuario
 Rescate -d-> Mascota
 RepositorioMascotas -l-> "*" Mascota
 RepositorioRescates -u-> "*" Rescate
 RepositorioUsuarios -l-> "*" Administrador
 RepositorioUsuarios -r-> "*" Dueño
-Persona -> TipoDeDocumento
-Dueño -u-|> Persona
-Persona -l-> Contacto
+Documento -r-> TipoDeDocumento
 Mascota -l-> Clase
 Dueño -d->"*" Mascota
-Administrador -u-> Usuario
+Administrador -u-|> Usuario
 Rescate -> Coordenadas
 RepositorioCaracteristicas ->"*" Característica
 Dueño ..>"usa" RepositorioCaracteristicas
 Administrador ..>"modifica" RepositorioCaracteristicas
 
-
-
-
 @enduml
-
