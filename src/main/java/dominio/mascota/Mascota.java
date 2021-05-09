@@ -3,7 +3,9 @@ package dominio.mascota;
 import java.util.HashMap;
 import java.util.Map;
 
+import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.util.Lista;
+import dominio.mascota.CaracteristicaInvalida;
 
 public class Mascota {
   private Clase clase;
@@ -34,8 +36,22 @@ public class Mascota {
   }
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
+    validarCaracteristica(caracteristica,valor);
     this.caracteristicas.put(caracteristica, valor);
   }
+
+  private void validarCaracteristica(String caracteristica, String valor) {
+    RepositorioCaracteristicas r = RepositorioCaracteristicas.getINSTANCE();
+    if(r.existeCaracteristica(caracteristica)){
+      Caracteristica c = r.obtenerCaracteristica(caracteristica);
+      if(!c.tieneEstaOpcion(valor)){
+        throw new CaracteristicaInvalida();
+      }
+    }else{
+      throw new CaracteristicaInvalida();
+    }
+  }
+
 
   public String obtenerCaracteristica(String caracteristica) {
     if (!caracteristicas.containsKey(caracteristica)) {
