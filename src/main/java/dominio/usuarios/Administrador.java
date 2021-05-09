@@ -12,10 +12,10 @@ public class Administrador {
   }
 
   public void agregarUnaCaracteristica(String titulo, String... opciones) {
-    Caracteristica caracteristica = new Caracteristica(titulo);
+    Caracteristica caracteristica = new Caracteristica(titulo.toUpperCase());
 
     for (String opcion : opciones) {
-      caracteristica.agregarOpcion(opcion);
+      caracteristica.agregarOpcion(opcion.toUpperCase());
     }
 
     RepositorioCaracteristicas.getINSTANCE().agregarCaracteristica(caracteristica);

@@ -1,7 +1,4 @@
-import dominio.mascota.Caracteristica;
-import dominio.mascota.Clase;
-import dominio.mascota.Mascota;
-import dominio.mascota.Sexo;
+import dominio.mascota.*;
 import dominio.personas.Contacto;
 import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
@@ -25,7 +22,7 @@ class CaracteristicaTest {
 		Administrador administrador;
 
 		administrador = new Administrador("UnUsuario", "UnaContraseña1");
-		administrador.agregarUnaCaracteristica("COLORES-PRIMARIOS", "ROJO", "AZUL", "AMARILLO");
+		administrador.agregarUnaCaracteristica("COLORES-PRIMARIOS", "rojo", "AZUL", "AMARILLO");
 
 		administrador.agregarUnaCaracteristica("CASTRADO", "SI", "NO");
 
@@ -55,6 +52,17 @@ class CaracteristicaTest {
 		assertEquals(
 				"Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo",
 				exception.getMessage());
+	}
+
+	@Test
+	void seAgreganTresCaracteristicasSiendoDosInvalidas(){
+		Duenio carlos = crearACarlos();
+		Mascota felix = crearAFelix();
+		carlos.registrarUnaMascota(felix);
+		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
+		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
+		assertThrows(CaracteristicaInvalida.class, () -> {felix.agregarUnaCaracteristica("castrada","si");});
+		assertThrows(OpcionInvalida.class, () -> {felix.agregarUnaCaracteristica("colores-primarioS","gris");});
 	}
 
 	private Duenio crearACarlos(){
