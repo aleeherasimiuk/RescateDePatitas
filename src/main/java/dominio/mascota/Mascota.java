@@ -5,7 +5,7 @@ import java.util.Map;
 
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.util.Lista;
-import dominio.mascota.CaracteristicaInvalida;
+
 
 public class Mascota {
   private Clase clase;
@@ -23,7 +23,7 @@ public class Mascota {
     this.apodo = apodo;
     this.edad = edad;
     this.sexo = sexo;
-    caracteristicas = new HashMap<String, String>();
+    this.caracteristicas = new HashMap<String, String>();
     this.fotos = new Lista<String>();
   }
 
@@ -45,19 +45,17 @@ public class Mascota {
     if(r.existeCaracteristica(caracteristica)){
       Caracteristica c = r.obtenerCaracteristica(caracteristica);
       if(!c.tieneEstaOpcion(valor)){
-        throw new CaracteristicaInvalida();
+        throw new OpcionInvalida(c.getTitulo());
       }
     }else{
       throw new CaracteristicaInvalida();
     }
   }
 
-
   public String obtenerCaracteristica(String caracteristica) {
     if (!caracteristicas.containsKey(caracteristica)) {
       return null;
     }
-
     return this.caracteristicas.get(caracteristica);
   }
 
