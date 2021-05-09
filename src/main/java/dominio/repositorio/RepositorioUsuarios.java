@@ -34,6 +34,4 @@ public class RepositorioUsuarios {
   public void eliminarAdministrador(Administrador administrador){
     repoAdministrador.remove(administrador);
   }
-
-
 }
