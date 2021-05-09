@@ -2,7 +2,7 @@ package dominio.usuarios;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class Usuario {
+public abstract class Usuario {
 
   private String username;
 
