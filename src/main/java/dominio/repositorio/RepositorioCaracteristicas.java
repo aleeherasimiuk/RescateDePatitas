@@ -7,7 +7,7 @@ import dominio.mascota.Caracteristica;
 public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 	
 	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
-	private static final String CARACTERISTICA_NOT_FOUND = "Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo";
+	private static final String CARACTERISTICA_REPETIDA = "Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo";
 
 	private RepositorioCaracteristicas(){}
 	
@@ -27,7 +27,7 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 
 	private void validarCaracteristica(Caracteristica caracteristica) {
 		if (existeCaracteristica(caracteristica.getTitulo()))
-			throw new RuntimeException(CARACTERISTICA_NOT_FOUND);
+			throw new RuntimeException(CARACTERISTICA_REPETIDA);
 	}
 
 	public Caracteristica obtenerCaracteristica(String titulo) {
