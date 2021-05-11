@@ -36,19 +36,17 @@ public class Mascota {
   }
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
-    validarCaracteristica(caracteristica,valor);
+    this.validarCaracteristica(caracteristica,valor);
     this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
   }
 
   private void validarCaracteristica(String caracteristica, String valor) {
-    RepositorioCaracteristicas r = RepositorioCaracteristicas.getINSTANCE();
-    if(r.existeCaracteristica(caracteristica.toUpperCase())){
-      Caracteristica c = r.obtenerCaracteristica(caracteristica);
-      if(!c.tieneEstaOpcion(valor)){
-        throw new OpcionInvalida(c.getTitulo());
-      }
-    }else{
+    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getINSTANCE();
+    Caracteristica caracteristica_obtenida = repositorioCaracteristicas.obtenerCaracteristica(caracteristica.toUpperCase());
+    if(caracteristica_obtenida==null) {
       throw new CaracteristicaInvalida();
+    }else if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
+      throw new OpcionInvalida(caracteristica);
     }
   }
 
