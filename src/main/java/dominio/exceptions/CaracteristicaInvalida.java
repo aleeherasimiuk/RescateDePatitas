@@ -1,4 +1,4 @@
-package dominio.mascota;
+package dominio.exceptions;
 
 public class CaracteristicaInvalida extends RuntimeException{
   public CaracteristicaInvalida() {

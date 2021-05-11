@@ -1,8 +1,9 @@
+import dominio.exceptions.CaracteristicaInvalida;
+import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
 import dominio.personas.Contacto;
 import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.rescate.Rescatista;
 import dominio.usuarios.Administrador;
 
 import static org.junit.jupiter.api.Assertions.*;

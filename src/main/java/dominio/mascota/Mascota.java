@@ -1,9 +1,10 @@
 package dominio.mascota;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
+import dominio.exceptions.CaracteristicaInvalida;
+import dominio.exceptions.OpcionInvalida;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.util.Lista;
 

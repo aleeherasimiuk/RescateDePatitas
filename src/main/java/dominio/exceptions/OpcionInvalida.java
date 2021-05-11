@@ -1,4 +1,4 @@
-package dominio.mascota;
+package dominio.exceptions;
 
 public class OpcionInvalida extends RuntimeException {
   public OpcionInvalida(String caracteristica){
