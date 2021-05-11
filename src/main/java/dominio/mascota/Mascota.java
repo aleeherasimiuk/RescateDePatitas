@@ -46,7 +46,8 @@ public class Mascota {
     Caracteristica caracteristica_obtenida = repositorioCaracteristicas.obtenerCaracteristica(caracteristica.toUpperCase());
     if(caracteristica_obtenida==null) {
       throw new CaracteristicaInvalida();
-    }else if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
+    }
+    if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
       throw new OpcionInvalida(caracteristica.toUpperCase());
     }
   }
