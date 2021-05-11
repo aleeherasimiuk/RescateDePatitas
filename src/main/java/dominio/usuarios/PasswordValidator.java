@@ -1,5 +1,10 @@
 package dominio.usuarios;
 
+import dominio.exceptions.ErrorCommon;
+import dominio.exceptions.ErrorIO;
+import dominio.exceptions.ErrorLength;
+import dominio.exceptions.ErrorUpperLowerNumber;
+
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -22,21 +27,21 @@ public class PasswordValidator {
 
   public static void validate(String password) {
     isCommon(password);
-    validateCondition(password, x -> x.length() >= 8, ERROR_LENGTH);
-    validateCondition(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), ERROR_UPPER_LOWER_NUMBER);
+    validateCondition(password, x -> x.length() >= 8, new ErrorLength());
+    validateCondition(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), new ErrorUpperLowerNumber());
   }
 
-  private static void validateCondition(String password, Predicate<String> validator, String mensajeDeError) {
-    if (!validator.test(password)) throw new RuntimeException(mensajeDeError);
+  private static void validateCondition(String password, Predicate<String> validator, RuntimeException error) {
+    if (!validator.test(password)) throw error;
   }
 
   private static void isCommon(String password) {
     try (Stream<String> stream = Files.lines(Paths.get(PATH))) {
       if (stream.anyMatch(elemento -> elemento.contentEquals(password))) {
-        throw new RuntimeException(ERROR_COMMON);
+        throw new ErrorCommon();
       }
     } catch (IOException e) {
-      throw new RuntimeException(ERROR_IO);
+      throw new ErrorIO();
     }
   }
 }
