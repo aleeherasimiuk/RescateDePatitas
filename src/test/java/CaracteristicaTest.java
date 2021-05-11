@@ -62,7 +62,8 @@ class CaracteristicaTest {
 		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
 		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
 		assertThrows(CaracteristicaInvalida.class, () -> {felix.agregarUnaCaracteristica("castrada","si");});
-		assertThrows(OpcionInvalida.class, () -> {felix.agregarUnaCaracteristica("colores-primarioS","gris");});
+		OpcionInvalida opcionInvalidaException = assertThrows(OpcionInvalida.class, () -> {felix.agregarUnaCaracteristica("colores-primarioS","gris");});
+		assertEquals(opcionInvalidaException.getMessage(), "La opcion ingresada no forma parte de las opciones de la caracteristica COLORES-PRIMARIOS");
 	}
 
 	private Duenio crearACarlos(){

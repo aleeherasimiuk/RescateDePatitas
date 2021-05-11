@@ -1,6 +1,7 @@
 package dominio.mascota;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import dominio.repositorio.RepositorioCaracteristicas;
@@ -46,7 +47,7 @@ public class Mascota {
     if(caracteristica_obtenida==null) {
       throw new CaracteristicaInvalida();
     }else if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
-      throw new OpcionInvalida(caracteristica);
+      throw new OpcionInvalida(caracteristica.toUpperCase());
     }
   }
 
