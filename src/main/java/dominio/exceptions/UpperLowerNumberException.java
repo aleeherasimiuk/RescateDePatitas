@@ -1,7 +1,7 @@
 package dominio.exceptions;
 
-public class ExceptionUpperLowerNumber extends RuntimeException{
-  public ExceptionUpperLowerNumber(){
+public class UpperLowerNumberException extends RuntimeException{
+  public UpperLowerNumberException(){
     super("La contraseña debe contener como minimo: una minuscula, una mayuscula y un numero");
   }
 }

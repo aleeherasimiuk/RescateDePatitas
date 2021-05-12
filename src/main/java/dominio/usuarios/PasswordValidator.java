@@ -1,11 +1,10 @@
 package dominio.usuarios;
 
-import dominio.exceptions.ExceptionCommon;
-import dominio.exceptions.ExceptionIO;
-import dominio.exceptions.ExceptionLength;
-import dominio.exceptions.ExceptionUpperLowerNumber;
+import dominio.exceptions.CommonPasswordException;
+import dominio.exceptions.IOException;
+import dominio.exceptions.PasswordLengthException;
+import dominio.exceptions.UpperLowerNumberException;
 
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,8 +26,8 @@ public class PasswordValidator {
 
   public static void validate(String password) {
     isCommon(password);
-    validateCondition(password, x -> x.length() >= 8, new ExceptionLength());
-    validateCondition(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), new ExceptionUpperLowerNumber());
+    validateCondition(password, x -> x.length() >= 8, new PasswordLengthException());
+    validateCondition(password, x -> x.matches(REGEX_UPPER_LOWER_NUMBER), new UpperLowerNumberException());
   }
 
   private static void validateCondition(String password, Predicate<String> validator, RuntimeException error) {
@@ -38,10 +37,10 @@ public class PasswordValidator {
   private static void isCommon(String password) {
     try (Stream<String> stream = Files.lines(Paths.get(PATH))) {
       if (stream.anyMatch(elemento -> elemento.contentEquals(password))) {
-        throw new ExceptionCommon();
+        throw new CommonPasswordException();
       }
-    } catch (IOException e) {
-      throw new ExceptionIO();
+    } catch (java.io.IOException e) {
+      throw new IOException();
     }
   }
 }

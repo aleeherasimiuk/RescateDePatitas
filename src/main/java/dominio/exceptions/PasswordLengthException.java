@@ -1,7 +1,7 @@
 package dominio.exceptions;
 
-public class ExceptionLength extends RuntimeException{
-  public ExceptionLength(){
+public class PasswordLengthException extends RuntimeException{
+  public PasswordLengthException(){
     super("La contraseña debe contener como minimo 8 caracteres.");
   }
 }
