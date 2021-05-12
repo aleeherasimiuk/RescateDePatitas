@@ -67,24 +67,32 @@ class Dueño{
   esMiMascota()
 }
 
-class RepositorioUsuarios{
-  dueñosRegistrados[]
-  administradoresRegistrados[]
-  registrarAdminsitrador()
-  registrarDueño()
+abstract class Repositorio {
+  repositorio
+  registrar()
+  borrar()
+  buscar()
+  filtrar()
+  cantidadDeRegistros()
+  contar()
+  existe()
+  vaciar()
+  
 }
 
+class RepositorioDueños{
+  duenioDe()
+}
+
+
 class RepositorioMascotas{
-  mascotasRegistradas[]
-  registrarMascota()
   obtenerDueñoDe()
 }
 
+
 class RepositorioRescates{
-  mascotasEncontradas[]
   últimasMascotasEncontradas()
   confirmarMascotaEncontrada()
-  registrarRescate()
 }
 
 class Característica{
@@ -95,8 +103,7 @@ class Característica{
 }
 
 class RepositorioCaracteristicas{
-  características[]
-  agregarCaracteristica()
+  existeCaracteristica()
   borrarCaracteristica()
   obtenerCaracteristica()
   opcionesDe()
@@ -119,25 +126,33 @@ class DatosPersona{
   contacto
 }
 
+
+class RepositorioAdministradores{
+
+}
+
 Dueño -u-> DatosPersona
 Rescatista -u-> DatosPersona
 DatosPersona -r-> Documento
 DatosPersona -l-> Contacto
-Rescate -l-> Rescatista
-Usuario -> PasswordValidator
+Rescate -u-> Rescatista
+Usuario -l-> PasswordValidator
 Dueño -u-|> Usuario
 Rescate -d-> Mascota
-RepositorioMascotas -l-> "*" Mascota
-RepositorioRescates -u-> "*" Rescate
-RepositorioUsuarios -l-> "*" Administrador
-RepositorioUsuarios -r-> "*" Dueño
 Documento -r-> TipoDeDocumento
 Mascota -l-> Clase
 Dueño -d->"*" Mascota
 Administrador -u-|> Usuario
 Rescate -> Coordenadas
+RepositorioMascotas -u-> "*" Mascota
+RepositorioRescates -u-> "*" Rescate
+RepositorioDueños -u-> "*" Dueño
+RepositorioAdministradores -u-> "*" Administrador
 RepositorioCaracteristicas ->"*" Característica
-Dueño ..>"usa" RepositorioCaracteristicas
-Administrador ..>"modifica" RepositorioCaracteristicas
+RepositorioMascotas -d-|> Repositorio
+RepositorioRescates -d-|> Repositorio
+RepositorioCaracteristicas -l-|> Repositorio
+RepositorioAdministradores -d--|> Repositorio
+RepositorioDueños -d-|> Repositorio
 
 @enduml
