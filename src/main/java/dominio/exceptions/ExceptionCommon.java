@@ -1,7 +1,7 @@
 package dominio.exceptions;
 
-public class ErrorCommon extends RuntimeException{
-  public ErrorCommon(){
+public class ExceptionCommon extends RuntimeException{
+  public ExceptionCommon(){
     super("Contraseña vulnerable, elegir otra, por favor.");
   }
 }
