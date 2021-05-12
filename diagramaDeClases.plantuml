@@ -1,5 +1,9 @@
 @startuml RescateDePatitas
 
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''Dominio'''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 class Contacto{
   apellido
   nombre
@@ -67,6 +71,33 @@ class Dueño{
   esMiMascota()
 }
 
+class Rescatista{
+  direccion
+  registrarRescate()
+}
+
+class DatosPersona{
+  apellido
+  nombre
+  fechaDeNacimiento
+  documento
+  contacto
+}
+
+class Característica{
+  título
+  opciones[]
+  agregarOpcion()
+  tieneEstaOpcion()
+}
+
+class PasswordValidator{
+  validatePassword()
+}
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''Repositorios'''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 abstract class Repositorio {
   repositorio
   registrar()
@@ -95,13 +126,6 @@ class RepositorioRescates{
   confirmarMascotaEncontrada()
 }
 
-class Característica{
-  título
-  opciones[]
-  agregarOpcion()
-  tieneEstaOpcion()
-}
-
 class RepositorioCaracteristicas{
   existeCaracteristica()
   borrarCaracteristica()
@@ -109,50 +133,47 @@ class RepositorioCaracteristicas{
   opcionesDe()
 }
 
-class PasswordValidator{
-  validatePassword()
-}
-
-class Rescatista{
-  direccion
-  registrarRescate()
-}
-
-class DatosPersona{
-  apellido
-  nombre
-  fechaDeNacimiento
-  documento
-  contacto
-}
-
-
 class RepositorioAdministradores{
 
 }
 
-Dueño -u-> DatosPersona
-Rescatista -u-> DatosPersona
-DatosPersona -r-> Documento
-DatosPersona -l-> Contacto
-Rescate -u-> Rescatista
-Usuario -l-> PasswordValidator
-Dueño -u-|> Usuario
-Rescate -d-> Mascota
-Documento -r-> TipoDeDocumento
-Mascota -l-> Clase
-Dueño -d->"*" Mascota
-Administrador -u-|> Usuario
-Rescate -> Coordenadas
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''Relaciones de Dominio'''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+Dueño         -u->    DatosPersona
+Rescatista    -u->    DatosPersona
+DatosPersona  -r->    Documento
+DatosPersona  -l->    Contacto
+Rescate       -u->    Rescatista
+Usuario       -l->    PasswordValidator
+Dueño         -u-|>   Usuario
+Rescate       -d->    Mascota
+Documento     -r->    TipoDeDocumento
+Mascota       -l->    Clase
+Dueño         -d->"*" Mascota
+Administrador -u-|>   Usuario
+Rescate       ->      Coordenadas
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''Relaciones de Repositorios''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+RepositorioDueños -u-> "*" Dueño
 RepositorioMascotas -u-> "*" Mascota
 RepositorioRescates -u-> "*" Rescate
-RepositorioDueños -u-> "*" Dueño
 RepositorioAdministradores -u-> "*" Administrador
 RepositorioCaracteristicas ->"*" Característica
-RepositorioMascotas -d-|> Repositorio
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''Herencias de Repositorios''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+RepositorioDueños -d-|> Repositorio
 RepositorioRescates -d-|> Repositorio
+RepositorioMascotas -d-|> Repositorio
 RepositorioCaracteristicas -l-|> Repositorio
 RepositorioAdministradores -d--|> Repositorio
-RepositorioDueños -d-|> Repositorio
 
 @enduml
