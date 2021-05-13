@@ -81,7 +81,7 @@ public class RescateTest {
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
 
-  LocalDate stringAFecha(String fecha) {
+  private LocalDate stringAFecha(String fecha) {
     return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }
 
