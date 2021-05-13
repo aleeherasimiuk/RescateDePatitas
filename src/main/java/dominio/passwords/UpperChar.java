@@ -2,7 +2,7 @@ package dominio.passwords;
 
 import dominio.exceptions.password.PasswordWithUpperCharException;
 
-public class UpperChar extends RejexValidation{
+public class UpperChar extends RegexValidation{
 
   @Override
   protected RuntimeException error() {

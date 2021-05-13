@@ -2,7 +2,7 @@ package dominio.passwords;
 
 import dominio.exceptions.password.PasswordWithLowerCharException;
 
-public class LowerChar extends RejexValidation{
+public class LowerChar extends RegexValidation{
 
   @Override
   protected RuntimeException error() {
