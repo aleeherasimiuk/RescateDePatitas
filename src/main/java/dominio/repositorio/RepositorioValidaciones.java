@@ -11,7 +11,7 @@ public class RepositorioValidaciones extends Repositorio<Validacion>{
     super.repositorio.forEach((validacion) -> validacion.validatePassword(password));
   }
 
-  public RepositorioValidaciones getInstance(){
+  public static RepositorioValidaciones getInstance(){
     return INSTANCE;
   }
   
