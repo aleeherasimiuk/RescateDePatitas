@@ -4,53 +4,64 @@ import dominio.usuarios.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dominio.exceptions.password.CommonPasswordException;
+import dominio.passwords.CommonPassword;
+import dominio.passwords.LowerChar;
+import dominio.passwords.NumberChar;
+import dominio.passwords.PasswordLength;
+import dominio.passwords.UpperChar;
+import dominio.repositorio.RepositorioValidaciones;
 import dominio.usuarios.Administrador;
-import dominio.usuarios.PasswordValidator;
 import org.mindrot.jbcrypt.BCrypt;
 
 class ValidadorContraseniaTest {
-	PasswordValidator validadorContrasenia;
+	RepositorioValidaciones repositorioValidaciones = RepositorioValidaciones.getInstance();
 
 	@BeforeEach
 	void setup() {
-		validadorContrasenia = new PasswordValidator();
+		repositorioValidaciones.registrar(new CommonPassword());
+		repositorioValidaciones.registrar(new PasswordLength());
+		repositorioValidaciones.registrar(new LowerChar());
+		repositorioValidaciones.registrar(new UpperChar());
+		repositorioValidaciones.registrar(new NumberChar());
+
 	}
 
 	@Test
 	void noEsUnaClaveSeguraSoloPonerNumeros() {
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("123456"));
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("123456789"));
+		assertThrows(RuntimeException.class, () -> validar("123456"));
+		assertThrows(RuntimeException.class, () -> validar("123456789"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombresDeComics() {
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("batman"));
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("iceman"));
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("superman"));
+		assertThrows(CommonPasswordException.class, () -> validar("batman"));
+		assertThrows(CommonPasswordException.class, () -> validar("iceman"));
+		assertThrows(CommonPasswordException.class, () -> validar("superman"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDeColores() {
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("orange"));
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("black"));
+		assertThrows(CommonPasswordException.class, () -> validar("orange"));
+		assertThrows(CommonPasswordException.class, () -> validar("black"));
 	}
 
 	@Test
 	void noEsUnaClaveSeguraUsarNombreDePersonas() {
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("andrea"));
-		assertThrows(RuntimeException.class, () -> PasswordValidator.validate("thomas"));
+		assertThrows(CommonPasswordException.class, () -> validar("andrea"));
+		assertThrows(CommonPasswordException.class, () -> validar("thomas"));
 	}
 
 	@Test
 	void esUnaClaveSeguraUsarFrases() {
-		assertDoesNotThrow(() -> PasswordValidator.validate("Cuestionesdelavida2"));
-		assertDoesNotThrow(() -> PasswordValidator.validate("Unaensaladafria3"));
-		assertDoesNotThrow(() -> PasswordValidator.validate("Undiadeveranoquiendiria8"));
+		assertDoesNotThrow(() -> validar("Cuestionesdelavida2"));
+		assertDoesNotThrow(() -> validar("Unaensaladafria3"));
+		assertDoesNotThrow(() -> validar("Undiadeveranoquiendiria8"));
 	}
 
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
-		assertDoesNotThrow(() -> PasswordValidator.validate("123Asd123.0?"));
+		assertDoesNotThrow(() -> validar("123Asd123.0?"));
 
 	}
 
@@ -60,4 +71,8 @@ class ValidadorContraseniaTest {
 		assertTrue (BCrypt.checkpw("ensaladA10",usuario.getPassword()));
 	}
 
+
+	void validar(String password){
+		repositorioValidaciones.validatePassword(password);
+	}
 }

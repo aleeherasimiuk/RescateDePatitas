@@ -4,7 +4,7 @@ import dominio.exceptions.password.PasswordWithNumberCharException;
 
 public class NumberChar extends Validacion{
 
-  private static final String REGEX = "(?=.*\\d)";
+  private static final String REGEX = "(?=.*\\d).*";
 
   @Override
   protected boolean condition(String password) {

@@ -4,7 +4,7 @@ import dominio.exceptions.password.PasswordWithLowerCharException;
 
 public class LowerChar extends Validacion{
 
-  private static final String REGEX = "(?=.*[a-z])";
+  private static final String REGEX = "(?=.*[a-z]).*";
 
   @Override
   protected boolean condition(String password) {

@@ -4,7 +4,7 @@ import dominio.exceptions.password.PasswordWithUpperCharException;
 
 public class UpperChar extends Validacion{
 
-  private static final String REGEX = "(?=.*[A-Z])";
+  private static final String REGEX = "(?=.*[A-Z]).*";
 
   @Override
   protected boolean condition(String password) {

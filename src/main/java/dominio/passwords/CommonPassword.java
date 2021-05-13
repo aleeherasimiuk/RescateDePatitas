@@ -22,7 +22,7 @@ public class CommonPassword extends Validacion{
   @Override
   protected boolean condition(String password) {
     try(Stream<String> stream = Files.lines(Paths.get(PATH))) {
-      return isCommon(password, stream);
+      return !isCommon(password, stream);
     } catch (IOException e) {
       throw new FileNotFound();
     }
