@@ -20,12 +20,8 @@ class ValidadorContraseniaTest {
 	@BeforeEach
 	void setup() {
 		repositorioValidaciones.vaciar();
-		repositorioValidaciones.registrar(new CommonPassword());
-		repositorioValidaciones.registrar(new PasswordLength());
-		repositorioValidaciones.registrar(new LowerChar());
-		repositorioValidaciones.registrar(new UpperChar());
-		repositorioValidaciones.registrar(new NumberChar());
-
+		repositorioValidaciones.registrar(new CommonPassword(), new PasswordLength(), new LowerChar(), 
+			new UpperChar(), new NumberChar());
 	}
 
 	@Test
