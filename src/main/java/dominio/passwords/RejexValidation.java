@@ -1,6 +1,6 @@
 package dominio.passwords;
 
-public abstract class RejexValidation extends Validacion{
+public abstract class RejexValidation extends Validation{
 
   protected abstract String regex();
 

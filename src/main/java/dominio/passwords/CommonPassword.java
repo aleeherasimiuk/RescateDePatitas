@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import dominio.exceptions.FileNotFound;
 import dominio.exceptions.password.CommonPasswordException;
 
-public class CommonPassword extends Validacion{
+public class CommonPassword extends Validation{
 
   private static final String FILENAME = "10k-most-common.txt";
   private static final String PATH = FileSystems.getDefault().getPath(FILENAME).toString();

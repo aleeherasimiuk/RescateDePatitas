@@ -1,8 +1,8 @@
 package dominio.repositorio;
 
-import dominio.passwords.Validacion;
+import dominio.passwords.Validation;
 
-public class RepositorioValidaciones extends Repositorio<Validacion>{
+public class RepositorioValidaciones extends Repositorio<Validation>{
 
   private static final RepositorioValidaciones INSTANCE = new RepositorioValidaciones();
   private RepositorioValidaciones(){}

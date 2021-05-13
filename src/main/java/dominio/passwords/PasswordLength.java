@@ -2,7 +2,7 @@ package dominio.passwords;
 
 import dominio.exceptions.password.PasswordLengthException;
 
-public class PasswordLength extends Validacion{
+public class PasswordLength extends Validation{
 
   @Override
   protected boolean condition(String password) {

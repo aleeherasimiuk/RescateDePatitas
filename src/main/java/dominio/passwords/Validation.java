@@ -1,6 +1,6 @@
 package dominio.passwords;
 
-public abstract class Validacion {
+public abstract class Validation {
 
   public final void validatePassword(String password){
     if(!condition(password)) throw error();
