@@ -4,24 +4,17 @@ import dominio.mascota.Mascota;
 import dominio.rescate.Rescate;
 import dominio.util.Lista;
 
-public class RepositorioRescates {
-  private Lista<Rescate> repositorio;
+public class RepositorioRescates extends Repositorio<Rescate>{
   private static final RepositorioRescates INSTANCE = new RepositorioRescates();
 
-
-  private RepositorioRescates() {
-    this.repositorio = new Lista<>();
-  }
-
-  public void registrarRescate(Rescate rescate){
-    repositorio.add(rescate);
-  }
+  private RepositorioRescates() {}
 
   public Lista<Mascota> mascotasEncontradasEnLosUltimos10Dias() {
-    return repositorio.filter(Rescate::sucedioDentroDeLosUltimos10Dias).map(Rescate::getMascota);
+    return super.filtrar(Rescate::sucedioDentroDeLosUltimos10Dias).map(Rescate::getMascota);
   }
 
-  public static RepositorioRescates getINSTANCE() {
+  public static RepositorioRescates getINSTANCE(){
     return INSTANCE;
-  }
+  } 
+  
 }

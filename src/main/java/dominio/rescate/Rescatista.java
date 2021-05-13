@@ -23,7 +23,7 @@ public class Rescatista {
   }
 
   public void registrarRescate(Rescate rescate){
-    RepositorioRescates.getINSTANCE().registrarRescate(rescate);
+    RepositorioRescates.getINSTANCE().registrar(rescate);
   }
 
   public int getTelefono() {

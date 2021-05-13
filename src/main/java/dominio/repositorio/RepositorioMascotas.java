@@ -1,29 +1,11 @@
 package dominio.repositorio;
 
 import dominio.mascota.Mascota;
-import dominio.util.Lista;
 
-
-
-public class RepositorioMascotas {
-  private Lista<Mascota> repositorio;
+public class RepositorioMascotas extends Repositorio<Mascota> {
   private static final RepositorioMascotas INSTANCE = new RepositorioMascotas();
 
-  private RepositorioMascotas() {
-    this.repositorio = new Lista<>();
-  }
-
-  public void registrarMascota(Mascota mascota){
-    repositorio.add(mascota);
-  }
-
-  public int cantDeMascotasRegistradas() {
-    return repositorio.size();
-  }
-
-  public void eliminarMascota(Mascota mascota){
-    repositorio.remove(mascota);
-  }
+  private RepositorioMascotas() {}
 
   public static RepositorioMascotas getINSTANCE() {
     return INSTANCE;

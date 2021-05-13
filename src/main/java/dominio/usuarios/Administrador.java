@@ -16,7 +16,7 @@ public class Administrador extends Usuario{
       caracteristica.agregarOpcion(opcion.toUpperCase());
     }
 
-    RepositorioCaracteristicas.getINSTANCE().agregarCaracteristica(caracteristica);
+    RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica);
   }
 
   public void eliminarUnaCaracteristica(String titulo) {

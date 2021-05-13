@@ -23,7 +23,7 @@ public class Duenio extends Usuario {
 
   public void registrarUnaMascota(Mascota mascota) {
     mascotasRegistradas.add(mascota);
-    RepositorioMascotas.getINSTANCE().registrarMascota(mascota);
+    RepositorioMascotas.getINSTANCE().registrar(mascota);
   }
 
   public boolean esMiMascota(Mascota mascota) {

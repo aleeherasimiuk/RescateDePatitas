@@ -1,7 +1,10 @@
 import dominio.exceptions.CaracteristicaInvalida;
+import dominio.exceptions.CaracteristicaRepetida;
 import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
 import dominio.personas.Contacto;
+import dominio.personas.DatosPersona;
+import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
@@ -9,8 +12,9 @@ import dominio.usuarios.Administrador;
 import static org.junit.jupiter.api.Assertions.*;
 
 import dominio.usuarios.Duenio;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,8 +22,9 @@ import java.time.format.DateTimeFormatter;
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
 
-	@BeforeAll
-	static void setup() {
+	@BeforeEach
+	void setup() {
+		repoCaracteristica.vaciar();
 		Administrador administrador;
 
 		administrador = new Administrador("UnUsuario", "UnaContraseña1");
@@ -28,6 +33,7 @@ class CaracteristicaTest {
 		administrador.agregarUnaCaracteristica("CASTRADO", "SI", "NO");
 
 	}
+
 
 	@Test
 	void losColoresPrimariosEsUnaCaracteristica() {
@@ -48,11 +54,8 @@ class CaracteristicaTest {
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
 		Administrador administrador = new Administrador("UnAdministrador", "holaqtaltodomuyBarat10");
-		Exception exception = assertThrows(RuntimeException.class,
-				() -> administrador.agregarUnaCaracteristica("castrado", "SI", "NO", "NO SE"));
-		assertEquals(
-				"Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo",
-				exception.getMessage());
+		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado", "SI", "NO", "NO SE");
+		assertThrows(CaracteristicaRepetida.class, agregarCaracteristica);
 	}
 
 	@Test
@@ -62,20 +65,22 @@ class CaracteristicaTest {
 		carlos.registrarUnaMascota(felix);
 		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
 		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
-		assertThrows(CaracteristicaInvalida.class, () -> {felix.agregarUnaCaracteristica("castrada","si");});
-		OpcionInvalida opcionInvalidaException = assertThrows(OpcionInvalida.class, () -> {felix.agregarUnaCaracteristica("colores-primarioS","gris");});
-		assertEquals(opcionInvalidaException.getMessage(), "La opcion ingresada no forma parte de las opciones de la caracteristica COLORES-PRIMARIOS");
+		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("castrada","si"));
+		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("colores-primarioS","gris"));
 	}
 
-	private Duenio crearACarlos(){
-		return new Duenio("Perez", "Carlos", TipoDeDocumento.DNI, 21789654,
-				new Contacto("Jimena", "Baron", 1180700542, "jmena@gmail.com"), "carlosKpo123", "Pupitoteamo1",
-				stringAFecha("01/01/2002"));
-	}
+	private Duenio crearACarlos() {
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento, unContacto(),
+        stringAFecha("01/01/2002"));
 
-	private Mascota crearAPupi() {
-		return new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-	}
+    return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
+  }
+	
+	private Contacto unContacto() {
+    return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
+  }
+
 
 	private Mascota crearAFelix() {
 		return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
