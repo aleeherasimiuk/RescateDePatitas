@@ -91,9 +91,6 @@ class Característica{
   tieneEstaOpcion()
 }
 
-class PasswordValidator{
-  validatePassword()
-}
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ''''''''''''''''''''''''''''''''Repositorios'''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -137,6 +134,32 @@ class RepositorioAdministradores{
 
 }
 
+class RepositorioValidaciones{
+  validatePassword()
+}
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'''''''''''''''''''''''''Validación de Contraseñas'''''''''''''''''''''''''''
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+abstract Validation{
+
+  validatePassword()
+  condition()
+  error()
+
+}
+abstract RegexValidation{
+  regex()
+}
+
+class CommonPassword{}
+class PasswordLength{}
+class LowerPassword{}
+class UpperPassword{}
+class NumberPassword{}
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''Relaciones de Dominio'''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -147,7 +170,6 @@ Rescatista    -u->    DatosPersona
 DatosPersona  -r->    Documento
 DatosPersona  -l->    Contacto
 Rescate       -u->    Rescatista
-Usuario       -l->    PasswordValidator
 Dueño         -u-|>   Usuario
 Rescate       -d->    Mascota
 Documento     -r->    TipoDeDocumento
@@ -160,11 +182,12 @@ Rescate       ->      Coordenadas
 '''''''''''''''''''''''''Relaciones de Repositorios''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-RepositorioDueños -u-> "*" Dueño
-RepositorioMascotas -u-> "*" Mascota
-RepositorioRescates -u-> "*" Rescate
-RepositorioAdministradores -u-> "*" Administrador
-RepositorioCaracteristicas ->"*" Característica
+RepositorioDueños           -u-> "*" Dueño
+RepositorioMascotas         -u-> "*" Mascota
+RepositorioRescates         -u-> "*" Rescate
+RepositorioAdministradores  -u-> "*" Administrador
+RepositorioCaracteristicas  ->   "*" Característica
+RepositorioValidaciones     ->   "*" Validation
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ''''''''''''''''''''''''''Herencias de Repositorios''''''''''''''''''''''''''
@@ -175,5 +198,15 @@ RepositorioRescates -d-|> Repositorio
 RepositorioMascotas -d-|> Repositorio
 RepositorioCaracteristicas -l-|> Repositorio
 RepositorioAdministradores -d--|> Repositorio
+
+
+
+RegexValidation -u-|> Validation
+CommonPassword  -u-|> Validation
+PasswordLength  -u-|> Validation
+LowerPassword   -u-|> RegexValidation
+UpperPassword   -u-|> RegexValidation
+NumberPassword  -u-|> RegexValidation
+
 
 @enduml

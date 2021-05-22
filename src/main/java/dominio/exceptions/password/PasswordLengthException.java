@@ -1,4 +1,4 @@
-package dominio.exceptions;
+package dominio.exceptions.password;
 
 public class PasswordLengthException extends RuntimeException{
   public PasswordLengthException(){
