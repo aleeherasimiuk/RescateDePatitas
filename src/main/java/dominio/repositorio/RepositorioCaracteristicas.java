@@ -2,45 +2,47 @@ package dominio.repositorio;
 
 import java.util.List;
 
+import dominio.exceptions.CaracteristicaInvalida;
+import dominio.exceptions.CaracteristicaRepetida;
 import dominio.mascota.Caracteristica;
-import dominio.util.Lista;
 
-public class RepositorioCaracteristicas {
-	private Lista<Caracteristica> caracteristicas;
+public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
+	
 	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 
-	private RepositorioCaracteristicas() {
-		this.caracteristicas = new Lista<>();
-	}
-
-	public void agregarCaracteristica(Caracteristica caracteristica) {
+	private RepositorioCaracteristicas(){}
+	
+	@Override
+	public void registrar(Caracteristica caracteristica) {
 		validarCaracteristica(caracteristica);
-		caracteristicas.add(caracteristica);
+		super.registrar(caracteristica);
 	}
 
 	public void borrarCaracteristica(String titulo) {
-		this.caracteristicas.removeIf(caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()));
+		super.repositorio.removeIf(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
 	}
 
 	public boolean existeCaracteristica(String titulo) {
-		return caracteristicas.contains(caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()));
+		return super.repositorio.contains(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
 	}
 
 	private void validarCaracteristica(Caracteristica caracteristica) {
 		if (existeCaracteristica(caracteristica.getTitulo()))
-			throw new RuntimeException(
-					"Ya existe una caracteristica con ese titulo. Verifique si se trata de un error o intente con otro titulo");
+			throw new CaracteristicaRepetida();
 	}
 
 	public Caracteristica obtenerCaracteristica(String titulo) {
-		return caracteristicas.find(caracteristica -> caracteristica.getTitulo().equals(titulo.toUpperCase()));
+		return super.buscar(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
 	}
 
 	public List<String> opcionesDe(String nombreCaracteristica) {
-		return caracteristicas.find(caracteristica -> caracteristica.getTitulo().equals(nombreCaracteristica)).opciones();
+		if(existeCaracteristica(nombreCaracteristica)) throw new CaracteristicaInvalida();
+		return super.buscar(caracteristica -> caracteristica.esEstaCaracteristica(nombreCaracteristica)).opciones();
 	}
 
 	public static RepositorioCaracteristicas getINSTANCE() {
 		return INSTANCE;
 	}
+
+
 }

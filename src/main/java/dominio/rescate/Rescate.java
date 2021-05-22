@@ -48,7 +48,6 @@ public class Rescate {
   }
 
   public int telefonoDeContacto() {
-    return rescatista.getContacto().getTelefono();
+    return rescatista.getTelefono();
   }
-
 }

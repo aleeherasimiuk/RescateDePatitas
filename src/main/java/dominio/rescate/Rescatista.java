@@ -1,27 +1,32 @@
 package dominio.rescate;
 
-import java.time.LocalDate;
-
-import dominio.personas.Contacto;
-import dominio.personas.Persona;
-import dominio.personas.TipoDeDocumento;
+import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioRescates;
 
-public class Rescatista extends Persona {
+public class Rescatista {
+
+  private DatosPersona datosPersona;
+
+  public DatosPersona getDatosPersona() {
+    return datosPersona;
+  }
 
   private String direccion;
-
-  public Rescatista(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento,
-      Contacto contacto, LocalDate fechaNacimiento, String direccion) {
-    super(apellido, nombre, tipoDocumento, numeroDocumento, contacto, fechaNacimiento);
-    this.direccion = direccion;
-  }
 
   public String getDireccion() {
     return direccion;
   }
 
+  public Rescatista(DatosPersona datosPersona, String direccion) {
+    this.datosPersona = datosPersona;
+    this.direccion = direccion;
+  }
+
   public void registrarRescate(Rescate rescate){
-    RepositorioRescates.getINSTANCE().registrarRescate(rescate);
+    RepositorioRescates.getINSTANCE().registrar(rescate);
+  }
+
+  public int getTelefono() {
+    return datosPersona.getTelefono();
   }
 }

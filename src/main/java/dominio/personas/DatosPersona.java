@@ -2,20 +2,18 @@ package dominio.personas;
 
 import java.time.LocalDate;
 
-public abstract class Persona {
+public class DatosPersona {
   private String apellido;
   private String nombre;
-  private TipoDeDocumento tipoDocumento;
-  private int numeroDocumento;
+  private Documento documento;
   private Contacto contacto;
   private LocalDate fechaNacimiento;
 
-  public Persona(String apellido, String nombre, TipoDeDocumento tipoDocumento, int numeroDocumento, Contacto contacto,
+  public DatosPersona(String apellido, String nombre, Documento documento, Contacto contacto,
       LocalDate fechaNacimiento) {
     this.apellido = apellido;
     this.nombre = nombre;
-    this.tipoDocumento = tipoDocumento;
-    this.numeroDocumento = numeroDocumento;
+    this.documento = documento;
     this.contacto = contacto;
     this.fechaNacimiento = fechaNacimiento;
   }
@@ -28,12 +26,8 @@ public abstract class Persona {
     return nombre;
   }
 
-  public TipoDeDocumento getTipoDocumento() {
-    return tipoDocumento;
-  }
-
-  public int getNumeroDocumento() {
-    return numeroDocumento;
+  public Documento getDocumento() {
+    return documento;
   }
 
   public Contacto getContacto() {
@@ -42,5 +36,9 @@ public abstract class Persona {
 
   public LocalDate getFechaNacimiento() {
     return fechaNacimiento;
+  }
+
+  public int getTelefono() {
+    return contacto.getTelefono();
   }
 }

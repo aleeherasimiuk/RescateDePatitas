@@ -21,9 +21,7 @@ public class Lista<T> extends ArrayList<T> {
 
   @SafeVarargs
   public Lista(T... elements) {
-    for (T object : elements) {
-      this.add(object);
-    }
+    this.add(elements);
   }
 
   public Lista<T> filter(Predicate<T> condition) {
@@ -63,6 +61,12 @@ public class Lista<T> extends ArrayList<T> {
 
   public int count(Predicate<T> condition) {
     return (int) this.stream().filter(condition).count();
+  }
+
+  public void add(T[] elements) {
+    for (T object : elements) {
+      this.add(object);
+    }
   }
 
 }
