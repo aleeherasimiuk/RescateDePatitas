@@ -50,4 +50,13 @@ public class Rescate {
   public int telefonoDeContacto() {
     return rescatista.getTelefono();
   }
+
+  public Lista<String> getFotos() {
+    return fotos;
+  }
+
+  public Publicacion generarPublicacion(){
+    if(mascota != null) throw new RuntimeException("Las publicaciones son para rescates cuya mascota no tenía chapita");
+    return new Publicacion(this);
+  }
 }
