@@ -1,5 +1,6 @@
 package dominio.rescate;
 
+import dominio.repositorio.RepositorioPublicaciones;
 import dominio.util.Lista;
 public class Publicacion {
   
@@ -30,5 +31,13 @@ public class Publicacion {
 
   public boolean estaAprobada(){
     return estado == EstadoPublicacion.APROBADA;
+  }
+
+  public boolean estaPendiente(){
+    return estado == EstadoPublicacion.PENDIENTE;
+  }
+
+  public void registrarse(){
+    RepositorioPublicaciones.getINSTANCE().registrar(this);
   }
 }

@@ -16,8 +16,12 @@ public class Rescate {
   private LocalDate fecha;
 
   public Rescate(Rescatista rescatista, Mascota mascota, String descripcion, LocalDate fecha) {
-    this.rescatista = rescatista;
+    this(rescatista, descripcion, fecha);
     this.mascota = mascota;
+  }
+
+  public Rescate(Rescatista rescatista,String descripcion, LocalDate fecha) {
+    this.rescatista = rescatista;
     this.descripcion = descripcion;
     this.fecha = fecha;
     this.fotos = new Lista<String>();
@@ -55,8 +59,14 @@ public class Rescate {
     return fotos;
   }
 
+  public boolean laMascotaTieneChapita(){
+    return mascota != null;
+  }
+
   public Publicacion generarPublicacion(){
-    if(mascota != null) throw new RuntimeException("Las publicaciones son para rescates cuya mascota no tenía chapita");
-    return new Publicacion(this);
+    if(laMascotaTieneChapita()) throw new RuntimeException("Las publicaciones son para rescates cuya mascota no tenía chapita");
+    Publicacion publicacion = new Publicacion(this);
+    publicacion.registrarse();
+    return publicacion;
   }
 }

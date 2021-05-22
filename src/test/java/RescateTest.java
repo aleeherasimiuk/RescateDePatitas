@@ -45,6 +45,7 @@ public class RescateTest {
 
     pedro.registrarRescate(rescatePupi);
     pedro.registrarRescate(rescateFelix);
+  
   }
 
   private Rescate rescatarAFelix() {
