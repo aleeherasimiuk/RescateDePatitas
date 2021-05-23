@@ -3,6 +3,7 @@ package dominio.usuarios;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioMascotas;
+import dominio.rescate.Publicacion;
 import dominio.util.Lista;
 
 public class Duenio extends Usuario {

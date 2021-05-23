@@ -69,4 +69,8 @@ public class Rescate {
     publicacion.registrarse();
     return publicacion;
   }
+
+  public void setMascota(Mascota mascota) {
+    this.mascota = mascota;
+  }
 }

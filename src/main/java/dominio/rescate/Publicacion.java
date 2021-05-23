@@ -1,5 +1,6 @@
 package dominio.rescate;
 
+import dominio.mascota.Mascota;
 import dominio.repositorio.RepositorioPublicaciones;
 import dominio.util.Lista;
 public class Publicacion {
@@ -39,5 +40,9 @@ public class Publicacion {
 
   public void registrarse(){
     RepositorioPublicaciones.getINSTANCE().registrar(this);
+  }
+
+  public void identificarMascota(Mascota mascota){
+    rescate.setMascota(mascota);
   }
 }
