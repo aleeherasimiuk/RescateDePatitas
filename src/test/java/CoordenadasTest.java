@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.Coordenadas;
+import dominio.rescate.Ubicacion.Coordenadas;
 
 public class CoordenadasTest {
 

@@ -1,8 +1,8 @@
 package dominio.asociacion;
 
-import dominio.rescate.Coordenadas;
+import dominio.rescate.Ubicacion.Coordenadas;
 
-public class Asociacion {
+public class Asociacion{
 
   private final String nombre;
   private final Coordenadas ubicacion;
@@ -20,4 +20,9 @@ public class Asociacion {
   public String getNombre() {
     return nombre;
   }
+
+  public Coordenadas getUbicacion() {
+    return ubicacion;
+  }
+
 }

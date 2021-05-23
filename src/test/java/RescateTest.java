@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dominio.rescate.Rescatista;
+import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
@@ -18,7 +19,6 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
-import dominio.rescate.Coordenadas;
 import dominio.rescate.Rescate;
 import dominio.usuarios.Duenio;
 
