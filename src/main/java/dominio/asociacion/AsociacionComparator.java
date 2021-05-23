@@ -3,7 +3,6 @@ package dominio.asociacion;
 import java.util.Comparator;
 
 import dominio.rescate.Rescate;
-import dominio.rescate.Ubicacion.Coordenadas;
 
 public class AsociacionComparator implements Comparator<Asociacion>{
 
