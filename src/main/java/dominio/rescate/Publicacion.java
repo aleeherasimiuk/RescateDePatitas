@@ -1,17 +1,20 @@
 package dominio.rescate;
 
+import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
+import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
 import dominio.util.Lista;
 public class Publicacion {
   
   private final Rescate rescate;
   private EstadoPublicacion estado;
-  //private String asociacionAsignada; // TODO
+  private Asociacion asociacionAsignada;
 
   public Publicacion(Rescate rescate) {
     this.rescate = rescate;
-    estado = EstadoPublicacion.PENDIENTE;
+    this.estado = EstadoPublicacion.PENDIENTE;
+    this.asignarAsociacion();
   }
 
   public void aprobar(){
@@ -44,5 +47,14 @@ public class Publicacion {
 
   public void identificarMascota(Mascota mascota){
     rescate.setMascota(mascota);
+    // TODO: Avisar al rescatista
+  }
+
+  private void asignarAsociacion(){
+    asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(rescate);
+  }
+
+  public Asociacion getAsociacionAsignada() {
+    return asociacionAsignada;
   }
 }
