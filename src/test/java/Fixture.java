@@ -15,13 +15,13 @@ import dominio.usuarios.Duenio;
 
 public class Fixture {
 
-  private Mascota pupi     = crearAPupi();
-  private Mascota felix    = crearAFelix();
-  private Duenio carlos    = crearACarlos();
-  private Rescatista pedro = crearAPedro();
+  private final Mascota pupi     = crearAPupi();
+  private final Mascota felix    = crearAFelix();
+  private final Duenio carlos    = crearACarlos();
+  private final Rescatista pedro = crearAPedro();
 
-  private Rescate rescatePupi  = rescatarAPupi();
-  private Rescate rescateFelix = rescatarAFelix();
+  private final Rescate rescatePupi  = rescatarAPupi();
+  private final Rescate rescateFelix = rescatarAFelix();
 
 
   public Mascota getPupi() {
