@@ -27,11 +27,12 @@ public class RefugioService {
     }
     return instancia;
   }
-
+/*
   public ListadoDeHogares listadoDeProvincias() throws IOException {
-    RefugioDDS refugioService = this.retrofit.create(RefugioDDS.class)
-    Call<ListadoDeHogares> requestProvinciasArgentinas = RefugioDDS.hogares();
-    Response<ListadoDeHogares> responseProvinciasArgentinas = requestProvinciasArgentinas.execute();
+    RefugioDDS refugioService = this.retrofit.create(RefugioDDS.class);
+    Call<ListadoDeHogares> requestHogares = refugioService.hogares();
+    Response<ListadoDeHogares> responseHogares = requestHogares.execute();
     return responseHogares.body();
-  }
+  }*/
 }
+

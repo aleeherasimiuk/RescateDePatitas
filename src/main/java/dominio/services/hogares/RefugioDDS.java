@@ -7,4 +7,6 @@ import retrofit2.http.Query;
 public interface RefugioDDS {
   @GET("hogares")
   Call<ListadoDeHogares> hogares();
+
+
 }
