@@ -11,7 +11,7 @@ public class RefugioService {
 
   private static RefugioService instancia = null;
   private static int offset = 10;
-  private static final String urlApi = "https://api.refugiosdds.com.ar/api";
+  private static final String urlApi = "https://api.refugiosdds.com.ar/api/";
   private Retrofit retrofit;
 
   private RefugioService() {
@@ -22,17 +22,17 @@ public class RefugioService {
   }
 
   public static RefugioService getInstance(){
-    if(instancia== null){
+    if (instancia == null){
       instancia = new RefugioService();
     }
     return instancia;
   }
-/*
-  public ListadoDeHogares listadoDeProvincias() throws IOException {
+
+  public String getListadoHogares() throws IOException {
     RefugioDDS refugioService = this.retrofit.create(RefugioDDS.class);
-    Call<ListadoDeHogares> requestHogares = refugioService.hogares();
-    Response<ListadoDeHogares> responseHogares = requestHogares.execute();
+    Call<String> requestHogares = refugioService.hogares();
+    Response<String> responseHogares = requestHogares.execute();
     return responseHogares.body();
-  }*/
+  }
 }
 
