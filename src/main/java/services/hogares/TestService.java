@@ -1,4 +1,4 @@
-package dominio.services.hogares;
+package services.hogares;
 
 import java.io.IOException;
 
@@ -6,8 +6,10 @@ public class TestService {
   public static void main(String[] args) throws IOException {
     RefugioService service = RefugioService.getInstance();
 
-    String hogares = service.getListadoHogares();
+    ListadoDeHogares hogares = service.getListadoHogares(1);
 
-    System.out.println(hogares);
+    hogares.hogares.forEach((hogar) -> {
+      System.out.println(hogar.nombre);
+    });
   }
 }

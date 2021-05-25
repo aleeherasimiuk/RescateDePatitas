@@ -1,4 +1,4 @@
-package dominio.services.hogares;
+package services.hogares;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -10,7 +10,6 @@ import java.io.IOException;
 public class RefugioService {
 
   private static RefugioService instancia = null;
-  private static int offset = 10;
   private static final String urlApi = "https://api.refugiosdds.com.ar/api/";
   private Retrofit retrofit;
 
@@ -28,10 +27,12 @@ public class RefugioService {
     return instancia;
   }
 
-  public String getListadoHogares() throws IOException {
-    RefugioDDS refugioService = this.retrofit.create(RefugioDDS.class);
-    Call<String> requestHogares = refugioService.hogares();
-    Response<String> responseHogares = requestHogares.execute();
+  public ListadoDeHogares getListadoHogares(long offset) throws IOException {
+    RefugioAPI refugioService = this.retrofit.create(RefugioAPI.class);
+    final String bearer = "Bearer ";
+    final String token = "token"; // TODO obtener este token de un archivo .config
+    Call<ListadoDeHogares> requestHogares = refugioService.hogares(bearer + token, offset);
+    Response<ListadoDeHogares> responseHogares = requestHogares.execute();
     return responseHogares.body();
   }
 }
