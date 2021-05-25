@@ -25,4 +25,11 @@ public class Asociacion{
     return ubicacion;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    return ((Asociacion) obj).getNombre() == this.getNombre();
+  }
+
+  
+
 }

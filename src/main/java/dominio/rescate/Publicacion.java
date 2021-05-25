@@ -14,7 +14,6 @@ public class Publicacion {
   public Publicacion(Rescate rescate) {
     this.rescate = rescate;
     this.estado = EstadoPublicacion.PENDIENTE;
-    this.asignarAsociacion();
   }
 
   public void aprobar(){
@@ -50,11 +49,14 @@ public class Publicacion {
     // TODO: Avisar al rescatista
   }
 
-  private void asignarAsociacion(){
+  public void asignarAsociacion(){
+    if(asociacionAsignada != null) throw new RuntimeException("La publicación ya tiene una asociación asignada");
     asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(rescate);
   }
 
   public Asociacion getAsociacionAsignada() {
+    if(asociacionAsignada == null) throw new RuntimeException("No se ha asignado ninguna asociación");
     return asociacionAsignada;
   }
+
 }

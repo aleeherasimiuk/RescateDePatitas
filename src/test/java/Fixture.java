@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import dominio.asociacion.Asociacion;
 import dominio.mascota.Clase;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
@@ -8,6 +9,7 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.rescate.Publicacion;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
 import dominio.rescate.Ubicacion.Coordenadas;
@@ -22,6 +24,15 @@ public class Fixture {
 
   private final Rescate rescatePupi  = rescatarAPupi();
   private final Rescate rescateFelix = rescatarAFelix();
+
+  private final Coordenadas UTN               = new Coordenadas(-34.65858825852768, -58.46736257475716);
+  private final Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
+  private final Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
+
+
+  private final Asociacion  colaDeGato     = asociacionColaDeGato();
+  private final Asociacion  patitasSucias  = asociacionPatitasSucias();
+  private final Publicacion publicacionUTN = publicacionMascotaUTN();
 
 
   public Mascota getPupi() {
@@ -46,6 +57,18 @@ public class Fixture {
 
   public Rescate getRescateFelix() {
     return rescateFelix;
+  }
+
+  public Asociacion getColaDeGato() {
+    return colaDeGato;
+  }
+
+  public Asociacion getPatitasSucias() {
+    return patitasSucias;
+  }
+
+  public Publicacion getPublicacionUTN() {
+    return publicacionUTN;
   }
 
   private Duenio crearACarlos() {
@@ -92,6 +115,24 @@ public class Fixture {
     Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames", LocalDate.now().minusDays(1));
     rescatePupi.setLugar(new Coordenadas(-50., -50.));
     return rescatePupi;
+  }
+
+  private Rescate rescateSinMascota(){
+    Rescate rescateSinMascota = new Rescate(pedro, null, "parece ser un gato siames", LocalDate.now().minusDays(1));
+    rescateSinMascota.setLugar(UTN);
+    return rescateSinMascota;
+  }
+
+  private Publicacion publicacionMascotaUTN(){
+    return rescateSinMascota().generarPublicacion();
+  }
+
+  private Asociacion asociacionPatitasSucias(){
+    return new Asociacion("Patitas Sucias", parqueAvellaneda);
+  }
+
+  private Asociacion asociacionColaDeGato(){
+    return new Asociacion("Cola de Gato", parqueChacabuco);
   }
   
 }
