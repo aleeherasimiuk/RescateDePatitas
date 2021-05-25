@@ -21,9 +21,10 @@ public class PublicacionesTest {
 
   @BeforeEach
   void setup(){
-    Fixture fixture = new Fixture();
-
     repoPublicaciones.vaciar();
+    repoAsociaciones.vaciar();
+
+    Fixture fixture = new Fixture();
     patitasSucias = fixture.getPatitasSucias();
     colaDeGato = fixture.getColaDeGato();
     repoAsociaciones.registrar(patitasSucias);

@@ -14,12 +14,10 @@ public class CoordenadasComparator implements Comparator<Coordenadas>{
 
   @Override
   public int compare(Coordenadas o1, Coordenadas o2) {
-    double distancia1 = coordsBase.distanciaA(o1);
-    double distancia2 = coordsBase.distanciaA(o2);
+    Double distancia1 = coordsBase.distanciaA(o1);
+    Double distancia2 = coordsBase.distanciaA(o2);
 
-    if(distancia1 == distancia2) return  0;
-    if(distancia1 <  distancia2) return -1;
-    return 1;
+    return distancia1.compareTo(distancia2);
   }
   
 }
