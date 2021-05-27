@@ -7,17 +7,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
+import org.omg.CORBA.OBJECT_NOT_EXIST;
+
+import config.Config;
+
 public class RefugioService {
 
   private static RefugioService instancia = null;
-  private static final String urlApi = "https://api.refugiosdds.com.ar/api/";
+  private String apiToken;
   private Retrofit retrofit;
 
   private RefugioService() {
-    this.retrofit = new Retrofit.Builder()
-        .baseUrl(urlApi)
+    retrofit = new Retrofit.Builder()
+        .baseUrl(Config.getInstance().getConfig("api.refugio.url"))
         .addConverterFactory(GsonConverterFactory.create())
         .build();
+    apiToken = Config.getInstance().getConfig("api.refugio.token");
   }
 
   public static RefugioService getInstance(){
@@ -28,10 +33,8 @@ public class RefugioService {
   }
 
   public ListadoDeHogares getListadoHogares(long offset) throws IOException {
-    RefugioAPI refugioService = this.retrofit.create(RefugioAPI.class);
-    final String bearer = "Bearer ";
-    final String token = "token"; // TODO obtener este token de un archivo .config
-    Call<ListadoDeHogares> requestHogares = refugioService.hogares(bearer + token, offset);
+    RefugioAPI refugioService = retrofit.create(RefugioAPI.class);
+    Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, offset);
     Response<ListadoDeHogares> responseHogares = requestHogares.execute();
     return responseHogares.body();
   }
