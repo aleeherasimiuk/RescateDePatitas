@@ -74,4 +74,8 @@ public class Rescate {
   public void setMascota(Mascota mascota) {
     this.mascota = mascota;
   }
+
+  public LocalDate getFecha() {
+    return fecha;
+  }
 }
