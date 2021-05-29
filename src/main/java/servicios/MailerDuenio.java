@@ -17,9 +17,9 @@ public class MailerDuenio extends JavaMail<Rescate>{
 
     String mensaje = "";
 
-    mensaje += "Hola!" + datosDeContacto.getNombre() + "\n";
+    mensaje += "Hola! " + datosDeContacto.getNombre() + "\n";
     mensaje += "Estamos muy contentos de anunciarte que encontramos tu mascota!\n";
-    mensaje += rescate.getMascota().getApodo() + "fue encontrada por " + datosDeContacto.getNombre();
+    mensaje += rescate.getMascota().getApodo() + " fue encontrada por " + datosDeContacto.getNombre();
     mensaje += "\n\n";
     mensaje += "Rescatista: " + datosDeContacto.getNombre() + " " + datosDeContacto.getApellido() + "\n";
     mensaje += "Teléfono: " + datosDeContacto.getTelefono() + "\n";

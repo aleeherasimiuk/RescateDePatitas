@@ -8,7 +8,7 @@ import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
 import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.util.Lista;
-import servicios.JavaMail;
+import servicios.MailerRescatista;
 public class Publicacion {
   
   private final Rescate rescate;
@@ -22,8 +22,12 @@ public class Publicacion {
 
   public void identificarMascota(Mascota mascota){
     rescate.setMascota(mascota);
-    JavaMail mail = new JavaMail();
-    mail.enviarMail("Esto es una prueba", "aleeherasimiuk@gmail.com");
+    enviarMailAlRescatista();
+  }
+
+  private void enviarMailAlRescatista() {
+    MailerRescatista mail = new MailerRescatista();
+    mail.enviarMail(this);
   }
 
   public void asignarAsociacion(){
@@ -79,6 +83,13 @@ public class Publicacion {
     return rescate.getDescripcion();
   }
 
+  public String emailDeContacto(){
+    return rescate.emailDeContacto();
+  }
+
+  public Rescate getRescate() {
+    return rescate;
+  }
 
  
 
