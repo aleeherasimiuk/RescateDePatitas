@@ -39,7 +39,16 @@
       <artifactId>javax.mail-api</artifactId>
       <version>1.6.2</version>
     </dependency>
+
+      <!-- para tests -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.0</version>
+    </dependency>
   </dependencies>
+
+
 
   <build>
     <plugins>

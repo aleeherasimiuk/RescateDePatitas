@@ -8,11 +8,11 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class JavaMail {
+
+public abstract class JavaMail <T> {
 
   private final Session session;
   private String emisor;
@@ -60,24 +60,30 @@ public class JavaMail {
 
   }
 
-  public void enviarMail(String mensaje, String destino){
+  protected abstract String destinatario(T t);
+  protected abstract String mensaje(T t);
+  protected abstract String asunto(T t);
+
+
+  public void enviarMail(T t){
     MimeMessage message = new MimeMessage(session);
     try {
       // Quien envia el correo
       message.setFrom(new InternetAddress(emisor));
 
       // A quien va dirigido
-      message.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
+      //message.addRecipient(Message.RecipientType.TO, new InternetAddress(contacto.getEmail()));
 
-      message.setSubject("Rescate de patitas informa que se ha identificado a la mascota.");
-      message.setText("Mensaje de prueba");
+      message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario(t)));
+      message.setSubject(asunto(t));
+      message.setText(mensaje(t));
 
-      Transport t = session.getTransport("smtp");
-      t.connect(emisor,password);
-      t.sendMessage(message,message.getAllRecipients());
-      t.close();
+      Transport transport = session.getTransport("smtp");
+      transport.connect(emisor, password);
+      transport.sendMessage(message, message.getAllRecipients());
+      transport.close();
     } catch (MessagingException e) {
-      e.printStackTrace();
+      throw new EmailException();
     }
     
   }

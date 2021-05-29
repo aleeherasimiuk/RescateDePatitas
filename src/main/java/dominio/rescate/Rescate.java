@@ -3,6 +3,7 @@ package dominio.rescate;
 import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
+import dominio.personas.Contacto;
 import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.util.Lista;
 
@@ -77,5 +78,9 @@ public class Rescate {
 
   public LocalDate getFecha() {
     return fecha;
+  }
+
+  public Contacto datosDeContacto(){
+    return rescatista.getDatosPersona().getContacto();
   }
 }

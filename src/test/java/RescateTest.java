@@ -56,4 +56,5 @@ public class RescateTest {
   void felixSePerdioHaceMucho() {
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
+
 }
