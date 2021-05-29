@@ -1,5 +1,7 @@
 package servicios;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -13,10 +15,12 @@ import javax.mail.internet.MimeMessage;
 public class JavaMail {
 
   private final Session session;
-  private final String emisor = "";
-  private final String password = "";
+  private String emisor;
+  private String password;
 
   public JavaMail() {
+
+    credenciales();
   
     Properties props = new Properties();
 
@@ -40,24 +44,42 @@ public class JavaMail {
   
   }
 
+  private void credenciales(){
+    Properties credenciales = new Properties();
+    FileReader archivo_credenciales;
+    try {
+      archivo_credenciales = new FileReader("keys.properties");
+      credenciales.load(archivo_credenciales);
+      password = credenciales.getProperty("password");
+      emisor = credenciales.getProperty("mail");
+      archivo_credenciales.close();
+      
+    } catch (IOException e) {
+      throw new CredencialesException();
+    }
 
-  public void enviarMail(String mensaje, String destino) throws AddressException, MessagingException{
-    MimeMessage message = new MimeMessage(session);
-    // Quien envia el correo
-    message.setFrom(new InternetAddress(emisor));
-
-    // A quien va dirigido
-    message.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
-
-    message.setSubject("Rescate de patitas informa que se ha identificado a la mascota.");
-    message.setText("Mensaje de prueba");
-
-    Transport t = session.getTransport("smtp");
-    t.connect(emisor,password);
-    t.sendMessage(message,message.getAllRecipients());
-    t.close();
   }
 
-  
+  public void enviarMail(String mensaje, String destino){
+    MimeMessage message = new MimeMessage(session);
+    try {
+      // Quien envia el correo
+      message.setFrom(new InternetAddress(emisor));
+
+      // A quien va dirigido
+      message.addRecipient(Message.RecipientType.TO, new InternetAddress(destino));
+
+      message.setSubject("Rescate de patitas informa que se ha identificado a la mascota.");
+      message.setText("Mensaje de prueba");
+
+      Transport t = session.getTransport("smtp");
+      t.connect(emisor,password);
+      t.sendMessage(message,message.getAllRecipients());
+      t.close();
+    } catch (MessagingException e) {
+      e.printStackTrace();
+    }
+    
+  }
   
 }
