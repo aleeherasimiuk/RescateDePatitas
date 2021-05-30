@@ -7,8 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
-import org.omg.CORBA.OBJECT_NOT_EXIST;
-
 import config.Config;
 
 public class RefugioService {
