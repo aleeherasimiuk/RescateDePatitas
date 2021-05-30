@@ -3,7 +3,10 @@ package dominio.rescate;
 import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
+import dominio.personas.Contacto;
+import dominio.Ubicacion.Coordenadas;
 import dominio.util.Lista;
+import servicios.MailerDuenio;
 
 import java.time.temporal.ChronoUnit;
 
@@ -16,11 +19,20 @@ public class Rescate {
   private LocalDate fecha;
 
   public Rescate(Rescatista rescatista, Mascota mascota, String descripcion, LocalDate fecha) {
-    this.rescatista = rescatista;
+    this(rescatista, descripcion, fecha);
     this.mascota = mascota;
+  }
+
+  public Rescate(Rescatista rescatista,String descripcion, LocalDate fecha) {
+    this.rescatista = rescatista;
     this.descripcion = descripcion;
     this.fecha = fecha;
     this.fotos = new Lista<String>();
+  }
+
+  public void avisarAlDuenio(){
+    MailerDuenio mail = new MailerDuenio();
+    mail.enviarMail(this);
   }
 
   public void agregarUnaFoto(String url) {
@@ -49,5 +61,36 @@ public class Rescate {
 
   public int telefonoDeContacto() {
     return rescatista.getTelefono();
+  }
+
+  public String emailDeContacto(){
+    return rescatista.getDatosPersona().getContacto().getEmail();
+  }
+
+  public Lista<String> getFotos() {
+    return fotos;
+  }
+
+  public boolean laMascotaTieneChapita(){
+    return mascota != null;
+  }
+
+  public Publicacion generarPublicacion(){
+    if(laMascotaTieneChapita()) throw new RuntimeException("Las publicaciones son para rescates cuya mascota no tenía chapita");
+    Publicacion publicacion = new Publicacion(this);
+    publicacion.registrarse();
+    return publicacion;
+  }
+
+  public void setMascota(Mascota mascota) {
+    this.mascota = mascota;
+  }
+
+  public LocalDate getFecha() {
+    return fecha;
+  }
+
+  public Contacto datosDeContacto(){
+    return rescatista.getDatosPersona().getContacto();
   }
 }

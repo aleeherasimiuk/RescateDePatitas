@@ -10,7 +10,7 @@ import dominio.util.Lista;
 
 
 public class Mascota {
-  private Clase clase;
+  private ClaseMascota clase;
   private String nombre;
   private String apodo;
   private int edad;
@@ -18,8 +18,9 @@ public class Mascota {
   private String descripcionFisica;
   private Lista<String> fotos;
   private Map<String, String> caracteristicas;
+  private Tamanio tamanio;
 
-  public Mascota(Clase clase, String nombre, String apodo, int edad, Sexo sexo) {
+  public Mascota(ClaseMascota clase, String nombre, String apodo, int edad, Sexo sexo) {
     this.clase = clase;
     this.nombre = nombre;
     this.apodo = apodo;
@@ -27,6 +28,10 @@ public class Mascota {
     this.sexo = sexo;
     this.caracteristicas = new HashMap<String, String>();
     this.fotos = new Lista<String>();
+  }
+
+  public Tamanio getTamanio() {
+    return tamanio;
   }
 
   public void setDescripcionFisica(String descripcionFisica) {
@@ -60,7 +65,7 @@ public class Mascota {
     return this.caracteristicas.get(caracteristica.toUpperCase());
   }
 
-  public Clase getClase() {
+  public ClaseMascota getClase() {
     return clase;
   }
 
