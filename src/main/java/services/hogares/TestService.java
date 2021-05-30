@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class TestService {
   public static void main(String[] args) throws IOException {
-    RefugioService service = RefugioService.getInstance();
+    HogaresService service = new HogaresServiceRefugioDDS();
 
     ListadoDeHogares hogares = service.getListadoHogares(1);
 

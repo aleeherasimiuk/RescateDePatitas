@@ -9,13 +9,12 @@ import java.io.IOException;
 
 import config.Config;
 
-public class RefugioService {
+public class HogaresServiceRefugioDDS implements HogaresService {
 
-  private static RefugioService instancia = null;
   private String apiToken;
   private Retrofit retrofit;
 
-  private RefugioService() {
+  public HogaresServiceRefugioDDS() {
     retrofit = new Retrofit.Builder()
         .baseUrl(Config.getInstance().getConfig("api.refugio.url"))
         .addConverterFactory(GsonConverterFactory.create())
@@ -23,15 +22,8 @@ public class RefugioService {
     apiToken = Config.getInstance().getConfig("api.refugio.token");
   }
 
-  public static RefugioService getInstance(){
-    if (instancia == null){
-      instancia = new RefugioService();
-    }
-    return instancia;
-  }
-
   public ListadoDeHogares getListadoHogares(long offset) throws IOException {
-    RefugioAPI refugioService = retrofit.create(RefugioAPI.class);
+    RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
     Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, offset);
     Response<ListadoDeHogares> responseHogares = requestHogares.execute();
     return responseHogares.body();

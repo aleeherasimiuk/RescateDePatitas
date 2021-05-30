@@ -7,7 +7,7 @@ public class Hogar {
   public String nombre;
   public Ubicacion ubicacion;
   public String telefono;
-  public Admision admision;
+  public Admision admisiones;
   public int capacidad;
   public int lugares_disponibles;
   public boolean patio;

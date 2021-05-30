@@ -1,7 +1,13 @@
 package services.hogares;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ubicacion {
   public String direccion;
-  public Double lat;
-  // public Double long;
+
+  @SerializedName("lat")
+  public Double latitud;
+
+  @SerializedName("long")
+  public Double longitud;
 }
