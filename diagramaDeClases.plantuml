@@ -91,6 +91,26 @@ class Característica{
   tieneEstaOpcion()
 }
 
+
+Publicacion -d-> Rescate
+class Publicacion{
+  rescate
+  aprobada
+  asociacionAsignada
+  aprobar()
+  rechazar()
+  datosNoSensibles()
+  fotos()
+  estaAprobada()
+}
+
+Publicacion -d-> EstadoPublicacion
+enum EstadoPublicacion{
+  APROBADO
+  RECHAZADO
+  PENDIENTE
+}
+
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ''''''''''''''''''''''''''''''''Repositorios'''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -176,7 +196,7 @@ Documento     -r->    TipoDeDocumento
 Mascota       -l->    Clase
 Dueño         -d->"*" Mascota
 Administrador -u-|>   Usuario
-Rescate       ->      Coordenadas
+Rescate       -l->    Coordenadas
 
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 '''''''''''''''''''''''''Relaciones de Repositorios''''''''''''''''''''''''''
