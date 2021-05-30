@@ -3,8 +3,10 @@ package dominio.rescate;
 import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
+import dominio.personas.Contacto;
 import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.util.Lista;
+import servicios.MailerDuenio;
 
 import java.time.temporal.ChronoUnit;
 
@@ -26,6 +28,11 @@ public class Rescate {
     this.descripcion = descripcion;
     this.fecha = fecha;
     this.fotos = new Lista<String>();
+  }
+
+  public void avisarAlDuenio(){
+    MailerDuenio mail = new MailerDuenio();
+    mail.enviarMail(this);
   }
 
   public void agregarUnaFoto(String url) {
@@ -56,6 +63,10 @@ public class Rescate {
     return rescatista.getTelefono();
   }
 
+  public String emailDeContacto(){
+    return rescatista.getDatosPersona().getContacto().getEmail();
+  }
+
   public Lista<String> getFotos() {
     return fotos;
   }
@@ -77,5 +88,9 @@ public class Rescate {
 
   public LocalDate getFecha() {
     return fecha;
+  }
+
+  public Contacto datosDeContacto(){
+    return rescatista.getDatosPersona().getContacto();
   }
 }
