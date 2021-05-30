@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import dominio.mascota.Clase;
+import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.usuarios.Administrador;
@@ -53,9 +53,9 @@ public class ListaTest {
 
     new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO", "SI", "NO");
 
-    Mascota mascota1 = new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-    Mascota mascota2 = new Mascota(Clase.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
-    Mascota mascota3 = new Mascota(Clase.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA);
+    Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Mascota mascota2 = new Mascota(ClaseMascota.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
+    Mascota mascota3 = new Mascota(ClaseMascota.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA);
 
     mascota1.agregarUnaCaracteristica("CASTRADO", "SI");
     mascota2.agregarUnaCaracteristica("CASTRADO", "SI");

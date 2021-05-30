@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
-import dominio.rescate.Ubicacion.Coordenadas;
+import dominio.Ubicacion.Coordenadas;
 import dominio.util.Lista;
 import servicios.MailerDuenio;
 

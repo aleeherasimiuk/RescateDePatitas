@@ -6,7 +6,7 @@ import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
-import dominio.rescate.Ubicacion.Coordenadas;
+import dominio.Ubicacion.Coordenadas;
 import dominio.util.Lista;
 import servicios.MailerRescatista;
 public class Publicacion {

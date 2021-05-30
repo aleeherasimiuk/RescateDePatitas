@@ -1,5 +1,5 @@
 package dominio.mascota;
 
-public enum Clase {
+public enum ClaseMascota {
   PERRO, GATO;
 }

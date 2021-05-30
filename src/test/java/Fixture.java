@@ -2,7 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import dominio.asociacion.Asociacion;
-import dominio.mascota.Clase;
+import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.personas.Contacto;
@@ -12,7 +12,7 @@ import dominio.personas.TipoDeDocumento;
 import dominio.rescate.Publicacion;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
-import dominio.rescate.Ubicacion.Coordenadas;
+import dominio.Ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
 
 public class Fixture {
@@ -87,13 +87,13 @@ public class Fixture {
   }
 
   private Mascota crearAPupi() {
-    Mascota pupi = new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Mascota pupi = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
     return pupi;
   }
 
   private Mascota crearAFelix() {
-    return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+    return new Mascota(ClaseMascota.PERRO, "felix", "feli", 5, Sexo.MACHO);
   }
 
   private LocalDate stringAFecha(String fecha) {
