@@ -1,15 +1,13 @@
 package services.hogares;
 
-import java.util.List;
+import dominio.util.Lista;
 
-public class Hogar {
-  public String id;
+public class HogarResponse {
   public String nombre;
   public Ubicacion ubicacion;
   public String telefono;
   public Admision admisiones;
-  public int capacidad;
   public int lugares_disponibles;
   public boolean patio;
-  public List<String> caracteristicas;
+  public Lista<String> caracteristicas;
 }

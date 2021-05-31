@@ -1,21 +1,30 @@
 package dominio.hogares;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import dominio.Ubicacion.Coordenadas;
-import dominio.mascota.Caracteristica;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
-
-import java.util.List;
-import java.util.Map;
+import dominio.util.Lista;
 
 public class Hogar {
-  private List<ClaseMascota> preferencias;
+  private String nombre;
+  private String telefono;
+  private Lista<ClaseMascota> preferencias = new Lista<ClaseMascota>();
   private Boolean tienePatio;
-  private List<String> caracteristicasEspecificas;
+  private Lista<String> caracteristicasEspecificas = new Lista<String>();
   private Coordenadas ubicacion;
   private Boolean tieneCapacidad;
+
+  public Hogar(String nombre, String telefono, Lista<ClaseMascota> preferencias, Boolean tienePatio, Lista<String> caracteristicasEspecificas,
+      Coordenadas ubicacion, Boolean tieneCapacidad) {
+    this.nombre = nombre;
+    this.telefono = telefono;
+    this.preferencias = preferencias;
+    this.tienePatio = tienePatio;
+    this.caracteristicasEspecificas = caracteristicasEspecificas;
+    this.ubicacion = ubicacion;
+    this.tieneCapacidad = tieneCapacidad;
+  }
 
   public Boolean aceptaMascota(Mascota mascota){
     return aceptaClase(mascota.getClase()) && aceptaTamanio(mascota.getTamanio());
@@ -26,10 +35,18 @@ public class Hogar {
   }
 
   private Boolean aceptaTamanio(Tamanio tamanio){
-    if(!tienePatio && tamanio!= Tamanio.CHICO){
-      return false;
-    }else{
-      return true;
-    }
+    return tienePatio || esChico(tamanio);
+  }
+
+  private boolean esChico(Tamanio tamanio) {
+    return tamanio == Tamanio.CHICO;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public String getTelefono() {
+    return telefono;
   }
 }
