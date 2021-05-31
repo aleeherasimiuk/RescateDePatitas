@@ -2,10 +2,6 @@ import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
 import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
-import dominio.personas.Contacto;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
 
@@ -15,9 +11,6 @@ import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
@@ -60,8 +53,9 @@ class CaracteristicaTest {
 
 	@Test
 	void seAgreganTresCaracteristicasSiendoDosInvalidas(){
-		Duenio carlos = crearACarlos();
-		Mascota felix = crearAFelix();
+		Fixture fixture = new Fixture();
+		Duenio carlos = fixture.getCarlos();
+		Mascota felix = fixture.getFelix();
 		carlos.registrarUnaMascota(felix);
 		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
 		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
@@ -69,24 +63,4 @@ class CaracteristicaTest {
 		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("colores-primarioS","gris"));
 	}
 
-	private Duenio crearACarlos() {
-    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento, unContacto(),
-        stringAFecha("01/01/2002"));
-
-    return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
-  }
-	
-	private Contacto unContacto() {
-    return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
-  }
-
-
-	private Mascota crearAFelix() {
-		return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
-	}
-
-	private LocalDate stringAFecha(String fecha) {
-		return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-	}
 }
