@@ -5,6 +5,8 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
 import dominio.util.Lista;
+import services.hogares.HogaresService;
+import services.hogares.HogaresServiceRefugioDDS;
 
 public class Hogar {
   private String nombre;
@@ -24,6 +26,10 @@ public class Hogar {
     this.caracteristicasEspecificas = caracteristicasEspecificas;
     this.ubicacion = ubicacion;
     this.tieneCapacidad = tieneCapacidad;
+  }
+
+  public static Lista<Hogar> getHogares(HogaresService service) {
+    return service.getListadoHogares();
   }
 
   public Boolean aceptaMascota(Mascota mascota){

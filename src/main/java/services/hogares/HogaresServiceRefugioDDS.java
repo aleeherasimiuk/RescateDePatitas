@@ -26,12 +26,31 @@ public class HogaresServiceRefugioDDS implements HogaresService {
     apiToken = Config.getInstance().getConfig("api.refugio.token");
   }
 
-  public Lista<Hogar> getListadoHogares(long offset) throws IOException {
-    RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
-    Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, offset);
-    Response<ListadoDeHogares> responseHogares = requestHogares.execute();
-    Lista<Hogar> hogares = convertFromResponse(responseHogares.body());
-    return hogares;
+  public Lista<Hogar> getListadoHogares(){
+    try {
+      RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
+      Lista<Hogar> hogares = new Lista<>();
+
+      Response<ListadoDeHogares> responseHogares;
+
+      int i = 1;
+      Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, i);
+      responseHogares = requestHogares.execute();
+      ListadoDeHogares listadoDeHogares = responseHogares.body();
+      hogares.addAll(convertFromResponse(listadoDeHogares));
+      int total = listadoDeHogares.total;
+
+      while (hogares.size() < total) {
+        requestHogares = refugioService.hogares(apiToken, i++);
+        responseHogares = requestHogares.execute();
+        listadoDeHogares = responseHogares.body();
+        hogares.addAll(convertFromResponse(listadoDeHogares));
+      }
+
+      return hogares;
+    } catch (IOException e) {
+      throw new RuntimeException("Error al obtener el listado de hogares");
+    }
   }
 
   private Lista<Hogar> convertFromResponse(ListadoDeHogares listadoDeHogares) {
