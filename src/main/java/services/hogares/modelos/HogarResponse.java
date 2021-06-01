@@ -1,4 +1,4 @@
-package services.hogares;
+package services.hogares.modelos;
 
 import dominio.util.Lista;
 

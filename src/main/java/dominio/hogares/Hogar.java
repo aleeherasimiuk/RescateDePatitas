@@ -6,7 +6,6 @@ import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
 import dominio.util.Lista;
 import services.hogares.HogaresService;
-import services.hogares.HogaresServiceRefugioDDS;
 
 public class Hogar {
   private String nombre;

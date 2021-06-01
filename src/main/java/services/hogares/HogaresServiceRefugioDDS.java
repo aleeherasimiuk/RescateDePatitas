@@ -4,6 +4,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import services.hogares.modelos.HogarResponse;
+import services.hogares.modelos.ListadoDeHogares;
 
 import java.io.IOException;
 
@@ -49,6 +51,7 @@ public class HogaresServiceRefugioDDS implements HogaresService {
 
       return hogares;
     } catch (IOException e) {
+      e.printStackTrace();
       throw new RuntimeException("Error al obtener el listado de hogares");
     }
   }
