@@ -19,7 +19,9 @@ public class Fixture {
 
   private final Mascota pupi     = crearAPupi();
   private final Mascota felix    = crearAFelix();
+  private final Mascota vladi    = crearAVladi();
   private final Duenio carlos    = crearACarlos();
+  private final Duenio samuel    = crearASamuel();  
   private final Rescatista pedro = crearAPedro();
 
   private final Rescate rescatePupi  = rescatarAPupi();
@@ -43,8 +45,16 @@ public class Fixture {
     return felix;
   }
 
+  public Mascota getVladi() {
+    return vladi;
+  }
+
   public Duenio getCarlos() {
     return carlos;
+  }
+
+  public Duenio getSamuel() {
+    return samuel;
   }
 
   public Rescatista getPedro() {
@@ -79,6 +89,14 @@ public class Fixture {
     return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
   }
 
+  private Duenio crearASamuel() {
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789651");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Samuel", documento, unContacto(),
+        stringAFecha("01/01/2001"));
+
+    return new Duenio("samuKpo123", "Vladiteamo1", datosPersona);
+  }
+
   private Rescatista crearAPedro() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
     DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, unContacto(), stringAFecha("02/02/1996"));
@@ -96,6 +114,10 @@ public class Fixture {
     return new Mascota(ClaseMascota.PERRO, "felix", "feli", 5, Sexo.MACHO);
   }
 
+  private Mascota crearAVladi() {
+    return new Mascota(Clase.PERRO, "vladi", "vla", 5, Sexo.MACHO);
+  }  
+  
   private LocalDate stringAFecha(String fecha) {
     return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }

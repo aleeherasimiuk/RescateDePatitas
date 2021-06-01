@@ -1,4 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescates;
 
@@ -6,8 +9,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
+import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.mascota.Mascota;
+import dominio.personas.DatosPersona;
+import dominio.personas.Documento;
+import dominio.personas.TipoDeDocumento;
 import dominio.usuarios.Duenio;
 
 
@@ -16,8 +24,10 @@ public class RescateTest {
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
   Rescatista pedro;
   Duenio carlos;
+  Duenio samuel;
   Mascota pupi;
   Mascota felix;
+  Mascota vladi;
 
   @BeforeEach
   void iniciarRegistro() {
@@ -25,11 +35,15 @@ public class RescateTest {
     Fixture fixture = new Fixture();
     pedro  = fixture.getPedro();
     carlos = fixture.getCarlos();
+    samuel = fixture.getSamuel();
     pupi   = fixture.getPupi();
     felix  = fixture.getFelix();
+    vladi  = fixture.getVladi();
 
     carlos.registrarUnaMascota(pupi);
     carlos.registrarUnaMascota(felix);
+    
+    samuel.registrarUnaMascota(vladi);
 
     pedro.registrarRescate(fixture.getRescatePupi());
     pedro.registrarRescate(fixture.getRescateFelix());
@@ -56,5 +70,17 @@ public class RescateTest {
   void felixSePerdioHaceMucho() {
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
+  
+  @Test
+  void unDuenioNoConoceLaMascotaDeOtroDuenio() {
+  	assertFalse(samuel.esMiMascota(felix));
+  }
 
+  @Test
+  void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
+    Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames", LocalDate.now());
+
+    assertEquals(LocalDate.now(), rescatePupi.getFecha());
+  }
+  
 }
