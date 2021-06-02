@@ -18,6 +18,8 @@ import dominio.usuarios.Duenio;
 public class RescateTest {
   RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
+  Rescate rescateFelix;
+  Rescate rescatePupi;
   Rescatista pedro;
   Duenio carlos;
   Duenio samuel;
@@ -43,7 +45,9 @@ public class RescateTest {
 
     pedro.registrarRescate(fixture.getRescatePupi());
     pedro.registrarRescate(fixture.getRescateFelix());
-
+    
+    rescateFelix = fixture.getRescateFelix();
+    rescatePupi = fixture.getRescatePupi();
   }
 
   @AfterEach
