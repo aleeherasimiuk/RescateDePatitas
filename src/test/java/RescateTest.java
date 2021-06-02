@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
+import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
+import dominio.mascota.Tamanio;
 import dominio.usuarios.Duenio;
 
 
@@ -80,5 +82,35 @@ public class RescateTest {
   void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
     Rescate rescatePupi = new Fixture().getRescatePupi();
     assertEquals(LocalDate.now(), rescatePupi.getFecha());
+  }
+
+  @Test
+  void elRescatistaEsPedro(){
+    assertEquals("Pedro", rescatePupi.getDatosRescate().getRescatista().getDatosPersona().getNombre());
+  }
+
+  @Test
+  void laMascotaEsChica(){
+    assertEquals(Tamanio.CHICO, rescatePupi.getMascota().getTamanio());
+  }
+
+  @Test
+  void laMascotaEsGato(){
+    assertEquals(ClaseMascota.GATO, rescatePupi.getMascota().getClase());
+  }
+
+  @Test
+  void laMascotaEstabaEnLaUTN(){
+    assertEquals(0, rescatePupi.getLugar().distanciaA(new Fixture().getUTN()));
+  }
+
+  @Test
+  void laMascotaPareceSerUnGatoSiames(){
+    assertEquals("parece ser un gato siames",rescatePupi.getDescripcion());
+  }
+
+  @Test
+  void emailDeContacto(){
+    assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
   }
 }

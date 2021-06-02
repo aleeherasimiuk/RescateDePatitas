@@ -75,5 +75,17 @@ public class Publicacion {
     return datosRescate.getRescatista().getDatosPersona().getContacto();
   }
 
+  public DatosRescate getDatosRescate() {
+    return datosRescate;
+  }
+
+  public Tamanio getTamanio() {
+    return tamanio;
+  }
+
+  public ClaseMascota getClaseMascota() {
+    return claseMascota;
+  }
+
   
 }

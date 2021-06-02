@@ -31,7 +31,7 @@ public class Fixture {
   private final Rescate rescatePupi  = rescatarAPupi();
   private final Rescate rescateFelix = rescatarAFelix();
 
-  private final Coordenadas UTN               = new Coordenadas(-34.65858825852768, -58.46736257475716);
+  private final Coordenadas UTN               = buildUTN();
   private final Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
   private final Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
 
@@ -110,6 +110,10 @@ public class Fixture {
   	return unHogarAbandonado;
   }  
 
+  public Coordenadas getUTN() {
+    return UTN;
+  }
+
   private Duenio crearACarlos() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
     DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento, unContacto(),
@@ -162,7 +166,7 @@ public class Fixture {
   }
 
   private Rescate rescatarAPupi() {
-    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now(), "parece ser un gato siames", new Coordenadas(-50., -50.));
+    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
     Rescate rescatePupi = new Rescate(datosRescate, pupi);
     return rescatePupi;
   }
@@ -200,6 +204,10 @@ public class Fixture {
 
   private Hogar crearPequenioHogarPerruno() {  	  	
 		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), false, new Lista<String>(), UTN, false);
+  }
+
+  private Coordenadas buildUTN(){
+    return new Coordenadas(-34.65858825852768, -58.46736257475716);
   }
   
 }

@@ -88,4 +88,8 @@ public class Rescate {
   public void setHogar(Hogar hogar) {
     datosRescate.setHogar(hogar);
   }
+
+  public DatosRescate getDatosRescate() {
+    return datosRescate;
+  }
 }

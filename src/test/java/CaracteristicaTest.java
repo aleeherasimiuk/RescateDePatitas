@@ -1,5 +1,6 @@
 import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
+import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
@@ -87,6 +88,7 @@ class CaracteristicaTest {
 		assertFalse(felix.obtenerCaracteristica("colores-primarios") == "amarillo");
 	}
 
+	@Test
 	void castradaNoEsUnaCaracteristicaDeUnaOpcion(){
 		Fixture fixture = new Fixture();
 		Duenio carlos = fixture.getCarlos();
@@ -95,5 +97,20 @@ class CaracteristicaTest {
 
 		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("castrada","si"));
 	}
+
+	@Test
+	void opcionInvalida(){
+		Fixture fixture = new Fixture();
+		Mascota felix = fixture.getFelix();
+		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("Castrado", "tal vez"));
+	}
+
+	@Test
+	void caracteristicaInvalida(){
+		Fixture fixture = new Fixture();
+		Mascota felix = fixture.getFelix();
+		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("Panza Negra", "Si"));
+	}
+
 
 }
