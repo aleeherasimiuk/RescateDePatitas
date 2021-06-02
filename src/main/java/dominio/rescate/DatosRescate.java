@@ -3,8 +3,8 @@ package dominio.rescate;
 import java.time.LocalDate;
 import java.util.List;
 
-import dominio.Ubicacion.Coordenadas;
 import dominio.hogares.Hogar;
+import dominio.ubicacion.Coordenadas;
 
 public class DatosRescate {
   private final Rescatista rescatista;

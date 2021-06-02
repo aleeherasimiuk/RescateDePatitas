@@ -2,7 +2,7 @@ package dominio.asociacion;
 
 import java.util.Comparator;
 
-import dominio.Ubicacion.Coordenadas;
+import dominio.ubicacion.Coordenadas;
 
 public class AsociacionComparator implements Comparator<Asociacion>{
 

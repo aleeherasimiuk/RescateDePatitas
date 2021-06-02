@@ -1,6 +1,6 @@
 package dominio.asociacion;
 
-import dominio.Ubicacion.Coordenadas;
+import dominio.ubicacion.Coordenadas;
 
 public class Asociacion{
 

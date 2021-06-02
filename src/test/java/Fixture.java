@@ -15,7 +15,7 @@ import dominio.rescate.DatosRescate;
 import dominio.rescate.Publicacion;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
-import dominio.Ubicacion.Coordenadas;
+import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
 import dominio.util.Lista;
 
