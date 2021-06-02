@@ -29,4 +29,10 @@ public class Coordenadas{
     return comparacion <= 0? unasCoordenadas : otrasCoordenadas;
   }
 
+  public Coordenadas elMasLejano(Coordenadas unasCoordenadas, Coordenadas otrasCoordenadas){
+    int comparacion = new CoordenadasComparator(this).compare(unasCoordenadas, otrasCoordenadas);
+
+    return comparacion >= 0 ? unasCoordenadas : otrasCoordenadas;
+  }
+
 }
