@@ -1,6 +1,5 @@
 import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
-import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;

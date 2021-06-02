@@ -21,7 +21,6 @@ import dominio.util.Lista;
 
 public class Fixture {
 
-  private static final String True = null;
 	private final Mascota pupi     = crearAPupi();
   private final Mascota felix    = crearAFelix();
   private final Mascota vladi    = crearAVladi();
@@ -186,24 +185,21 @@ public class Fixture {
   }
   
   private Hogar crearHogarCarinioso() {  	
-  	Lista<ClaseMascota> prefierenCualquierMascota = new Lista(ClaseMascota.PERRO, ClaseMascota.GATO);
+  	Lista<ClaseMascota> prefierenCualquierMascota = new Lista<ClaseMascota>(ClaseMascota.PERRO, ClaseMascota.GATO);
   	  	
 		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new Lista<String>(), UTN, true);
   }
 
   private Hogar crearHiltonPerruno() {  	  	
-		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista(ClaseMascota.PERRO), true, new Lista<String>(), UTN, true);
+		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), true, new Lista<String>(), UTN, true);
   }
 
   private Hogar crearHiltonParaGatos() {  	  	
-		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista(ClaseMascota.GATO), true, new Lista<String>(), UTN, true);
+		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.GATO), true, new Lista<String>(), UTN, true);
   }
 
   private Hogar crearPequenioHogarPerruno() {  	  	
-		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista(ClaseMascota.PERRO), false, new Lista<String>(), UTN, false);
+		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), false, new Lista<String>(), UTN, false);
   }
-  
-  
-
   
 }
