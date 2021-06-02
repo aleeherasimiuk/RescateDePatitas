@@ -66,4 +66,20 @@ class HogaresTest {
 	void unHogarGrandeSiempreAceptaMascotasPequenias() {
 		assertFalse(elHiltonPerruno.aceptaMascota(pupi.getClase(), pupi.getTamanio()));		
 	}
+	
+	@Test
+	void unHogarAbandonadoSeLlamaDeIgualManera(){
+		assertEquals("HogarAbandonado", unHogarAbandonado.getNombre());
+	}
+
+	@Test
+	void unHogarPuedeNoTenerCaracteristicas(){
+		assertEquals(null, unHogarAbandonado.getCaracteristicasEspecificas());
+	}
+
+	@Test
+	void unHogarPuedeDecidirNoTenerPreferencias(){
+		assertEquals(null, unHogarAbandonado.getPreferencias());
+	}	
+	
 }
