@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import dominio.asociacion.Asociacion;
 import dominio.mascota.ClaseMascota;

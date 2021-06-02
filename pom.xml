@@ -89,6 +89,9 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>4.2.0</version>
+        <configuration>
+          <excludeFilterFile>ignore.xml</excludeFilterFile>
+        </configuration>
         <executions>
           <execution>
             <id>Validar Code Smells</id>
