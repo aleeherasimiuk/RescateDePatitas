@@ -70,32 +70,6 @@ public class CoordenadasTest {
 
   }
 
-  @DisplayName("No se cumple que el parque chacabuco quede  más cerca que el parque avellaneda del campus")
-  @Test
-  void testDistancia6(){
-
-    Coordenadas UTN               = new Coordenadas(-34.65858825852768, -58.46736257475716);
-    Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
-    Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
-
-    Coordenadas masCercano = UTN.elMasLejano(parqueChacabuco, parqueAvellaneda);
-    assertNotEquals(parqueAvellaneda, masCercano);
-    }
-
-  @DisplayName("No se cumple que (10,10) sea más cerca que (25, -50) con respecto a (3,4)")
-  @Test
-  void testDistancia7(){
- 
-    Coordenadas coordenadas    = new Coordenadas( 3.0,   4.0);
-    Coordenadas coordsCercanas = new Coordenadas(10.0,  10.0);
-    Coordenadas coordsLejanas  = new Coordenadas(25.0, -50.0);
-
-    Coordenadas masCercana = coordenadas.elMasLejano(coordsCercanas, coordsLejanas);
-
-    assertNotEquals(coordsCercanas, masCercana);
-    
-  }
-
   @DisplayName("No se cumple que la distancia entre (10,10) y (1,1) es √2")
   @Test
   void testDistancia8(){
