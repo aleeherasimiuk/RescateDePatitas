@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
+import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
 import dominio.util.Lista;
 
@@ -50,7 +51,7 @@ public class ListaTest {
 
   @Test
   void mascotasCastradas() {
-
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
     new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO", "SI", "NO");
 
     Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);

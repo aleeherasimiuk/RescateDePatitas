@@ -1,38 +1,32 @@
 package dominio.rescate;
 
-import java.time.LocalDate;
 
 import dominio.asociacion.Asociacion;
-import dominio.mascota.Mascota;
+import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
-import dominio.Ubicacion.Coordenadas;
-import dominio.util.Lista;
 import servicios.MailerRescatista;
-public class Publicacion {
-  
-  private final Rescate rescate;
-  private EstadoPublicacion estado;
-  private Asociacion asociacionAsignada;
 
-  public Publicacion(Rescate rescate) {
-    this.rescate = rescate;
+public class Publicacion {
+
+  private final DatosRescate datosRescate;
+
+  private Asociacion asociacionAsignada;
+  private EstadoPublicacion estado;
+
+  public Publicacion(DatosRescate datosRescate) {
+    this.datosRescate = datosRescate;
     this.estado = EstadoPublicacion.PENDIENTE;
   }
 
-  public void identificarMascota(Mascota mascota){
-    rescate.setMascota(mascota);
-    enviarMailAlRescatista();
-  }
-
-  private void enviarMailAlRescatista() {
+  public void confirmarMascotaEncontrada(){
     MailerRescatista mail = new MailerRescatista();
     mail.enviarMail(this);
   }
 
   public void asignarAsociacion(){
     if(asociacionAsignada != null) throw new RuntimeException("La publicación ya tiene una asociación asignada");
-    asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(rescate);
+    asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(datosRescate.getLugar());
   }
 
   public void aprobar(){
@@ -61,36 +55,11 @@ public class Publicacion {
     return asociacionAsignada;
   }
 
-  /* DATOS NO SENSIBLES */
-
-  public Lista<String> fotos(){
-    return rescate.getFotos();
-  }
-
-  public int telefonoDeContacto(){
-    return rescate.telefonoDeContacto();
-  }
-
-  public Coordenadas lugar(){
-    return rescate.getLugar();
-  }
-
-  public LocalDate fecha(){
-    return rescate.getFecha();
-  }
-
-  public String descripcion(){
-    return rescate.getDescripcion();
-  }
-
   public String emailDeContacto(){
-    return rescate.emailDeContacto();
+    return getContacto().getEmail();
   }
 
-  public Rescate getRescate() {
-    return rescate;
+  public Contacto getContacto() {
+    return datosRescate.getRescatista().getDatosPersona().getContacto();
   }
-
- 
-
 }

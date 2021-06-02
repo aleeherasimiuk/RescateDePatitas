@@ -9,9 +9,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dominio.rescate.DatosRescate;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
-import dominio.rescate.Ubicacion.Coordenadas;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
@@ -42,12 +42,12 @@ public class RescateTest {
 
     carlos.registrarUnaMascota(pupi);
     carlos.registrarUnaMascota(felix);
-    
+
     samuel.registrarUnaMascota(vladi);
 
     pedro.registrarRescate(fixture.getRescatePupi());
     pedro.registrarRescate(fixture.getRescateFelix());
-  
+
   }
 
   @AfterEach
@@ -70,7 +70,7 @@ public class RescateTest {
   void felixSePerdioHaceMucho() {
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
-  
+
   @Test
   void unDuenioNoConoceLaMascotaDeOtroDuenio() {
   	assertFalse(samuel.esMiMascota(felix));
@@ -78,9 +78,7 @@ public class RescateTest {
 
   @Test
   void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
-    Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames", LocalDate.now());
-
+    Rescate rescatePupi = new Fixture().getRescatePupi();
     assertEquals(LocalDate.now(), rescatePupi.getFecha());
   }
-  
 }

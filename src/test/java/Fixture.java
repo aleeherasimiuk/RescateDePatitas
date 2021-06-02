@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import dominio.asociacion.Asociacion;
 import dominio.mascota.ClaseMascota;
@@ -9,11 +10,13 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.rescate.DatosRescate;
 import dominio.rescate.Publicacion;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
 import dominio.Ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
+import dominio.util.Lista;
 
 public class Fixture {
 
@@ -21,7 +24,7 @@ public class Fixture {
   private final Mascota felix    = crearAFelix();
   private final Mascota vladi    = crearAVladi();
   private final Duenio carlos    = crearACarlos();
-  private final Duenio samuel    = crearASamuel();  
+  private final Duenio samuel    = crearASamuel();
   private final Rescatista pedro = crearAPedro();
 
   private final Rescate rescatePupi  = rescatarAPupi();
@@ -115,9 +118,9 @@ public class Fixture {
   }
 
   private Mascota crearAVladi() {
-    return new Mascota(Clase.PERRO, "vladi", "vla", 5, Sexo.MACHO);
-  }  
-  
+    return new Mascota(ClaseMascota.PERRO, "vladi", "vla", 5, Sexo.MACHO);
+  }
+
   private LocalDate stringAFecha(String fecha) {
     return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
   }
@@ -127,26 +130,20 @@ public class Fixture {
   }
 
   private Rescate rescatarAFelix() {
-    Rescate rescateFelix = new Rescate(pedro, felix, "perro negro con mancha blanca en la panza",
-        LocalDate.now().plusDays(-15));
-    rescateFelix.setLugar(new Coordenadas(-55., -55.));
+    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
+    Rescate rescateFelix = new Rescate(datosRescate, felix);
     return rescateFelix;
   }
 
   private Rescate rescatarAPupi() {
-    Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames", LocalDate.now().minusDays(1));
-    rescatePupi.setLugar(new Coordenadas(-50., -50.));
+    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now(), "parece ser un gato siames", new Coordenadas(-50., -50.));
+    Rescate rescatePupi = new Rescate(datosRescate, pupi);
     return rescatePupi;
   }
 
-  private Rescate rescateSinMascota(){
-    Rescate rescateSinMascota = new Rescate(pedro, null, "parece ser un gato siames", LocalDate.now().minusDays(1));
-    rescateSinMascota.setLugar(UTN);
-    return rescateSinMascota;
-  }
-
   private Publicacion publicacionMascotaUTN(){
-    return rescateSinMascota().generarPublicacion();
+    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", UTN);
+    return new Publicacion(datosRescate);
   }
 
   private Asociacion asociacionPatitasSucias(){
@@ -156,5 +153,4 @@ public class Fixture {
   private Asociacion asociacionColaDeGato(){
     return new Asociacion("Cola de Gato", parqueChacabuco);
   }
-  
 }

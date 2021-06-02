@@ -2,20 +2,20 @@ package dominio.asociacion;
 
 import java.util.Comparator;
 
-import dominio.rescate.Rescate;
+import dominio.Ubicacion.Coordenadas;
 
 public class AsociacionComparator implements Comparator<Asociacion>{
 
-  private Rescate rescate;
+  private Coordenadas coordenadas;
 
-  public AsociacionComparator(Rescate rescate) {
-    this.rescate = rescate;
+  public AsociacionComparator(Coordenadas coordenadas) {
+    this.coordenadas = coordenadas;
   }
 
   @Override
   public int compare(Asociacion o1, Asociacion o2) {
-    Double distanciaA = rescate.getLugar().distanciaA(o1.getUbicacion());
-    Double distanciaB = rescate.getLugar().distanciaA(o2.getUbicacion());
+    Double distanciaA = coordenadas.distanciaA(o1.getUbicacion());
+    Double distanciaB = coordenadas.distanciaA(o2.getUbicacion());
 
     return distanciaA.compareTo(distanciaB);
 
