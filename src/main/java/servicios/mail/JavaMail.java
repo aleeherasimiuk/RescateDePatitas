@@ -44,7 +44,7 @@ public abstract class JavaMail <T> {
   }
 
   private void credenciales(){
-    Config config = Config.getInstance();
+    Config config = new Config();
     emisor = config.getConfig("mail.sender");
     password = config.getConfig("mail.password");
   }

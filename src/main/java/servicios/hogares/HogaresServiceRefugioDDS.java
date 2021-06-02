@@ -21,11 +21,13 @@ public class HogaresServiceRefugioDDS implements HogaresService {
   private Retrofit retrofit;
 
   public HogaresServiceRefugioDDS() {
+    Config config = new Config();
+    
     retrofit = new Retrofit.Builder()
-        .baseUrl(Config.getInstance().getConfig("api.refugio.url"))
+        .baseUrl(config.getConfig("api.refugio.url"))
         .addConverterFactory(GsonConverterFactory.create())
         .build();
-    apiToken = Config.getInstance().getConfig("api.refugio.token");
+    apiToken = config.getConfig("api.refugio.token");
   }
 
   public Lista<Hogar> getListadoHogares(){

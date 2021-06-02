@@ -4,28 +4,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class Config {
-  private Properties properties;
-  private static Config INSTANCE;
+public class Config {
+  private final Properties properties;
+  private static final String FILENAME = "config.properties"; 
 
-  private Config() throws IOException {
+  public Config() {
     properties = new Properties();
-    final InputStream stream = Config.class.getClassLoader().getResourceAsStream("config.properties");
-    properties.load(stream);
-  }
-
-  public static Config getInstance() {
     try {
-      if (INSTANCE == null) {
-        INSTANCE = new Config();
-      }
-      return INSTANCE;
-    } catch(IOException exception) {
-      throw new RuntimeException("Error trying to open config file");
+      InputStream stream = Config.class.getClassLoader().getResourceAsStream(FILENAME);
+      properties.load(stream);
+      stream.close();
+    } catch (IOException e) {
+      throw new RuntimeException("No se ha podido leer el archivo de configuracion");
     }
   }
 
   public String getConfig(String config) {
     return properties.getProperty(config);
   }
+
+  //Only for testing purposes
+  public void addProperty(String key, String value){
+    properties.setProperty(key, value);
+  }
+
 }
