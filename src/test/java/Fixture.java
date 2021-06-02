@@ -6,6 +6,7 @@ import dominio.asociacion.Asociacion;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
+import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
@@ -108,17 +109,17 @@ public class Fixture {
   }
 
   private Mascota crearAPupi() {
-    Mascota pupi = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
+    Mascota pupi = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO, Tamanio.CHICO);
     pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
     return pupi;
   }
 
   private Mascota crearAFelix() {
-    return new Mascota(ClaseMascota.PERRO, "felix", "feli", 5, Sexo.MACHO);
+    return new Mascota(ClaseMascota.PERRO, "felix", "feli", 5, Sexo.MACHO, Tamanio.GRANDE);
   }
 
   private Mascota crearAVladi() {
-    return new Mascota(ClaseMascota.PERRO, "vladi", "vla", 5, Sexo.MACHO);
+    return new Mascota(ClaseMascota.PERRO, "vladi", "vla", 5, Sexo.MACHO, Tamanio.MEDIANO);
   }
 
   private LocalDate stringAFecha(String fecha) {
@@ -143,7 +144,7 @@ public class Fixture {
 
   private Publicacion publicacionMascotaUTN(){
     DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", UTN);
-    return new Publicacion(datosRescate);
+    return new Publicacion(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
   }
 
   private Asociacion asociacionPatitasSucias(){

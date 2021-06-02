@@ -9,13 +9,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.DatosRescate;
 import dominio.rescate.Rescate;
 import dominio.rescate.Rescatista;
 import dominio.mascota.Mascota;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
 import dominio.usuarios.Duenio;
 
 

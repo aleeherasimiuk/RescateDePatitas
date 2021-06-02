@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
+import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
 import dominio.util.Lista;
@@ -54,9 +55,9 @@ public class ListaTest {
     RepositorioCaracteristicas.getINSTANCE().vaciar();
     new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO", "SI", "NO");
 
-    Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-    Mascota mascota2 = new Mascota(ClaseMascota.GATO, "Pupo", "Pupo", 3, Sexo.MACHO);
-    Mascota mascota3 = new Mascota(ClaseMascota.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA);
+    Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO , Tamanio.CHICO);
+    Mascota mascota2 = new Mascota(ClaseMascota.GATO, "Pupo", "Pupo", 3, Sexo.MACHO , Tamanio.CHICO);
+    Mascota mascota3 = new Mascota(ClaseMascota.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA, Tamanio.CHICO);
 
     mascota1.agregarUnaCaracteristica("CASTRADO", "SI");
     mascota2.agregarUnaCaracteristica("CASTRADO", "SI");

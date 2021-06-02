@@ -2,18 +2,17 @@ package dominio.hogares;
 
 import dominio.Ubicacion.Coordenadas;
 import dominio.mascota.ClaseMascota;
-import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
 import dominio.util.Lista;
 import services.hogares.HogaresService;
 
 public class Hogar {
-  private String nombre;
-  private String telefono;
-  private Lista<ClaseMascota> preferencias = new Lista<ClaseMascota>();
-  private Boolean tienePatio;
-  private Lista<String> caracteristicasEspecificas = new Lista<String>();
-  private Coordenadas ubicacion;
+  private final String nombre;
+  private final String telefono;
+  private final Lista<ClaseMascota> preferencias;
+  private final Boolean tienePatio;
+  private final Lista<String> caracteristicasEspecificas;
+  private final Coordenadas ubicacion;
   private Boolean tieneCapacidad;
 
   public Hogar(String nombre, String telefono, Lista<ClaseMascota> preferencias, Boolean tienePatio, Lista<String> caracteristicasEspecificas,
@@ -32,7 +31,7 @@ public class Hogar {
   }
 
   public Boolean aceptaMascota(ClaseMascota claseMascota, Tamanio tamanio){
-    return aceptaClase(claseMascota) && aceptaTamanio(tamanio);
+    return tieneCapacidad && aceptaClase(claseMascota) && aceptaTamanio(tamanio);
   }
 
   private Boolean aceptaClase(ClaseMascota claseMascota){
@@ -54,4 +53,19 @@ public class Hogar {
   public String getTelefono() {
     return telefono;
   }
+
+  public Lista<ClaseMascota> getPreferencias() {
+    return preferencias;
+  }
+
+  public Lista<String> getCaracteristicasEspecificas() {
+    return caracteristicasEspecificas;
+  }
+
+  public Coordenadas getUbicacion() {
+    return ubicacion;
+  }
+  
+
+  
 }
