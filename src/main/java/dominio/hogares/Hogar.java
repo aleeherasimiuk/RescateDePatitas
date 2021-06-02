@@ -31,8 +31,8 @@ public class Hogar {
     return service.getListadoHogares();
   }
 
-  public Boolean aceptaMascota(Mascota mascota){
-    return aceptaClase(mascota.getClase()) && aceptaTamanio(mascota.getTamanio());
+  public Boolean aceptaMascota(ClaseMascota claseMascota, Tamanio tamanio){
+    return aceptaClase(claseMascota) && aceptaTamanio(tamanio);
   }
 
   private Boolean aceptaClase(ClaseMascota claseMascota){

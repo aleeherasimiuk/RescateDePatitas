@@ -35,6 +35,12 @@ public class Rescate {
     return Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), getFecha())) <= 10;
   }
 
+  public void asignarHogar(Hogar hogar){
+    if(!hogar.aceptaMascota(mascota.getClase(), mascota.getTamanio()))
+      throw new RuntimeException("El hogar solicitado no acepta a la mascota");
+    this.datosRescate.setHogar(hogar);
+  }
+
   public Mascota getMascota() {
     return this.mascota;
   }
