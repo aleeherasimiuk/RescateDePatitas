@@ -26,7 +26,7 @@ public class Hogar {
     this.tieneCapacidad = tieneCapacidad;
   }
 
-  public static Lista<Hogar> getHogares(HogaresService service) {
+	public static Lista<Hogar> getHogares(HogaresService service) {
     return service.getListadoHogares();
   }
 

@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import dominio.asociacion.Asociacion;
+import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
@@ -20,7 +21,8 @@ import dominio.util.Lista;
 
 public class Fixture {
 
-  private final Mascota pupi     = crearAPupi();
+  private static final String True = null;
+	private final Mascota pupi     = crearAPupi();
   private final Mascota felix    = crearAFelix();
   private final Mascota vladi    = crearAVladi();
   private final Duenio carlos    = crearACarlos();
@@ -39,6 +41,12 @@ public class Fixture {
   private final Asociacion  patitasSucias  = asociacionPatitasSucias();
   private final Publicacion publicacionUTN = publicacionMascotaUTN();
 
+  private final Hogar somosHogarCarinioso = crearHogarCarinioso();
+  private final Hogar elHiltonParaGatos = crearHiltonParaGatos();
+  private final Hogar elPequenioHogarPerruno = crearPequenioHogarPerruno();
+  private final Hogar elHiltonPerruno = crearHiltonPerruno();    
+  private final Hogar unHogarAbandonado = crearHogarAbandonado();
+  
 
   public Mascota getPupi() {
     return pupi;
@@ -83,6 +91,25 @@ public class Fixture {
   public Publicacion getPublicacionUTN() {
     return publicacionUTN;
   }
+  
+  public Hogar getHogarCarinio() {
+  	return somosHogarCarinioso;
+  }
+  
+  public Hogar getElHiltonParaGatos() {
+  	return elHiltonParaGatos;
+  }
+  public Hogar getElHiltonPerruno() {
+  	return elHiltonPerruno;
+  }
+  
+  public Hogar getElPequenioHogarPerruno() {
+  	return elPequenioHogarPerruno;
+  }
+
+  public Hogar getHogarAbandonado() {
+  	return unHogarAbandonado;
+  }  
 
   private Duenio crearACarlos() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
@@ -153,4 +180,30 @@ public class Fixture {
   private Asociacion asociacionColaDeGato(){
     return new Asociacion("Cola de Gato", parqueChacabuco);
   }
+
+  private Hogar crearHogarAbandonado() {  	
+		return new Hogar("HogarAbandonado", "0800-999-111", null, false, null, UTN, false);  	
+  }
+  
+  private Hogar crearHogarCarinioso() {  	
+  	Lista<ClaseMascota> prefierenCualquierMascota = new Lista(ClaseMascota.PERRO, ClaseMascota.GATO);
+  	  	
+		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new Lista<String>(), UTN, true);
+  }
+
+  private Hogar crearHiltonPerruno() {  	  	
+		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista(ClaseMascota.PERRO), true, new Lista<String>(), UTN, true);
+  }
+
+  private Hogar crearHiltonParaGatos() {  	  	
+		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista(ClaseMascota.GATO), true, new Lista<String>(), UTN, true);
+  }
+
+  private Hogar crearPequenioHogarPerruno() {  	  	
+		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista(ClaseMascota.PERRO), false, new Lista<String>(), UTN, false);
+  }
+  
+  
+
+  
 }
