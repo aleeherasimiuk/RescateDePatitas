@@ -8,7 +8,7 @@ import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
-import servicios.MailerRescatista;
+import servicios.mail.MailerRescatista;
 
 public class Publicacion {
 

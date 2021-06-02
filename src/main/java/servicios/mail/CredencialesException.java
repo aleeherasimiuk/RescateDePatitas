@@ -1,4 +1,4 @@
-package servicios;
+package servicios.mail;
 
 public class CredencialesException extends RuntimeException{
 

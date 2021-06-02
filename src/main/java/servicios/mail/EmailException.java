@@ -1,4 +1,4 @@
-package servicios;
+package servicios.mail;
 
 public class EmailException extends RuntimeException{
   

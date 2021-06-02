@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
+import servicios.mail.MailerDuenio;
 import dominio.Ubicacion.Coordenadas;
 import dominio.hogares.Hogar;
-import servicios.MailerDuenio;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
