@@ -10,14 +10,17 @@ public class Voluntario extends Usuario{
     super(username,password);
   }
 
+  // TODO: WTF?
   public void aprobarPublicacion(Publicacion publicacion){
     publicacion.aprobar();
   }
 
+  // TODO: WTF?
   public List<Publicacion> obtenerPublicacionesPendientes(){
     return RepositorioPublicaciones.getINSTANCE().publicacionesPendientes();
   }
 
+  // TODO: WTF?
   public List<Publicacion> obtenerPublicacionesAprobadas(){
     return RepositorioPublicaciones.getINSTANCE().publicacionesAprobadas();
   }

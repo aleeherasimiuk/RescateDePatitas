@@ -1,0 +1,143 @@
+@startuml RescateDePatitas
+
+class Contacto{
+  apellido
+  nombre
+  teléfono
+  email
+}
+
+class Mascota{
+  clase
+  nombre
+  apodo
+  edad
+  sexo
+  descripcionFísica
+  fotos[]
+  características[]
+}
+
+enum Clase{
+  GATO
+  PERRO
+}
+
+class Documento{
+  tipo
+  numero
+}
+
+enum TipoDeDocumento{
+  DNI
+  LC /' Libreta Cívica '/
+  LE /' Libreta de Enrolamiento '/
+  CI /' Cédula de Identidad '/
+  PASAPORTE
+}
+
+
+class Rescate{
+  datosRescate
+  mascota
+}
+
+class Coordenadas{
+  latitud
+  longitud
+}
+
+class Usuario{
+  username
+  password
+}
+
+class Administrador{
+  agregarUnaCaracterística()
+  eliminarUnaCaracterística()
+
+}
+
+class Dueño{
+  mascotasRegistradas[]
+  registrarUnaMascota()
+  esMiMascota()
+}
+
+class Voluntario{
+
+}
+
+class Rescatista{
+  direccion
+  registrarRescate()
+}
+
+class DatosPersona{
+  apellido
+  nombre
+  fechaDeNacimiento
+  documento
+  contacto
+}
+
+
+class DatosRescate{
+  rescatista
+  fotos
+  fecha
+  descripcion
+  lugar
+  hogar
+}
+
+
+class Publicacion{
+  datosRescate
+  aprobada
+  asociacionAsignada
+  aprobar()
+  rechazar()
+  datosNoSensibles()
+  fotos()
+  estaAprobada()
+}
+
+
+enum EstadoPublicacion{
+  APROBADO
+  RECHAZADO
+  PENDIENTE
+}
+
+class Hogar{
+  nombre
+  telefono
+  preferencias
+  tienePatio
+  caracteristicasEspecificas
+  ubicacion
+  tieneCapacidad
+
+  aceptaMascota()
+}
+
+Dueño         -u->    DatosPersona
+Rescatista    -u->    DatosPersona
+DatosPersona  -r->    Documento
+DatosPersona  -l->    Contacto
+DatosRescate  -u->    Rescatista
+Dueño         -u-|>   Usuario
+Rescate       -d->    Mascota
+Documento     -r->    TipoDeDocumento
+Mascota       -l->    Clase
+Dueño         -d->"*" Mascota
+Administrador -u-|>   Usuario
+DatosRescate    ->    Coordenadas
+Publicacion   -d->    EstadoPublicacion
+Publicacion   -d->    DatosRescate
+Rescate       -d->    DatosRescate
+DatosRescate  -d->    Hogar
+Voluntario    -u-|>   Usuario
+
+@enduml

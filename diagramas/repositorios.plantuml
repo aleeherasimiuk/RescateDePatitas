@@ -1,0 +1,82 @@
+@startuml rescateDePatitas
+
+abstract class Repositorio {
+  repositorio
+  registrar()
+  borrar()
+  buscar()
+  filtrar()
+  cantidadDeRegistros()
+  contar()
+  existe()
+  vaciar()
+  
+}
+
+class RepositorioDueños{
+  duenioDe()
+}
+
+
+class RepositorioMascotas{
+  obtenerDueñoDe()
+}
+
+
+class RepositorioRescates{
+  últimasMascotasEncontradas()
+  confirmarMascotaEncontrada()
+}
+
+class RepositorioCaracteristicas{
+  existeCaracteristica()
+  borrarCaracteristica()
+  obtenerCaracteristica()
+  opcionesDe()
+}
+
+class RepositorioAdministradores{
+
+}
+
+class RepositorioValidaciones{
+  validatePassword()
+}
+
+
+class RepositorioPublicaciones{
+  publicacionesPendientes()
+  publicacionesAprobadas()
+}
+
+
+class RepositorioAsociaciones{
+  obtenerLaMasCercana()
+}
+
+class Característica{
+  título
+  opciones[]
+  agregarOpcion()
+  tieneEstaOpcion()
+}
+
+RepositorioAsociaciones     -l-> "*" Asociacion
+RepositorioPublicaciones      -> "*" Publicacion
+RepositorioDueños           -d-> "*" Dueño
+RepositorioMascotas         -d-> "*" Mascota
+RepositorioRescates         -d-> "*" Rescate
+RepositorioAdministradores  -d-> "*" Administrador
+RepositorioCaracteristicas  -r-> "*" Característica
+RepositorioValidaciones     -l-> "*" Validation
+
+
+RepositorioAsociaciones    -d-|> Repositorio
+RepositorioPublicaciones   -d-|> Repositorio
+RepositorioValidaciones    -r-|> Repositorio
+RepositorioDueños          -u-|> Repositorio
+RepositorioRescates        -u-|> Repositorio
+RepositorioMascotas        -u-|> Repositorio
+RepositorioCaracteristicas -l-|> Repositorio
+RepositorioAdministradores -u-|> Repositorio
+@enduml
