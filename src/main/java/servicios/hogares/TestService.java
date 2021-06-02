@@ -1,4 +1,4 @@
-package services.hogares;
+package servicios.hogares;
 
 import java.io.IOException;
 import java.util.List;

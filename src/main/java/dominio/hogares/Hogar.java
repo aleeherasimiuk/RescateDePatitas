@@ -4,7 +4,7 @@ import dominio.Ubicacion.Coordenadas;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.util.Lista;
-import services.hogares.HogaresService;
+import servicios.hogares.HogaresService;
 
 public class Hogar {
   private final String nombre;

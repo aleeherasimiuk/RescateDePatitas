@@ -1,11 +1,11 @@
-package services.hogares;
+package servicios.hogares;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import services.hogares.modelos.HogarResponse;
-import services.hogares.modelos.ListadoDeHogares;
+import servicios.hogares.modelos.HogarResponse;
+import servicios.hogares.modelos.ListadoDeHogares;
 
 import java.io.IOException;
 

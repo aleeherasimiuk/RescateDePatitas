@@ -1,10 +1,10 @@
-package services.hogares;
+package servicios.hogares;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
-import services.hogares.modelos.ListadoDeHogares;
+import servicios.hogares.modelos.ListadoDeHogares;
 
 public interface RefugioDDSAPI {
 

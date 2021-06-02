@@ -1,4 +1,4 @@
-package services.hogares;
+package servicios.hogares;
 
 import dominio.util.Lista;
 import dominio.hogares.Hogar;

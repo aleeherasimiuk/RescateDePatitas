@@ -1,4 +1,4 @@
-package services.hogares.modelos;
+package servicios.hogares.modelos;
 
 import com.google.gson.annotations.SerializedName;
 
