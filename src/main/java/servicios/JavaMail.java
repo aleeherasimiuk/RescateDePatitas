@@ -1,11 +1,4 @@
 package servicios;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -14,6 +7,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import config.Config;
 
 
 public abstract class JavaMail <T> {
@@ -49,20 +44,9 @@ public abstract class JavaMail <T> {
   }
 
   private void credenciales(){
-    Properties credenciales = new Properties();
-    try {
-      InputStream stream =  new FileInputStream("keys.properties");
-      Reader reader = new InputStreamReader(stream, Charset.forName("UTF-8"));
-      credenciales.load(reader);
-      password = credenciales.getProperty("password");
-      emisor = credenciales.getProperty("mail");
-      stream.close();
-      reader.close();
-      
-    } catch (IOException e) {
-      throw new CredencialesException();
-    }
-
+    Config config = Config.getInstance();
+    emisor = config.getConfig("mail.sender");
+    password = config.getConfig("mail.password");
   }
 
   protected abstract String destinatario(T t);
