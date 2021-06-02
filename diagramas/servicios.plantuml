@@ -1,2 +1,39 @@
 @startuml RescateDePatitas
+
+abstract JavaMail<T>{
+  emisor,
+  password
+  destinatario()
+  mensaje()
+  asunto()
+  enviarMail()
+}
+
+MailerDuenio -u-|> JavaMail
+class MailerDuenio<Duenio>{
+  destinatario()
+  mensaje()
+  asunto()
+}
+
+MailerRescatista -u-|> JavaMail
+class MailerRescatista<Rescatista>{
+  destinatario()
+  mensaje()
+  asunto()
+}
+
+interface HogaresService{
+  getListadoHogares()
+}
+
+interface RefugioDDSAPI{
+  hogares()
+}
+
+HogaresServiceRefugioDDS .u.> HogaresService
+HogaresServiceRefugioDDS -d->"Retrofit CALL" RefugioDDSAPI
+class HogaresServiceRefugioDDS{
+  getListadoHogares()
+}
 @enduml
