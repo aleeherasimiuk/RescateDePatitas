@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescates;
@@ -10,54 +9,47 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.Rescatista;
-import dominio.mascota.Clase;
-import dominio.mascota.Mascota;
-import dominio.mascota.Sexo;
-import dominio.personas.Contacto;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
-import dominio.rescate.Coordenadas;
 import dominio.rescate.Rescate;
+import dominio.rescate.Rescatista;
+import dominio.mascota.ClaseMascota;
+import dominio.mascota.Mascota;
+import dominio.mascota.Tamanio;
 import dominio.usuarios.Duenio;
+
 
 public class RescateTest {
   RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
+  Rescate rescateFelix;
+  Rescate rescatePupi;
   Rescatista pedro;
   Duenio carlos;
+  Duenio samuel;
   Mascota pupi;
   Mascota felix;
+  Mascota vladi;
 
   @BeforeEach
   void iniciarRegistro() {
-    pedro = crearAPedro();
-    pupi = crearAPupi();
-    felix = crearAFelix();
 
-    carlos = crearACarlos();
+    Fixture fixture = new Fixture();
+    pedro  = fixture.getPedro();
+    carlos = fixture.getCarlos();
+    samuel = fixture.getSamuel();
+    pupi   = fixture.getPupi();
+    felix  = fixture.getFelix();
+    vladi  = fixture.getVladi();
+
     carlos.registrarUnaMascota(pupi);
     carlos.registrarUnaMascota(felix);
 
-    Rescate rescatePupi = rescatarAPupi();
-    Rescate rescateFelix = rescatarAFelix();
+    samuel.registrarUnaMascota(vladi);
 
-    pedro.registrarRescate(rescatePupi);
-    pedro.registrarRescate(rescateFelix);
-  }
-
-  private Rescate rescatarAFelix() {
-    Rescate rescateFelix = new Rescate(pedro, felix, "perro negro con mancha blanca en la panza",
-        LocalDate.now().plusDays(-15));
-    rescateFelix.setLugar(new Coordenadas(-55., -55.));
-    return rescateFelix;
-  }
-
-  private Rescate rescatarAPupi() {
-    Rescate rescatePupi = new Rescate(pedro, pupi, "parece ser un gato siames", LocalDate.now().minusDays(1));
-    rescatePupi.setLugar(new Coordenadas(-50., -50.));
-    return rescatePupi;
+    pedro.registrarRescate(fixture.getRescatePupi());
+    pedro.registrarRescate(fixture.getRescateFelix());
+    
+    rescateFelix = fixture.getRescateFelix();
+    rescatePupi = fixture.getRescatePupi();
   }
 
   @AfterEach
@@ -81,36 +73,44 @@ public class RescateTest {
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
   }
 
-  private LocalDate stringAFecha(String fecha) {
-    return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+  @Test
+  void unDuenioNoConoceLaMascotaDeOtroDuenio() {
+  	assertFalse(samuel.esMiMascota(felix));
   }
 
-  private Duenio crearACarlos() {
-    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento, unContacto(),
-        stringAFecha("01/01/2002"));
-
-    return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
+  @Test
+  void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
+    Rescate rescatePupi = new Fixture().getRescatePupi();
+    assertEquals(LocalDate.now(), rescatePupi.getFecha());
   }
 
-  private Rescatista crearAPedro() {
-    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, unContacto(), stringAFecha("02/02/1996"));
-
-    return new Rescatista(datosPersona, "Calle Falsa 123");
+  @Test
+  void elRescatistaEsPedro(){
+    assertEquals("Pedro", rescatePupi.getDatosRescate().getRescatista().getDatosPersona().getNombre());
   }
 
-  private Mascota crearAPupi() {
-    Mascota pupi = new Mascota(Clase.GATO, "Pupi", "Pupi", 3, Sexo.MACHO);
-    pupi.setDescripcionFisica("Un gato siamés, marrón con manchas blancas");
-    return pupi;
+  @Test
+  void laMascotaEsChica(){
+    assertEquals(Tamanio.CHICO, rescatePupi.getMascota().getTamanio());
   }
 
-  private Mascota crearAFelix() {
-    return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+  @Test
+  void laMascotaEsGato(){
+    assertEquals(ClaseMascota.GATO, rescatePupi.getMascota().getClase());
   }
 
-  private Contacto unContacto() {
-    return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
+  @Test
+  void laMascotaEstabaEnLaUTN(){
+    assertEquals(0, rescatePupi.getLugar().distanciaA(new Fixture().getUTN()));
+  }
+
+  @Test
+  void laMascotaPareceSerUnGatoSiames(){
+    assertEquals("parece ser un gato siames",rescatePupi.getDescripcion());
+  }
+
+  @Test
+  void emailDeContacto(){
+    assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
   }
 }

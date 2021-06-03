@@ -3,36 +3,42 @@ package dominio.rescate;
 import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
-import dominio.util.Lista;
+import dominio.personas.Contacto;
+import dominio.ubicacion.Coordenadas;
+import servicios.mail.MailerDuenio;
+import dominio.hogares.Hogar;
 
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class Rescate {
-  private Rescatista rescatista;
-  private Mascota mascota;
-  private Lista<String> fotos;
-  private String descripcion;
-  private Coordenadas lugar;
-  private LocalDate fecha;
 
-  public Rescate(Rescatista rescatista, Mascota mascota, String descripcion, LocalDate fecha) {
-    this.rescatista = rescatista;
+  private final DatosRescate datosRescate;
+
+  private Mascota mascota;
+
+  public Rescate(DatosRescate datosRescate, Mascota mascota) {
+    this.datosRescate = datosRescate;
     this.mascota = mascota;
-    this.descripcion = descripcion;
-    this.fecha = fecha;
-    this.fotos = new Lista<String>();
+  }
+
+  public void avisarAlDuenio(){
+    MailerDuenio mail = new MailerDuenio();
+    mail.enviarMail(this);
   }
 
   public void agregarUnaFoto(String url) {
-    fotos.add(url);
-  }
-
-  public void setLugar(Coordenadas lugar) {
-    this.lugar = lugar;
+    datosRescate.getFotos().add(url);
   }
 
   public Boolean sucedioDentroDeLosUltimos10Dias() {
-    return Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), fecha)) <= 10;
+    return Math.abs(ChronoUnit.DAYS.between(LocalDate.now(), getFecha())) <= 10;
+  }
+
+  public void asignarHogar(Hogar hogar){
+    if(!hogar.aceptaMascota(mascota.getClase(), mascota.getTamanio()))
+      throw new RuntimeException("El hogar solicitado no acepta a la mascota");
+    this.datosRescate.setHogar(hogar);
   }
 
   public Mascota getMascota() {
@@ -40,14 +46,50 @@ public class Rescate {
   }
 
   public String getDescripcion() {
-    return descripcion;
+    return datosRescate.getDescripcion();
   }
 
   public Coordenadas getLugar() {
-    return lugar;
+    return datosRescate.getLugar();
   }
 
   public int telefonoDeContacto() {
-    return rescatista.getTelefono();
+    return datosRescate.getRescatista().getTelefono();
+  }
+
+  public String emailDeContacto(){
+    return datosRescate.getRescatista().getDatosPersona().getContacto().getEmail();
+  }
+
+  public List<String> getFotos() {
+    return datosRescate.getFotos();
+  }
+
+  public boolean laMascotaTieneChapita(){
+    return mascota != null;
+  }
+
+  public void setMascota(Mascota mascota) {
+    this.mascota = mascota;
+  }
+
+  public LocalDate getFecha() {
+    return datosRescate.getFecha();
+  }
+
+  public Contacto datosDeContacto(){
+    return datosRescate.getRescatista().getDatosPersona().getContacto();
+  }
+
+  public Hogar getHogar() {
+    return datosRescate.getHogar();
+  }
+
+  public void setHogar(Hogar hogar) {
+    datosRescate.setHogar(hogar);
+  }
+
+  public DatosRescate getDatosRescate() {
+    return datosRescate;
   }
 }

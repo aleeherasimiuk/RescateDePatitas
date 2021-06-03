@@ -1,0 +1,27 @@
+@startuml rescateDePatitas
+
+abstract Validation{
+
+  validatePassword()
+  condition()
+  error()
+
+}
+abstract RegexValidation{
+  regex()
+}
+
+class CommonPassword{}
+class PasswordLength{}
+class LowerPassword{}
+class UpperPassword{}
+class NumberPassword{}
+
+RegexValidation -u-|> Validation
+CommonPassword  -u-|> Validation
+PasswordLength  -u-|> Validation
+LowerPassword   -u-|> RegexValidation
+UpperPassword   -u-|> RegexValidation
+NumberPassword  -u-|> RegexValidation
+
+@enduml

@@ -2,10 +2,6 @@ import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
 import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
-import dominio.personas.Contacto;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
 
@@ -15,9 +11,6 @@ import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
@@ -36,6 +29,12 @@ class CaracteristicaTest {
 
 
 	@Test
+	void unaCaracteristicaConColoresPrimariosTieneTresOpciones() {
+		Caracteristica coloresPrimarios = repoCaracteristica.obtenerCaracteristica("colores-primarios");
+		assertEquals(3, coloresPrimarios.opciones().size());
+	}
+	
+	@Test
 	void losColoresPrimariosEsUnaCaracteristica() {
 		Caracteristica coloresPrimarios = repoCaracteristica.obtenerCaracteristica("colores-primarios");
 		assertTrue(coloresPrimarios.tieneEstaOpcion("rojo"));
@@ -44,11 +43,22 @@ class CaracteristicaTest {
 	}
 
 	@Test
-	void laCastracionEsUnaCaracteristica() {
+	void laCastracionEsUnaCaracteristicaQueSePuedeAfirmar() {
 		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
 
 		assertTrue(castracion.tieneEstaOpcion("SI"));
+	}
+	
+	void laCastracionEsUnaCaracteristicaQueSePuedeNegar() {
+		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
+
 		assertTrue(castracion.tieneEstaOpcion("NO"));
+	}
+
+	void dudarNoEsUnaOpcionParaCastracion() {
+		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
+
+		assertFalse(castracion.tieneEstaOpcion("NOSE"));
 	}
 
 	@Test
@@ -59,34 +69,48 @@ class CaracteristicaTest {
 	}
 
 	@Test
-	void seAgreganTresCaracteristicasSiendoDosInvalidas(){
-		Duenio carlos = crearACarlos();
-		Mascota felix = crearAFelix();
+	void unaMascotaDeColorRojaSeReconoceComoRoja(){
+		Fixture fixture = new Fixture();
+		Duenio carlos = fixture.getCarlos();
+		Mascota felix = fixture.getFelix();
 		carlos.registrarUnaMascota(felix);
 		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
 		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
+	}
+
+	@Test
+	void unaMascotaRojaNoPuedeSerDeOtroColor(){
+		Fixture fixture = new Fixture();
+		Duenio carlos = fixture.getCarlos();
+		Mascota felix = fixture.getFelix();
+		carlos.registrarUnaMascota(felix);
+		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
+		assertFalse(felix.obtenerCaracteristica("colores-primarios") == "amarillo");
+	}
+
+	@Test
+	void castradaNoEsUnaCaracteristicaDeUnaOpcion(){
+		Fixture fixture = new Fixture();
+		Duenio carlos = fixture.getCarlos();
+		Mascota felix = fixture.getFelix();
+		carlos.registrarUnaMascota(felix);
+
 		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("castrada","si"));
-		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("colores-primarioS","gris"));
 	}
 
-	private Duenio crearACarlos() {
-    Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Carlos", documento, unContacto(),
-        stringAFecha("01/01/2002"));
-
-    return new Duenio("carlosKpo123", "Pupitoteamo1", datosPersona);
-  }
-	
-	private Contacto unContacto() {
-    return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
-  }
-
-
-	private Mascota crearAFelix() {
-		return new Mascota(Clase.PERRO, "felix", "feli", 5, Sexo.MACHO);
+	@Test
+	void opcionInvalida(){
+		Fixture fixture = new Fixture();
+		Mascota felix = fixture.getFelix();
+		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("Castrado", "tal vez"));
 	}
 
-	private LocalDate stringAFecha(String fecha) {
-		return LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+	@Test
+	void caracteristicaInvalida(){
+		Fixture fixture = new Fixture();
+		Mascota felix = fixture.getFelix();
+		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("Panza Negra", "Si"));
 	}
+
+
 }
