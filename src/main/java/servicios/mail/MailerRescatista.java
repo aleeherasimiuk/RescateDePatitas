@@ -1,6 +1,5 @@
-package servicios;
+package servicios.mail;
 
-import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.rescate.Publicacion;
 
@@ -13,13 +12,12 @@ public class MailerRescatista extends JavaMail<Publicacion>{
 
   @Override
   protected String mensaje(Publicacion publicacion) {
-    Contacto datosDeContacto = publicacion.getRescate().datosDeContacto();
-    Mascota mascota = publicacion.getRescate().getMascota();
+    Contacto datosDeContacto = publicacion.getContacto();
 
     String mensaje = "";
 
     mensaje += "Hola! " + datosDeContacto.getNombre() + "\n";
-    mensaje += "Estamos muy contentos de anunciarte que encontramos al dueño de " + mascota.getApodo();
+    mensaje += "Estamos muy contentos de anunciarte que encontramos al dueño de una mascota que encontraste";
     mensaje += "\n\n";
     mensaje += datosDeContacto.getNombre() + " " + datosDeContacto.getApellido();
     mensaje += " " + "se contactará con vos para continuar con el proceso";
@@ -29,7 +27,7 @@ public class MailerRescatista extends JavaMail<Publicacion>{
 
   @Override
   protected String asunto(Publicacion publicacion) {
-    return "Buenas noticias!. Identificamos al dueño de " + publicacion.getRescate().getMascota().getApodo();
+    return "Buenas noticias!. Identificamos al dueño de una mascota que encontraste";
   }
-  
+
 }

@@ -1,9 +1,10 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import dominio.Ubicacion.Coordenadas;
+import dominio.ubicacion.Coordenadas;
 
 public class CoordenadasTest {
 
@@ -69,5 +70,15 @@ public class CoordenadasTest {
 
   }
 
-  
+  @DisplayName("No se cumple que la distancia entre (10,10) y (1,1) es √2")
+  @Test
+  void testDistancia8(){
+ 
+    Coordenadas coordenadas      = new Coordenadas(10.0, 10.0);
+    Coordenadas otrasCoordenadas = new Coordenadas(1.0, 1.0);
+
+    assertNotEquals(Math.sqrt(2.0), coordenadas.distanciaA(otrasCoordenadas));
+    
+  }
+
 }

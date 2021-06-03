@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <Match>
+    <Class name="servicios.hogares.modelos.ListadoDeHogares" />
+  </Match>
+  <Match>
+    <Class name="servicios.hogares.HogaresServiceRefugioDDS" />
+  </Match>
+  <Match>
+    <Class name="servicios.hogares.modelos.Ubicacion" />
+  </Match>
+</FindBugsFilter>

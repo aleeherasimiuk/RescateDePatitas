@@ -1,4 +1,4 @@
-package dominio.Ubicacion;
+package dominio.ubicacion;
 
 public class Coordenadas{
   private Double latitud;

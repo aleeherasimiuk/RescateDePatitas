@@ -3,7 +3,7 @@ package dominio.repositorio;
 import dominio.asociacion.Asociacion;
 import dominio.asociacion.AsociacionComparator;
 import dominio.exceptions.NoHayAsociacionesDisponibles;
-import dominio.rescate.Rescate;
+import dominio.ubicacion.Coordenadas;
 
 public class RepositorioAsociaciones extends Repositorio<Asociacion>{
   private static final RepositorioAsociaciones INSTANCE = new RepositorioAsociaciones();
@@ -14,7 +14,7 @@ public class RepositorioAsociaciones extends Repositorio<Asociacion>{
     return INSTANCE;
   }
 
-  public Asociacion obtenerLaMasCercana(Rescate rescate){
-    return repositorio.stream().min(new AsociacionComparator(rescate)).orElseThrow(() -> new NoHayAsociacionesDisponibles());
+  public Asociacion obtenerLaMasCercana(Coordenadas ubicacionDelRescate){
+    return repositorio.stream().min(new AsociacionComparator(ubicacionDelRescate)).orElseThrow(() -> new NoHayAsociacionesDisponibles());
   }
 }

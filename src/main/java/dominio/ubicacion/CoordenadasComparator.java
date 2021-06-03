@@ -1,4 +1,4 @@
-package dominio.Ubicacion;
+package dominio.ubicacion;
 
 import java.util.Comparator;
 

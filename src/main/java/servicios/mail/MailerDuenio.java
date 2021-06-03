@@ -1,4 +1,4 @@
-package servicios;
+package servicios.mail;
 
 import dominio.personas.Contacto;
 import dominio.rescate.Rescate;

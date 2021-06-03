@@ -1,18 +1,18 @@
-package services.hogares;
+package servicios.hogares;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import services.hogares.modelos.HogarResponse;
-import services.hogares.modelos.ListadoDeHogares;
+import servicios.hogares.modelos.HogarResponse;
+import servicios.hogares.modelos.ListadoDeHogares;
 
 import java.io.IOException;
 
 import config.Config;
-import dominio.Ubicacion.Coordenadas;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
+import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
 
 public class HogaresServiceRefugioDDS implements HogaresService {
@@ -21,11 +21,13 @@ public class HogaresServiceRefugioDDS implements HogaresService {
   private Retrofit retrofit;
 
   public HogaresServiceRefugioDDS() {
+    Config config = new Config();
+    
     retrofit = new Retrofit.Builder()
-        .baseUrl(Config.getInstance().getConfig("api.refugio.url"))
+        .baseUrl(config.getConfig("api.refugio.url"))
         .addConverterFactory(GsonConverterFactory.create())
         .build();
-    apiToken = Config.getInstance().getConfig("api.refugio.token");
+    apiToken = config.getConfig("api.refugio.token");
   }
 
   public Lista<Hogar> getListadoHogares(){
