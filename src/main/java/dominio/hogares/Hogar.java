@@ -26,6 +26,7 @@ public class Hogar {
     this.tieneCapacidad = tieneCapacidad;
   }
 
+  //TODO: WTF?
 	public static Lista<Hogar> getHogares(HogaresService service) {
     return service.getListadoHogares();
   }
@@ -65,7 +66,7 @@ public class Hogar {
   public Coordenadas getUbicacion() {
     return ubicacion;
   }
-  
 
-  
+
+
 }
