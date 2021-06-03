@@ -13,6 +13,7 @@ public class DatosRescate {
   private final String descripcion;
   private final Coordenadas lugar;
   private Hogar hogar;
+  private boolean fueEncontrada;
 
   public DatosRescate(Rescatista rescatista, List<String> fotos, LocalDate fecha, String descripcion,
       Coordenadas lugar) {
@@ -21,6 +22,15 @@ public class DatosRescate {
     this.fecha = fecha;
     this.descripcion = descripcion;
     this.lugar = lugar;
+    this.fueEncontrada = false;
+  }
+
+  public boolean fueEncontrada() {
+    return fueEncontrada;
+  }
+
+  public void confirmarEncuentro() {
+    this.fueEncontrada = true;
   }
 
   public Hogar getHogar() {

@@ -18,7 +18,6 @@ public class Mascota {
   private final Lista<String> fotos;
   private final Tamanio tamanio;
   private final Map<String, String> caracteristicas;
-  private boolean fueEncontrada;
 
   private String descripcionFisica;
 
@@ -31,7 +30,6 @@ public class Mascota {
     this.caracteristicas = new HashMap<String, String>();
     this.fotos = new Lista<String>();
     this.tamanio = tamanio;
-    this.fueEncontrada = false;
   }
 
   public Tamanio getTamanio() {
@@ -67,14 +65,6 @@ public class Mascota {
       return null;
     }
     return this.caracteristicas.get(caracteristica.toUpperCase());
-  }
-
-  public boolean fueEncontrada() {
-    return fueEncontrada;
-  }
-
-  public void confirmarEncuentro() {
-    this.fueEncontrada = true;
   }
 
   public ClaseMascota getClase() {
