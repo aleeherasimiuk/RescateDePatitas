@@ -16,7 +16,4 @@ public class RepositorioRescates extends Repositorio<Rescate>{
   public static RepositorioRescates getINSTANCE(){
     return INSTANCE;
   }
-  
-  //TODO: Confirmar mascota encontrada
-  
 }

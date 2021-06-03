@@ -66,7 +66,7 @@ public class Hogar {
   public Coordenadas getUbicacion() {
     return ubicacion;
   }
-  
 
-  
+
+
 }
