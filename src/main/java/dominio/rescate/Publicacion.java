@@ -29,6 +29,7 @@ public class Publicacion {
   public void confirmarMascotaEncontrada(){
     MailerRescatista mail = new MailerRescatista();
     mail.enviarMail(this);
+    datosRescate.confirmarEncuentro();
   }
 
   public void asignarAsociacion(){

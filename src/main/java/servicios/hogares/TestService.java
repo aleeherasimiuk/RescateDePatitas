@@ -6,9 +6,9 @@ import dominio.hogares.Hogar;
 
 public class TestService {
   public static void main(String[] args) throws IOException {
-    HogaresService service = new HogaresServiceRefugioDDS();
+    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
 
-    List<Hogar> hogares = service.getListadoHogares();
+    List<Hogar> hogares = service.getListadoHogaresMock();
 
     hogares.forEach((hogar) -> {
       System.out.println(hogar.getNombre());
