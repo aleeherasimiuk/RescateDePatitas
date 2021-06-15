@@ -31,32 +31,41 @@ public class HogaresServiceRefugioDDS implements HogaresService {
   }
 
   public Lista<Hogar> getListadoHogares(){
-    try {
-      RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
-      Lista<Hogar> hogares = new Lista<>();
+    Lista<Hogar> hogares = new Lista<>();
 
-      Response<ListadoDeHogares> responseHogares;
+    int total = cantidadDeHogares();
 
-      int i = 1;
-      Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, i);
-      responseHogares = requestHogares.execute();
-      ListadoDeHogares listadoDeHogares = responseHogares.body();
+    int i = 1;
+    while (hogares.size() < total) {
+      ListadoDeHogares listadoDeHogares = listadoDeHogares(i++);
       hogares.addAll(convertFromResponse(listadoDeHogares));
-      int total = listadoDeHogares.total;
-
-      while (hogares.size() < total) {
-        requestHogares = refugioService.hogares(apiToken, i++);
-        responseHogares = requestHogares.execute();
-        listadoDeHogares = responseHogares.body();
-        hogares.addAll(convertFromResponse(listadoDeHogares));
-      }
-
-      return hogares;
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException("Error al obtener el listado de hogares");
     }
+
+    return hogares;
   }
+
+  private Response<ListadoDeHogares> fetchHogares(int offset){
+    RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
+    Response<ListadoDeHogares> responseHogares;
+    Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, offset);
+    try {
+      responseHogares = requestHogares.execute();
+    } catch (IOException e) {
+      throw new RuntimeException("Hubo un error al buscar los hogares disponibles"); // TODO: Hacer la excepcion.
+    }
+    return responseHogares;
+  }
+
+  private ListadoDeHogares listadoDeHogares(int offset){
+    Response<ListadoDeHogares> responseHogares = fetchHogares(offset);
+    return responseHogares.body();
+  }
+
+  private int cantidadDeHogares(){
+    ListadoDeHogares hogares = listadoDeHogares(1);
+    return hogares.total;
+  }
+
 
   private Lista<Hogar> convertFromResponse(ListadoDeHogares listadoDeHogares) {
     Lista<Hogar> hogares = listadoDeHogares.hogares.map((hogarResponse) -> {
