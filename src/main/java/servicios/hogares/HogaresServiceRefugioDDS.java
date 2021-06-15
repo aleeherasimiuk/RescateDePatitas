@@ -23,10 +23,7 @@ public class HogaresServiceRefugioDDS implements HogaresService {
   public HogaresServiceRefugioDDS() {
     Config config = new Config();
     
-    retrofit = new Retrofit.Builder()
-        .baseUrl(config.getConfig("api.refugio.url"))
-        .addConverterFactory(GsonConverterFactory.create())
-        .build();
+    retrofit = buildRetrofit(config);
     apiToken = config.getConfig("api.refugio.token");
   }
 
@@ -94,6 +91,13 @@ public class HogaresServiceRefugioDDS implements HogaresService {
 
     Hogar hogar = new Hogar(nombre, telefono, preferencias, tienePatio, caracteristicasEspecificas, coordenadas, tieneCapacidad);
     return hogar;
+  }
+
+  private Retrofit buildRetrofit(Config config) {
+    Retrofit.Builder retrofit = new Retrofit.Builder();
+    retrofit.baseUrl(config.getConfig("api.refugio.url"));
+    retrofit.addConverterFactory(GsonConverterFactory.create());
+    return retrofit.build();
   }
 }
 
