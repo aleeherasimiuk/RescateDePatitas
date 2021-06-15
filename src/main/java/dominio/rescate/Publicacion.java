@@ -1,6 +1,9 @@
 package dominio.rescate;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import dominio.asociacion.Asociacion;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
@@ -8,6 +11,7 @@ import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
+import dominio.tareas.ValidadorCaracteristica;
 import servicios.mail.MailerRescatista;
 
 public class Publicacion {
@@ -15,6 +19,7 @@ public class Publicacion {
   private final DatosRescate datosRescate;
   private final Tamanio tamanio;
   private final ClaseMascota claseMascota;
+  private final Map<String, String> caracteristicas;
 
   private Asociacion asociacionAsignada;
   private EstadoPublicacion estado;
@@ -24,6 +29,7 @@ public class Publicacion {
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
+    caracteristicas = new HashMap<>();
   }
 
   public void confirmarMascotaEncontrada(){
@@ -63,6 +69,18 @@ public class Publicacion {
     this.datosRescate.setHogar(hogar);
   }
 
+  public void agregarUnaCaracteristica(String caracteristica, String valor) {
+    ValidadorCaracteristica.validarCaracteristica(caracteristica,valor);
+    this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
+  }
+
+  public String obtenerCaracteristica(String caracteristica) {
+    if (!caracteristicas.containsKey(caracteristica.toUpperCase())) {
+      return null;
+    }
+    return this.caracteristicas.get(caracteristica.toUpperCase());
+  }
+
   public Asociacion getAsociacionAsignada() {
     if(asociacionAsignada == null) throw new RuntimeException("No se ha asignado ninguna asociación");
     return asociacionAsignada;
@@ -86,6 +104,10 @@ public class Publicacion {
 
   public ClaseMascota getClaseMascota() {
     return claseMascota;
+  }
+
+  public Map<String, String> getCaracteristicas() {
+    return caracteristicas;
   }
 
   

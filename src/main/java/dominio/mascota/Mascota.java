@@ -2,10 +2,7 @@ package dominio.mascota;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import dominio.exceptions.CaracteristicaInvalida;
-import dominio.exceptions.OpcionInvalida;
-import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
 
 
@@ -45,19 +42,8 @@ public class Mascota {
   }
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
-    this.validarCaracteristica(caracteristica,valor);
+    ValidadorCaracteristica.validarCaracteristica(caracteristica,valor);
     this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
-  }
-
-  private void validarCaracteristica(String caracteristica, String valor) {
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getINSTANCE();
-    Caracteristica caracteristica_obtenida = repositorioCaracteristicas.obtenerCaracteristica(caracteristica.toUpperCase());
-    if(caracteristica_obtenida==null) {
-      throw new CaracteristicaInvalida();
-    }
-    if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
-      throw new OpcionInvalida(caracteristica.toUpperCase());
-    }
   }
 
   public String obtenerCaracteristica(String caracteristica) {

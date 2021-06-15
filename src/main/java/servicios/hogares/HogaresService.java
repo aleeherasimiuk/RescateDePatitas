@@ -1,7 +1,7 @@
 package servicios.hogares;
 
 import dominio.util.Lista;
-import dominio.hogares.Hogar;
+import servicios.hogares.modelos.Pagina;
 public interface HogaresService {
-  public Lista<Hogar> getListadoHogares();
+  public Lista<Pagina> paginas();
 }

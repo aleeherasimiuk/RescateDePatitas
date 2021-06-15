@@ -4,21 +4,17 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import servicios.hogares.modelos.HogarResponse;
-import servicios.hogares.modelos.ListadoDeHogares;
+import servicios.hogares.modelos.Pagina;
 
 import java.io.IOException;
 
 import config.Config;
-import dominio.hogares.Hogar;
-import dominio.mascota.ClaseMascota;
-import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
 
 public class HogaresServiceRefugioDDS implements HogaresService {
 
-  private String apiToken;
-  private Retrofit retrofit;
+  private final String apiToken;
+  private final Retrofit retrofit;
 
   public HogaresServiceRefugioDDS() {
     Config config = new Config();
@@ -27,70 +23,37 @@ public class HogaresServiceRefugioDDS implements HogaresService {
     apiToken = config.getConfig("api.refugio.token");
   }
 
-  public Lista<Hogar> getListadoHogares(){
-    Lista<Hogar> hogares = new Lista<>();
-
-    int total = cantidadDeHogares();
+  public Lista<Pagina> paginas(){
+    final Lista<Pagina> paginas = new Lista<>();
 
     int i = 1;
-    while (hogares.size() < total) {
-      ListadoDeHogares listadoDeHogares = listadoDeHogares(i++);
-      hogares.addAll(convertFromResponse(listadoDeHogares));
+    while (true) {
+      
+      Pagina unaPagina = obtenerUnaPagina(i++);
+      if(unaPagina == null)
+        break;
+      paginas.add(unaPagina);
+      
     }
 
-    return hogares;
+    return paginas;
   }
 
-  private Response<ListadoDeHogares> fetchHogares(int offset){
+  private Response<Pagina> fetchPaginas(int offset){
     RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
-    Response<ListadoDeHogares> responseHogares;
-    Call<ListadoDeHogares> requestHogares = refugioService.hogares(apiToken, offset);
+    Response<Pagina> responsePagina;
+    Call<Pagina> requestPagina = refugioService.hogares(apiToken, offset);
     try {
-      responseHogares = requestHogares.execute();
+      responsePagina = requestPagina.execute();
     } catch (IOException e) {
       throw new RuntimeException("Hubo un error al buscar los hogares disponibles"); // TODO: Hacer la excepcion.
     }
-    return responseHogares;
+    return responsePagina;
   }
 
-  private ListadoDeHogares listadoDeHogares(int offset){
-    Response<ListadoDeHogares> responseHogares = fetchHogares(offset);
+  private Pagina obtenerUnaPagina(int offset){
+    Response<Pagina> responseHogares = fetchPaginas(offset);
     return responseHogares.body();
-  }
-
-  private int cantidadDeHogares(){
-    ListadoDeHogares hogares = listadoDeHogares(1);
-    return hogares.total;
-  }
-
-
-  private Lista<Hogar> convertFromResponse(ListadoDeHogares listadoDeHogares) {
-    Lista<Hogar> hogares = listadoDeHogares.hogares.map((hogarResponse) -> {
-      return convertFromHogarResponse(hogarResponse);
-    });
-    return hogares;
-  }
-
-  private Hogar convertFromHogarResponse(HogarResponse hogarResponse) {
-    String nombre = hogarResponse.nombre;
-    String telefono = hogarResponse.telefono;
-    Lista<ClaseMascota> preferencias = new Lista<>();
-
-    if (hogarResponse.admisiones.gatos) {
-      preferencias.add(ClaseMascota.GATO);
-    }
-
-    if (hogarResponse.admisiones.perros) {
-      preferencias.add(ClaseMascota.PERRO);
-    }
-
-    Boolean tienePatio = hogarResponse.patio;
-    Lista<String> caracteristicasEspecificas = hogarResponse.caracteristicas;
-    Boolean tieneCapacidad = hogarResponse.lugares_disponibles > 0;
-    Coordenadas coordenadas = new Coordenadas(hogarResponse.ubicacion.latitud, hogarResponse.ubicacion.longitud);
-
-    Hogar hogar = new Hogar(nombre, telefono, preferencias, tienePatio, caracteristicasEspecificas, coordenadas, tieneCapacidad);
-    return hogar;
   }
 
   private Retrofit buildRetrofit(Config config) {
