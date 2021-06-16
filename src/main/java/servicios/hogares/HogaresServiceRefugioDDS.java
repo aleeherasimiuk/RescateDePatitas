@@ -23,23 +23,7 @@ public class HogaresServiceRefugioDDS{
     apiToken = config.getConfig("api.refugio.token");
   }
 
-  public Lista<Pagina> paginas(){
-    final Lista<Pagina> paginas = new Lista<>();
-
-    int i = 1;
-    while (true) {
-      
-      Pagina unaPagina = obtenerUnaPagina(i++);
-      if(unaPagina == null)
-        break;
-      paginas.add(unaPagina);
-      
-    }
-
-    return paginas;
-  }
-
-  private Response<Pagina> fetchPaginas(int offset){
+  private Response<Pagina> fetchPagina(int offset){
     RefugioDDSAPI refugioService = retrofit.create(RefugioDDSAPI.class);
     Response<Pagina> responsePagina;
     Call<Pagina> requestPagina = refugioService.hogares(apiToken, offset);
@@ -51,16 +35,16 @@ public class HogaresServiceRefugioDDS{
     return responsePagina;
   }
 
-  private Pagina obtenerUnaPagina(int offset){
-    Response<Pagina> responseHogares = fetchPaginas(offset);
+  public Pagina obtenerUnaPagina(int offset){
+    Response<Pagina> responseHogares = fetchPagina(offset);
     return responseHogares.body();
   }
 
   private Retrofit buildRetrofit(Config config) {
-    Retrofit.Builder retrofit = new Retrofit.Builder();
-    retrofit.baseUrl(config.getConfig("api.refugio.url"));
-    retrofit.addConverterFactory(GsonConverterFactory.create());
-    return retrofit.build();
+    Retrofit.Builder retrofitBuilder = new Retrofit.Builder();
+    retrofitBuilder.baseUrl(config.getConfig("api.refugio.url"));
+    retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
+    return retrofitBuilder.build();
   }
 }
 

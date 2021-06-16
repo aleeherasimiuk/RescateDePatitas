@@ -12,13 +12,14 @@ import dominio.util.Lista;
 import servicios.hogares.modelos.HogarResponse;
 import servicios.hogares.modelos.Pagina;
 
-public class HogaresAdapter implements HogaresService{
+public class HogaresAdapter{
 
-  public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion){
-    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
-    final List<Hogar> hogares = service.paginas()
+  /*TODO: Hacer una sola función y filtros con lambdas*/
+
+  public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion, HogaresServiceRefugioDDS service){
+    final List<Hogar> hogares = paginas(service)
         .stream()
-        .flatMap(this::obtenerHogarDeLaPagina)
+        .flatMap(this::obtenerHogaresDeLaPagina)
         .filter((hogar) -> hogar.aceptaMascota(publicacion.getClaseMascota(), publicacion.getTamanio()))
         .filter((hogar) -> hogar.matcheaCaracteristica(publicacion.getCaracteristicas()))
         .collect(Collectors.toList());
@@ -26,15 +27,41 @@ public class HogaresAdapter implements HogaresService{
     return hogares;
   }
 
-  public List<Hogar> hogares(){
-    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
-    return service.paginas()
-        .stream()
-        .flatMap(this::obtenerHogarDeLaPagina)
-        .collect(Collectors.toList());
+  public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion){
+   HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
+   return obtenerPosiblesHogaresPara(publicacion, service);
   }
 
-  private Stream<Hogar> obtenerHogarDeLaPagina(Pagina pagina) {
+  public List<Hogar> hogares(){
+    return hogares(new HogaresServiceRefugioDDS());
+  }
+
+  public List<Hogar> hogares(HogaresServiceRefugioDDS service){
+    final List<Hogar> hogares = paginas(service)
+        .stream()
+        .flatMap(this::obtenerHogaresDeLaPagina)
+        .collect(Collectors.toList());
+
+    return hogares;
+  }
+
+  public Lista<Pagina> paginas(HogaresServiceRefugioDDS service){
+    final Lista<Pagina> paginas = new Lista<>();
+
+    int i = 1;
+    while (true) {
+      
+      Pagina unaPagina = service.obtenerUnaPagina(i++);
+      if(unaPagina == null)
+        break;
+      paginas.add(unaPagina);
+      
+    }
+
+    return paginas;
+  }
+
+  private Stream<Hogar> obtenerHogaresDeLaPagina(Pagina pagina) {
     return pagina.hogares.stream().map(this::convertHogar);
   }
 
