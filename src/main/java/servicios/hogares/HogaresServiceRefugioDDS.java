@@ -11,7 +11,7 @@ import java.io.IOException;
 import config.Config;
 import dominio.util.Lista;
 
-public class HogaresServiceRefugioDDS implements HogaresService {
+public class HogaresServiceRefugioDDS{
 
   private final String apiToken;
   private final Retrofit retrofit;

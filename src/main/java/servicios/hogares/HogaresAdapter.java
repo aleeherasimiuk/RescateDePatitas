@@ -12,10 +12,10 @@ import dominio.util.Lista;
 import servicios.hogares.modelos.HogarResponse;
 import servicios.hogares.modelos.Pagina;
 
-public class HogaresAdapter {
+public class HogaresAdapter implements HogaresService{
 
   public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion){
-    HogaresService service = new HogaresServiceRefugioDDS();
+    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
     final List<Hogar> hogares = service.paginas()
         .stream()
         .flatMap(this::obtenerHogarDeLaPagina)
@@ -26,8 +26,8 @@ public class HogaresAdapter {
     return hogares;
   }
 
-  public List<Hogar> obtenerHogares(){
-    HogaresService service = new HogaresServiceRefugioDDS();
+  public List<Hogar> hogares(){
+    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
     return service.paginas()
         .stream()
         .flatMap(this::obtenerHogarDeLaPagina)
