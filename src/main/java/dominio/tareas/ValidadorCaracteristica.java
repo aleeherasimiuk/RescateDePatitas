@@ -7,7 +7,7 @@ import dominio.repositorio.RepositorioCaracteristicas;
 
 public class ValidadorCaracteristica {
 
-  public static void validarCaracteristica(String caracteristica, String valor) {
+  public void validarCaracteristica(String caracteristica, String valor) {
     RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getINSTANCE();
     Caracteristica caracteristica_obtenida = repositorioCaracteristicas.obtenerCaracteristica(caracteristica.toUpperCase());
     if(caracteristica_obtenida==null) {

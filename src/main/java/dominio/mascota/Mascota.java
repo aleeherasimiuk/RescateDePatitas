@@ -42,7 +42,7 @@ public class Mascota {
   }
 
   public void agregarUnaCaracteristica(String caracteristica, String valor) {
-    ValidadorCaracteristica.validarCaracteristica(caracteristica,valor);
+    new ValidadorCaracteristica().validarCaracteristica(caracteristica,valor);
     this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
   }
 
