@@ -86,7 +86,7 @@ public class RescateTest {
 
   @Test
   void elRescatistaEsPedro(){
-    assertEquals("Pedro", rescatePupi.getDatosRescate().getRescatista().getDatosPersona().getNombre());
+    assertEquals("Pedro", rescatePupi.getNombreRescatista());
   }
 
   @Test

@@ -7,8 +7,4 @@ public class Voluntario extends Usuario{
     super(username,password);
   }
 
-  // TODO: WTF?
-  public void aprobarPublicacion(Publicacion publicacion){
-    publicacion.aprobar();
-  }
 }
