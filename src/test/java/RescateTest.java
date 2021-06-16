@@ -86,7 +86,7 @@ public class RescateTest {
 
   @Test
   void elRescatistaEsPedro(){
-    assertEquals("Pedro", rescatePupi.getNombreRescatista());
+    assertEquals("Pedro", rescatePupi.getDatosDeRescatista().getNombre());
   }
 
   @Test
@@ -111,6 +111,7 @@ public class RescateTest {
 
   @Test
   void emailDeContacto(){
-    assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
+    //assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
+    assertEquals("fedebal@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }

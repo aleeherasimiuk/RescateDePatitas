@@ -58,10 +58,6 @@ public class Rescate {
     return datosRescate.getRescatista().getTelefono();
   }
 
-  public String emailDeContacto(){
-    return datosRescate.getRescatista().getDatosPersona().getContacto().getEmail();
-  }
-
   public List<String> getFotos() {
     return datosRescate.getFotos();
   }
@@ -78,10 +74,6 @@ public class Rescate {
     return datosRescate.getFecha();
   }
 
-  public Contacto datosDeContacto(){
-    return getDatosDeRescatista().getContacto();
-  }
-
   public Hogar getHogar() {
     return datosRescate.getHogar();
   }
@@ -90,15 +82,11 @@ public class Rescate {
     datosRescate.setHogar(hogar);
   }
 
-  public DatosRescate getDatosRescate() {
-    return datosRescate;
+  public Contacto datosDeContacto(){
+    return getDatosDeRescatista().getContacto();
   }
   
   public DatosPersona getDatosDeRescatista() {
     return datosRescate.getRescatista().getDatosPersona();
-  }
-  
-  public String getNombreRescatista() {
-    return getDatosDeRescatista().getNombre();
   }
 }
