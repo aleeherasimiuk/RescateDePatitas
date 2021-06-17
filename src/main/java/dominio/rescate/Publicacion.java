@@ -1,7 +1,6 @@
 package dominio.rescate;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import dominio.asociacion.Asociacion;
@@ -12,6 +11,7 @@ import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
 import dominio.tareas.ValidadorCaracteristica;
+import dominio.util.Lista;
 import servicios.mail.MailerRescatista;
 
 public class Publicacion {
@@ -19,7 +19,7 @@ public class Publicacion {
   private final DatosRescate datosRescate;
   private final Tamanio tamanio;
   private final ClaseMascota claseMascota;
-  private final Map<String, String> caracteristicas;
+  private final Lista<String> caracteristicas;
 
   private Asociacion asociacionAsignada;
   private EstadoPublicacion estado;
@@ -29,7 +29,7 @@ public class Publicacion {
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
-    caracteristicas = new HashMap<>();
+    caracteristicas = new Lista<String>();
   }
 
   public void confirmarMascotaEncontrada(){
@@ -69,16 +69,9 @@ public class Publicacion {
     this.datosRescate.setHogar(hogar);
   }
 
-  public void agregarUnaCaracteristica(String caracteristica, String valor) {
-    new ValidadorCaracteristica().validarCaracteristica(caracteristica,valor);
-    this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
-  }
-
-  public String obtenerCaracteristica(String caracteristica) {
-    if (!caracteristicas.containsKey(caracteristica.toUpperCase())) {
-      return null;
-    }
-    return this.caracteristicas.get(caracteristica.toUpperCase());
+  public void agregarUnaCaracteristica(String caracteristica) {
+    new ValidadorCaracteristica().validarCaracteristica(caracteristica);
+    this.caracteristicas.add(caracteristica.toUpperCase());
   }
 
   public Asociacion getAsociacionAsignada() {
@@ -106,7 +99,7 @@ public class Publicacion {
     return claseMascota;
   }
 
-  public Map<String, String> getCaracteristicas() {
+  public Lista<String> getCaracteristicas() {
     return caracteristicas;
   }
 
