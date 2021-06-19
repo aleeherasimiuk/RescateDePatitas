@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,9 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.mascota.Tamanio;
+import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.rescate.DatosRescate;
+import dominio.rescate.Publicacion;
 import dominio.usuarios.Administrador;
 import dominio.util.Lista;
 import servicios.hogares.HogaresAdapter;
@@ -34,6 +39,7 @@ public class ServiciosTest {
   @BeforeEach
   void setUp(){
 
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
     service = mock(HogaresServiceRefugioDDS.class);
     when(service.obtenerUnaPagina(1)).thenReturn(buildPage("1", 40));
     when(service.obtenerUnaPagina(2)).thenReturn(buildPage("2", 40));
@@ -100,20 +106,30 @@ public class ServiciosTest {
     assertArrayEquals(new String[]{"CALMADO", "NO MUERDE", "TIERNO"}, hogares.get(7).getCaracteristicasEspecificas().toArray());
   }
 
+
   @Test
   @DisplayName("El hogar en la posición 7 acepta una mascota calmada, que no muerda, y tierna")
   void elSeptimoAceptaARobert(){
 
     Hogar hogar = hogares.get(7);
-    Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
-    new Administrador("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
-    robert.agregarUnaCaracteristica("CALMADO");
-    robert.agregarUnaCaracteristica("No muerde");
-    robert.agregarUnaCaracteristica("tierno");
-    robert.agregarUnaCaracteristica("se come las medias");
+    Mascota robert = buildRobert();
 
     assertTrue(hogar.matcheaCaracteristica(robert.getCaracteristicas()));
     assertTrue(hogar.aceptaMascota(robert.getClase(), robert.getTamanio()));
+  }
+
+  @Test
+  @DisplayName("El hogar en la posición 7 está entre los hogares posibles")
+  void elSeptimoAceptaLaPublicacionDeRobert(){
+
+    Fixture f = new Fixture();
+    Publicacion publicacion = new Publicacion(new DatosRescate(f.getPedro(), new ArrayList<>(), LocalDate.now(), "", f.getUTN()), Tamanio.CHICO, ClaseMascota.PERRO);
+    for (String caracteristica : buildRobert().getCaracteristicas()) {
+      publicacion.agregarUnaCaracteristica(caracteristica);
+    }
+    Lista<Hogar> hogaresPosibles = new Lista<Hogar>(hogaresAdapter.obtenerPosiblesHogaresPara(publicacion,service));
+
+    assertTrue(hogaresPosibles.contains(hogar -> hogar.getNombre().equals("Hogar: #7")));
   }
 
   Pagina buildPage(String offset, int total){
@@ -153,6 +169,16 @@ public class ServiciosTest {
 
     return hogarResponse;
 
+  }
+
+  Mascota buildRobert(){
+    Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
+    new Administrador("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
+    robert.agregarUnaCaracteristica("CALMADO");
+    robert.agregarUnaCaracteristica("No muerde");
+    robert.agregarUnaCaracteristica("tierno");
+    robert.agregarUnaCaracteristica("se come las medias");
+    return robert;
   }
   
 }

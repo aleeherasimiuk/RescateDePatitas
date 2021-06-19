@@ -77,9 +77,7 @@ public class Hogar {
   }
 
   public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
-    return caracteristicasEspecificas
-        .stream()
-        .allMatch((caracteristica) -> caracteristicas.contains(caracteristica));
+    return caracteristicas.containsAll(caracteristicasEspecificas);
   }
 
 }
