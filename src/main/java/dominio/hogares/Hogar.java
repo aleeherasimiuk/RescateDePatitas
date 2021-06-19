@@ -68,10 +68,10 @@ public class Hogar {
     return ubicacion;
   }
 
-  public boolean matcheaCaracteristica(Map<String, String> caracteristicas) {
+  public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
     return caracteristicasEspecificas
         .stream()
-        .anyMatch((caracteristica) -> caracteristicas.values().contains(caracteristica));
+        .anyMatch((caracteristica) -> caracteristicas.contains(caracteristica));
   }
 
 }

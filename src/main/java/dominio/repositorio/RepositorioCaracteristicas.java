@@ -1,48 +1,34 @@
 package dominio.repositorio;
 
-import java.util.List;
-
-import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
-import dominio.mascota.Caracteristica;
 
-public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
+public class RepositorioCaracteristicas extends Repositorio<String> {
 	
 	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 
 	private RepositorioCaracteristicas(){}
 	
 	@Override
-	public void registrar(Caracteristica caracteristica) {
+	public void registrar(String caracteristica) {
 		validarCaracteristica(caracteristica);
 		super.registrar(caracteristica);
 	}
 
 	public void borrarCaracteristica(String titulo) {
-		super.repositorio.removeIf(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
+		super.repositorio.remove(titulo);
 	}
 
 	public boolean existeCaracteristica(String titulo) {
-		return super.repositorio.contains(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
+		return super.repositorio.contains(titulo);
 	}
 
-	private void validarCaracteristica(Caracteristica caracteristica) {
-		if (existeCaracteristica(caracteristica.getTitulo()))
+	private void validarCaracteristica(String caracteristica) {
+		if (existeCaracteristica(caracteristica))
 			throw new CaracteristicaRepetida();
-	}
-
-	public Caracteristica obtenerCaracteristica(String titulo) {
-		return super.buscar(caracteristica -> caracteristica.esEstaCaracteristica(titulo));
-	}
-
-	public List<String> opcionesDe(String nombreCaracteristica) {
-		if(existeCaracteristica(nombreCaracteristica)) throw new CaracteristicaInvalida();
-		return super.buscar(caracteristica -> caracteristica.esEstaCaracteristica(nombreCaracteristica)).opciones();
 	}
 
 	public static RepositorioCaracteristicas getINSTANCE() {
 		return INSTANCE;
 	}
-
 
 }
