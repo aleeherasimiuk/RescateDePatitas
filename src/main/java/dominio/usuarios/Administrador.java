@@ -9,10 +9,16 @@ public class Administrador extends Usuario{
   }
 
   public void agregarUnaCaracteristica(String caracteristica) {
-    RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica);
+    RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica.toUpperCase());
   }
 
   public void eliminarUnaCaracteristica(String titulo) {
     RepositorioCaracteristicas.getINSTANCE().borrarCaracteristica(titulo);
+  }
+
+  public void agregarCaracteristicas(String... caracteristicas){
+    for (String caracteristica : caracteristicas) {
+      this.agregarUnaCaracteristica(caracteristica);
+    }
   }
 }

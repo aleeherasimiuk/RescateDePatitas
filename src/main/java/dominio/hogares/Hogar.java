@@ -68,10 +68,18 @@ public class Hogar {
     return ubicacion;
   }
 
+  public boolean tieneCapacidad() {
+    return tieneCapacidad;
+  }
+
+  public boolean tienePatio() {
+    return tienePatio;
+  }
+
   public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
     return caracteristicasEspecificas
         .stream()
-        .anyMatch((caracteristica) -> caracteristicas.contains(caracteristica));
+        .allMatch((caracteristica) -> caracteristicas.contains(caracteristica));
   }
 
 }
