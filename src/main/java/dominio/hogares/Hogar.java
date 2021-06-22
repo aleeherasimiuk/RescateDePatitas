@@ -4,7 +4,6 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
-import servicios.hogares.HogaresService;
 
 public class Hogar {
   private final String nombre;
@@ -26,10 +25,10 @@ public class Hogar {
     this.tieneCapacidad = tieneCapacidad;
   }
 
-  //TODO: WTF?
-	public static Lista<Hogar> getHogares(HogaresService service) {
-    return service.getListadoHogares();
-  }
+  ////TODO: WTF?
+	//public static Lista<Hogar> getHogares(HogaresService service) {
+  //  return service.getListadoHogares();
+  //}
 
   public Boolean aceptaMascota(ClaseMascota claseMascota, Tamanio tamanio){
     return tieneCapacidad && aceptaClase(claseMascota) && aceptaTamanio(tamanio);
@@ -67,6 +66,16 @@ public class Hogar {
     return ubicacion;
   }
 
+  public boolean tieneCapacidad() {
+    return tieneCapacidad;
+  }
 
+  public boolean tienePatio() {
+    return tienePatio;
+  }
+
+  public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
+    return caracteristicas.containsAll(caracteristicasEspecificas);
+  }
 
 }

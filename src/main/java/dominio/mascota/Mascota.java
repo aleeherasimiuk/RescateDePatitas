@@ -1,11 +1,6 @@
 package dominio.mascota;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import dominio.exceptions.CaracteristicaInvalida;
-import dominio.exceptions.OpcionInvalida;
-import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
 
 
@@ -17,7 +12,7 @@ public class Mascota {
   private final Sexo sexo;
   private final Lista<String> fotos;
   private final Tamanio tamanio;
-  private final Map<String, String> caracteristicas;
+  private final Lista<String> caracteristicas;
 
   private String descripcionFisica;
 
@@ -27,7 +22,7 @@ public class Mascota {
     this.apodo = apodo;
     this.edad = edad;
     this.sexo = sexo;
-    this.caracteristicas = new HashMap<String, String>();
+    this.caracteristicas = new Lista<String>();
     this.fotos = new Lista<String>();
     this.tamanio = tamanio;
   }
@@ -44,30 +39,12 @@ public class Mascota {
     this.fotos.add(url);
   }
 
-  public void agregarUnaCaracteristica(String caracteristica, String valor) {
-    this.validarCaracteristica(caracteristica,valor);
-    this.caracteristicas.put(caracteristica.toUpperCase(), valor.toUpperCase());
+  public void agregarUnaCaracteristica(String caracteristica) {
+    new ValidadorCaracteristica().validarCaracteristica(caracteristica.toUpperCase());
+    this.caracteristicas.add(caracteristica.toUpperCase());
   }
 
-  private void validarCaracteristica(String caracteristica, String valor) {
-    RepositorioCaracteristicas repositorioCaracteristicas = RepositorioCaracteristicas.getINSTANCE();
-    Caracteristica caracteristica_obtenida = repositorioCaracteristicas.obtenerCaracteristica(caracteristica.toUpperCase());
-    if(caracteristica_obtenida==null) {
-      throw new CaracteristicaInvalida();
-    }
-    if (!caracteristica_obtenida.tieneEstaOpcion(valor)){
-      throw new OpcionInvalida(caracteristica.toUpperCase());
-    }
-  }
-
-  public String obtenerCaracteristica(String caracteristica) {
-    if (!caracteristicas.containsKey(caracteristica.toUpperCase())) {
-      return null;
-    }
-    return this.caracteristicas.get(caracteristica.toUpperCase());
-  }
-
-  public ClaseMascota getClase() {
+   public ClaseMascota getClase() {
     return clase;
   }
 
@@ -89,5 +66,13 @@ public class Mascota {
 
   public String getDescripcionFisica() {
     return descripcionFisica;
+  }
+
+  public Lista<String> getCaracteristicas() {
+    return caracteristicas;
+  }
+
+  public boolean tieneEstaCaracteristica(String caracteristica){
+    return caracteristicas.contains(caracteristica);
   }
 }

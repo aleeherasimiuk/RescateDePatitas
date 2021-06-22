@@ -1,6 +1,5 @@
 import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
-import dominio.exceptions.OpcionInvalida;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Administrador;
@@ -21,50 +20,23 @@ class CaracteristicaTest {
 		Administrador administrador;
 
 		administrador = new Administrador("UnUsuario", "UnaContraseña1");
-		administrador.agregarUnaCaracteristica("COLORES-PRIMARIOS", "rojo", "AZUL", "AMARILLO");
-
-		administrador.agregarUnaCaracteristica("CASTRADO", "SI", "NO");
-
-	}
-
-
-	@Test
-	void unaCaracteristicaConColoresPrimariosTieneTresOpciones() {
-		Caracteristica coloresPrimarios = repoCaracteristica.obtenerCaracteristica("colores-primarios");
-		assertEquals(3, coloresPrimarios.opciones().size());
-	}
-	
-	@Test
-	void losColoresPrimariosEsUnaCaracteristica() {
-		Caracteristica coloresPrimarios = repoCaracteristica.obtenerCaracteristica("colores-primarios");
-		assertTrue(coloresPrimarios.tieneEstaOpcion("rojo"));
-		assertTrue(coloresPrimarios.tieneEstaOpcion("azul"));
-		assertTrue(coloresPrimarios.tieneEstaOpcion("amarillo"));
+		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
+		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AZUL");
+		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AMARILLO");
+		administrador.agregarUnaCaracteristica("CASTRADO");
+		administrador.agregarUnaCaracteristica("NO-CASTRADO");
 	}
 
 	@Test
-	void laCastracionEsUnaCaracteristicaQueSePuedeAfirmar() {
-		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
-
-		assertTrue(castracion.tieneEstaOpcion("SI"));
-	}
-	
-	void laCastracionEsUnaCaracteristicaQueSePuedeNegar() {
-		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
-
-		assertTrue(castracion.tieneEstaOpcion("NO"));
-	}
-
-	void dudarNoEsUnaOpcionParaCastracion() {
-		Caracteristica castracion = repoCaracteristica.obtenerCaracteristica("castrado");
-
-		assertFalse(castracion.tieneEstaOpcion("NOSE"));
+	void colorPrimarioAmarilloEsUnaCaracteristica() {
+		String colorPrimarioAmarillo = "COLOR-PRIMARIO-AMARILLO";
+		assertTrue(repoCaracteristica.existeCaracteristica(colorPrimarioAmarillo));
 	}
 
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
 		Administrador administrador = new Administrador("UnAdministrador", "holaqtaltodomuyBarat10");
-		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado", "SI", "NO", "NO SE");
+		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado");
 		assertThrows(CaracteristicaRepetida.class, agregarCaracteristica);
 	}
 
@@ -74,8 +46,8 @@ class CaracteristicaTest {
 		Duenio carlos = fixture.getCarlos();
 		Mascota felix = fixture.getFelix();
 		carlos.registrarUnaMascota(felix);
-		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
-		assertEquals(felix.obtenerCaracteristica("colores-primarios"),"ROJO");
+		felix.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
+		assertTrue(felix.getCaracteristicas().contains("COLOR-PRIMARIO-ROJO"));
 	}
 
 	@Test
@@ -84,32 +56,15 @@ class CaracteristicaTest {
 		Duenio carlos = fixture.getCarlos();
 		Mascota felix = fixture.getFelix();
 		carlos.registrarUnaMascota(felix);
-		felix.agregarUnaCaracteristica("Colores-Primarios","rojo");
-		assertFalse(felix.obtenerCaracteristica("colores-primarios") == "amarillo");
-	}
-
-	@Test
-	void castradaNoEsUnaCaracteristicaDeUnaOpcion(){
-		Fixture fixture = new Fixture();
-		Duenio carlos = fixture.getCarlos();
-		Mascota felix = fixture.getFelix();
-		carlos.registrarUnaMascota(felix);
-
-		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("castrada","si"));
-	}
-
-	@Test
-	void opcionInvalida(){
-		Fixture fixture = new Fixture();
-		Mascota felix = fixture.getFelix();
-		assertThrows(OpcionInvalida.class, () -> felix.agregarUnaCaracteristica("Castrado", "tal vez"));
+		felix.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
+		assertFalse(felix.getCaracteristicas().contains("COLOR-PRIMARIO-AMARILLO"));
 	}
 
 	@Test
 	void caracteristicaInvalida(){
 		Fixture fixture = new Fixture();
 		Mascota felix = fixture.getFelix();
-		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("Panza Negra", "Si"));
+		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("Panza Negra"));
 	}
 
 
