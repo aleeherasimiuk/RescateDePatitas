@@ -21,97 +21,74 @@ import dominio.util.Lista;
 
 public class Fixture {
 
-	private final Mascota pupi     = crearAPupi();
-  private final Mascota felix    = crearAFelix();
-  private final Mascota vladi    = crearAVladi();
-  private final Duenio carlos    = crearACarlos();
-  private final Duenio samuel    = crearASamuel();
-  private final Rescatista pedro = crearAPedro();
-
-  private final Rescate rescatePupi  = rescatarAPupi();
-  private final Rescate rescateFelix = rescatarAFelix();
-
-  private final Coordenadas UTN               = buildUTN();
   private final Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
   private final Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
 
-
-  private final Asociacion  colaDeGato     = asociacionColaDeGato();
-  private final Asociacion  patitasSucias  = asociacionPatitasSucias();
-  private final Publicacion publicacionUTN = publicacionMascotaUTN();
-
-  private final Hogar somosHogarCarinioso = crearHogarCarinioso();
-  private final Hogar elHiltonParaGatos = crearHiltonParaGatos();
-  private final Hogar elPequenioHogarPerruno = crearPequenioHogarPerruno();
-  private final Hogar elHiltonPerruno = crearHiltonPerruno();    
-  private final Hogar unHogarAbandonado = crearHogarAbandonado();
-  
-
   public Mascota getPupi() {
-    return pupi;
+    return crearAPupi();
   }
 
   public Mascota getFelix() {
-    return felix;
+    return crearAFelix();
   }
 
   public Mascota getVladi() {
-    return vladi;
+    return crearAVladi();
   }
 
   public Duenio getCarlos() {
-    return carlos;
+    return crearACarlos();
   }
 
   public Duenio getSamuel() {
-    return samuel;
+    return crearASamuel();
   }
 
   public Rescatista getPedro() {
-    return pedro;
+    return crearAPedro();
   }
 
   public Rescate getRescatePupi() {
-    return rescatePupi;
+    return rescatarAPupi();
   }
 
   public Rescate getRescateFelix() {
-    return rescateFelix;
+    return rescatarAFelix();
   }
 
   public Asociacion getColaDeGato() {
-    return colaDeGato;
+    return asociacionColaDeGato();
   }
 
   public Asociacion getPatitasSucias() {
-    return patitasSucias;
+    return asociacionPatitasSucias();
   }
 
   public Publicacion getPublicacionUTN() {
-    return publicacionUTN;
+    return publicacionMascotaUTN();
   }
-  
+
   public Hogar getHogarCarinio() {
-  	return somosHogarCarinioso;
+  	return crearHogarCarinioso();
   }
-  
+
   public Hogar getElHiltonParaGatos() {
-  	return elHiltonParaGatos;
+  	return crearHiltonParaGatos();
   }
   public Hogar getElHiltonPerruno() {
-  	return elHiltonPerruno;
+  	return crearPequenioHogarPerruno();
   }
-  
+
   public Hogar getElPequenioHogarPerruno() {
-  	return elPequenioHogarPerruno;
+  	return crearHiltonPerruno();
   }
 
   public Hogar getHogarAbandonado() {
-  	return unHogarAbandonado;
-  }  
+  	return crearHogarAbandonado();
+  }
 
   public Coordenadas getUTN() {
-    return UTN;
+    return buildUTN();
   }
 
   private Duenio crearACarlos() {
@@ -160,19 +137,19 @@ public class Fixture {
   }
 
   private Rescate rescatarAFelix() {
-    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
-    Rescate rescateFelix = new Rescate(datosRescate, felix);
+    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
+    Rescate rescateFelix = new Rescate(datosRescate, crearAFelix());
     return rescateFelix;
   }
 
   private Rescate rescatarAPupi() {
-    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
-    Rescate rescatePupi = new Rescate(datosRescate, pupi);
+    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
+    Rescate rescatePupi = new Rescate(datosRescate, crearAPupi());
     return rescatePupi;
   }
 
   private Publicacion publicacionMascotaUTN(){
-    DatosRescate datosRescate = new DatosRescate(pedro, new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", UTN);
+    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
     return new Publicacion(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
   }
 
@@ -185,25 +162,25 @@ public class Fixture {
   }
 
   private Hogar crearHogarAbandonado() {  	
-		return new Hogar("HogarAbandonado", "0800-999-111", null, false, null, UTN, false);  	
+		return new Hogar("HogarAbandonado", "0800-999-111", null, false, null, buildUTN(), false);  	
   }
   
   private Hogar crearHogarCarinioso() {  	
   	Lista<ClaseMascota> prefierenCualquierMascota = new Lista<ClaseMascota>(ClaseMascota.PERRO, ClaseMascota.GATO);
   	  	
-		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new Lista<String>(), UTN, true);
+		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new Lista<String>(), buildUTN(), true);
   }
 
   private Hogar crearHiltonPerruno() {  	  	
-		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), true, new Lista<String>(), UTN, true);
+		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), true, new Lista<String>(), buildUTN(), true);
   }
 
   private Hogar crearHiltonParaGatos() {  	  	
-		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.GATO), true, new Lista<String>(), UTN, true);
+		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.GATO), true, new Lista<String>(), buildUTN(), true);
   }
 
   private Hogar crearPequenioHogarPerruno() {  	  	
-		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), false, new Lista<String>(), UTN, false);
+		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), false, new Lista<String>(), buildUTN(), false);
   }
 
   private Coordenadas buildUTN(){
