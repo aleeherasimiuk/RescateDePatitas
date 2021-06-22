@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
+import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
 import servicios.mail.MailerDuenio;
 import dominio.hogares.Hogar;
@@ -57,10 +58,6 @@ public class Rescate {
     return datosRescate.getRescatista().getTelefono();
   }
 
-  public String emailDeContacto(){
-    return datosRescate.getRescatista().getDatosPersona().getContacto().getEmail();
-  }
-
   public List<String> getFotos() {
     return datosRescate.getFotos();
   }
@@ -77,10 +74,6 @@ public class Rescate {
     return datosRescate.getFecha();
   }
 
-  public Contacto datosDeContacto(){
-    return datosRescate.getRescatista().getDatosPersona().getContacto();
-  }
-
   public Hogar getHogar() {
     return datosRescate.getHogar();
   }
@@ -89,7 +82,11 @@ public class Rescate {
     datosRescate.setHogar(hogar);
   }
 
-  public DatosRescate getDatosRescate() {
-    return datosRescate;
+  public Contacto datosDeContacto(){
+    return getDatosDeRescatista().getContacto();
+  }
+  
+  public DatosPersona getDatosDeRescatista() {
+    return datosRescate.getRescatista().getDatosPersona();
   }
 }

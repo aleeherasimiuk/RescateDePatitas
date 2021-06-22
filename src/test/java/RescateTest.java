@@ -83,7 +83,7 @@ public class RescateTest {
   @Test
   void elRescatistaEsPedro(){
     rescatePupi = fixture.getRescatePupi();
-    assertEquals("Pedro", rescatePupi.getDatosRescate().getRescatista().getDatosPersona().getNombre());
+    assertEquals("Pedro", rescatePupi.getDatosDeRescatista().getNombre());
   }
 
   @Test
@@ -113,6 +113,6 @@ public class RescateTest {
   @Test
   void emailDeContacto(){
     rescatePupi = fixture.getRescatePupi();
-    assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
+    assertEquals("fedebal@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }
