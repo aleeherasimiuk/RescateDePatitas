@@ -26,7 +26,8 @@ public class Duenio extends Usuario {
     RepositorioMascotas.getINSTANCE().registrar(mascota);
   }
 
+  // TODO: Comparar por otro atributo y no por la referencia a memoria.
   public boolean esMiMascota(Mascota mascota) {
-    return mascotasRegistradas.contains(mascota);
+    return mascotasRegistradas.contains(mascota); 
   }
 }

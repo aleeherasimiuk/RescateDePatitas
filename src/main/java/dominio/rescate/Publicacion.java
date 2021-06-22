@@ -1,6 +1,5 @@
 package dominio.rescate;
 
-
 import dominio.asociacion.Asociacion;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
@@ -8,6 +7,8 @@ import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
+import dominio.tareas.ValidadorCaracteristica;
+import dominio.util.Lista;
 import servicios.mail.MailerRescatista;
 
 public class Publicacion {
@@ -15,6 +16,7 @@ public class Publicacion {
   private final DatosRescate datosRescate;
   private final Tamanio tamanio;
   private final ClaseMascota claseMascota;
+  private final Lista<String> caracteristicas;
 
   private Asociacion asociacionAsignada;
   private EstadoPublicacion estado;
@@ -24,6 +26,7 @@ public class Publicacion {
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
+    caracteristicas = new Lista<String>();
   }
 
   public void confirmarMascotaEncontrada(){
@@ -63,6 +66,11 @@ public class Publicacion {
     this.datosRescate.setHogar(hogar);
   }
 
+  public void agregarUnaCaracteristica(String caracteristica) {
+    new ValidadorCaracteristica().validarCaracteristica(caracteristica);
+    this.caracteristicas.add(caracteristica.toUpperCase());
+  }
+
   public Asociacion getAsociacionAsignada() {
     if(asociacionAsignada == null) throw new RuntimeException("No se ha asignado ninguna asociación");
     return asociacionAsignada;
@@ -86,6 +94,10 @@ public class Publicacion {
 
   public ClaseMascota getClaseMascota() {
     return claseMascota;
+  }
+
+  public Lista<String> getCaracteristicas() {
+    return caracteristicas;
   }
 
   
