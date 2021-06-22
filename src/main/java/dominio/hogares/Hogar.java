@@ -1,7 +1,5 @@
 package dominio.hogares;
 
-import java.util.Map;
-
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.ubicacion.Coordenadas;

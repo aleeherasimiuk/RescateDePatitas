@@ -1,8 +1,5 @@
 package dominio.rescate;
 
-
-import java.util.Map;
-
 import dominio.asociacion.Asociacion;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;

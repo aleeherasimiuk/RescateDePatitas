@@ -1,7 +1,5 @@
 package dominio.mascota;
 
-import java.util.HashMap;
-import java.util.Map;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
 
