@@ -22,7 +22,7 @@ public class Rescatista {
     this.direccion = direccion;
   }
 
-  public void registrarRescate(Rescate rescate){
+  public void registrarRescate(RescateConChapita rescate){
     RepositorioRescates.getINSTANCE().registrar(rescate);
   }
 

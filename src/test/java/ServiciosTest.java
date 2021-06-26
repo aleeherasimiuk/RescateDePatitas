@@ -20,7 +20,7 @@ import dominio.mascota.Sexo;
 import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Administrador;
 import dominio.util.Lista;
 import servicios.hogares.HogaresAdapter;
@@ -123,7 +123,7 @@ public class ServiciosTest {
   void elSeptimoAceptaLaPublicacionDeRobert(){
 
     Fixture f = new Fixture();
-    Publicacion publicacion = new Publicacion(new DatosRescate(f.getPedro(), new ArrayList<>(), LocalDate.now(), "", f.getUTN()), Tamanio.CHICO, ClaseMascota.PERRO);
+    RescateSinChapita publicacion = new RescateSinChapita(new DatosRescate(f.getPedro(), new ArrayList<>(), LocalDate.now(), "", f.getUTN()), Tamanio.CHICO, ClaseMascota.PERRO);
     for (String caracteristica : buildRobert().getCaracteristicas()) {
       publicacion.agregarUnaCaracteristica(caracteristica);
     }

@@ -1,17 +1,17 @@
 package servicios.mail;
 
 import dominio.personas.Contacto;
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 
-public class MailerRescatista extends JavaMail<Publicacion>{
+public class MailerRescatista extends JavaMail<RescateSinChapita>{
 
   @Override
-  protected String destinatario(Publicacion publicacion) {
+  protected String destinatario(RescateSinChapita publicacion) {
     return publicacion.emailDeContacto();
   }
 
   @Override
-  protected String mensaje(Publicacion publicacion) {
+  protected String mensaje(RescateSinChapita publicacion) {
     Contacto datosDeContacto = publicacion.getContacto();
 
     String mensaje = "";
@@ -26,7 +26,7 @@ public class MailerRescatista extends JavaMail<Publicacion>{
   }
 
   @Override
-  protected String asunto(Publicacion publicacion) {
+  protected String asunto(RescateSinChapita publicacion) {
     return "Buenas noticias!. Identificamos al dueño de una mascota que encontraste";
   }
 

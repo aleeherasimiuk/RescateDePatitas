@@ -12,8 +12,8 @@ import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
 import dominio.rescate.DatosRescate;
-import dominio.rescate.Publicacion;
-import dominio.rescate.Rescate;
+import dominio.rescate.RescateSinChapita;
+import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
@@ -48,11 +48,11 @@ public class Fixture {
     return crearAPedro();
   }
 
-  public Rescate getRescatePupi() {
+  public RescateConChapita getRescatePupi() {
     return rescatarAPupi();
   }
 
-  public Rescate getRescateFelix() {
+  public RescateConChapita getRescateFelix() {
     return rescatarAFelix();
   }
 
@@ -64,7 +64,7 @@ public class Fixture {
     return asociacionPatitasSucias();
   }
 
-  public Publicacion getPublicacionUTN() {
+  public RescateSinChapita getPublicacionUTN() {
     return publicacionMascotaUTN();
   }
 
@@ -136,21 +136,21 @@ public class Fixture {
     return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
   }
 
-  private Rescate rescatarAFelix() {
+  private RescateConChapita rescatarAFelix() {
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
-    Rescate rescateFelix = new Rescate(datosRescate, crearAFelix());
+    RescateConChapita rescateFelix = new RescateConChapita(datosRescate, crearAFelix());
     return rescateFelix;
   }
 
-  private Rescate rescatarAPupi() {
+  private RescateConChapita rescatarAPupi() {
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
-    Rescate rescatePupi = new Rescate(datosRescate, crearAPupi());
+    RescateConChapita rescatePupi = new RescateConChapita(datosRescate, crearAPupi());
     return rescatePupi;
   }
 
-  private Publicacion publicacionMascotaUTN(){
+  private RescateSinChapita publicacionMascotaUTN(){
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
-    return new Publicacion(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
+    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
   }
 
   private Asociacion asociacionPatitasSucias(){

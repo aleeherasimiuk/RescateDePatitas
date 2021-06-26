@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.Rescate;
+import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.mascota.ClaseMascota;
@@ -22,8 +22,8 @@ public class RescateTest {
   Fixture fixture = new Fixture();
   RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
-  Rescate rescateFelix;
-  Rescate rescatePupi;
+  RescateConChapita rescateFelix;
+  RescateConChapita rescatePupi;
   Rescatista pedro;
   Duenio samuel;
   Mascota felix;

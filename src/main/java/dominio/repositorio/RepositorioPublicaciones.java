@@ -1,19 +1,19 @@
 package dominio.repositorio;
 
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 import dominio.util.Lista;
 
-public class RepositorioPublicaciones extends Repositorio<Publicacion>{
+public class RepositorioPublicaciones extends Repositorio<RescateSinChapita>{
   private static final RepositorioPublicaciones INSTANCE = new RepositorioPublicaciones();
 
   private RepositorioPublicaciones() {}
 
-  public Lista<Publicacion> publicacionesAprobadas(){
-    return repositorio.filter(Publicacion::estaAprobada);
+  public Lista<RescateSinChapita> publicacionesAprobadas(){
+    return repositorio.filter(RescateSinChapita::estaAprobada);
   } 
 
-  public Lista<Publicacion> publicacionesPendientes(){
-    return repositorio.filter(Publicacion::estaPendiente);
+  public Lista<RescateSinChapita> publicacionesPendientes(){
+    return repositorio.filter(RescateSinChapita::estaPendiente);
   }
 
   public static RepositorioPublicaciones getINSTANCE(){

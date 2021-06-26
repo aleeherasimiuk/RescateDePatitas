@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
 import servicios.hogares.modelos.HogarResponse;
@@ -16,7 +16,7 @@ public class HogaresAdapter{
 
   /*TODO: Hacer una sola función y filtros con lambdas*/
 
-  public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion, HogaresServiceRefugioDDS service){
+  public List<Hogar> obtenerPosiblesHogaresPara(RescateSinChapita publicacion, HogaresServiceRefugioDDS service){
     final List<Hogar> hogares = paginas(service)
         .stream()
         .flatMap(this::obtenerHogaresDeLaPagina)
@@ -27,7 +27,7 @@ public class HogaresAdapter{
     return hogares;
   }
 
-  public List<Hogar> obtenerPosiblesHogaresPara(Publicacion publicacion){
+  public List<Hogar> obtenerPosiblesHogaresPara(RescateSinChapita publicacion){
    HogaresServiceRefugioDDS service = new HogaresServiceRefugioDDS();
    return obtenerPosiblesHogaresPara(publicacion, service);
   }

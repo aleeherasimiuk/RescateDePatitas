@@ -1,6 +1,6 @@
 package dominio.usuarios;
 
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 
 public class Voluntario extends Usuario{
   public Voluntario(String username, String password){

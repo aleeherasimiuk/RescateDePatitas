@@ -11,7 +11,7 @@ import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
 import servicios.mail.MailerRescatista;
 
-public class Publicacion {
+public class RescateSinChapita {
 
   private final DatosRescate datosRescate;
   private final Tamanio tamanio;
@@ -21,7 +21,7 @@ public class Publicacion {
   private Asociacion asociacionAsignada;
   private EstadoPublicacion estado;
 
-  public Publicacion(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
+  public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
     this.datosRescate = datosRescate;
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;

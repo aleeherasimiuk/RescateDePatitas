@@ -12,13 +12,13 @@ import dominio.hogares.Hogar;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class Rescate {
+public class RescateConChapita {
 
   private final DatosRescate datosRescate;
 
   private Mascota mascota;
 
-  public Rescate(DatosRescate datosRescate, Mascota mascota) {
+  public RescateConChapita(DatosRescate datosRescate, Mascota mascota) {
     this.datosRescate = datosRescate;
     this.mascota = mascota;
   }

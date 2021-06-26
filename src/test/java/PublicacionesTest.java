@@ -14,7 +14,7 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
-import dominio.rescate.Publicacion;
+import dominio.rescate.RescateSinChapita;
 
 public class PublicacionesTest {
 
@@ -22,7 +22,7 @@ public class PublicacionesTest {
   private final RepositorioAsociaciones repoAsociaciones = RepositorioAsociaciones.getInstance();
   private Asociacion patitasSucias;
   private Asociacion colaDeGato;
-  private Publicacion publicacionUTN;
+  private RescateSinChapita publicacionUTN;
 
   @BeforeEach
   void setup(){
