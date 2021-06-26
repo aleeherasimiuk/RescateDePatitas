@@ -6,4 +6,5 @@ public class RepositorioPreguntas extends Repositorio<String> {
   
   private RepositorioPreguntas() {}
   
+  
 }

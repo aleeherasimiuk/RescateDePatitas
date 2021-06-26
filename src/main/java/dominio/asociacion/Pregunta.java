@@ -13,5 +13,21 @@ public class Pregunta {
     this.condicionAsociada = condicionAsociada;
     this.asociacion = asociacion;
   }
+
+  public String getPregunta() {
+    return pregunta;
+  }
+
+  public boolean isObligatorio() {
+    return obligatorio;
+  }
+
+  public String getCondicionAsociada() {
+    return condicionAsociada;
+  }
+
+  public Asociacion getAsociacion() {
+    return asociacion;
+  }
  
 }
