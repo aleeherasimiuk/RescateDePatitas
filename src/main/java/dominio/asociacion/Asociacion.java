@@ -29,5 +29,6 @@ public class Asociacion{
   public Coordenadas getUbicacion() {
     return ubicacion;
   }
+
   
 }
