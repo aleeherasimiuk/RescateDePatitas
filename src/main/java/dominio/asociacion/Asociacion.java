@@ -2,6 +2,7 @@ package dominio.asociacion;
 
 import java.util.ArrayList;
 import dominio.mascota.Mascota;
+import dominio.preguntas.Pregunta;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
 import dominio.util.Lista;
@@ -21,7 +22,7 @@ public class Asociacion{
   public double distanciaA(Coordenadas coordenadas){
     return ubicacion.distanciaA(coordenadas);
   }
-  
+
   public String getNombre() {
     return nombre;
   }
@@ -29,5 +30,8 @@ public class Asociacion{
   public Coordenadas getUbicacion() {
     return ubicacion;
   }
-  
+
+  public int cantidadDePreguntas() {
+    return preguntasAdopcion.size();
+  }
 }
