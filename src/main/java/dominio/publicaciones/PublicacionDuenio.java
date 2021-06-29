@@ -4,7 +4,6 @@ import java.util.List;
 
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
-import dominio.preguntas.Respuesta;
 import dominio.usuarios.Duenio;
 
 public class PublicacionDuenio {
@@ -31,5 +30,11 @@ public class PublicacionDuenio {
   }
   public List<Respuesta> getRespuestas() {
     return respuestas;
+  }
+
+  public void adoptar(Duenio adoptante) {
+    // TODO: notificar al duenio actual de la mascota
+    duenio.removerMascota(mascota);
+    adoptante.registrarUnaMascota(mascota);
   }
 }

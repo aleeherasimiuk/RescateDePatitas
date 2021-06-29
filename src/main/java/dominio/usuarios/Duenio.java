@@ -28,6 +28,12 @@ public class Duenio extends Usuario {
 
   // TODO: Comparar por otro atributo y no por la referencia a memoria.
   public boolean esMiMascota(Mascota mascota) {
-    return mascotasRegistradas.contains(mascota); 
+    return mascotasRegistradas.contains(mascota);
+  }
+
+  public void removerMascota(Mascota mascota) {
+    if (!mascotasRegistradas.contains(mascota)) throw new RuntimeException("El duenio no posee la mascota: " + mascota.getNombre());
+    mascotasRegistradas.remove(mascota);
+    RepositorioMascotas.getINSTANCE().borrar(mascota);
   }
 }

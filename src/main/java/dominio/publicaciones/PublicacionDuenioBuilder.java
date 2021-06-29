@@ -7,7 +7,6 @@ import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
 import dominio.preguntas.Pregunta;
-import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioPreguntas;
 
 public class PublicacionDuenioBuilder {
