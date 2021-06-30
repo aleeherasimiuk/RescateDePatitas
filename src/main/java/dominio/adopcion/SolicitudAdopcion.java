@@ -1,51 +1,34 @@
 package dominio.adopcion;
 
+import dominio.asociacion.Asociacion;
 import dominio.mascota.Tamanio;
+import dominio.publicaciones.Respuesta;
+import dominio.usuarios.Duenio;
 import dominio.util.Lista;
 
+import java.util.List;
+
 public class SolicitudAdopcion {
-  private boolean aceptaPerros;
-  private boolean aceptaGatos;
-  private boolean tienePatio;
-  private final Lista<Tamanio> tamaniosSoportados;
-  private final Lista<String> condiciones; // necesitaPatioGrande,
+  private final List<Respuesta> respuestas;
+  private final Asociacion asociacion;
+  private final Duenio adoptante;
 
-  public SolicitudAdopcion(boolean aceptaPerros, boolean aceptaGatos, boolean tienePatio) {
-    super();
-    this.aceptaPerros = aceptaPerros;
-    this.aceptaGatos = aceptaGatos;
-    this.tienePatio = tienePatio;
-
-    tamaniosSoportados = new Lista<>();
-    condiciones = new Lista<>();
+  public SolicitudAdopcion(Duenio adoptante,Asociacion asociacion, List<Respuesta> respuestas) {
+    this.respuestas = respuestas;
+    this.asociacion = asociacion;
+    this.adoptante = adoptante;
   }
 
-  public void agregarCondicion(String condicion) {
-    this.condiciones.add(condicion);
+  public List<Respuesta> getRespuestas() {
+    return respuestas;
   }
 
-  public void agregarTamanioSoportado(Tamanio tamanioSoportado) {
-    this.tamaniosSoportados.add(tamanioSoportado);
+  public Asociacion getAsociacion() {
+    return asociacion;
   }
 
-  public Lista<Tamanio> getTamaniosSoportados() {
-    return tamaniosSoportados;
-  }
-
-  public Lista<String> getCondiciones() {
-    return condiciones;
-  }
-
-  public void confirmarAceptaPerros() {
-    this.aceptaPerros = true;
-  }
-
-  public void confirmarAceptaGatos() {
-    this.aceptaGatos = true;
-  }
-
-  public void confirmarTienePatio() {
-    this.tienePatio = true;
+  public Duenio getAdoptante() {
+    return adoptante;
   }
 
 }
