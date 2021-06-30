@@ -122,6 +122,50 @@ class Hogar{
   aceptaMascota()
 }
 
+class Pregunta{
+  preguntaDuenio
+  preguntaAdoptante
+  esRespuestaValida(respuesta)
+}
+
+class PreguntaCerrada{
+  opciones
+  @Override esRespuestaValida(respuesta)
+}
+
+class PreguntaBinaria{
+  opciones = ["SI","NO"]
+  preguntaAdoptante
+}
+
+class Respuesta{
+  pregunta
+  respuesta
+}
+
+class DarEnAdopcion{
+  duenio
+  mascota
+  asociacion
+  respuestas
+  adoptar(adoptante)
+}
+
+class SolicitudAdopcion{
+  respuestas
+  asociacion
+  adoptante
+  recomendar()
+}
+
+class Asociacion{
+  nombre
+  ubicacion
+  preguntasAdoptante
+  distanciaA(ubicacion)
+}
+
+
 Dueño         -u->    DatosPersona
 Rescatista    -u->    DatosPersona
 DatosPersona  -r->    Documento
@@ -139,5 +183,19 @@ Publicacion   -d->    DatosRescate
 Rescate       -d->    DatosRescate
 DatosRescate  -d->    Hogar
 Voluntario    -u-|>   Usuario
+PreguntaCerrada -u-|> Pregunta
+PreguntaBinaria -u-|> PreguntaCerrada
+Respuesta       -l->  Pregunta
+DarEnAdopcion -d->"*" Respuesta
+SolicitudAdopcion -u->"*" Respuesta
+Asociacion -d->"*"    Pregunta
+SolicitudAdopcion ->  Dueño
+SolicitudAdopcion ->  Asociacion
+DarEnAdopcion ->      Dueño
+DarEnAdopcion ->      Mascota
+DarEnAdopcion ->      Asociacion
+DarEnAdopcion ->"*"   Respuesta
+
+
 
 @enduml
