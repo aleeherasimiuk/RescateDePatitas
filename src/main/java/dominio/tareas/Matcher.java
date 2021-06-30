@@ -1,10 +1,10 @@
 package dominio.tareas;
 
+import dominio.adopcion.DarEnAdopcion;
 import dominio.adopcion.SolicitudAdopcion;
 import dominio.preguntas.Pregunta;
-import dominio.publicaciones.PublicacionDuenio;
-import dominio.publicaciones.Respuesta;
-import dominio.repositorio.RepositorioPublicacionesAdopcion;
+import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioAdopcion;
 
 import java.util.List;
 
@@ -15,12 +15,12 @@ public class Matcher {
     this.solicitudAdopcion = solicitudAdopcion;
   }
 
-  public List<PublicacionDuenio> recomendaciones(){
-    return RepositorioPublicacionesAdopcion.getInstance()
+  public List<DarEnAdopcion> recomendaciones(){
+    return RepositorioAdopcion.getInstance()
       .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio, solicitudAdopcion));
   }
 
-  private boolean matcheaCon(PublicacionDuenio publicacionDuenio, SolicitudAdopcion solicitudAdopcion) {
+  private boolean matcheaCon(DarEnAdopcion publicacionDuenio, SolicitudAdopcion solicitudAdopcion) {
     return solicitudAdopcion.getRespuestas()
           .stream()
           .filter(respuesta -> !respuesta.getPregunta().esAbierta())

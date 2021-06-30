@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import dominio.adopcion.DarEnAdopcion;
+import dominio.adopcion.DarEnAdopcionBuilder;
 import dominio.adopcion.SolicitudAdopcion;
 import dominio.adopcion.SolicitudAdopcionBuilder;
 import dominio.asociacion.Asociacion;
@@ -14,10 +16,8 @@ import dominio.mascota.Mascota;
 import dominio.preguntas.Pregunta;
 import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
-import dominio.publicaciones.PublicacionDuenio;
-import dominio.publicaciones.PublicacionDuenioBuilder;
 import dominio.repositorio.RepositorioPreguntas;
-import dominio.repositorio.RepositorioPublicacionesAdopcion;
+import dominio.repositorio.RepositorioAdopcion;
 import dominio.tareas.Matcher;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
@@ -56,14 +56,14 @@ public class MatcherTest {
 
   @Test
   void noSePuedeNoResponderLasPreguntas(){
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     assertThrows(RuntimeException.class, () -> builder.build());
   }
 
   @Test
   void noContestaTodasLasPreguntas(){
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
     assertThrows(RuntimeException.class, () -> builder.build());
@@ -71,14 +71,14 @@ public class MatcherTest {
 
   @Test
   void contestaMalLaPregunta(){
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     assertThrows(RuntimeException.class, () -> builder.responderPregunta(preguntas[0], "No se"));
   }
 
   @Test
   void contestaTodasLasPreguntas(){
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
     builder.responderPregunta(preguntas[1], "PERRO");
@@ -105,14 +105,14 @@ public class MatcherTest {
   @Test
   void samuelDeseariaAdoptar(){
 
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
     builder.responderPregunta(preguntas[1], "PERRO");
     builder.responderPregunta(preguntas[2], "Tiene convulsiones");
     builder.responderPregunta(global, "SI");
-    PublicacionDuenio publicacion = builder.build();
-    RepositorioPublicacionesAdopcion.getInstance().registrar(publicacion);
+    DarEnAdopcion publicacion = builder.build();
+    RepositorioAdopcion.getInstance().registrar(publicacion);
 
     SolicitudAdopcionBuilder solicitudBuilder = new SolicitudAdopcionBuilder(samuel);
     solicitudBuilder.setAsociacion(asociacion);
@@ -129,14 +129,14 @@ public class MatcherTest {
   @Test
   void samuelNoDeseariaAdoptar(){
 
-    PublicacionDuenioBuilder builder = new PublicacionDuenioBuilder(carlos, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
     builder.responderPregunta(preguntas[1], "PERRO");
     builder.responderPregunta(preguntas[2], "Tiene convulsiones");
     builder.responderPregunta(global, "SI");
-    PublicacionDuenio publicacion = builder.build();
-    RepositorioPublicacionesAdopcion.getInstance().registrar(publicacion);
+    DarEnAdopcion publicacion = builder.build();
+    RepositorioAdopcion.getInstance().registrar(publicacion);
 
     SolicitudAdopcionBuilder solicitudBuilder = new SolicitudAdopcionBuilder(samuel);
     solicitudBuilder.setAsociacion(asociacion);

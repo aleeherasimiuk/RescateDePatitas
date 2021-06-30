@@ -1,17 +1,18 @@
-package dominio.publicaciones;
+package dominio.adopcion;
 
 import java.util.List;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
+import dominio.preguntas.Respuesta;
 import dominio.usuarios.Duenio;
 
-public class PublicacionDuenio {
+public class DarEnAdopcion {
   private final Duenio duenio;
   private final Mascota mascota;
   private final Asociacion asociacion;
   private final List<Respuesta> respuestas;
 
-  public PublicacionDuenio(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Respuesta> respuestas) {
+  public DarEnAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Respuesta> respuestas) {
     this.duenio = duenio;
     this.mascota = mascota;
     this.asociacion = asociacion;

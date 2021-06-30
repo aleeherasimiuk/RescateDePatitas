@@ -1,7 +1,7 @@
 package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
-import dominio.publicaciones.Respuesta;
+import dominio.preguntas.Respuesta;
 import dominio.usuarios.Duenio;
 
 import java.util.List;

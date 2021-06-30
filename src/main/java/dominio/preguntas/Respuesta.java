@@ -1,6 +1,4 @@
-package dominio.publicaciones;
-
-import dominio.preguntas.Pregunta;
+package dominio.preguntas;
 
 public class Respuesta {
   private final Pregunta pregunta;
