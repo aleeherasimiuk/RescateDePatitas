@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import config.Config;
 
 
-public abstract class JavaMail {
+public class JavaMail {
 
   private final Session session;
   private String emisor;
@@ -50,8 +50,9 @@ public abstract class JavaMail {
   }
 
 
-  public void enviarMail(Mail mail){
+  public void enviarMail(Mailer mailer){
     MimeMessage message = new MimeMessage(session);
+    Mail mail = mailer.generarMail();
     try {
       // Quien envia el correo
       message.setFrom(new InternetAddress(emisor));

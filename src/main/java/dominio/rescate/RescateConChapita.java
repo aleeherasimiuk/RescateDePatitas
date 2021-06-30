@@ -6,6 +6,7 @@ import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
+import servicios.mail.JavaMail;
 import servicios.mail.MailRescateConChapita;
 import dominio.hogares.Hogar;
 
@@ -23,9 +24,9 @@ public class RescateConChapita {
     this.mascota = mascota;
   }
 
-  public void avisarAlDuenio(){
-    MailRescateConChapita mail = new MailRescateConChapita();
-    mail.enviarMail(this);
+  public void avisarAlDuenio(JavaMail javaMail){
+    MailRescateConChapita mailer = new MailRescateConChapita(this);
+    javaMail.enviarMail(mailer);
   }
 
   public void agregarUnaFoto(String url) {

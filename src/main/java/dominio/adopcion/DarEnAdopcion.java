@@ -5,6 +5,8 @@ import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
 import dominio.usuarios.Duenio;
+import servicios.mail.JavaMail;
+import servicios.mail.MailAdopcion;
 
 public class DarEnAdopcion {
   private final Duenio duenio;
@@ -32,11 +34,14 @@ public class DarEnAdopcion {
     return respuestas;
   }
 
-  public void adoptar(Duenio adoptante) {
-    // TODO: notificar al duenio actual de la mascota
+  public void adoptar(Duenio adoptante, JavaMail javaMail) {
     duenio.removerMascota(mascota);
     adoptante.registrarUnaMascota(mascota);
+
+    MailAdopcion mailer = new MailAdopcion(this, adoptante);
+    javaMail.enviarMail(mailer);
   }
+
 
 
 }

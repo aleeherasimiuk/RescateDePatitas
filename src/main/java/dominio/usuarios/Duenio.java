@@ -1,8 +1,5 @@
 package dominio.usuarios;
 
-import java.util.List;
-
-import dominio.adopcion.DarEnAdopcion;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioMascotas;

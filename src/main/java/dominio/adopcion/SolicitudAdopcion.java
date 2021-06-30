@@ -3,6 +3,8 @@ package dominio.adopcion;
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Respuesta;
 import dominio.usuarios.Duenio;
+import servicios.mail.JavaMail;
+import servicios.mail.MailRecomendacion;
 
 import java.util.List;
 
@@ -29,8 +31,9 @@ public class SolicitudAdopcion {
     return adoptante;
   }
 
-  public void recomendar(List<DarEnAdopcion> recomendaciones) {
-    //TODO: Enviar mail
+  public void recomendar(List<DarEnAdopcion> recomendaciones, JavaMail javaMail) {
+    MailRecomendacion mailer = new MailRecomendacion(adoptante, recomendaciones);
+    javaMail.enviarMail(mailer);
   }
 
 }
