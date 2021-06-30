@@ -9,15 +9,13 @@ import dominio.repositorio.RepositorioAdopcion;
 import java.util.List;
 
 public class Matcher {
-  private final SolicitudAdopcion solicitudAdopcion;
 
-  public Matcher(SolicitudAdopcion solicitudAdopcion) {
-    this.solicitudAdopcion = solicitudAdopcion;
-  }
 
-  public List<DarEnAdopcion> recomendaciones(){
-    return RepositorioAdopcion.getInstance()
-      .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio, solicitudAdopcion));
+  public List<DarEnAdopcion> recomendaciones(SolicitudAdopcion solicitudAdopcion){
+
+    RepositorioAdopcion repo = RepositorioAdopcion.getInstance();
+
+    return repo.filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio, solicitudAdopcion));
   }
 
   private boolean matcheaCon(DarEnAdopcion publicacionDuenio, SolicitudAdopcion solicitudAdopcion) {

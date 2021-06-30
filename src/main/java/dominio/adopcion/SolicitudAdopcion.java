@@ -29,4 +29,8 @@ public class SolicitudAdopcion {
     return adoptante;
   }
 
+  public void recomendar(List<DarEnAdopcion> recomendaciones) {
+    //TODO: Enviar mail
+  }
+
 }

@@ -1,5 +1,6 @@
 package dominio.repositorio;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import dominio.util.Lista;
@@ -46,6 +47,14 @@ public abstract class Repositorio<T> {
 
   public void vaciar(){
     repositorio.clear();
+  }
+
+  public Lista<T> todas(){
+    return repositorio;
+  }
+
+  public void forEach(Consumer<T> consumer){
+    repositorio.forEach(consumer);
   }
   
 }

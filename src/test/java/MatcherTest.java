@@ -121,8 +121,8 @@ public class MatcherTest {
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
 
-    Matcher matcher = new Matcher(solicitud);
-    assertTrue(matcher.recomendaciones().contains(publicacion));
+    Matcher matcher = new Matcher();
+    assertTrue(matcher.recomendaciones(solicitud).contains(publicacion));
 
   }
 
@@ -145,8 +145,8 @@ public class MatcherTest {
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
 
-    Matcher matcher = new Matcher(solicitud);
-    assertFalse(matcher.recomendaciones().contains(publicacion));
+    Matcher matcher = new Matcher();
+    assertFalse(matcher.recomendaciones(solicitud).contains(publicacion));
 
   }
 

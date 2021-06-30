@@ -13,8 +13,4 @@ public class RepositorioPreguntas extends Repositorio<Pregunta> {
   public static RepositorioPreguntas getInstance() {
     return INSTANCE;
   }
-
-  public List<Pregunta> todas(){
-    return repositorio;
-  }
 }
