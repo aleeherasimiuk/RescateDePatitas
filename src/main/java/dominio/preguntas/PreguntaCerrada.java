@@ -13,7 +13,7 @@ public class PreguntaCerrada extends Pregunta {
 
   @Override
   public boolean esRespuestaValida(String respuesta) {
-    return opciones.contains(respuesta);
+    return opciones.stream().anyMatch(r -> r.equalsIgnoreCase(respuesta));
   }
 
   @Override

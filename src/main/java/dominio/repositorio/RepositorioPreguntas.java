@@ -1,5 +1,7 @@
 package dominio.repositorio;
 
+import java.util.List;
+
 import dominio.preguntas.Pregunta;
 
 public class RepositorioPreguntas extends Repositorio<Pregunta> {
@@ -10,5 +12,9 @@ public class RepositorioPreguntas extends Repositorio<Pregunta> {
 
   public static RepositorioPreguntas getInstance() {
     return INSTANCE;
+  }
+
+  public List<Pregunta> todas(){
+    return repositorio;
   }
 }

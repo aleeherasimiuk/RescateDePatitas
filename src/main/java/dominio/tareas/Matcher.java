@@ -32,7 +32,7 @@ public class Matcher {
     Respuesta respuestaQueMatchea = obtenerRespuestaQueMatchea(respuesta.getPregunta(), respuestas);
     if(respuestaQueMatchea == null) return true;
     
-    return respuestaQueMatchea.getRespuesta().equals(respuesta.getRespuesta());
+    return respuestaQueMatchea.getRespuesta().equalsIgnoreCase(respuesta.getRespuesta());
     
   }
 

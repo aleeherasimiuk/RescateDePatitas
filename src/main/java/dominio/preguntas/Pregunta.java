@@ -24,4 +24,8 @@ public class Pregunta {
   public boolean esAbierta(){
     return true;
   }
+
+  public boolean esOpcionMultiple(){
+    return false;
+  }
 }

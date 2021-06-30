@@ -4,8 +4,10 @@ import dominio.asociacion.Asociacion;
 import dominio.preguntas.Pregunta;
 import dominio.publicaciones.Respuesta;
 import dominio.repositorio.RepositorioPreguntas;
+import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SolicitudAdopcionBuilder {
@@ -15,6 +17,7 @@ public class SolicitudAdopcionBuilder {
 
   public SolicitudAdopcionBuilder(Duenio adoptante) {
     this.adoptante = adoptante;
+    this.respuestas = new ArrayList<>();
   }
 
   public SolicitudAdopcionBuilder setAsociacion(Asociacion asociacion) {
@@ -31,7 +34,8 @@ public class SolicitudAdopcionBuilder {
   }
 
   public SolicitudAdopcion build() {
-    final int cantPreguntasTotal =  asociacion.cantidadDePreguntas() + RepositorioPreguntas.getInstance().cantidadRegistros();
+    ObtenerPreguntas preguntas = new ObtenerPreguntas();
+    final int cantPreguntasTotal = preguntas.preguntasAdoptante(asociacion).size();
     if (cantPreguntasTotal != respuestas.size())
       throw new RuntimeException("Hay preguntas sin responder.");
     return new SolicitudAdopcion(adoptante,asociacion,respuestas);
