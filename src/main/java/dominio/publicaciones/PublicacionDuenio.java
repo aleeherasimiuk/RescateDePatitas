@@ -2,6 +2,7 @@ package dominio.publicaciones;
 
 import java.util.List;
 
+import dominio.adopcion.SolicitudAdopcion;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
@@ -37,4 +38,11 @@ public class PublicacionDuenio {
     duenio.removerMascota(mascota);
     adoptante.registrarUnaMascota(mascota);
   }
+
+  public boolean matcheaCon(SolicitudAdopcion solicitudAdopcion) {
+    //respuestas.stream().allMatch()
+    return solicitudAdopcion.getRespuestas().stream().allMatch(respuesta -> respuesta.matcheaConAlguna(mascota,respuestas));
+  }
+
+
 }
