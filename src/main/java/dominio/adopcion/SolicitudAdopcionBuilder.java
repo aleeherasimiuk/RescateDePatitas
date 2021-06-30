@@ -3,7 +3,6 @@ package dominio.adopcion;
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Pregunta;
 import dominio.publicaciones.Respuesta;
-import dominio.repositorio.RepositorioPreguntas;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 

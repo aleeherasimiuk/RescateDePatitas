@@ -1,7 +1,6 @@
 package dominio.asociacion;
 
 import dominio.preguntas.Pregunta;
-import dominio.repositorio.RepositorioPreguntas;
 import dominio.ubicacion.Coordenadas;
 import dominio.util.Lista;
 
