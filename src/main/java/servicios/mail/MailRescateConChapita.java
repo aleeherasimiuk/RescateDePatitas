@@ -3,15 +3,21 @@ package servicios.mail;
 import dominio.personas.Contacto;
 import dominio.rescate.RescateConChapita;
 
-public class MailerDuenio extends JavaMail<RescateConChapita>{
+public class MailRescateConChapita extends Mailer{
+
+  private final RescateConChapita rescate;
+
+  public MailRescateConChapita(RescateConChapita rescate) {
+    this.rescate = rescate;
+  }
 
   @Override
-  protected String destinatario(RescateConChapita rescate) {
+  protected String destinatario() {
     return rescate.datosDeContacto().getEmail();
   }
 
   @Override
-  protected String mensaje(RescateConChapita rescate) {
+  protected String mensaje() {
 
     Contacto datosDeContacto = rescate.datosDeContacto();
 
@@ -30,7 +36,7 @@ public class MailerDuenio extends JavaMail<RescateConChapita>{
   }
 
   @Override
-  protected String asunto(RescateConChapita rescate) {
+  protected String asunto() {
     return "Tenemos buenas noticias!. Encontramos a " + rescate.getMascota().getApodo();
   }
   

@@ -6,7 +6,7 @@ import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
-import servicios.mail.MailerDuenio;
+import servicios.mail.MailRescateConChapita;
 import dominio.hogares.Hogar;
 
 import java.time.temporal.ChronoUnit;
@@ -24,7 +24,7 @@ public class RescateConChapita {
   }
 
   public void avisarAlDuenio(){
-    MailerDuenio mail = new MailerDuenio();
+    MailRescateConChapita mail = new MailRescateConChapita();
     mail.enviarMail(this);
   }
 

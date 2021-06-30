@@ -3,16 +3,22 @@ package servicios.mail;
 import dominio.personas.Contacto;
 import dominio.rescate.RescateSinChapita;
 
-public class MailerRescatista extends JavaMail<RescateSinChapita>{
+public class MailRescateSinChapita extends Mailer{
 
-  @Override
-  protected String destinatario(RescateSinChapita publicacion) {
-    return publicacion.emailDeContacto();
+  private final RescateSinChapita rescate;
+
+  public MailRescateSinChapita(RescateSinChapita rescate) {
+    this.rescate = rescate;
   }
 
   @Override
-  protected String mensaje(RescateSinChapita publicacion) {
-    Contacto datosDeContacto = publicacion.getContacto();
+  protected String destinatario() {
+    return rescate.emailDeContacto();
+  }
+
+  @Override
+  protected String mensaje() {
+    Contacto datosDeContacto = rescate.getContacto();
 
     String mensaje = "";
 
@@ -26,7 +32,7 @@ public class MailerRescatista extends JavaMail<RescateSinChapita>{
   }
 
   @Override
-  protected String asunto(RescateSinChapita publicacion) {
+  protected String asunto() {
     return "Buenas noticias!. Identificamos al dueño de una mascota que encontraste";
   }
 

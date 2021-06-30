@@ -9,7 +9,7 @@ import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioPublicaciones;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
-import servicios.mail.MailerRescatista;
+import servicios.mail.MailRescateSinChapita;
 
 public class RescateSinChapita {
 
@@ -30,7 +30,7 @@ public class RescateSinChapita {
   }
 
   public void confirmarMascotaEncontrada(){
-    MailerRescatista mail = new MailerRescatista();
+    MailRescateSinChapita mail = new MailRescateSinChapita();
     mail.enviarMail(this);
     datosRescate.confirmarEncuentro();
   }
