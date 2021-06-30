@@ -2,12 +2,9 @@ package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Pregunta;
-import dominio.publicaciones.PublicacionDuenio;
-import dominio.publicaciones.PublicacionDuenioBuilder;
 import dominio.publicaciones.Respuesta;
 import dominio.repositorio.RepositorioPreguntas;
 import dominio.usuarios.Duenio;
-import dominio.util.Lista;
 
 import java.util.List;
 

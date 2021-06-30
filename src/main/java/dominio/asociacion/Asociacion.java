@@ -1,10 +1,7 @@
 package dominio.asociacion;
 
-import java.util.ArrayList;
-import dominio.mascota.Mascota;
 import dominio.preguntas.Pregunta;
 import dominio.ubicacion.Coordenadas;
-import dominio.usuarios.Duenio;
 import dominio.util.Lista;
 
 public class Asociacion{

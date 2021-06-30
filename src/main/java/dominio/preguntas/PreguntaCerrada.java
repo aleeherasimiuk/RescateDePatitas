@@ -15,4 +15,9 @@ public class PreguntaCerrada extends Pregunta {
   public boolean esRespuestaValida(String respuesta) {
     return opciones.contains(respuesta);
   }
+
+  @Override
+  public boolean esAbierta() {
+    return false;
+  }
 }

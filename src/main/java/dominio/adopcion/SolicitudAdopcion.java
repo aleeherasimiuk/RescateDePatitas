@@ -1,10 +1,8 @@
 package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
-import dominio.mascota.Tamanio;
 import dominio.publicaciones.Respuesta;
 import dominio.usuarios.Duenio;
-import dominio.util.Lista;
 
 import java.util.List;
 

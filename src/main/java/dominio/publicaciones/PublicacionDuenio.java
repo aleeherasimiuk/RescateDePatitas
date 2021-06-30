@@ -40,8 +40,10 @@ public class PublicacionDuenio {
   }
 
   public boolean matcheaCon(SolicitudAdopcion solicitudAdopcion) {
-    //respuestas.stream().allMatch()
-    return solicitudAdopcion.getRespuestas().stream().allMatch(respuesta -> respuesta.matcheaConAlguna(mascota,respuestas));
+    return solicitudAdopcion.getRespuestas()
+          .stream()
+          .filter(respuesta -> !respuesta.getPregunta().esAbierta())
+          .allMatch(respuesta -> respuesta.matcheaConAlguna(this.respuestas));
   }
 
 
