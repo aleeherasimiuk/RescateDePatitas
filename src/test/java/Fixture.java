@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import dominio.adopcion.DarEnAdopcion;
+import dominio.adopcion.DarEnAdopcionBuilder;
 import dominio.asociacion.Asociacion;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
@@ -11,6 +12,10 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.preguntas.Pregunta;
+import dominio.preguntas.PreguntaBinaria;
+import dominio.preguntas.PreguntaCerrada;
+import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioDuenios;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
@@ -43,6 +48,10 @@ public class Fixture {
 
   public Duenio getSamuel() {
     return crearASamuel();
+  }
+  
+  public Duenio getSabato() {
+    return crearASabato();
   }
 
   public Rescatista getPedro() {
@@ -106,6 +115,14 @@ public class Fixture {
         stringAFecha("01/01/2001"));
 
     return new Duenio("samuKpo123", "Vladiteamo1", datosPersona);
+  }
+  
+  private Duenio crearASabato() {
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789651");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Sabato", documento, unContacto(),
+        stringAFecha("01/01/2001"));
+
+    return new Duenio("sabato", "Vladiteamo1", datosPersona);
   }
 
   private Rescatista crearAPedro() {
@@ -197,5 +214,41 @@ public class Fixture {
   private Coordenadas buildUTN(){
     return new Coordenadas(-34.65858825852768, -58.46736257475716);
   }
+
+  private Pregunta[] tresPreguntasTipicasDeAdopcion() {
+    Pregunta preguntas[] = new Pregunta[]{
+        new PreguntaBinaria("¿Necesita Patio?", "¿Tiene patio?"),
+        new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),
+        new Pregunta("¿Qué enfermedades tiene la mascota?", null)
+      };
+    
+    return preguntas;
+  }
   
+  private Pregunta tipicaPreguntaGlobal() {
+    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?");    
+  }
+  
+  public DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi(){
+    Asociacion asociacion = getColaDeGato();    
+    Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
+
+    Duenio sabato = getSabato();
+    Mascota pupi = getPupi();
+
+    RepositorioDuenios.getInstance().registrar(sabato); //
+    sabato.registrarUnaMascota(pupi);
+
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(sabato, pupi);
+    builder.setAsociacion(asociacion);
+    builder.responderPregunta(preguntas[0], "SI");
+    builder.responderPregunta(preguntas[1], "PERRO");
+    builder.responderPregunta(preguntas[2], "Tiene convulsiones");
+    builder.responderPregunta(tipicaPreguntaGlobal(), "SI");
+    DarEnAdopcion publicacion = builder.build();
+    
+    RepositorioAdopcion.getInstance().registrar(publicacion); //
+    
+    return publicacion;    
+  }
 }
