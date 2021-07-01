@@ -8,12 +8,12 @@ public class Asociacion{
 
   private final String nombre;
   private final Coordenadas ubicacion;
-  private final Lista<Pregunta> preguntasAdopcion;
+  private final Lista<Pregunta> preguntas;
 
   public Asociacion(String nombre, Coordenadas ubicacion) {
     this.nombre = nombre;
     this.ubicacion = ubicacion;
-    this.preguntasAdopcion = new Lista<>();
+    this.preguntas = new Lista<>();
   }
 
   public double distanciaA(Coordenadas coordenadas){
@@ -29,14 +29,14 @@ public class Asociacion{
   }
 
   public int cantidadDePreguntas() {
-    return preguntasAdopcion.size();
+    return preguntas.size();
   }
 
   public void agregarPregunta(Pregunta pregunta){
-    preguntasAdopcion.add(pregunta);
+    preguntas.add(pregunta);
   }
 
   public Lista<Pregunta> getPreguntasAdopcion() {
-    return preguntasAdopcion;
+    return preguntas;
   }
 }
