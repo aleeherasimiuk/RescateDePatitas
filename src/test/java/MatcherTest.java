@@ -36,7 +36,7 @@ public class MatcherTest {
 
   @BeforeAll
   static void setUp(){
-
+    RepositorioPreguntas.getInstance().vaciar();
     carlos = fixture.getCarlos();
     pupi = fixture.getPupi();
     carlos.registrarUnaMascota(fixture.getPupi());
@@ -152,5 +152,5 @@ public class MatcherTest {
 
   }
 
-  
+
 }
