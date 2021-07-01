@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -38,6 +39,7 @@ class MailerTest {
   
   @BeforeAll
   static void setup() {
+    publicaciones = new ArrayList<>();
     rescateConChapita = fixture.getRescatePupi();
     publicacionMascotaUTN = fixture.getPublicacionUTN();
     mailRescateConChapita = new MailRescateConChapita(rescateConChapita);
@@ -51,7 +53,7 @@ class MailerTest {
     samuel = fixture.getSamuel();
     asociacion = fixture.getColaDeGato();
     
-    //publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
+    publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
   }
   
   @Test
@@ -95,12 +97,44 @@ class MailerTest {
   
   @Test 
   void mailRecomendacionMensajeValido() {
-    //mailRecomendacion = new MailRecomendacion(sabato, publicaciones); 
-    //System.out.println(mailRecomendacion.generarMail().getMensaje());    
+    String mensaje ="Hola! Federico\nEstamos muy contentos de anunciarte que encontramos tu mascota!\nPupi fue encontrada por Roberto\n\nRescatista: Roberto Gimenez\nTeléfono: 1180700543\nEmail robertito@gmail.com\nDescripción en la que se encontró la mascota: parece ser un gato siames";
+    mailRecomendacion = new MailRecomendacion(sabato, publicaciones);
+    assertEquals(mensaje, mailRescateConChapita.generarMail().getMensaje());        
+  }
+  
+  @Test
+  void mailRecomendacionAsuntoValido() {
+    String asunto ="¡Hey!. ¡Tenemos algunas recomendaciones para vos!";
+    mailRecomendacion = new MailRecomendacion(sabato, publicaciones);
+    assertEquals(asunto, mailRecomendacion.generarMail().getAsunto());        
+  }
+  
+  @Test
+  void mailRecomendacionDestinatarioValido() {
+    String destinatario = "fedebal@gmail.com";
+    mailRecomendacion = new MailRecomendacion(sabato, publicaciones);
+    assertEquals(destinatario, mailRecomendacion.generarMail().getDestinatario());        
   }
   
   @Test
   void mailDeAdopcionMensajeValido() {
-    //mailAdopcion = new MailAdopcion();    
+    String mensaje ="Hemos encontrado un adpotante para tu mascota\nSabato desea adoptar a tu mascotaPuedes contactarte mediante los siguientes medios: \nTelefono: 1180700542\nEmail: fedebal@gmail.com\n";
+    mailAdopcion = new MailAdopcion(publicacionSabatoDaEnAdopcionAPupi, sabato);
+    assertEquals(mensaje, mailAdopcion.generarMail().getMensaje());
   }
+  
+  @Test
+  void mailDeAdopcionAsuntoValido() {
+    String asunto ="¡Tenemos noticias!. Conseguimos adoptante para: Pupi";
+    mailAdopcion = new MailAdopcion(publicacionSabatoDaEnAdopcionAPupi, sabato);
+    assertEquals(asunto, mailAdopcion.generarMail().getAsunto());
+  }
+  
+  @Test
+  void mailDeAdopcionDestinatarioValido() {
+    String destinatario ="fedebal@gmail.com";
+    mailAdopcion = new MailAdopcion(publicacionSabatoDaEnAdopcionAPupi, sabato);
+    assertEquals(destinatario, mailAdopcion.generarMail().getDestinatario());
+  }  
+
 }
