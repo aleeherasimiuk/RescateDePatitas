@@ -16,6 +16,8 @@ class Mascota{
   descripcionFísica
   fotos[]
   características[]
+  agregarUnaCaracteristica()
+  obtenerDueño()
 }
 
 enum ClaseMascota{
@@ -130,7 +132,7 @@ class Pregunta{
 
 class PreguntaCerrada{
   opciones
-  @Override esRespuestaValida()
+  esRespuestaValida()
 }
 
 class PreguntaBinaria{
@@ -142,7 +144,6 @@ class Respuesta{
   pregunta
   respuesta
 }
-
 
 
 class DarEnAdopcion{
@@ -168,7 +169,7 @@ class SolicitudAdopcion{
 class Asociacion{
   nombre
   ubicacion
-  preguntasAdoptante
+  preguntas
   distanciaA()
 }
 
@@ -197,9 +198,6 @@ RescateSinChapita -d->    DatosRescate
 RescateConChapita -d->    DatosRescate
 DatosRescate      -d->    Hogar
 Voluntario        -u-|>   Usuario
-
-
-
 
 
 
