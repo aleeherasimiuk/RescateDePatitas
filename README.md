@@ -18,7 +18,7 @@ Ayudante: fedekiwo
 
 ## Diagrama de Clases
 
-![diagramaDeClases](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/dds-utn/2021-ju-ma-grupo-7/main/diagramaDeClases.plantuml?token=AKL4DPTCLFCPCMSCV77F27DAWK5WK)
+![diagramaDeClases](https://imgur.com/bpTYOPe)
 
 
 
