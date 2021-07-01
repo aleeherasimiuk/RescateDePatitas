@@ -2,30 +2,32 @@ package dominio.rescate;
 
 import java.time.LocalDate;
 
+import dominio.exceptions.HogarNoAceptaMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
-import servicios.mail.MailerDuenio;
+import servicios.mail.JavaMail;
+import servicios.mail.MailRescateConChapita;
 import dominio.hogares.Hogar;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class Rescate {
+public class RescateConChapita {
 
   private final DatosRescate datosRescate;
 
   private Mascota mascota;
 
-  public Rescate(DatosRescate datosRescate, Mascota mascota) {
+  public RescateConChapita(DatosRescate datosRescate, Mascota mascota) {
     this.datosRescate = datosRescate;
     this.mascota = mascota;
   }
 
-  public void avisarAlDuenio(){
-    MailerDuenio mail = new MailerDuenio();
-    mail.enviarMail(this);
+  public void avisarAlDuenio(JavaMail javaMail){
+    MailRescateConChapita mailer = new MailRescateConChapita(this);
+    javaMail.enviarMail(mailer);
   }
 
   public void agregarUnaFoto(String url) {
@@ -38,7 +40,7 @@ public class Rescate {
 
   public void asignarHogar(Hogar hogar){
     if(!hogar.aceptaMascota(mascota.getClase(), mascota.getTamanio()))
-      throw new RuntimeException("El hogar solicitado no acepta a la mascota");
+      throw new HogarNoAceptaMascota();
     this.datosRescate.setHogar(hogar);
   }
 

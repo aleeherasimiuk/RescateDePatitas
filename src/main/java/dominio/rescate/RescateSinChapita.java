@@ -1,17 +1,21 @@
 package dominio.rescate;
 
 import dominio.asociacion.Asociacion;
+import dominio.exceptions.HogarNoAceptaMascota;
+import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
+import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
-import dominio.repositorio.RepositorioPublicaciones;
+import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
-import servicios.mail.MailerRescatista;
+import servicios.mail.JavaMail;
+import servicios.mail.MailRescateSinChapita;
 
-public class Publicacion {
+public class RescateSinChapita {
 
   private final DatosRescate datosRescate;
   private final Tamanio tamanio;
@@ -21,7 +25,7 @@ public class Publicacion {
   private Asociacion asociacionAsignada;
   private EstadoPublicacion estado;
 
-  public Publicacion(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
+  public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
     this.datosRescate = datosRescate;
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
@@ -29,14 +33,14 @@ public class Publicacion {
     caracteristicas = new Lista<String>();
   }
 
-  public void confirmarMascotaEncontrada(){
-    MailerRescatista mail = new MailerRescatista();
-    mail.enviarMail(this);
+  public void confirmarMascotaEncontrada(JavaMail javaMail){
+    MailRescateSinChapita mailer = new MailRescateSinChapita(this);
+    javaMail.enviarMail(mailer);
     datosRescate.confirmarEncuentro();
   }
 
   public void asignarAsociacion(){
-    if(asociacionAsignada != null) throw new RuntimeException("La publicación ya tiene una asociación asignada");
+    if(asociacionAsignada != null) throw new YaHayUnaAsociacionAsignada();
     asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(datosRescate.getLugar());
   }
 
@@ -57,12 +61,12 @@ public class Publicacion {
   }
 
   public void registrarse(){
-    RepositorioPublicaciones.getINSTANCE().registrar(this);
+    RepositorioRescatesSinChapita.getINSTANCE().registrar(this);
   }
 
   public void asignarHogar(Hogar hogar){
     if(!hogar.aceptaMascota(claseMascota, tamanio))
-      throw new RuntimeException("El hogar solicitado no acepta esta mascota");
+      throw new HogarNoAceptaMascota();
     this.datosRescate.setHogar(hogar);
   }
 
@@ -72,7 +76,7 @@ public class Publicacion {
   }
 
   public Asociacion getAsociacionAsignada() {
-    if(asociacionAsignada == null) throw new RuntimeException("No se ha asignado ninguna asociación");
+    if(asociacionAsignada == null) throw new NoHayAsociacionAsignadaAlRescate();
     return asociacionAsignada;
   }
 

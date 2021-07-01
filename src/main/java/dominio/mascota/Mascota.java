@@ -1,6 +1,8 @@
 package dominio.mascota;
 
+import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.ValidadorCaracteristica;
+import dominio.usuarios.Duenio;
 import dominio.util.Lista;
 
 
@@ -74,5 +76,9 @@ public class Mascota {
 
   public boolean tieneEstaCaracteristica(String caracteristica){
     return caracteristicas.contains(caracteristica);
+  }
+  
+  public Duenio obtenerDuenio() {
+    return RepositorioDuenios.getInstance().duenioDe(this);
   }
 }

@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import config.Config;
 
 
-public abstract class JavaMail <T> {
+public class JavaMail {
 
   private final Session session;
   private String emisor;
@@ -49,23 +49,19 @@ public abstract class JavaMail <T> {
     password = config.getConfig("mail.password");
   }
 
-  protected abstract String destinatario(T t);
-  protected abstract String mensaje(T t);
-  protected abstract String asunto(T t);
 
-
-  public void enviarMail(T t){
+  public void enviarMail(Mailer mailer){
     MimeMessage message = new MimeMessage(session);
+    Mail mail = mailer.generarMail();
     try {
       // Quien envia el correo
       message.setFrom(new InternetAddress(emisor));
 
       // A quien va dirigido
-      //message.addRecipient(Message.RecipientType.TO, new InternetAddress(contacto.getEmail()));
 
-      message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario(t)));
-      message.setSubject(asunto(t));
-      message.setText(mensaje(t));
+      message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail.getDestinatario()));
+      message.setSubject(mail.getAsunto());
+      message.setText(mail.getMensaje());
 
       Transport transport = session.getTransport("smtp");
       transport.connect(emisor, password);

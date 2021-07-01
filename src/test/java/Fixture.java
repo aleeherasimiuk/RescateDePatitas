@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import dominio.adopcion.DarEnAdopcion;
+import dominio.adopcion.DarEnAdopcionBuilder;
 import dominio.asociacion.Asociacion;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
@@ -11,9 +12,15 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.preguntas.Pregunta;
+import dominio.preguntas.PreguntaBinaria;
+import dominio.preguntas.PreguntaCerrada;
+import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioDuenios;
+import dominio.repositorio.RepositorioPreguntas;
 import dominio.rescate.DatosRescate;
-import dominio.rescate.Publicacion;
-import dominio.rescate.Rescate;
+import dominio.rescate.RescateSinChapita;
+import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
@@ -43,16 +50,20 @@ public class Fixture {
   public Duenio getSamuel() {
     return crearASamuel();
   }
+  
+  public Duenio getSabato() {
+    return crearASabato();
+  }
 
   public Rescatista getPedro() {
     return crearAPedro();
   }
 
-  public Rescate getRescatePupi() {
+  public RescateConChapita getRescatePupi() {
     return rescatarAPupi();
   }
 
-  public Rescate getRescateFelix() {
+  public RescateConChapita getRescateFelix() {
     return rescatarAFelix();
   }
 
@@ -64,7 +75,7 @@ public class Fixture {
     return asociacionPatitasSucias();
   }
 
-  public Publicacion getPublicacionUTN() {
+  public RescateSinChapita getPublicacionUTN() {
     return publicacionMascotaUTN();
   }
 
@@ -106,10 +117,18 @@ public class Fixture {
 
     return new Duenio("samuKpo123", "Vladiteamo1", datosPersona);
   }
+  
+  private Duenio crearASabato() {
+    Documento documento = new Documento(TipoDeDocumento.DNI, "21789651");
+    DatosPersona datosPersona = new DatosPersona("Perez", "Sabato", documento, unContacto(),
+        stringAFecha("01/01/2001"));
+
+    return new Duenio("sabato", "Vladiteamo1", datosPersona);
+  }
 
   private Rescatista crearAPedro() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, unContacto(), stringAFecha("02/02/1996"));
+    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, otroContacto(), stringAFecha("02/02/1996"));
 
     return new Rescatista(datosPersona, "Calle Falsa 123");
   }
@@ -136,21 +155,31 @@ public class Fixture {
     return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
   }
 
-  private Rescate rescatarAFelix() {
+  private Contacto otroContacto() {
+    return new Contacto("Roberto", "Gimenez", 1180700543, "robertito@gmail.com");
+  }
+
+  private RescateConChapita rescatarAFelix() {
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
-    Rescate rescateFelix = new Rescate(datosRescate, crearAFelix());
+    RescateConChapita rescateFelix = new RescateConChapita(datosRescate, crearAFelix());
     return rescateFelix;
   }
 
-  private Rescate rescatarAPupi() {
+  private RescateConChapita rescatarAPupi() {
+    Duenio carlos = crearACarlos();
+    Mascota pupi = crearAPupi();
+    RepositorioDuenios.getInstance().registrar(carlos);
+    carlos.registrarUnaMascota(pupi);
+
+    
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
-    Rescate rescatePupi = new Rescate(datosRescate, crearAPupi());
+    RescateConChapita rescatePupi = new RescateConChapita(datosRescate, pupi);
     return rescatePupi;
   }
 
-  private Publicacion publicacionMascotaUTN(){
+  private RescateSinChapita publicacionMascotaUTN(){
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
-    return new Publicacion(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
+    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
   }
 
   private Asociacion asociacionPatitasSucias(){
@@ -186,5 +215,47 @@ public class Fixture {
   private Coordenadas buildUTN(){
     return new Coordenadas(-34.65858825852768, -58.46736257475716);
   }
+
+  private Pregunta[] tresPreguntasTipicasDeAdopcion() {
+    Pregunta preguntas[] = new Pregunta[]{
+        new PreguntaBinaria("¿Necesita Patio?", "¿Tiene patio?"),
+        new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),
+        new Pregunta("¿Qué enfermedades tiene la mascota?", null)
+      };
+    
+    return preguntas;
+  }
   
+  private Pregunta tipicaPreguntaGlobal() {
+    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?");    
+  }
+  
+  public DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi(){
+    Asociacion asociacion = getColaDeGato();    
+    Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
+    Pregunta global = tipicaPreguntaGlobal();
+
+    for (Pregunta pregunta : preguntas) {
+      asociacion.agregarPregunta(pregunta);
+    }
+    RepositorioPreguntas.getInstance().vaciar();
+    RepositorioPreguntas.getInstance().registrar(global);
+    Duenio sabato = getSabato();
+    Mascota pupi = getPupi();
+
+    RepositorioDuenios.getInstance().registrar(sabato);
+    sabato.registrarUnaMascota(pupi);
+
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(sabato, pupi);
+    builder.setAsociacion(asociacion);
+    builder.responderPregunta(preguntas[0], "SI");
+    builder.responderPregunta(preguntas[1], "PERRO");
+    builder.responderPregunta(preguntas[2], "Tiene convulsiones");
+    builder.responderPregunta(tipicaPreguntaGlobal(), "SI");
+    DarEnAdopcion publicacion = builder.build();
+    
+    RepositorioAdopcion.getInstance().registrar(publicacion);
+    
+    return publicacion;    
+  }
 }

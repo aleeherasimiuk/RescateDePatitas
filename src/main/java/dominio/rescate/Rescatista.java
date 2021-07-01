@@ -1,7 +1,7 @@
 package dominio.rescate;
 
 import dominio.personas.DatosPersona;
-import dominio.repositorio.RepositorioRescates;
+import dominio.repositorio.RepositorioRescatesConChapita;
 
 public class Rescatista {
 
@@ -22,8 +22,8 @@ public class Rescatista {
     this.direccion = direccion;
   }
 
-  public void registrarRescate(Rescate rescate){
-    RepositorioRescates.getINSTANCE().registrar(rescate);
+  public void registrarRescate(RescateConChapita rescate){
+    RepositorioRescatesConChapita.getINSTANCE().registrar(rescate);
   }
 
   public int getTelefono() {

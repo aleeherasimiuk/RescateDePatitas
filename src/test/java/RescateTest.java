@@ -3,13 +3,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 
 import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioRescates;
+import dominio.repositorio.RepositorioRescatesConChapita;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.Rescate;
+import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.mascota.ClaseMascota;
@@ -20,10 +20,10 @@ import dominio.usuarios.Duenio;
 
 public class RescateTest {
   Fixture fixture = new Fixture();
-  RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
+  RepositorioRescatesConChapita repoRescates = RepositorioRescatesConChapita.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
-  Rescate rescateFelix;
-  Rescate rescatePupi;
+  RescateConChapita rescateFelix;
+  RescateConChapita rescatePupi;
   Rescatista pedro;
   Duenio samuel;
   Mascota felix;
@@ -113,6 +113,6 @@ public class RescateTest {
   @Test
   void emailDeContacto(){
     rescatePupi = fixture.getRescatePupi();
-    assertEquals("fedebal@gmail.com",rescatePupi.datosDeContacto().getEmail());
+    assertEquals("robertito@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }
