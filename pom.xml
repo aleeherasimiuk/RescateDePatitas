@@ -68,12 +68,14 @@
     </dependency>
 
   </dependencies>
-
-  
-
-
-
   <build>
+    <resources>
+      <resource>
+        <directory>
+          src/main/resources
+        </directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -156,6 +158,29 @@
           <source>8</source>
           <target>8</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+            <execution>
+                <id>build-b</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>app.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>RescatePatitas</finalName>
+                </configuration>
+            </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
