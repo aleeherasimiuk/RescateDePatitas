@@ -17,6 +17,7 @@ import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioDuenios;
+import dominio.repositorio.RepositorioPreguntas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.RescateConChapita;
@@ -232,11 +233,16 @@ public class Fixture {
   public DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi(){
     Asociacion asociacion = getColaDeGato();    
     Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
+    Pregunta global = tipicaPreguntaGlobal();
 
+    for (Pregunta pregunta : preguntas) {
+      asociacion.agregarPregunta(pregunta);
+    }
+    RepositorioPreguntas.getInstance().registrar(global);
     Duenio sabato = getSabato();
     Mascota pupi = getPupi();
 
-    RepositorioDuenios.getInstance().registrar(sabato); //
+    RepositorioDuenios.getInstance().registrar(sabato);
     sabato.registrarUnaMascota(pupi);
 
     DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(sabato, pupi);
@@ -247,7 +253,7 @@ public class Fixture {
     builder.responderPregunta(tipicaPreguntaGlobal(), "SI");
     DarEnAdopcion publicacion = builder.build();
     
-    RepositorioAdopcion.getInstance().registrar(publicacion); //
+    RepositorioAdopcion.getInstance().registrar(publicacion);
     
     return publicacion;    
   }

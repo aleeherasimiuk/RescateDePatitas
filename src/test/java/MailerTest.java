@@ -1,16 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import dominio.adopcion.DarEnAdopcion;
-import dominio.adopcion.DarEnAdopcionBuilder;
-import dominio.adopcion.SolicitudAdopcion;
-import dominio.adopcion.SolicitudAdopcionBuilder;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
-import dominio.preguntas.Pregunta;
-import dominio.repositorio.RepositorioAdopcion;
-import dominio.repositorio.RepositorioDuenios;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
@@ -40,8 +36,8 @@ class MailerTest {
   private static DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi;
   private static List<DarEnAdopcion> publicaciones;
   
-  @BeforeEach
-  void setup() {
+  @BeforeAll
+  static void setup() {
     rescateConChapita = fixture.getRescatePupi();
     publicacionMascotaUTN = fixture.getPublicacionUTN();
     mailRescateConChapita = new MailRescateConChapita(rescateConChapita);
