@@ -1,39 +1,103 @@
 @startuml RescateDePatitas
 
-abstract JavaMail<T>{
-  emisor,
-  password
-  destinatario()
+interface Mailer{
   mensaje()
+  destinatario()
   asunto()
+}
+
+JavaMail -> Mailer
+class JavaMail{
+  mailer
   enviarMail()
 }
 
-MailerDuenio -u-|> JavaMail
-class MailerDuenio<Duenio>{
+MailRescateConChapita .u.> Mailer
+class MailRescateConChapita{
   destinatario()
   mensaje()
   asunto()
 }
 
-MailerRescatista -u-|> JavaMail
-class MailerRescatista<Rescatista>{
+MailRescateSinChapita .u.> Mailer
+class MailRescateSinChapita{
   destinatario()
   mensaje()
   asunto()
 }
 
-interface HogaresService{
-  getListadoHogares()
+MailAdopcion .u.> Mailer
+class MailAdopcion{
+  destinatario()
+  mensaje()
+  asunto()
 }
+
+MailRecomendacion .u.> Mailer
+class MailRecomendacion{
+  destinatario()
+  mensaje()
+  asunto()
+}
+
 
 interface RefugioDDSAPI{
   hogares()
 }
 
-HogaresServiceRefugioDDS .u.> HogaresService
+HogaresServiceRefugioDDS -u-> "Obtiene" Pagina
 HogaresServiceRefugioDDS -d->"Retrofit CALL" RefugioDDSAPI
 class HogaresServiceRefugioDDS{
-  getListadoHogares()
+  obtenerUnaPagina()
 }
+
+HogaresAdapter -> HogaresServiceRefugioDDS
+class HogaresAdapter{
+  service
+  obtenerPosiblesHogaresPara()
+  hogares()
+}
+
+HogarResponse -> Ubicacion
+HogarResponse -u-> Admision
+class HogarResponse{
+
+  nombre
+  ubicacion
+  telefono
+  admisiones
+  lugares_disponibles
+  patio
+  caracteristicas
+
+}
+
+Pagina -> "*" HogarResponse
+class Pagina{
+  total
+  offset
+  hogares
+}
+
+class Ubicacion{
+  direccion
+  latitud
+  longitud
+}
+
+class Admision{
+  perros
+  gatos
+}
+
+class Matcher{
+  recomendaciones()
+}
+
+Recomendador --> "Utiliza" Matcher
+Recomendador -d-> "Utiliza" JavaMail
+class Recomendador{
+  enviarRecomendaciones()
+}
+
 @enduml

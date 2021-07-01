@@ -6,7 +6,7 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
-import dominio.repositorio.RepositorioPublicaciones;
+import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
 import servicios.mail.JavaMail;
@@ -58,7 +58,7 @@ public class RescateSinChapita {
   }
 
   public void registrarse(){
-    RepositorioPublicaciones.getINSTANCE().registrar(this);
+    RepositorioRescatesSinChapita.getINSTANCE().registrar(this);
   }
 
   public void asignarHogar(Hogar hogar){

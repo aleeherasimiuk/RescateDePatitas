@@ -1,7 +1,7 @@
 package dominio.rescate;
 
 import dominio.personas.DatosPersona;
-import dominio.repositorio.RepositorioRescates;
+import dominio.repositorio.RepositorioRescatesConChapita;
 
 public class Rescatista {
 
@@ -23,7 +23,7 @@ public class Rescatista {
   }
 
   public void registrarRescate(RescateConChapita rescate){
-    RepositorioRescates.getINSTANCE().registrar(rescate);
+    RepositorioRescatesConChapita.getINSTANCE().registrar(rescate);
   }
 
   public int getTelefono() {
