@@ -1,5 +1,6 @@
 package dominio.usuarios;
 
+import dominio.exceptions.DuenioNoPoseeMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioMascotas;
@@ -26,7 +27,14 @@ public class Duenio extends Usuario {
     RepositorioMascotas.getINSTANCE().registrar(mascota);
   }
 
+  // TODO: Comparar por otro atributo y no por la referencia a memoria.
   public boolean esMiMascota(Mascota mascota) {
     return mascotasRegistradas.contains(mascota);
+  }
+
+  public void removerMascota(Mascota mascota) {
+    if (!mascotasRegistradas.contains(mascota)) throw new DuenioNoPoseeMascota(mascota.getNombre());
+    mascotasRegistradas.remove(mascota);
+    RepositorioMascotas.getINSTANCE().borrar(mascota);
   }
 }

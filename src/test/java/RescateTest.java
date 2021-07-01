@@ -3,14 +3,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 
 import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioRescates;
+import dominio.repositorio.RepositorioRescatesConChapita;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import dominio.rescate.Rescate;
+import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
+import dominio.ubicacion.Coordenadas;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
@@ -18,38 +19,29 @@ import dominio.usuarios.Duenio;
 
 
 public class RescateTest {
-  RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
+  Fixture fixture = new Fixture();
+  RepositorioRescatesConChapita repoRescates = RepositorioRescatesConChapita.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
-  Rescate rescateFelix;
-  Rescate rescatePupi;
+  RescateConChapita rescateFelix;
+  RescateConChapita rescatePupi;
   Rescatista pedro;
-  Duenio carlos;
   Duenio samuel;
-  Mascota pupi;
   Mascota felix;
   Mascota vladi;
+  Coordenadas utn;
 
   @BeforeEach
   void iniciarRegistro() {
 
-    Fixture fixture = new Fixture();
+    
     pedro  = fixture.getPedro();
-    carlos = fixture.getCarlos();
     samuel = fixture.getSamuel();
-    pupi   = fixture.getPupi();
-    felix  = fixture.getFelix();
+    
     vladi  = fixture.getVladi();
-
-    carlos.registrarUnaMascota(pupi);
-    carlos.registrarUnaMascota(felix);
+    utn    = fixture.getUTN();
 
     samuel.registrarUnaMascota(vladi);
-
-    pedro.registrarRescate(fixture.getRescatePupi());
-    pedro.registrarRescate(fixture.getRescateFelix());
     
-    rescateFelix = fixture.getRescateFelix();
-    rescatePupi = fixture.getRescatePupi();
   }
 
   @AfterEach
@@ -65,52 +57,62 @@ public class RescateTest {
 
   @Test
   void ayerSePerdioPupi() {
-    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(pupi));
+    rescatePupi = fixture.getRescatePupi();
+    pedro.registrarRescate(rescatePupi);
+    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Pupi")));
   }
 
   @Test
   void felixSePerdioHaceMucho() {
-    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(felix));
+    rescateFelix = fixture.getRescateFelix();
+    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Felix")));
   }
 
   @Test
   void unDuenioNoConoceLaMascotaDeOtroDuenio() {
+    felix  = fixture.getFelix();
   	assertFalse(samuel.esMiMascota(felix));
   }
 
   @Test
   void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
-    Rescate rescatePupi = new Fixture().getRescatePupi();
+    rescatePupi = fixture.getRescatePupi();
     assertEquals(LocalDate.now(), rescatePupi.getFecha());
   }
 
   @Test
   void elRescatistaEsPedro(){
-    assertEquals("Pedro", rescatePupi.getDatosRescate().getRescatista().getDatosPersona().getNombre());
+    rescatePupi = fixture.getRescatePupi();
+    assertEquals("Pedro", rescatePupi.getDatosDeRescatista().getNombre());
   }
 
   @Test
   void laMascotaEsChica(){
+    rescatePupi = fixture.getRescatePupi();
     assertEquals(Tamanio.CHICO, rescatePupi.getMascota().getTamanio());
   }
 
   @Test
   void laMascotaEsGato(){
+    rescatePupi = fixture.getRescatePupi();
     assertEquals(ClaseMascota.GATO, rescatePupi.getMascota().getClase());
   }
 
   @Test
   void laMascotaEstabaEnLaUTN(){
-    assertEquals(0, rescatePupi.getLugar().distanciaA(new Fixture().getUTN()));
+    rescatePupi = fixture.getRescatePupi();
+    assertEquals(0, rescatePupi.getLugar().distanciaA(utn));
   }
 
   @Test
   void laMascotaPareceSerUnGatoSiames(){
+    rescatePupi = fixture.getRescatePupi();
     assertEquals("parece ser un gato siames",rescatePupi.getDescripcion());
   }
 
   @Test
   void emailDeContacto(){
-    assertEquals("fedebal@gmail.com",rescatePupi.emailDeContacto());
+    rescatePupi = fixture.getRescatePupi();
+    assertEquals("robertito@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }

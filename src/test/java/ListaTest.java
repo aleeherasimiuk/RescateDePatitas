@@ -53,19 +53,19 @@ public class ListaTest {
   @Test
   void mascotasCastradas() {
     RepositorioCaracteristicas.getINSTANCE().vaciar();
-    new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO", "SI", "NO");
+    new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO");
 
     Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO , Tamanio.CHICO);
     Mascota mascota2 = new Mascota(ClaseMascota.GATO, "Pupo", "Pupo", 3, Sexo.MACHO , Tamanio.CHICO);
     Mascota mascota3 = new Mascota(ClaseMascota.GATO, "Pupa", "Pupa", 3, Sexo.HEMBRA, Tamanio.CHICO);
 
-    mascota1.agregarUnaCaracteristica("CASTRADO", "SI");
-    mascota2.agregarUnaCaracteristica("CASTRADO", "SI");
-    mascota3.agregarUnaCaracteristica("CASTRADO", "NO");
+    mascota1.agregarUnaCaracteristica("CASTRADO");
+    mascota2.agregarUnaCaracteristica("CASTRADO");
+    mascota3.agregarUnaCaracteristica("CASTRADO");
 
     Lista<Mascota> mascotas = new Lista<Mascota>(mascota1, mascota2, mascota3);
 
-    assertEquals(mascotas.count(mascota -> mascota.obtenerCaracteristica("CASTRADO") == "SI"), 2);
+    assertEquals(mascotas.count(mascota -> mascota.tieneEstaCaracteristica("CASTRADO")), 3);
 
   }
 
