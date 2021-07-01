@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import dominio.exceptions.HayPreguntasSinResponder;
+import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +60,7 @@ public class MatcherTest {
   void noSePuedeNoResponderLasPreguntas(){
     DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
-    assertThrows(RuntimeException.class, () -> builder.build());
+    assertThrows(HayPreguntasSinResponder.class, () -> builder.build());
   }
 
   @Test
@@ -66,14 +68,14 @@ public class MatcherTest {
     DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
-    assertThrows(RuntimeException.class, () -> builder.build());
+    assertThrows(HayPreguntasSinResponder.class, () -> builder.build());
   }
 
   @Test
   void contestaMalLaPregunta(){
     DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(carlos, pupi);
     builder.setAsociacion(asociacion);
-    assertThrows(RuntimeException.class, () -> builder.responderPregunta(preguntas[0], "No se"));
+    assertThrows(RespuestaInvalida.class, () -> builder.responderPregunta(preguntas[0], "No se"));
   }
 
   @Test

@@ -1,5 +1,7 @@
 package config;
 
+import dominio.exceptions.NoSePuedeLeerArchivoConfig;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -15,7 +17,7 @@ public class Config {
       properties.load(stream);
       stream.close();
     } catch (IOException e) {
-      throw new RuntimeException("No se ha podido leer el archivo de configuracion");
+      throw new NoSePuedeLeerArchivoConfig();
     }
   }
 

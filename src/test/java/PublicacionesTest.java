@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
+import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
+import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +38,6 @@ public class PublicacionesTest {
     repoAsociaciones.registrar(colaDeGato);
     publicacionUTN = fixture.getPublicacionUTN();
     publicacionUTN.asignarAsociacion();
-
   }
 
   @Test
@@ -67,13 +68,13 @@ public class PublicacionesTest {
 
   @Test
   void noSePuedeAsignarDosVecesUnaAsociacion() {
-    assertThrows(RuntimeException.class, () -> publicacionUTN.asignarAsociacion());
+    assertThrows(YaHayUnaAsociacionAsignada.class, () -> publicacionUTN.asignarAsociacion());
   }
 
   @Test
   void noSePuedePedirUnaAsociacionSiNuncaSeAsigno() {
     Fixture fixture = new Fixture();
-    assertThrows(RuntimeException.class, () -> fixture.getPublicacionUTN().getAsociacionAsignada());
+    assertThrows(NoHayAsociacionAsignadaAlRescate.class, () -> fixture.getPublicacionUTN().getAsociacionAsignada());
   }
 
   @Test

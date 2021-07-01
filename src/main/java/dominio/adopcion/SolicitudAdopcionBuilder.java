@@ -1,6 +1,8 @@
 package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
+import dominio.exceptions.HayPreguntasSinResponder;
+import dominio.exceptions.RespuestaInvalida;
 import dominio.preguntas.Pregunta;
 import dominio.preguntas.Respuesta;
 import dominio.tareas.ObtenerPreguntas;
@@ -26,7 +28,7 @@ public class SolicitudAdopcionBuilder {
 
   public SolicitudAdopcionBuilder responderPregunta(Pregunta pregunta, String respuesta) {
     if (!pregunta.esRespuestaValida(respuesta))
-      throw new RuntimeException("Respuesta invalida para la pregunta: " + pregunta.getPreguntaDuenio());
+      throw new RespuestaInvalida(pregunta.getPreguntaDuenio());
 
     respuestas.add(new Respuesta(pregunta, respuesta));
     return this;
@@ -36,7 +38,7 @@ public class SolicitudAdopcionBuilder {
     ObtenerPreguntas preguntas = new ObtenerPreguntas();
     final int cantPreguntasTotal = preguntas.preguntasAdoptante(asociacion).size();
     if (cantPreguntasTotal != respuestas.size())
-      throw new RuntimeException("Hay preguntas sin responder.");
+      throw new HayPreguntasSinResponder();
     return new SolicitudAdopcion(adoptante,asociacion,respuestas);
   }
 

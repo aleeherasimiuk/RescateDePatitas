@@ -1,6 +1,9 @@
 package dominio.rescate;
 
 import dominio.asociacion.Asociacion;
+import dominio.exceptions.HogarNoAceptaMascota;
+import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
+import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
@@ -37,7 +40,7 @@ public class RescateSinChapita {
   }
 
   public void asignarAsociacion(){
-    if(asociacionAsignada != null) throw new RuntimeException("La publicación ya tiene una asociación asignada");
+    if(asociacionAsignada != null) throw new YaHayUnaAsociacionAsignada();
     asociacionAsignada = RepositorioAsociaciones.getInstance().obtenerLaMasCercana(datosRescate.getLugar());
   }
 
@@ -63,7 +66,7 @@ public class RescateSinChapita {
 
   public void asignarHogar(Hogar hogar){
     if(!hogar.aceptaMascota(claseMascota, tamanio))
-      throw new RuntimeException("El hogar solicitado no acepta esta mascota");
+      throw new HogarNoAceptaMascota();
     this.datosRescate.setHogar(hogar);
   }
 
@@ -73,7 +76,7 @@ public class RescateSinChapita {
   }
 
   public Asociacion getAsociacionAsignada() {
-    if(asociacionAsignada == null) throw new RuntimeException("No se ha asignado ninguna asociación");
+    if(asociacionAsignada == null) throw new NoHayAsociacionAsignadaAlRescate();
     return asociacionAsignada;
   }
 
