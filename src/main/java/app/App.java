@@ -19,7 +19,7 @@ public class App {
     System.out.println("Recomenaciones running");
     try {
       Logger logger = Logger.getLogger("name");
-      FileHandler fh = new FileHandler("/home/nicolas/Desktop/java.txt");
+      FileHandler fh = new FileHandler("<PATH_TO_LOG_FILE>");
       logger.addHandler(fh);
       logger.info("asd");
     } catch (Exception e) {
