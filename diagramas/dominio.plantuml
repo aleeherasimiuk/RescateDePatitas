@@ -18,7 +18,7 @@ class Mascota{
   características[]
 }
 
-enum Clase{
+enum ClaseMascota{
   GATO
   PERRO
 }
@@ -37,7 +37,7 @@ enum TipoDeDocumento{
 }
 
 
-class Rescate{
+class RescateConChapita{
   datosRescate
   mascota
 }
@@ -92,7 +92,7 @@ class DatosRescate{
 }
 
 
-class Publicacion{
+class RescateSinChapita{
   datosRescate
   aprobada
   asociacionAsignada
@@ -125,12 +125,12 @@ class Hogar{
 class Pregunta{
   preguntaDuenio
   preguntaAdoptante
-  esRespuestaValida(respuesta)
+  esRespuestaValida()
 }
 
 class PreguntaCerrada{
   opciones
-  @Override esRespuestaValida(respuesta)
+  @Override esRespuestaValida()
 }
 
 class PreguntaBinaria{
@@ -143,14 +143,20 @@ class Respuesta{
   respuesta
 }
 
+
+
 class DarEnAdopcion{
   duenio
   mascota
   asociacion
   respuestas
-  adoptar(adoptante)
+  adoptar()
 }
 
+
+SolicitudAdopcion -d->"*" Respuesta1
+SolicitudAdopcion -d->    Dueño1
+SolicitudAdopcion -u->    Asociacion
 class SolicitudAdopcion{
   respuestas
   asociacion
@@ -162,39 +168,37 @@ class Asociacion{
   nombre
   ubicacion
   preguntasAdoptante
-  distanciaA(ubicacion)
+  distanciaA()
 }
 
+DarEnAdopcion     ->      Dueño
+DarEnAdopcion     ->      Mascota
+Respuesta         -d->    Pregunta
+DarEnAdopcion     -->     Asociacion
+DarEnAdopcion     -d->"*" Respuesta
+Asociacion        -d->"*" Pregunta
+PreguntaCerrada   -u-|>   Pregunta
+PreguntaBinaria   -u-|>   PreguntaCerrada
+Dueño             -u->    DatosPersona
+Rescatista        -u->    DatosPersona
+DatosPersona      -r->    Documento
+DatosPersona      -l->    Contacto
+DatosRescate      -u->    Rescatista
+Dueño             -u-|>   Usuario
+RescateConChapita -d->    Mascota
+Documento         -r->    TipoDeDocumento
+Mascota           -d->    ClaseMascota
+Dueño             -d->"*" Mascota
+Administrador     -u-|>   Usuario
+DatosRescate        ->    Coordenadas
+RescateSinChapita -d->    EstadoPublicacion
+RescateSinChapita -d->    DatosRescate
+RescateConChapita -d->    DatosRescate
+DatosRescate      -d->    Hogar
+Voluntario        -u-|>   Usuario
 
-Dueño         -u->    DatosPersona
-Rescatista    -u->    DatosPersona
-DatosPersona  -r->    Documento
-DatosPersona  -l->    Contacto
-DatosRescate  -u->    Rescatista
-Dueño         -u-|>   Usuario
-Rescate       -d->    Mascota
-Documento     -r->    TipoDeDocumento
-Mascota       -l->    Clase
-Dueño         -d->"*" Mascota
-Administrador -u-|>   Usuario
-DatosRescate    ->    Coordenadas
-Publicacion   -d->    EstadoPublicacion
-Publicacion   -d->    DatosRescate
-Rescate       -d->    DatosRescate
-DatosRescate  -d->    Hogar
-Voluntario    -u-|>   Usuario
-PreguntaCerrada -u-|> Pregunta
-PreguntaBinaria -u-|> PreguntaCerrada
-Respuesta       -l->  Pregunta
-DarEnAdopcion -d->"*" Respuesta
-SolicitudAdopcion -u->"*" Respuesta
-Asociacion -d->"*"    Pregunta
-SolicitudAdopcion ->  Dueño
-SolicitudAdopcion ->  Asociacion
-DarEnAdopcion ->      Dueño
-DarEnAdopcion ->      Mascota
-DarEnAdopcion ->      Asociacion
-DarEnAdopcion ->"*"   Respuesta
+
+
 
 
 
