@@ -2,6 +2,7 @@ package servicios.mail;
 
 import dominio.personas.Contacto;
 import dominio.rescate.RescateConChapita;
+import dominio.usuarios.Duenio;
 
 public class MailRescateConChapita extends Mailer{
 
@@ -22,8 +23,9 @@ public class MailRescateConChapita extends Mailer{
     Contacto datosDeContacto = rescate.datosDeContacto();
 
     String mensaje = "";
-
-    mensaje += "Hola! " + datosDeContacto.getNombre() + "\n";
+    Duenio duenio = rescate.getMascota().obtenerDuenio();
+    
+    mensaje += "Hola! " + duenio.getDatosPersona().getContacto().getEmail() + "\n";
     mensaje += "Estamos muy contentos de anunciarte que encontramos tu mascota!\n";
     mensaje += rescate.getMascota().getApodo() + " fue encontrada por " + datosDeContacto.getNombre();
     mensaje += "\n\n";

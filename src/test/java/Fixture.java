@@ -143,8 +143,12 @@ public class Fixture {
   }
 
   private RescateConChapita rescatarAPupi() {
+    Duenio carlos = crearACarlos();
+    Mascota pupi = crearAPupi();
+    carlos.registrarUnaMascota(pupi);
+    
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
-    RescateConChapita rescatePupi = new RescateConChapita(datosRescate, crearAPupi());
+    RescateConChapita rescatePupi = new RescateConChapita(datosRescate, pupi);
     return rescatePupi;
   }
 

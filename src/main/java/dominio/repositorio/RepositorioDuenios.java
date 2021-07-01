@@ -12,7 +12,7 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
     return super.buscar(duenio -> duenio.esMiMascota(mascota));
   }
 
-  public RepositorioDuenios getInstance() {
+  public static RepositorioDuenios getInstance() {
     return INSTANCE;
   }
 }
