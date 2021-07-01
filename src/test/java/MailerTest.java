@@ -14,19 +14,21 @@ import dominio.repositorio.RepositorioDuenios;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
+import servicios.mail.MailAdopcion;
 import servicios.mail.MailRecomendacion;
 import servicios.mail.MailRescateConChapita;
 import servicios.mail.MailRescateSinChapita;
 
 class MailerTest {
   private static Fixture fixture = new Fixture();
-  
-  private static RescateConChapita rescateConChapita;
+
   private static MailRescateConChapita mailRescateConChapita;
   private static MailRescateSinChapita mailRescateSinChapita;
-  private static RescateSinChapita publicacionMascotaUTN;
-  
+  private static MailAdopcion mailAdopcion;
   private static MailRecomendacion mailRecomendacion;
+
+  private static RescateConChapita rescateConChapita;
+  private static RescateSinChapita publicacionMascotaUTN;
   
   private static Duenio carlos;
   private static Duenio samuel;
@@ -44,7 +46,7 @@ class MailerTest {
     publicacionMascotaUTN = fixture.getPublicacionUTN();
     mailRescateConChapita = new MailRescateConChapita(rescateConChapita);
     mailRescateSinChapita = new MailRescateSinChapita(publicacionMascotaUTN);    
-    //publicacionSabatoDaEnAdopcionAPupi = fixture.publicacionSabatoDaEnAdopcionAPupi();
+    publicacionSabatoDaEnAdopcionAPupi = fixture.publicacionSabatoDaEnAdopcionAPupi();
     
     carlos = fixture.getCarlos();
     sabato = fixture.getSabato();
@@ -54,13 +56,6 @@ class MailerTest {
     asociacion = fixture.getColaDeGato();
     
     //publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
-  }
-  
-  @Test 
-  void mailRecomendacionMensajeValido() {
-    //mailRecomendacion = new MailRecomendacion(sabato, publicaciones); 
-    //System.out.println(mailRecomendacion.generarMail().getMensaje());
-    
   }
   
   @Test
@@ -81,8 +76,7 @@ class MailerTest {
   void rescatistaDePupiTieneDestinatarioValido() {
     mailRescateSinChapita = new MailRescateSinChapita(publicacionMascotaUTN);
     String destinatario = "robertito@gmail.com";
-    assertEquals(destinatario, mailRescateConChapita.generarMail().getDestinatario());
-    //System.out.println(mailRescateSinChapita.generarMail().getDestinatario());    
+    assertEquals(destinatario, mailRescateConChapita.generarMail().getDestinatario());    
   }
   
   @Test
@@ -103,4 +97,14 @@ class MailerTest {
     assertEquals(destinatario, mailRescateConChapita.generarMail().getDestinatario());
   }
   
+  @Test 
+  void mailRecomendacionMensajeValido() {
+    //mailRecomendacion = new MailRecomendacion(sabato, publicaciones); 
+    //System.out.println(mailRecomendacion.generarMail().getMensaje());    
+  }
+  
+  @Test
+  void mailDeAdopcionMensajeValido() {
+    //mailAdopcion = new MailAdopcion();    
+  }
 }
