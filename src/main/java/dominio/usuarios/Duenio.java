@@ -1,5 +1,6 @@
 package dominio.usuarios;
 
+import dominio.exceptions.DuenioNoPoseeMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioMascotas;
@@ -32,7 +33,7 @@ public class Duenio extends Usuario {
   }
 
   public void removerMascota(Mascota mascota) {
-    if (!mascotasRegistradas.contains(mascota)) throw new RuntimeException("El duenio no posee la mascota: " + mascota.getNombre());
+    if (!mascotasRegistradas.contains(mascota)) throw new DuenioNoPoseeMascota(mascota.getNombre());
     mascotasRegistradas.remove(mascota);
     RepositorioMascotas.getINSTANCE().borrar(mascota);
   }

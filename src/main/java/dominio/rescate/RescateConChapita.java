@@ -2,6 +2,7 @@ package dominio.rescate;
 
 import java.time.LocalDate;
 
+import dominio.exceptions.HogarNoAceptaMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
@@ -39,7 +40,7 @@ public class RescateConChapita {
 
   public void asignarHogar(Hogar hogar){
     if(!hogar.aceptaMascota(mascota.getClase(), mascota.getTamanio()))
-      throw new RuntimeException("El hogar solicitado no acepta a la mascota");
+      throw new HogarNoAceptaMascota();
     this.datosRescate.setHogar(hogar);
   }
 

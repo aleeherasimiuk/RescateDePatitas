@@ -1,5 +1,6 @@
 package servicios.hogares;
 
+import dominio.exceptions.ErrorAlBuscarHogaresDisponibles;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -29,7 +30,7 @@ public class HogaresServiceRefugioDDS{
     try {
       responsePagina = requestPagina.execute();
     } catch (IOException e) {
-      throw new RuntimeException("Hubo un error al buscar los hogares disponibles"); // TODO: Hacer la excepcion.
+      throw new ErrorAlBuscarHogaresDisponibles();
     }
     return responsePagina;
   }

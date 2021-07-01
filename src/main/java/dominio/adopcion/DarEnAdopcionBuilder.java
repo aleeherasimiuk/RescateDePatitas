@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.asociacion.Asociacion;
+import dominio.exceptions.HayPreguntasSinResponder;
+import dominio.exceptions.RespuestaInvalida;
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
 import dominio.preguntas.Pregunta;
@@ -28,9 +30,9 @@ public class DarEnAdopcionBuilder {
   }
 
   public DarEnAdopcionBuilder responderPregunta(Pregunta pregunta, String respuesta) {
-    if (!pregunta.esRespuestaValida(respuesta))
-      throw new RuntimeException("Respuesta invalida para la pregunta: " + pregunta.getPreguntaDuenio());
-
+    if (!pregunta.esRespuestaValida(respuesta)) {
+      throw new RespuestaInvalida(pregunta.getPreguntaDuenio());
+    }
     respuestas.add(new Respuesta(pregunta, respuesta));
     return this;
   }
@@ -38,7 +40,7 @@ public class DarEnAdopcionBuilder {
   public DarEnAdopcion build() {
     final int cantPreguntasTotal =  asociacion.cantidadDePreguntas() + RepositorioPreguntas.getInstance().cantidadRegistros();
     if (cantPreguntasTotal != respuestas.size())
-      throw new RuntimeException("Hay preguntas sin responder.");
+      throw new HayPreguntasSinResponder();
     return new DarEnAdopcion(duenio, mascota, asociacion, respuestas);
   }
 }
