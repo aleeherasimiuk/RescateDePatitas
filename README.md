@@ -18,7 +18,7 @@ Ayudante: fedekiwo
 
 ## Diagrama de Clases
 
-![diagramaDeClases](https://imgur.com/bpTYOPe)
+![diagramaDeClases](https://imgur.com/bpTYOPe.jpg)
 
 
 
