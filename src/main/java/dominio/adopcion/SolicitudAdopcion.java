@@ -2,6 +2,7 @@ package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRecomendacion;
@@ -34,6 +35,10 @@ public class SolicitudAdopcion {
   public void recomendar(List<DarEnAdopcion> recomendaciones, JavaMail javaMail) {
     MailRecomendacion mailer = new MailRecomendacion(adoptante, recomendaciones);
     javaMail.enviarMail(mailer);
+  }
+
+  public void darDeBaja(){
+    RepositorioSolicitudesAdopcion.getInstance().borrar(this);
   }
 
 }

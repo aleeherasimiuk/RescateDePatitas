@@ -13,12 +13,12 @@ import dominio.asociacion.Asociacion;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioAsociaciones;
-import dominio.repositorio.RepositorioPublicaciones;
+import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.rescate.RescateSinChapita;
 
 public class PublicacionesTest {
 
-  private final RepositorioPublicaciones repoPublicaciones = RepositorioPublicaciones.getINSTANCE();
+  private final RepositorioRescatesSinChapita repoPublicaciones = RepositorioRescatesSinChapita.getINSTANCE();
   private final RepositorioAsociaciones repoAsociaciones = RepositorioAsociaciones.getInstance();
   private Asociacion patitasSucias;
   private Asociacion colaDeGato;

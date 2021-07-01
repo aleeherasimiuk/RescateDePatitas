@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 
 import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioRescates;
+import dominio.repositorio.RepositorioRescatesConChapita;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import dominio.usuarios.Duenio;
 
 public class RescateTest {
   Fixture fixture = new Fixture();
-  RepositorioRescates repoRescates = RepositorioRescates.getINSTANCE();
+  RepositorioRescatesConChapita repoRescates = RepositorioRescatesConChapita.getINSTANCE();
   RepositorioMascotas repoMascotas = RepositorioMascotas.getINSTANCE();
   RescateConChapita rescateFelix;
   RescateConChapita rescatePupi;

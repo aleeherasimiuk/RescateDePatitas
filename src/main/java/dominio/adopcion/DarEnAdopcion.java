@@ -4,6 +4,7 @@ import java.util.List;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioAdopcion;
 import dominio.usuarios.Duenio;
 import servicios.mail.JavaMail;
 import servicios.mail.MailAdopcion;
@@ -40,6 +41,10 @@ public class DarEnAdopcion {
 
     MailAdopcion mailer = new MailAdopcion(this, adoptante);
     javaMail.enviarMail(mailer);
+  }
+
+  public void darDeBaja(){
+    RepositorioAdopcion.getInstance().borrar(this);
   }
 
 

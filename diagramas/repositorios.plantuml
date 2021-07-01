@@ -23,7 +23,7 @@ class RepositorioMascotas{
 }
 
 
-class RepositorioRescates{
+class RepositorioRescatesConChapita{
   últimasMascotasEncontradas()
   confirmarMascotaEncontrada()
 }
@@ -44,7 +44,7 @@ class RepositorioValidaciones{
 }
 
 
-class RepositorioPublicaciones{
+class RepositorioRescatesSinChapita{
   publicacionesPendientes()
   publicacionesAprobadas()
 }
@@ -54,29 +54,30 @@ class RepositorioAsociaciones{
   obtenerLaMasCercana()
 }
 
-class Característica{
-  título
-  opciones[]
-  agregarOpcion()
-  tieneEstaOpcion()
-}
 
-RepositorioAsociaciones     -l-> "*" Asociacion
-RepositorioPublicaciones      -> "*" Publicacion
-RepositorioDueños           -d-> "*" Dueño
-RepositorioMascotas         -d-> "*" Mascota
-RepositorioRescates         -d-> "*" Rescate
-RepositorioAdministradores  -d-> "*" Administrador
-RepositorioCaracteristicas  -r-> "*" Característica
-RepositorioValidaciones     -l-> "*" Validation
+class RepositorioAdopcion{}
+class RepositorioSolicitudesAdopcion{}
+
+RepositorioAsociaciones        -u-> "*" Asociacion
+RepositorioRescatesSinChapita  -u-> "*" Publicacion
+RepositorioDueños              -d-> "*" Dueño
+RepositorioMascotas            -d-> "*" Mascota
+RepositorioRescatesConChapita  -d-> "*" Rescate
+RepositorioAdministradores     -d-> "*" Administrador
+RepositorioCaracteristicas     -r-> "*" String
+RepositorioValidaciones        -l-> "*" Validation
+RepositorioAdopcion            -u-> DarEnAdopcion
+RepositorioSolicitudesAdopcion -u-> SolicitudAdopcion
 
 
-RepositorioAsociaciones    -d-|> Repositorio
-RepositorioPublicaciones   -d-|> Repositorio
-RepositorioValidaciones    -r-|> Repositorio
-RepositorioDueños          -u-|> Repositorio
-RepositorioRescates        -u-|> Repositorio
-RepositorioMascotas        -u-|> Repositorio
-RepositorioCaracteristicas -l-|> Repositorio
-RepositorioAdministradores -u-|> Repositorio
+RepositorioAsociaciones        -d-|> Repositorio
+RepositorioRescatesSinChapita  -d-|> Repositorio
+RepositorioValidaciones        -r-|> Repositorio
+RepositorioDueños              -u-|> Repositorio
+RepositorioRescatesConChapita  -u-|> Repositorio
+RepositorioMascotas            -u-|> Repositorio
+RepositorioCaracteristicas     -l-|> Repositorio
+RepositorioAdministradores     -u-|> Repositorio
+RepositorioAdopcion            --|> Repositorio
+RepositorioSolicitudesAdopcion --|> Repositorio
 @enduml

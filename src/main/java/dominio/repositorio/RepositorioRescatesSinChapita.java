@@ -3,10 +3,10 @@ package dominio.repositorio;
 import dominio.rescate.RescateSinChapita;
 import dominio.util.Lista;
 
-public class RepositorioPublicaciones extends Repositorio<RescateSinChapita>{
-  private static final RepositorioPublicaciones INSTANCE = new RepositorioPublicaciones();
+public class RepositorioRescatesSinChapita extends Repositorio<RescateSinChapita>{
+  private static final RepositorioRescatesSinChapita INSTANCE = new RepositorioRescatesSinChapita();
 
-  private RepositorioPublicaciones() {}
+  private RepositorioRescatesSinChapita() {}
 
   public Lista<RescateSinChapita> publicacionesAprobadas(){
     return repositorio.filter(RescateSinChapita::estaAprobada);
@@ -16,7 +16,7 @@ public class RepositorioPublicaciones extends Repositorio<RescateSinChapita>{
     return repositorio.filter(RescateSinChapita::estaPendiente);
   }
 
-  public static RepositorioPublicaciones getINSTANCE(){
+  public static RepositorioRescatesSinChapita getINSTANCE(){
     return INSTANCE;
   } 
 }

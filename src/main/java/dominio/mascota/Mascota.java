@@ -1,7 +1,6 @@
 package dominio.mascota;
 
 import dominio.repositorio.RepositorioDuenios;
-import dominio.repositorio.RepositorioMascotas;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.usuarios.Duenio;
 import dominio.util.Lista;
