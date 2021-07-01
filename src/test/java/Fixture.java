@@ -238,6 +238,7 @@ public class Fixture {
     for (Pregunta pregunta : preguntas) {
       asociacion.agregarPregunta(pregunta);
     }
+    RepositorioPreguntas.getInstance().vaciar();
     RepositorioPreguntas.getInstance().registrar(global);
     Duenio sabato = getSabato();
     Mascota pupi = getPupi();
