@@ -9,13 +9,11 @@ import servicios.mail.MailRescateConChapita;
 class MailerTest {
   Fixture fixture = new Fixture();
   
-  Mascota pupi;
   RescateConChapita rescateConChapita;
   MailRescateConChapita mailRescateConChapita;
   
   @BeforeEach
   void setup() {
-    pupi = fixture.getPupi();
     rescateConChapita = fixture.getRescatePupi();
     
     mailRescateConChapita = new MailRescateConChapita(rescateConChapita);    
@@ -23,10 +21,9 @@ class MailerTest {
   
   @Test
   void mailRescatePupi() {
-    String mensaje = "";
-    mensaje += "";
-    
-    System.out.println(mailRescateConChapita.generarMail().getMensaje());
+
+    String mensaje = "Hola! Federico\nEstamos muy contentos de anunciarte que encontramos tu mascota!\nPupi fue encontrada por Roberto\n\nRescatista: Roberto Gimenez\nTeléfono: 1180700543\nEmail robertito@gmail.com\nDescripción en la que se encontró la mascota: parece ser un gato siames";
+    assertEquals(mensaje, mailRescateConChapita.generarMail().getMensaje());
   }
 
 }

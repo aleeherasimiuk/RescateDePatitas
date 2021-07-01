@@ -11,6 +11,7 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.RescateConChapita;
@@ -109,7 +110,7 @@ public class Fixture {
 
   private Rescatista crearAPedro() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
-    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, unContacto(), stringAFecha("02/02/1996"));
+    DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, otroContacto(), stringAFecha("02/02/1996"));
 
     return new Rescatista(datosPersona, "Calle Falsa 123");
   }
@@ -136,6 +137,10 @@ public class Fixture {
     return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
   }
 
+  private Contacto otroContacto() {
+    return new Contacto("Roberto", "Gimenez", 1180700543, "robertito@gmail.com");
+  }
+
   private RescateConChapita rescatarAFelix() {
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
     RescateConChapita rescateFelix = new RescateConChapita(datosRescate, crearAFelix());
@@ -145,7 +150,9 @@ public class Fixture {
   private RescateConChapita rescatarAPupi() {
     Duenio carlos = crearACarlos();
     Mascota pupi = crearAPupi();
+    RepositorioDuenios.getInstance().registrar(carlos);
     carlos.registrarUnaMascota(pupi);
+
     
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
     RescateConChapita rescatePupi = new RescateConChapita(datosRescate, pupi);

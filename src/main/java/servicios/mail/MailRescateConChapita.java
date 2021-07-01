@@ -25,7 +25,7 @@ public class MailRescateConChapita extends Mailer{
     String mensaje = "";
     Duenio duenio = rescate.getMascota().obtenerDuenio();
     
-    mensaje += "Hola! " + duenio.getDatosPersona().getContacto().getEmail() + "\n";
+    mensaje += "Hola! " + duenio.getDatosPersona().getContacto().getNombre() + "\n";
     mensaje += "Estamos muy contentos de anunciarte que encontramos tu mascota!\n";
     mensaje += rescate.getMascota().getApodo() + " fue encontrada por " + datosDeContacto.getNombre();
     mensaje += "\n\n";

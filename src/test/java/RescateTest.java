@@ -113,6 +113,6 @@ public class RescateTest {
   @Test
   void emailDeContacto(){
     rescatePupi = fixture.getRescatePupi();
-    assertEquals("fedebal@gmail.com",rescatePupi.datosDeContacto().getEmail());
+    assertEquals("robertito@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }
