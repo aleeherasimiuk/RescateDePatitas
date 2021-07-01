@@ -3,11 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import dominio.adopcion.DarEnAdopcion;
-import dominio.asociacion.Asociacion;
-import dominio.mascota.Mascota;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
@@ -28,12 +25,8 @@ class MailerTest {
   private static RescateSinChapita publicacionMascotaUTN;
   
   private static Duenio carlos;
-  private static Duenio samuel;
   private static Duenio sabato;  
-  private static Mascota pupi;
-  private static Asociacion asociacion;
   
-//  private static RescateSinChapita publicacionMascotaUTN;
   private static DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi;
   private static List<DarEnAdopcion> publicaciones;
   
@@ -48,10 +41,7 @@ class MailerTest {
     
     carlos = fixture.getCarlos();
     sabato = fixture.getSabato();
-    pupi = fixture.getPupi();
     carlos.registrarUnaMascota(fixture.getPupi());
-    samuel = fixture.getSamuel();
-    asociacion = fixture.getColaDeGato();
     
     publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
   }
