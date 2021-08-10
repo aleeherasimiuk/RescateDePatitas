@@ -20,7 +20,6 @@ import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioPreguntas;
 import dominio.repositorio.RepositorioAdopcion;
-import dominio.tareas.Matcher;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
@@ -123,8 +122,7 @@ public class MatcherTest {
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
 
-    Matcher matcher = new Matcher();
-    assertTrue(matcher.recomendaciones(solicitud).contains(publicacion));
+    assertTrue(solicitud.recomendaciones().contains(publicacion));
 
   }
 
@@ -147,8 +145,7 @@ public class MatcherTest {
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
 
-    Matcher matcher = new Matcher();
-    assertFalse(matcher.recomendaciones(solicitud).contains(publicacion));
+    assertFalse(solicitud.recomendaciones().contains(publicacion));
 
   }
 

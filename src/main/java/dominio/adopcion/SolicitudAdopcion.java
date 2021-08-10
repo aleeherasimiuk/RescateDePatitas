@@ -2,6 +2,7 @@ package dominio.adopcion;
 
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
 import servicios.mail.JavaMail;
@@ -39,6 +40,21 @@ public class SolicitudAdopcion {
 
   public void darDeBaja(){
     RepositorioSolicitudesAdopcion.getInstance().borrar(this);
+  }
+
+  public boolean matcheaCon(DarEnAdopcion publicacionDuenio) {
+    return getRespuestas()
+          .stream()
+          .filter(respuesta -> !respuesta.getPregunta().esAbierta())
+          .allMatch(respuesta -> respuesta.matcheaConAlguna(publicacionDuenio.getRespuestas()));
+  }
+
+  public List<DarEnAdopcion> recomendaciones(){
+
+    RepositorioAdopcion solicitudesDarEnAdopcion = RepositorioAdopcion.getInstance();
+
+    return solicitudesDarEnAdopcion
+      .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio));
   }
 
 }

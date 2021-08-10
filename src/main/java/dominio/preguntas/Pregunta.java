@@ -1,5 +1,7 @@
 package dominio.preguntas;
 
+import java.util.List;
+
 public class Pregunta {
   private String preguntaDuenio;
   private String preguntaAdoptante;
@@ -27,5 +29,12 @@ public class Pregunta {
 
   public boolean esOpcionMultiple(){
     return false;
+  }
+
+  public Respuesta obtenerRespuestaQueMatchea(List<Respuesta> respuestas) {
+    return respuestas.stream()
+        .filter(r -> r.getPregunta().equals(this))
+        .findFirst()
+        .orElse(null);
   }
 }
