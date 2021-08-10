@@ -12,6 +12,7 @@ import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.util.Lista;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateSinChapita;
 
@@ -35,7 +36,12 @@ public class RescateSinChapita {
 
   public void confirmarMascotaEncontrada(JavaMail javaMail){
     MailRescateSinChapita mailer = new MailRescateSinChapita(this);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    }catch(EmailException e){
+      System.out.println("Error al enviar el mail" + e.getMessage());
+      // Encolar para la próxima vez
+    }
     datosRescate.confirmarEncuentro();
   }
 

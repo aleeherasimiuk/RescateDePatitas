@@ -5,6 +5,7 @@ import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRecomendacion;
 
@@ -35,7 +36,12 @@ public class SolicitudAdopcion {
 
   public void recomendar(List<DarEnAdopcion> recomendaciones, JavaMail javaMail) {
     MailRecomendacion mailer = new MailRecomendacion(adoptante, recomendaciones);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    } catch(EmailException e){
+      System.out.println("Error al enviar el correo" + e.getMessage());
+      // Encolar para la próxima
+    }
   }
 
   public void darDeBaja(){

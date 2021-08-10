@@ -6,6 +6,7 @@ import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.usuarios.Duenio;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailAdopcion;
 
@@ -40,7 +41,12 @@ public class DarEnAdopcion {
     adoptante.registrarUnaMascota(mascota);
 
     MailAdopcion mailer = new MailAdopcion(this, adoptante);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    } catch (EmailException e) {
+      System.out.println("Error al enviar el mail de adopción" + e.getMessage());
+      // Encolar para la próxima
+    }
   }
 
   public void darDeBaja(){
