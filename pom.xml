@@ -67,6 +67,18 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId> mysql </groupId>
+      <artifactId> mysql-connector-java </artifactId>
+      <version> 5.1.26 </version>
+    </dependency>
+
+    <dependency>
+      <groupId> org.uqbar-project </groupId>
+      <artifactId> jpa-java8-extras </artifactId>
+      <version> 1.0-alpha-1 </version>
+    </dependency>
+
   </dependencies>
   <build>
     <resources>
