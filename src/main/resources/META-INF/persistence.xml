@@ -8,15 +8,15 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>
-
-        </class>
+        <class>dominio.personas.DatosPersona</class>
+        <class>dominio.personas.Contacto</class>
+        <class>dominio.personas.Documento</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/paddle" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/rescatePatitas" />
             <property name="hibernate.connection.username" value="root" />
             <property name="hibernate.connection.password" value="26493684" />
 
