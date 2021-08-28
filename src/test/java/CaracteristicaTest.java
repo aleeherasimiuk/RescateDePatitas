@@ -2,7 +2,7 @@ import dominio.exceptions.CaracteristicaInvalida;
 import dominio.exceptions.CaracteristicaRepetida;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,9 +17,9 @@ class CaracteristicaTest {
 	@BeforeEach
 	void setup() {
 		repoCaracteristica.vaciar();
-		Administrador administrador;
+		Admin administrador;
 
-		administrador = new Administrador("UnUsuario", "UnaContraseña1");
+		administrador = new Admin("UnUsuario", "UnaContraseña1");
 		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
 		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AZUL");
 		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AMARILLO");
@@ -35,7 +35,7 @@ class CaracteristicaTest {
 
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
-		Administrador administrador = new Administrador("UnAdministrador", "holaqtaltodomuyBarat10");
+		Admin administrador = new Admin("UnAdministrador", "holaqtaltodomuyBarat10");
 		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado");
 		assertThrows(CaracteristicaRepetida.class, agregarCaracteristica);
 	}

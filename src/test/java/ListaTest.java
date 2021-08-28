@@ -11,7 +11,7 @@ import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 import dominio.util.Lista;
 
 public class ListaTest {
@@ -53,7 +53,7 @@ public class ListaTest {
   @Test
   void mascotasCastradas() {
     RepositorioCaracteristicas.getINSTANCE().vaciar();
-    new Administrador("username", "P4ssword").agregarUnaCaracteristica("CASTRADO");
+    new Admin("username", "P4ssword").agregarUnaCaracteristica("CASTRADO");
 
     Mascota mascota1 = new Mascota(ClaseMascota.GATO, "Pupi", "Pupi", 3, Sexo.MACHO , Tamanio.CHICO);
     Mascota mascota2 = new Mascota(ClaseMascota.GATO, "Pupo", "Pupo", 3, Sexo.MACHO , Tamanio.CHICO);

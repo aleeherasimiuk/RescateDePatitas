@@ -16,7 +16,7 @@ import dominio.passwords.PasswordLength;
 import dominio.passwords.UpperChar;
 import dominio.passwords.Validation;
 import dominio.repositorio.RepositorioValidaciones;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 import org.mindrot.jbcrypt.BCrypt;
 
 class ValidadorContraseniaTest {
@@ -101,7 +101,7 @@ class ValidadorContraseniaTest {
 
 	@Test
 	void testHashPassword(){
-		Usuario usuario = new Administrador("JorgeLanata", "ensaladA10");
+		Usuario usuario = new Admin("JorgeLanata", "ensaladA10");
 		assertTrue (BCrypt.checkpw("ensaladA10",usuario.getPassword()));
 	}
 

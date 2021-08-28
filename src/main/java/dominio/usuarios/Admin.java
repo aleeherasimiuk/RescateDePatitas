@@ -2,9 +2,9 @@ package dominio.usuarios;
 
 import dominio.repositorio.RepositorioCaracteristicas;
 
-public class Administrador extends Usuario{
+public class Admin extends Usuario{
 
-  public Administrador(String username, String password) {
+  public Admin(String username, String password) {
     super(username, password);
   }
 

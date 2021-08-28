@@ -21,7 +21,7 @@ import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 import dominio.util.Lista;
 import servicios.hogares.HogaresAdapter;
 import servicios.hogares.HogaresServiceRefugioDDS;
@@ -173,7 +173,7 @@ public class ServiciosTest {
 
   Mascota buildRobert(){
     Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
-    new Administrador("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
+    new Admin("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
     robert.agregarUnaCaracteristica("CALMADO");
     robert.agregarUnaCaracteristica("No muerde");
     robert.agregarUnaCaracteristica("tierno");
