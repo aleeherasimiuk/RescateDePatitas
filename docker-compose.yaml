@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: rescate_de_patitas_app
+    volumes:
+      - .:/home/app
+      - repository:/var/maven/.m2
+    environment:
+      - MAVEN_CONFIG=/var/maven/.m2
+    tty: true
+    command: bash -c "mvn -Duser.home=/var/maven dependency:resolve && bash"
+volumes:
+  repository:
