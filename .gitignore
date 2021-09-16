@@ -95,3 +95,4 @@ nb-configuration.xml
 config.properties
 storage
 docker-compose.yaml
+src/main/resources/META-INF/persistance.xml
