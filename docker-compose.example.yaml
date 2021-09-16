@@ -10,6 +10,8 @@ services:
       - MAVEN_CONFIG=/var/maven/.m2
     tty: true
     command: bash -c "mvn -Duser.home=/var/maven dependency:resolve && bash"
+    depends_on:
+      - db
   db:
     image: mariadb:10.5.12
     volumes:

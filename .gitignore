@@ -94,3 +94,4 @@ nb-configuration.xml
 
 config.properties
 storage
+docker-compose.yaml
