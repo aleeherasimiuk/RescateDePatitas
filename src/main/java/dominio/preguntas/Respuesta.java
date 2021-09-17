@@ -4,15 +4,16 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import persistencia.PersistentEntity;
 
 @Entity
 public class Respuesta extends PersistentEntity {
   @ManyToOne
-  private final Pregunta pregunta;
-  private final String respuesta;
+  private Pregunta pregunta;
+  private String respuesta;
+
+  protected Respuesta() {}
 
   public Respuesta(Pregunta pregunta, String respuesta) {
     this.pregunta = pregunta;

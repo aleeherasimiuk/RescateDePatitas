@@ -20,11 +20,13 @@ import javax.persistence.OneToOne;
 @Entity
 public class SolicitudAdopcion extends PersistentEntity{
   @OneToMany
-  private final List<Respuesta> respuestas;
+  private List<Respuesta> respuestas;
   @ManyToOne
-  private final Asociacion asociacion;
+  private Asociacion asociacion;
   @OneToOne
-  private final Duenio adoptante;
+  private Duenio adoptante;
+
+  protected SolicitudAdopcion(){}
 
   public SolicitudAdopcion(Duenio adoptante,Asociacion asociacion, List<Respuesta> respuestas) {
     this.respuestas = respuestas;

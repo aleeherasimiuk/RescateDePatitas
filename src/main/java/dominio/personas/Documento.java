@@ -9,9 +9,7 @@ public class Documento {
   @Enumerated(EnumType.STRING)
   private TipoDeDocumento tipo;
 
-  public Documento() {
-
-  }
+  protected Documento() {}
 
   public TipoDeDocumento getTipo() {
     return tipo;

@@ -24,10 +24,12 @@ import javax.persistence.ManyToOne;
 public class RescateConChapita extends PersistentEntity {
 
   @Embedded
-  private final DatosRescate datosRescate;
+  private DatosRescate datosRescate;
 
   @ManyToOne
-  private final Mascota mascota;
+  private Mascota mascota;
+
+  protected RescateConChapita(){}
 
   public RescateConChapita(DatosRescate datosRescate, Mascota mascota) {
     this.datosRescate = datosRescate;

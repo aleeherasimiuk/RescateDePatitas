@@ -9,6 +9,8 @@ import dominio.repositorio.RepositorioCaracteristicas;
 @Table(name = "admin")
 public class Admin extends Usuario{
 
+  protected Admin(){}
+
   public Admin(String username, String password) {
     super(username, password);
   }

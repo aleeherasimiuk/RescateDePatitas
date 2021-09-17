@@ -21,27 +21,29 @@ import persistencia.PersistentEntity;
 public class Mascota extends PersistentEntity {
 
   @Enumerated(EnumType.STRING)
-  private final ClaseMascota clase;
+  private ClaseMascota clase;
 
-  private final String nombre;
-  private final String apodo;
-  private final int edad;
+  private String nombre;
+  private String apodo;
+  private int edad;
 
   @Enumerated(EnumType.STRING)
-  private final Sexo sexo;
+  private Sexo sexo;
 
   @ElementCollection
   @CollectionTable(name = "fotos", joinColumns=@JoinColumn(name="mascota_id"))
-  private final List<String> fotos;
+  private List<String> fotos;
 
   @Enumerated(EnumType.STRING)
-  private final Tamanio tamanio;
+  private Tamanio tamanio;
 
   @ElementCollection
   @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
-  private final List<String> caracteristicas;
+  private List<String> caracteristicas;
 
   private String descripcionFisica;
+
+  protected Mascota(){}
 
   public Mascota(ClaseMascota clase, String nombre, String apodo, int edad, Sexo sexo, Tamanio tamanio) {
     this.clase = clase;

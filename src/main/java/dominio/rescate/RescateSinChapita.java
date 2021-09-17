@@ -32,20 +32,22 @@ import servicios.mail.MailRescateSinChapita;
 public class RescateSinChapita extends PersistentEntity{
 
   @Embedded
-  private final DatosRescate datosRescate;
+  private DatosRescate datosRescate;
 
   @Enumerated(EnumType.STRING)
-  private final Tamanio tamanio;
+  private Tamanio tamanio;
   @Enumerated(EnumType.STRING)
-  private final ClaseMascota claseMascota;
+  private ClaseMascota claseMascota;
   @ElementCollection
   @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
-  private final List<String> caracteristicas;
+  private List<String> caracteristicas;
 
   @ManyToOne
   private Asociacion asociacionAsignada;
   @Enumerated(EnumType.STRING)
   private EstadoPublicacion estado;
+
+  protected RescateSinChapita() {}
 
   public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
     this.datosRescate = datosRescate;

@@ -6,7 +6,7 @@ import dominio.ubicacion.Coordenadas;
 
 public class AsociacionComparator implements Comparator<Asociacion>{
 
-  private Coordenadas coordenadas;
+  private final Coordenadas coordenadas;
 
   public AsociacionComparator(Coordenadas coordenadas) {
     this.coordenadas = coordenadas;

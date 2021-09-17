@@ -7,7 +7,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
@@ -16,18 +15,20 @@ import persistencia.PersistentEntity;
 
 @Entity
 public class Hogar extends PersistentEntity{
-  private final String nombre;
-  private final String telefono;
+  private String nombre;
+  private String telefono;
   @ElementCollection
   @CollectionTable(name = "preferencias", joinColumns=@JoinColumn(name="hogar_id"))
-  private final List<ClaseMascota> preferencias;
-  private final Boolean tienePatio;
+  private List<ClaseMascota> preferencias;
+  private Boolean tienePatio;
   @ElementCollection
   @CollectionTable(name = "caracteristicas_especificas", joinColumns=@JoinColumn(name="hogar_id"))
-  private final List<String> caracteristicasEspecificas;
+  private List<String> caracteristicasEspecificas;
   @Embedded
-  private final Coordenadas ubicacion;
+  private Coordenadas ubicacion;
   private Boolean tieneCapacidad;
+
+  protected Hogar(){}
 
   public Hogar(String nombre, String telefono, List<ClaseMascota> preferencias, Boolean tienePatio, List<String> caracteristicasEspecificas,
       Coordenadas ubicacion, Boolean tieneCapacidad) {

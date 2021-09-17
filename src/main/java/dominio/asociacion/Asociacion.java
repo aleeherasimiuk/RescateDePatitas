@@ -14,11 +14,13 @@ import persistencia.PersistentEntity;
 @Entity
 public class Asociacion extends PersistentEntity{
 
-  private final String nombre;
+  private String nombre;
   @Embedded
-  private final Coordenadas ubicacion;
+  private Coordenadas ubicacion;
   @OneToMany
-  private final List<Pregunta> preguntas;
+  private List<Pregunta> preguntas;
+
+  protected Asociacion() {}
 
   public Asociacion(String nombre, Coordenadas ubicacion) {
     this.nombre = nombre;

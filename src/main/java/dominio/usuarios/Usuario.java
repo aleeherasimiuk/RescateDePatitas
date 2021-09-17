@@ -17,6 +17,8 @@ public abstract class Usuario extends PersistentEntity {
 
   private String username;
 
+  protected Usuario(){}
+
   public String getUsername() {
     return username;
   }

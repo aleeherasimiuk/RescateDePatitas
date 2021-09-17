@@ -27,7 +27,7 @@ public class DatosPersona extends PersistentEntity {
     this.fechaNacimiento = fechaNacimiento;
   }
 
-  public DatosPersona(){};
+  protected DatosPersona(){};
 
   public String getApellido() {
     return apellido;

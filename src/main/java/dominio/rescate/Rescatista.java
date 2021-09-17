@@ -13,6 +13,8 @@ public class Rescatista extends PersistentEntity{
   @OneToOne
   private DatosPersona datosPersona;
 
+  protected Rescatista(){}
+
   public DatosPersona getDatosPersona() {
     return datosPersona;
   }

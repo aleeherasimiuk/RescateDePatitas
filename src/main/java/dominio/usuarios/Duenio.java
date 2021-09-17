@@ -24,6 +24,8 @@ public class Duenio extends Usuario {
     return datosPersona;
   }
 
+  protected Duenio(){}
+
   @OneToMany
   private List<Mascota> mascotasRegistradas;
 

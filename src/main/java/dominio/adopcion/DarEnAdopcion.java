@@ -19,13 +19,16 @@ import servicios.mail.MailAdopcion;
 @Entity
 public class DarEnAdopcion extends PersistentEntity {
   @ManyToOne
-  private final Duenio duenio;
+  private Duenio duenio;
   @ManyToOne
-  private final Mascota mascota;
+  private Mascota mascota;
   @ManyToOne
-  private final Asociacion asociacion;
+  private Asociacion asociacion;
   @OneToMany
-  private final List<Respuesta> respuestas;
+  private List<Respuesta> respuestas;
+
+
+  protected DarEnAdopcion() {}
 
   public DarEnAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Respuesta> respuestas) {
     this.duenio = duenio;

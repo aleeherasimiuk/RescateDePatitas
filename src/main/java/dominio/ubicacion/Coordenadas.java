@@ -7,6 +7,8 @@ public class Coordenadas{
   private Double latitud;
   private Double longitud;
 
+  protected Coordenadas() {}
+
   public Coordenadas(Double latitud, Double longitud) {
     this.latitud = latitud;
     this.longitud = longitud;

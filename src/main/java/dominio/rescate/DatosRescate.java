@@ -18,15 +18,15 @@ import persistencia.convertidores.ConvertidorLocalDate;
 @Embeddable
 public class DatosRescate {
   @ManyToOne
-  private final Rescatista rescatista;
+  private Rescatista rescatista;
   @ElementCollection
   @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
-  private final List<String> fotos;
+  private List<String> fotos;
   @Convert(converter = ConvertidorLocalDate.class)
-  private final LocalDate fecha;
-  private final String descripcion;
+  private LocalDate fecha;
+  private String descripcion;
   @Embedded
-  private final Coordenadas lugar;
+  private Coordenadas lugar;
   @ManyToOne
   private Hogar hogar;
   private boolean fueEncontrada;
@@ -40,6 +40,8 @@ public class DatosRescate {
     this.lugar = lugar;
     this.fueEncontrada = false;
   }
+
+  protected DatosRescate(){}
 
   public boolean fueEncontrada() {
     return fueEncontrada;

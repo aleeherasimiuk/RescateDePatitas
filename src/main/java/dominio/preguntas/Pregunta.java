@@ -16,6 +16,8 @@ public class Pregunta extends PersistentEntity {
   private String preguntaDuenio;
   private String preguntaAdoptante;
 
+  protected Pregunta(){}
+
   public Pregunta(String preguntaDuenio, String preguntaAdoptante) {
     this.preguntaDuenio = preguntaDuenio;
     this.preguntaAdoptante = preguntaAdoptante;
