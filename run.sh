@@ -18,7 +18,7 @@ case $1 in
     ;;
   all)
     docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven clean
-    docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven package
+    docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven -Dmaven.test.skip package
     docker exec -it rescate_de_patitas_app java -jar /home/app/target/RescatePatitas-jar-with-dependencies.jar
     ;;
   *)
