@@ -7,6 +7,7 @@ import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
+import persistencia.PersistentEntity;
 import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateConChapita;
@@ -15,11 +16,18 @@ import dominio.hogares.Hogar;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-public class RescateConChapita {
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
+@Entity
+public class RescateConChapita extends PersistentEntity {
+
+  @Embedded
   private final DatosRescate datosRescate;
 
-  private Mascota mascota;
+  @ManyToOne
+  private final Mascota mascota;
 
   public RescateConChapita(DatosRescate datosRescate, Mascota mascota) {
     this.datosRescate = datosRescate;
@@ -74,10 +82,6 @@ public class RescateConChapita {
     return mascota != null;
   }
 
-  public void setMascota(Mascota mascota) {
-    this.mascota = mascota;
-  }
-
   public LocalDate getFecha() {
     return datosRescate.getFecha();
   }
@@ -93,7 +97,7 @@ public class RescateConChapita {
   public Contacto datosDeContacto(){
     return getDatosDeRescatista().getContacto();
   }
-  
+
   public DatosPersona getDatosDeRescatista() {
     return datosRescate.getRescatista().getDatosPersona();
   }

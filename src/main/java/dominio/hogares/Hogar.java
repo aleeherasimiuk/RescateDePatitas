@@ -1,20 +1,35 @@
 package dominio.hogares;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.ubicacion.Coordenadas;
-import dominio.util.Lista;
+import persistencia.PersistentEntity;
 
-public class Hogar {
+@Entity
+public class Hogar extends PersistentEntity{
   private final String nombre;
   private final String telefono;
-  private final Lista<ClaseMascota> preferencias;
+  @ElementCollection
+  @CollectionTable(name = "preferencias", joinColumns=@JoinColumn(name="hogar_id"))
+  private final List<ClaseMascota> preferencias;
   private final Boolean tienePatio;
-  private final Lista<String> caracteristicasEspecificas;
+  @ElementCollection
+  @CollectionTable(name = "caracteristicas_especificas", joinColumns=@JoinColumn(name="hogar_id"))
+  private final List<String> caracteristicasEspecificas;
+  @Embedded
   private final Coordenadas ubicacion;
   private Boolean tieneCapacidad;
 
-  public Hogar(String nombre, String telefono, Lista<ClaseMascota> preferencias, Boolean tienePatio, Lista<String> caracteristicasEspecificas,
+  public Hogar(String nombre, String telefono, List<ClaseMascota> preferencias, Boolean tienePatio, List<String> caracteristicasEspecificas,
       Coordenadas ubicacion, Boolean tieneCapacidad) {
     this.nombre = nombre;
     this.telefono = telefono;
@@ -24,11 +39,6 @@ public class Hogar {
     this.ubicacion = ubicacion;
     this.tieneCapacidad = tieneCapacidad;
   }
-
-  ////TODO: WTF?
-	//public static Lista<Hogar> getHogares(HogaresService service) {
-  //  return service.getListadoHogares();
-  //}
 
   public Boolean aceptaMascota(ClaseMascota claseMascota, Tamanio tamanio){
     return tieneCapacidad && aceptaClase(claseMascota) && aceptaTamanio(tamanio);
@@ -54,11 +64,11 @@ public class Hogar {
     return telefono;
   }
 
-  public Lista<ClaseMascota> getPreferencias() {
+  public List<ClaseMascota> getPreferencias() {
     return preferencias;
   }
 
-  public Lista<String> getCaracteristicasEspecificas() {
+  public List<String> getCaracteristicasEspecificas() {
     return caracteristicasEspecificas;
   }
 
@@ -74,7 +84,7 @@ public class Hogar {
     return tienePatio;
   }
 
-  public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
+  public boolean matcheaCaracteristica(List<String> caracteristicas) {
     return caracteristicas.containsAll(caracteristicasEspecificas);
   }
 

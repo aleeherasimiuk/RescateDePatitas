@@ -1,5 +1,17 @@
 package dominio.rescate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import dominio.asociacion.Asociacion;
 import dominio.exceptions.HogarNoAceptaMascota;
 import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
@@ -11,19 +23,28 @@ import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.tareas.ValidadorCaracteristica;
-import dominio.util.Lista;
+import persistencia.PersistentEntity;
 import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateSinChapita;
 
-public class RescateSinChapita {
+@Entity
+public class RescateSinChapita extends PersistentEntity{
 
+  @Embedded
   private final DatosRescate datosRescate;
-  private final Tamanio tamanio;
-  private final ClaseMascota claseMascota;
-  private final Lista<String> caracteristicas;
 
+  @Enumerated(EnumType.STRING)
+  private final Tamanio tamanio;
+  @Enumerated(EnumType.STRING)
+  private final ClaseMascota claseMascota;
+  @ElementCollection
+  @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
+  private final List<String> caracteristicas;
+
+  @ManyToOne
   private Asociacion asociacionAsignada;
+  @Enumerated(EnumType.STRING)
   private EstadoPublicacion estado;
 
   public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
@@ -31,7 +52,7 @@ public class RescateSinChapita {
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
-    caracteristicas = new Lista<String>();
+    caracteristicas = new ArrayList<String>();
   }
 
   public void confirmarMascotaEncontrada(JavaMail javaMail){
@@ -106,9 +127,9 @@ public class RescateSinChapita {
     return claseMascota;
   }
 
-  public Lista<String> getCaracteristicas() {
+  public List<String> getCaracteristicas() {
     return caracteristicas;
   }
 
-  
+
 }

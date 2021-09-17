@@ -2,7 +2,15 @@ package dominio.preguntas;
 
 import java.util.List;
 
-public class Respuesta {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import persistencia.PersistentEntity;
+
+@Entity
+public class Respuesta extends PersistentEntity {
+  @ManyToOne
   private final Pregunta pregunta;
   private final String respuesta;
 
@@ -24,8 +32,8 @@ public class Respuesta {
 
     Respuesta respuestaQueMatchea = getPregunta().obtenerRespuestaQueMatchea(respuestas);
     if(respuestaQueMatchea == null) return true;
-    
+
     return respuestaQueMatchea.getRespuesta().equalsIgnoreCase(getRespuesta());
-    
+
   }
 }

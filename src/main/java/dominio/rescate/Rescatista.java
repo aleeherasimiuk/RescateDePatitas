@@ -1,10 +1,16 @@
 package dominio.rescate;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioRescatesConChapita;
+import persistencia.PersistentEntity;
 
-public class Rescatista {
+@Entity
+public class Rescatista extends PersistentEntity{
 
+  @OneToOne
   private DatosPersona datosPersona;
 
   public DatosPersona getDatosPersona() {

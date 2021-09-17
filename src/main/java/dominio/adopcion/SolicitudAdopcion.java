@@ -5,15 +5,25 @@ import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
+import persistencia.PersistentEntity;
 import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRecomendacion;
 
 import java.util.List;
 
-public class SolicitudAdopcion {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
+public class SolicitudAdopcion extends PersistentEntity{
+  @OneToMany
   private final List<Respuesta> respuestas;
+  @ManyToOne
   private final Asociacion asociacion;
+  @OneToOne
   private final Duenio adoptante;
 
   public SolicitudAdopcion(Duenio adoptante,Asociacion asociacion, List<Respuesta> respuestas) {
