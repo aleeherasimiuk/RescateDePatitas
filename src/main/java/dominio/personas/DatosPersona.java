@@ -1,15 +1,14 @@
 package dominio.personas;
 
+import persistencia.PersistentEntity;
 import persistencia.convertidores.ConvertidorLocalDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class DatosPersona {
-  @GeneratedValue
-  @Id
-  private Long id;
+@Table(name = "personas")
+public class DatosPersona extends PersistentEntity {
   private String apellido;
   private String nombre;
   @Embedded

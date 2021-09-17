@@ -1,26 +1,36 @@
 package dominio.usuarios;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import dominio.exceptions.DuenioNoPoseeMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioMascotas;
-import dominio.util.Lista;
 
-
+@Entity
+@Table(name = "duenios")
 public class Duenio extends Usuario {
 
+  @OneToOne
   private DatosPersona datosPersona;
 
   public DatosPersona getDatosPersona() {
     return datosPersona;
   }
 
-  private Lista<Mascota> mascotasRegistradas;
+  @OneToMany
+  private List<Mascota> mascotasRegistradas;
 
   public Duenio(String username, String password, DatosPersona datosPersona) {
     super(username, password);
     this.datosPersona = datosPersona;
-    this.mascotasRegistradas = new Lista<>();
+    this.mascotasRegistradas = new ArrayList<>();
   }
 
   public void registrarUnaMascota(Mascota mascota) {

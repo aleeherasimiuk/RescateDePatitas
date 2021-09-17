@@ -34,6 +34,7 @@ public class App {
     transaction.begin();
     entityManager.persist(datosPersona);
     transaction.commit();
+    entityManager.close();
   }
 
   private static void runRecomendaciones() {

@@ -1,20 +1,48 @@
 package dominio.mascota;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.ValidadorCaracteristica;
 import dominio.usuarios.Duenio;
-import dominio.util.Lista;
+import persistencia.PersistentEntity;
 
+@Entity
+@Table(name = "mascotas")
+public class Mascota extends PersistentEntity {
 
-public class Mascota {
+  @Enumerated(EnumType.STRING)
   private final ClaseMascota clase;
+
   private final String nombre;
   private final String apodo;
   private final int edad;
+
+  @Enumerated(EnumType.STRING)
   private final Sexo sexo;
-  private final Lista<String> fotos;
+
+  @ElementCollection
+  @CollectionTable(name = "fotos", joinColumns=@JoinColumn(name="mascota_id"))
+  private final List<String> fotos;
+
+  @Enumerated(EnumType.STRING)
   private final Tamanio tamanio;
-  private final Lista<String> caracteristicas;
+
+  @ElementCollection
+  @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
+  private final List<String> caracteristicas;
 
   private String descripcionFisica;
 
@@ -24,8 +52,8 @@ public class Mascota {
     this.apodo = apodo;
     this.edad = edad;
     this.sexo = sexo;
-    this.caracteristicas = new Lista<String>();
-    this.fotos = new Lista<String>();
+    this.caracteristicas = new ArrayList<String>();
+    this.fotos = new ArrayList<String>();
     this.tamanio = tamanio;
   }
 
@@ -46,7 +74,7 @@ public class Mascota {
     this.caracteristicas.add(caracteristica.toUpperCase());
   }
 
-   public ClaseMascota getClase() {
+  public ClaseMascota getClase() {
     return clase;
   }
 
@@ -70,14 +98,14 @@ public class Mascota {
     return descripcionFisica;
   }
 
-  public Lista<String> getCaracteristicas() {
+  public List<String> getCaracteristicas() {
     return caracteristicas;
   }
 
   public boolean tieneEstaCaracteristica(String caracteristica){
     return caracteristicas.contains(caracteristica);
   }
-  
+
   public Duenio obtenerDuenio() {
     return RepositorioDuenios.getInstance().duenioDe(this);
   }

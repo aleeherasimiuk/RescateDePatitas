@@ -8,9 +8,19 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <!-- Mascota -->
+        <class>dominio.mascota.Mascota</class>
+
+        <!-- Personas -->
         <class>dominio.personas.DatosPersona</class>
         <class>dominio.personas.Contacto</class>
         <class>dominio.personas.Documento</class>
+
+        <!-- Usuarios -->
+        <class>dominio.usuarios.Admin</class>
+        <class>dominio.usuarios.Duenio</class>
+        <class>dominio.usuarios.Usuario</class>
+        <class>dominio.usuarios.Voluntario</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
