@@ -16,7 +16,6 @@ import dominio.hogares.Hogar;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
