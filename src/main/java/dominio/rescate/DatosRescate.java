@@ -6,22 +6,23 @@ import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import dominio.hogares.Hogar;
 import dominio.ubicacion.Coordenadas;
+import persistencia.PersistentEntity;
 import persistencia.convertidores.ConvertidorLocalDate;
 
-@Embeddable
-public class DatosRescate {
+@Entity
+public class DatosRescate extends PersistentEntity{
   @ManyToOne
   private Rescatista rescatista;
   @ElementCollection
-  @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
-  private List<String> fotos;
+  @CollectionTable(name = "fotos_rescate", joinColumns=@JoinColumn(name="rescate_id"))
+  private List<String> fotos_rescate;
   @Convert(converter = ConvertidorLocalDate.class)
   private LocalDate fecha;
   private String descripcion;
@@ -34,7 +35,7 @@ public class DatosRescate {
   public DatosRescate(Rescatista rescatista, List<String> fotos, LocalDate fecha, String descripcion,
       Coordenadas lugar) {
     this.rescatista = rescatista;
-    this.fotos = fotos;
+    this.fotos_rescate = fotos;
     this.fecha = fecha;
     this.descripcion = descripcion;
     this.lugar = lugar;
@@ -64,7 +65,7 @@ public class DatosRescate {
   }
 
   public List<String> getFotos() {
-    return fotos;
+    return fotos_rescate;
   }
 
   public LocalDate getFecha() {

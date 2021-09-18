@@ -11,13 +11,15 @@ import javax.persistence.JoinColumn;
 @Entity
 public class PreguntaCerrada extends Pregunta {
   @ElementCollection
-  @CollectionTable(name = "fotos", joinColumns=@JoinColumn(name="mascota_id"))
+  @CollectionTable(name = "opciones", joinColumns=@JoinColumn(name="pregunta_cerrada_id"))
   private List<String> opciones;
 
   public PreguntaCerrada(String preguntaDuenio, String preguntaAdoptante, String ...opciones) {
     super(preguntaDuenio, preguntaAdoptante);
     this.opciones = Arrays.asList(opciones);
   }
+
+  protected PreguntaCerrada() {}
 
   @Override
   public boolean esRespuestaValida(String respuesta) {

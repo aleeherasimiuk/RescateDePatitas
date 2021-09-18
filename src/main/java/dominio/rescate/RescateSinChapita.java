@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import dominio.asociacion.Asociacion;
 import dominio.exceptions.HogarNoAceptaMascota;
@@ -31,7 +32,7 @@ import servicios.mail.MailRescateSinChapita;
 @Entity
 public class RescateSinChapita extends PersistentEntity{
 
-  @Embedded
+  @OneToOne
   private DatosRescate datosRescate;
 
   @Enumerated(EnumType.STRING)
@@ -39,8 +40,8 @@ public class RescateSinChapita extends PersistentEntity{
   @Enumerated(EnumType.STRING)
   private ClaseMascota claseMascota;
   @ElementCollection
-  @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
-  private List<String> caracteristicas;
+  @CollectionTable(name = "caracteristicas_rescate", joinColumns=@JoinColumn(name="rescate_id"))
+  private List<String> caracteristicas_rescate;
 
   @ManyToOne
   private Asociacion asociacionAsignada;
@@ -54,7 +55,7 @@ public class RescateSinChapita extends PersistentEntity{
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
-    caracteristicas = new ArrayList<String>();
+    caracteristicas_rescate = new ArrayList<String>();
   }
 
   public void confirmarMascotaEncontrada(JavaMail javaMail){
@@ -101,7 +102,7 @@ public class RescateSinChapita extends PersistentEntity{
 
   public void agregarUnaCaracteristica(String caracteristica) {
     new ValidadorCaracteristica().validarCaracteristica(caracteristica);
-    this.caracteristicas.add(caracteristica.toUpperCase());
+    this.caracteristicas_rescate.add(caracteristica.toUpperCase());
   }
 
   public Asociacion getAsociacionAsignada() {
@@ -130,7 +131,7 @@ public class RescateSinChapita extends PersistentEntity{
   }
 
   public List<String> getCaracteristicas() {
-    return caracteristicas;
+    return caracteristicas_rescate;
   }
 
 
