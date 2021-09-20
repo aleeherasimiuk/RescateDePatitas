@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
@@ -17,6 +18,7 @@ import servicios.mail.JavaMail;
 import servicios.mail.MailAdopcion;
 
 @Entity
+@Table(name="publicacion_adopcion")
 public class DarEnAdopcion extends PersistentEntity {
   @ManyToOne
   private Duenio duenio;

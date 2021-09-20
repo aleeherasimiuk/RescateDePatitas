@@ -2,7 +2,6 @@ package dominio.preguntas;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

@@ -2,7 +2,6 @@ package dominio.usuarios;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import dominio.repositorio.RepositorioCaracteristicas;
 
 @Entity

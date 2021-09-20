@@ -1,10 +1,12 @@
 package dominio.personas;
 
+import java.time.LocalDate;
+import javax.persistence.Convert;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import persistencia.PersistentEntity;
 import persistencia.convertidores.ConvertidorLocalDate;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "personas")

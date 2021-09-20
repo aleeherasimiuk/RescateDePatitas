@@ -2,7 +2,6 @@ package dominio.rescate;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.CollectionTable;
 import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
@@ -10,13 +9,14 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.Table;
 import dominio.hogares.Hogar;
 import dominio.ubicacion.Coordenadas;
 import persistencia.PersistentEntity;
 import persistencia.convertidores.ConvertidorLocalDate;
 
 @Entity
+@Table(name="rescates")
 public class DatosRescate extends PersistentEntity{
   @ManyToOne
   private Rescatista rescatista;
