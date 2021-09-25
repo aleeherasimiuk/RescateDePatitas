@@ -186,7 +186,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>app.App</mainClass>
+                            <mainClass>main.Main</mainClass>
                         </manifest>
                     </archive>
                     <finalName>RescatePatitas</finalName>

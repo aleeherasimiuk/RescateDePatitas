@@ -1,4 +1,4 @@
-package app;
+package main;
 
 import java.time.LocalDate;
 import java.util.logging.FileHandler;
@@ -15,7 +15,8 @@ import servicios.mail.JavaMail;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-public class App {
+public class Main {
+  
   public static void main(String[] args) {
     if (args.length > 0 && args[0].equals("run_recomendaciones")) {
       runRecomendaciones();
@@ -23,19 +24,26 @@ public class App {
     }
     runServer();
 
-
-    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
-
+    // Check if password exists in table passwords
     EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    EntityTransaction transaction = entityManager.getTransaction();
+    boolean exists = entityManager.createQuery("SELECT p FROM Password p WHERE p.password = :password", String.class)
+      .setParameter("password", "password")
+      .getResultList().size() > 0;
 
-    transaction.begin();
-    entityManager.persist(datosPersona);
-    transaction.commit();
-    entityManager.close();
-    System.exit(0);
+    System.out.println("Password exists: " + exists);
+
+    // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+    // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+    // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+
+    // EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    // EntityTransaction transaction = entityManager.getTransaction();
+
+    // transaction.begin();
+    // entityManager.persist(datosPersona);
+    // transaction.commit();
+    // entityManager.close();
+    // System.exit(0);
   }
 
   private static void runRecomendaciones() {
