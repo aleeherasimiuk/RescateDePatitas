@@ -24,13 +24,6 @@ public class Main {
     }
     runServer();
 
-    // Check if password exists in table passwords
-    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    boolean exists = entityManager.createQuery("SELECT p FROM Password p WHERE p.password = :password", String.class)
-      .setParameter("password", "password")
-      .getResultList().size() > 0;
-
-    System.out.println("Password exists: " + exists);
 
     // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
     // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
