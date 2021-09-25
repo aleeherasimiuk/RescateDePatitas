@@ -2,16 +2,16 @@ package dominio.asociacion;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
+import javax.persistence.Table;
 import dominio.preguntas.Pregunta;
 import dominio.ubicacion.Coordenadas;
 import persistencia.PersistentEntity;
 
 @Entity
+@Table(name="asociacion")
 public class Asociacion extends PersistentEntity{
 
   private String nombre;

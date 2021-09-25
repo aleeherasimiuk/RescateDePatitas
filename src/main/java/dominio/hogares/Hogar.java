@@ -1,19 +1,19 @@
 package dominio.hogares;
 
 import java.util.List;
-
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-
+import javax.persistence.Table;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.ubicacion.Coordenadas;
 import persistencia.PersistentEntity;
 
 @Entity
+@Table(name="hogares")
 public class Hogar extends PersistentEntity{
   private String nombre;
   private String telefono;
