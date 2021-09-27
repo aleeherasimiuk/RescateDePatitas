@@ -3,6 +3,7 @@ package dominio.rescate;
 import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -22,6 +23,7 @@ public class DatosRescate extends PersistentEntity{
   private Rescatista rescatista;
   @ElementCollection
   @CollectionTable(name = "fotos_rescate", joinColumns=@JoinColumn(name="rescate_id"))
+  @Column(name="url")
   private List<String> fotos_rescate;
   @Convert(converter = ConvertidorLocalDate.class)
   private LocalDate fecha;
@@ -30,6 +32,8 @@ public class DatosRescate extends PersistentEntity{
   private Coordenadas lugar;
   @ManyToOne
   private Hogar hogar;
+
+  @Column(name="encontrada")
   private boolean fueEncontrada;
 
   public DatosRescate(Rescatista rescatista, List<String> fotos, LocalDate fecha, String descripcion,

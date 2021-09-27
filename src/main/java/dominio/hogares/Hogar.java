@@ -2,6 +2,7 @@ package dominio.hogares;
 
 import java.util.List;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -19,13 +20,20 @@ public class Hogar extends PersistentEntity{
   private String telefono;
   @ElementCollection
   @CollectionTable(name = "preferencias", joinColumns=@JoinColumn(name="hogar_id"))
+  @Column(name="tipo")
   private List<ClaseMascota> preferencias;
+  @Column(name="patio")
   private Boolean tienePatio;
+
   @ElementCollection
-  @CollectionTable(name = "caracteristicas_especificas", joinColumns=@JoinColumn(name="hogar_id"))
+  @CollectionTable(name = "caracteristicas_hogares", joinColumns=@JoinColumn(name="hogar_id"))
+  @Column(name="descripcion")
   private List<String> caracteristicasEspecificas;
+
   @Embedded
   private Coordenadas ubicacion;
+
+  @Column(name="tiene_capacidad")
   private Boolean tieneCapacidad;
 
   protected Hogar(){}

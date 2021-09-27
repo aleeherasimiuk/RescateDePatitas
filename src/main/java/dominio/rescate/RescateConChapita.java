@@ -3,7 +3,10 @@ package dominio.rescate;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,6 +26,7 @@ import servicios.mail.MailRescateConChapita;
 public class RescateConChapita extends PersistentEntity {
 
   @OneToOne
+  @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
 
   @ManyToOne

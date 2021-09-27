@@ -1,6 +1,8 @@
 package dominio.preguntas;
 
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -13,7 +15,9 @@ import persistencia.PersistentEntity;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_pregunta")
 public class Pregunta extends PersistentEntity {
+  @Column(name="pregunta_duenio")
   private String preguntaDuenio;
+  @Column(name="pregunta_adoptante")
   private String preguntaAdoptante;
 
   protected Pregunta(){}

@@ -2,7 +2,9 @@ package dominio.adopcion;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -26,7 +28,9 @@ public class DarEnAdopcion extends PersistentEntity {
   private Mascota mascota;
   @ManyToOne
   private Asociacion asociacion;
+
   @OneToMany
+  @Column(name="respuesta")
   private List<Respuesta> respuestas;
 
 

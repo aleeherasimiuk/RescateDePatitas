@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import dominio.repositorio.RepositorioMascotas;
 public class Duenio extends Usuario {
 
   @OneToOne
+  @JoinColumn(name = "persona_id")
   private DatosPersona datosPersona;
 
   public DatosPersona getDatosPersona() {
@@ -27,6 +29,7 @@ public class Duenio extends Usuario {
   protected Duenio(){}
 
   @OneToMany
+  @JoinColumn(name = "mascota_id")
   private List<Mascota> mascotasRegistradas;
 
   public Duenio(String username, String password, DatosPersona datosPersona) {
