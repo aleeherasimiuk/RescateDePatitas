@@ -1,6 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeAll;
 
 import dominio.usuarios.Usuario;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +28,21 @@ import org.mindrot.jbcrypt.BCrypt;
 
 class ValidadorContraseniaTest {
 	RepositorioValidaciones repositorioValidaciones = RepositorioValidaciones.getInstance();
+	static CommonPassword commonPassword;
+
+	@BeforeAll
+	static void setUp() {
+		commonPassword = mock(CommonPassword.class);
+		doThrow(CommonPasswordException.class).when(commonPassword).error();
+
+		when(commonPassword.condition(anyString())).thenReturn(true);
+
+		String[] commonPasswords = new String[]{"batman","iceman","superman","orange","black","andrea","thomas"};
+		for (String password : commonPasswords) {
+			when(commonPassword.condition(password)).thenReturn(false);
+		}
+	}
+
 
 	@DisplayName("1234 es una contraseña muy corta")
 	@Test
@@ -52,50 +74,50 @@ class ValidadorContraseniaTest {
 
 	@Test
 	void batmanNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("batman"));
 	}
 
 	@Test
 	void icemannNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("iceman"));
 	}
 
 	@Test
 	void supermanNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("superman"));
 	}
 
 	@Test
 	void orangeNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("orange"));
 	}
 
 	@Test
 	void blackNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("black"));
 	}
 
 	@Test
 	void andreaNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("andrea"));
 	}
 
 	@Test
 	void thomasNoEsUnaClaveSegura() {
-		usarEstasValidaciones(new CommonPassword());
+		usarEstasValidaciones(commonPassword);
 		assertThrows(CommonPasswordException.class, () -> validar("thomas"));
 	}
 
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
-		usarEstasValidaciones(new CommonPassword(), new PasswordLength(), new LowerChar(), 
-		new UpperChar(), new NumberChar());
+		usarEstasValidaciones(commonPassword, new PasswordLength(), new LowerChar(), 
+			new UpperChar(), new NumberChar());
 		assertDoesNotThrow(() -> validar("123Asd123.0?"));
 	}
 

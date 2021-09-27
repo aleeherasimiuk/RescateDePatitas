@@ -1,10 +1,19 @@
 package dominio.preguntas;
 
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import persistencia.PersistentEntity;
 
-public class Respuesta {
-  private final Pregunta pregunta;
-  private final String respuesta;
+@Entity
+@Table(name="respuestas")
+public class Respuesta extends PersistentEntity {
+  @ManyToOne
+  private Pregunta pregunta;
+  private String respuesta;
+
+  protected Respuesta() {}
 
   public Respuesta(Pregunta pregunta, String respuesta) {
     this.pregunta = pregunta;
@@ -24,8 +33,8 @@ public class Respuesta {
 
     Respuesta respuestaQueMatchea = getPregunta().obtenerRespuestaQueMatchea(respuestas);
     if(respuestaQueMatchea == null) return true;
-    
+
     return respuestaQueMatchea.getRespuesta().equalsIgnoreCase(getRespuesta());
-    
+
   }
 }
