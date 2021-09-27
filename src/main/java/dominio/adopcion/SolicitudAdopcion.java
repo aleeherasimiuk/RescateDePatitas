@@ -1,20 +1,32 @@
 package dominio.adopcion;
 
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
+import persistencia.PersistentEntity;
 import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRecomendacion;
 
-import java.util.List;
+@Entity
+@Table(name="solicitud_adopcion")
+public class SolicitudAdopcion extends PersistentEntity{
+  @OneToMany
+  private List<Respuesta> respuestas;
+  @ManyToOne
+  private Asociacion asociacion;
+  @OneToOne
+  private Duenio adoptante;
 
-public class SolicitudAdopcion {
-  private final List<Respuesta> respuestas;
-  private final Asociacion asociacion;
-  private final Duenio adoptante;
+  protected SolicitudAdopcion(){}
 
   public SolicitudAdopcion(Duenio adoptante,Asociacion asociacion, List<Respuesta> respuestas) {
     this.respuestas = respuestas;

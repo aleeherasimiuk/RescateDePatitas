@@ -21,7 +21,7 @@ public class Contacto {
     this.email = email;
   }
 
-  public Contacto(){}
+  protected Contacto(){}
 
   public String getNombre() {
     return nombre;

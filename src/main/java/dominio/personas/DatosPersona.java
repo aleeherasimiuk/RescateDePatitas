@@ -1,15 +1,18 @@
 package dominio.personas;
 
-import persistencia.convertidores.ConvertidorLocalDate;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import persistencia.PersistentEntity;
+import persistencia.convertidores.ConvertidorLocalDate;
+
 @Entity
-public class DatosPersona {
-  @GeneratedValue
-  @Id
-  private Long id;
+@Table(name = "personas")
+public class DatosPersona extends PersistentEntity {
   private String apellido;
   private String nombre;
   @Embedded
@@ -17,6 +20,7 @@ public class DatosPersona {
   @Embedded
   private Contacto contacto;
   @Convert(converter = ConvertidorLocalDate.class)
+  @Column(name = "fecha_nacimiento")
   private LocalDate fechaNacimiento;
 
   public DatosPersona(String apellido, String nombre, Documento documento, Contacto contacto,
@@ -28,7 +32,7 @@ public class DatosPersona {
     this.fechaNacimiento = fechaNacimiento;
   }
 
-  public DatosPersona(){};
+  protected DatosPersona(){};
 
   public String getApellido() {
     return apellido;

@@ -1,25 +1,23 @@
 package dominio.personas;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Embeddable
 public class Documento {
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
+  @Column(name = "tipo_documento")
   private TipoDeDocumento tipo;
 
-
-
-  public Documento() {
-
-  }
+  protected Documento() {}
 
   public TipoDeDocumento getTipo() {
     return tipo;
   }
 
+  @Column(name = "numero_documento")
   private String numero;
 
   public String numero() {

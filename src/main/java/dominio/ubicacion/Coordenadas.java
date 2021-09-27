@@ -1,8 +1,13 @@
 package dominio.ubicacion;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Coordenadas{
   private Double latitud;
   private Double longitud;
+
+  protected Coordenadas() {}
 
   public Coordenadas(Double latitud, Double longitud) {
     this.latitud = latitud;

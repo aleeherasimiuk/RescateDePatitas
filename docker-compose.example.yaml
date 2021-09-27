@@ -16,6 +16,7 @@ services:
     image: mariadb:10.5.12
     volumes:
       - ./storage/db:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/create_tables.sql
     ports:
       - 3306:3306
     environment:

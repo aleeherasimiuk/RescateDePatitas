@@ -8,9 +8,26 @@
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <!-- Mascota -->
+        <class>dominio.mascota.Mascota</class>
+
+        <!-- Personas -->
         <class>dominio.personas.DatosPersona</class>
         <class>dominio.personas.Contacto</class>
         <class>dominio.personas.Documento</class>
+
+        <!-- Usuarios -->
+        <class>dominio.usuarios.Admin</class>
+        <class>dominio.usuarios.Duenio</class>
+        <class>dominio.usuarios.Usuario</class>
+        <class>dominio.usuarios.Voluntario</class>
+
+        <!-- Hogares -->
+        <class>dominio.hogares.Hogar</class>
+
+        <!-- Adopciones -->
+        <class>dominio.adopciones.DarEnAdopcion</class>
+        <class>dominio.adopciones.SolicitudAdopcion</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -37,6 +54,7 @@
                 - create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
                 - none: does nothing with the schema, makes no changes to the database
              -->
+             <property name="hibernate.physical_naming_strategy" value="com.vladmihalcea.hibernate.type.util.CamelCaseToSnakeCaseNamingStrategy"/>
         </properties>
 
     </persistence-unit>
