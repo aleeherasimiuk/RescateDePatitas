@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -31,16 +32,19 @@ public class Mascota extends PersistentEntity {
   private Sexo sexo;
 
   @ElementCollection
-  @CollectionTable(name = "fotos", joinColumns=@JoinColumn(name="mascota_id"))
+  @CollectionTable(name = "fotos_mascota", joinColumns=@JoinColumn(name="mascota_id"))
+  @Column(name="url")
   private List<String> fotos;
 
   @Enumerated(EnumType.STRING)
   private Tamanio tamanio;
 
   @ElementCollection
-  @CollectionTable(name = "caracteristicas", joinColumns=@JoinColumn(name="mascota_id"))
+  @CollectionTable(name = "caracteristicas_mascota", joinColumns=@JoinColumn(name="mascota_id"))
+  @Column(name="descripcion")
   private List<String> caracteristicas;
 
+  @Column(name="descripcion")
   private String descripcionFisica;
 
   protected Mascota(){}

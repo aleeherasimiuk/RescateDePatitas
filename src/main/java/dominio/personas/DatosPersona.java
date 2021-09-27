@@ -1,6 +1,8 @@
 package dominio.personas;
 
 import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ public class DatosPersona extends PersistentEntity {
   @Embedded
   private Contacto contacto;
   @Convert(converter = ConvertidorLocalDate.class)
+  @Column(name = "fecha_nacimiento")
   private LocalDate fechaNacimiento;
 
   public DatosPersona(String apellido, String nombre, Documento documento, Contacto contacto,
