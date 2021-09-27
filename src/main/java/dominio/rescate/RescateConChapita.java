@@ -1,8 +1,17 @@
 package dominio.rescate;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import dominio.exceptions.HogarNoAceptaMascota;
+import dominio.hogares.Hogar;
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
@@ -11,19 +20,13 @@ import persistencia.PersistentEntity;
 import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateConChapita;
-import dominio.hogares.Hogar;
-
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
+@Table(name="rescates_con_chapita")
 public class RescateConChapita extends PersistentEntity {
 
   @OneToOne
+  @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
 
   @ManyToOne

@@ -1,16 +1,20 @@
 package dominio.rescate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
+import javax.persistence.Table;
 import dominio.personas.DatosPersona;
 import dominio.repositorio.RepositorioRescatesConChapita;
 import persistencia.PersistentEntity;
 
 @Entity
+@Table(name="rescatistas")
 public class Rescatista extends PersistentEntity{
 
   @OneToOne
+  @JoinColumn(name = "datos_persona_id")
   private DatosPersona datosPersona;
 
   protected Rescatista(){}

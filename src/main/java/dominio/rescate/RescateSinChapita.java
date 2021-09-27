@@ -2,8 +2,8 @@ package dominio.rescate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.exceptions.HogarNoAceptaMascota;
 import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
@@ -29,20 +29,27 @@ import servicios.mail.JavaMail;
 import servicios.mail.MailRescateSinChapita;
 
 @Entity
+@Table(name="rescates_sin_chapita")
 public class RescateSinChapita extends PersistentEntity{
 
   @OneToOne
+  @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
 
   @Enumerated(EnumType.STRING)
   private Tamanio tamanio;
+
   @Enumerated(EnumType.STRING)
+  @Column(name="clase_mascota")
   private ClaseMascota claseMascota;
+  
   @ElementCollection
   @CollectionTable(name = "caracteristicas_rescate", joinColumns=@JoinColumn(name="rescate_id"))
+  @Column(name="descripcion")
   private List<String> caracteristicas_rescate;
 
   @ManyToOne
+  @JoinColumn(name = "asociacion_asignada_id")
   private Asociacion asociacionAsignada;
   @Enumerated(EnumType.STRING)
   private EstadoPublicacion estado;

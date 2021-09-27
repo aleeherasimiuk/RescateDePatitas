@@ -2,9 +2,8 @@ package dominio.adopcion;
 
 import dominio.exceptions.HayPreguntasSinResponder;
 import dominio.mascota.Mascota;
-import dominio.usuarios.Duenio;
-
 import dominio.repositorio.RepositorioPreguntas;
+import dominio.usuarios.Duenio;
 
 public class DarEnAdopcionBuilder extends AdopcionBuilder {
 

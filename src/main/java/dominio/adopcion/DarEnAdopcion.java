@@ -2,10 +2,13 @@ package dominio.adopcion;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
@@ -17,6 +20,7 @@ import servicios.mail.JavaMail;
 import servicios.mail.MailAdopcion;
 
 @Entity
+@Table(name="publicacion_adopcion")
 public class DarEnAdopcion extends PersistentEntity {
   @ManyToOne
   private Duenio duenio;
@@ -24,7 +28,9 @@ public class DarEnAdopcion extends PersistentEntity {
   private Mascota mascota;
   @ManyToOne
   private Asociacion asociacion;
+
   @OneToMany
+  @Column(name="respuesta")
   private List<Respuesta> respuestas;
 
 
