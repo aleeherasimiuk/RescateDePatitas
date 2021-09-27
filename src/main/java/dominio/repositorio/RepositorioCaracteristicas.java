@@ -31,4 +31,5 @@ public class RepositorioCaracteristicas extends Repositorio<String> {
 		return INSTANCE;
 	}
 
+
 }

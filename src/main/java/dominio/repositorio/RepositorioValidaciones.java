@@ -8,7 +8,7 @@ public class RepositorioValidaciones extends Repositorio<Validation>{
   private RepositorioValidaciones(){}
 
   public void validatePassword(String password){
-    super.repositorio.forEach((validacion) -> validacion.validatePassword(password));
+    super.forEach((validacion) -> validacion.validatePassword(password));
   }
 
   public static RepositorioValidaciones getInstance(){

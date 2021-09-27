@@ -9,7 +9,7 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
   private RepositorioDuenios() {}
 
   public Duenio duenioDe(Mascota mascota){
-    return super.buscar(duenio -> duenio.esMiMascota(mascota));
+    return paraTodos(list -> list.stream().filter(duenio -> duenio.esMiMascota(mascota)).findFirst().orElse(null));
   }
 
   public static RepositorioDuenios getInstance() {

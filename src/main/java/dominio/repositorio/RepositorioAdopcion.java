@@ -11,4 +11,5 @@ public class RepositorioAdopcion extends Repositorio<DarEnAdopcion>{
   public static RepositorioAdopcion getInstance() {
     return INSTANCE;
   }
+
 }

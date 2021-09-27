@@ -17,4 +17,6 @@ public class RepositorioAsociaciones extends Repositorio<Asociacion>{
   public Asociacion obtenerLaMasCercana(Coordenadas ubicacionDelRescate){
     return repositorio.stream().min(new AsociacionComparator(ubicacionDelRescate)).orElseThrow(() -> new NoHayAsociacionesDisponibles());
   }
+
+  
 }

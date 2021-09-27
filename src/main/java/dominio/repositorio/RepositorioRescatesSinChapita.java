@@ -1,19 +1,20 @@
 package dominio.repositorio;
 
+import java.util.List;
+
 import dominio.rescate.RescateSinChapita;
-import dominio.util.Lista;
 
 public class RepositorioRescatesSinChapita extends Repositorio<RescateSinChapita>{
   private static final RepositorioRescatesSinChapita INSTANCE = new RepositorioRescatesSinChapita();
 
   private RepositorioRescatesSinChapita() {}
 
-  public Lista<RescateSinChapita> publicacionesAprobadas(){
-    return repositorio.filter(RescateSinChapita::estaAprobada);
+  public List<RescateSinChapita> publicacionesAprobadas(){
+    return filtrar(RescateSinChapita::estaAprobada);
   } 
 
-  public Lista<RescateSinChapita> publicacionesPendientes(){
-    return repositorio.filter(RescateSinChapita::estaPendiente);
+  public List<RescateSinChapita> publicacionesPendientes(){
+    return filtrar(RescateSinChapita::estaPendiente);
   }
 
   public static RepositorioRescatesSinChapita getINSTANCE(){
