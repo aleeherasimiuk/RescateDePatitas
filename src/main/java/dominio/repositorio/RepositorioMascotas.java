@@ -7,6 +7,10 @@ public class RepositorioMascotas extends Repositorio<Mascota> {
 
   private RepositorioMascotas() {}
 
+  public Class getClase() {
+    return Mascota.class;
+  }
+
   public static RepositorioMascotas getINSTANCE() {
     return INSTANCE;
   }
