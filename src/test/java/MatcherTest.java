@@ -20,12 +20,14 @@ import dominio.preguntas.Pregunta;
 import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioPreguntas;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioAsociaciones;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
-@Disabled
+
 public class MatcherTest {
 
   private static Fixture fixture = new Fixture();
@@ -41,10 +43,10 @@ public class MatcherTest {
     RepositorioPreguntas.getInstance().vaciar();
     carlos = fixture.getCarlos();
     pupi = fixture.getPupi();
-    //carlos.registrarUnaMascota(fixture.getPupi());
+    carlos.registrarUnaMascota(pupi);
     samuel = fixture.getSamuel();
+    RepositorioDuenios.getInstance().registrar(samuel, carlos);
     asociacion = fixture.getColaDeGato();
-    RepositorioAsociaciones.getInstance().registrar(asociacion);
     preguntas = new Pregunta[]{
       new PreguntaBinaria("¿Necesita Patio?", "¿Tiene patio?"),
       new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),
@@ -52,11 +54,14 @@ public class MatcherTest {
     };
 
     for (Pregunta pregunta : preguntas) {
+      RepositorioPreguntas.getInstance().registrar(pregunta);
       asociacion.agregarPregunta(pregunta);
     }
 
-    global = new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?");
+    global = new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?", true);
     RepositorioPreguntas.getInstance().registrar(global);
+
+    RepositorioAsociaciones.getInstance().registrar(asociacion);
   }
 
   @Test
@@ -125,8 +130,10 @@ public class MatcherTest {
     solicitudBuilder.responderPregunta(preguntas[1], "PERRO");
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
+    //RepositorioSolicitudesAdopcion.getInstance().registrar(solicitud);
 
-    assertTrue(solicitud.recomendaciones().contains(publicacion));
+    //assertTrue(solicitud.recomendaciones().contains(publicacion));
+    assertEquals(solicitud.recomendaciones().stream().map(publi -> publi.getMascota().getApodo()).findFirst().orElse(null), "Pupi");
 
   }
 

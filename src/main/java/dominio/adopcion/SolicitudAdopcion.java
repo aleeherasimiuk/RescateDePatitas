@@ -1,9 +1,11 @@
 package dominio.adopcion;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -74,7 +76,13 @@ public class SolicitudAdopcion extends PersistentEntity{
     RepositorioAdopcion solicitudesDarEnAdopcion = RepositorioAdopcion.getInstance();
 
     return solicitudesDarEnAdopcion
-      .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio));
+     .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio));
+
+    //return solicitudesDarEnAdopcion.todos().stream().filter(publicacionDuenio -> this.matcheaCon(publicacionDuenio)).collect(Collectors.toList());
+
+    // return solicitudesDarEnAdopcion.paraTodos(list -> {
+    //   return list.stream().filter(publicacionDuenio -> this.matcheaCon(publicacionDuenio)).collect(Collectors.toList());
+    // });
   }
 
 }
