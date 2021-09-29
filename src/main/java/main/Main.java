@@ -9,7 +9,10 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.Recomendador;
+import dominio.usuarios.Admin;
+
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
 
@@ -54,17 +57,23 @@ public class Main {
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
     
+    Admin admin = new Admin("asd", "asdklasjdlkasjd");
+    admin.agregarCaracteristicas("FEO");
     
-    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+    // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+    // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+    // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
 
-    EntityTransaction transaction = entityManager.getTransaction();
+    // EntityTransaction transaction = entityManager.getTransaction();
 
-    transaction.begin();
-    entityManager.persist(datosPersona);
-    transaction.commit();
-    entityManager.close();
+    // transaction.begin();
+    // entityManager.persist(datosPersona);
+    // transaction.commit();
+    // entityManager.close();
+
+    // System.out.println(RepositorioDuenios.getInstance().todos());
+    
+
     System.exit(0);
   }
 

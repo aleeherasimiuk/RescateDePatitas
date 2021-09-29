@@ -2,6 +2,8 @@ package dominio.rescate;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -19,7 +21,8 @@ import persistencia.convertidores.ConvertidorLocalDate;
 @Entity
 @Table(name="rescates")
 public class DatosRescate extends PersistentEntity{
-  @ManyToOne
+  
+  @ManyToOne(cascade = CascadeType.MERGE)
   private Rescatista rescatista;
   @ElementCollection
   @CollectionTable(name = "fotos_rescate", joinColumns=@JoinColumn(name="rescate_id"))

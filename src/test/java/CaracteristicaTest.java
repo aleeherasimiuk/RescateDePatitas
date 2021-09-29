@@ -8,9 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
+@Disabled
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
 

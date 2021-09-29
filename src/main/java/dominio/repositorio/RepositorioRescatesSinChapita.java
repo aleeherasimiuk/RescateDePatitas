@@ -19,5 +19,10 @@ public class RepositorioRescatesSinChapita extends Repositorio<RescateSinChapita
 
   public static RepositorioRescatesSinChapita getINSTANCE(){
     return INSTANCE;
-  } 
+  }
+  
+  @Override
+  protected Class<RescateSinChapita> getClassName() {
+    return RescateSinChapita.class;
+  }
 }

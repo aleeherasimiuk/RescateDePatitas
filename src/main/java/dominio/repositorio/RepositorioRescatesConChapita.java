@@ -22,4 +22,9 @@ public class RepositorioRescatesConChapita extends Repositorio<RescateConChapita
   public static RepositorioRescatesConChapita getINSTANCE(){
     return INSTANCE;
   }
+
+  @Override
+  protected Class<RescateConChapita> getClassName() {
+    return RescateConChapita.class;
+  }
 }

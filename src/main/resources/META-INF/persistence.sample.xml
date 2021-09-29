@@ -28,6 +28,7 @@
         <!-- Adopciones -->
         <class>dominio.adopciones.DarEnAdopcion</class>
         <class>dominio.adopciones.SolicitudAdopcion</class>
+        <class>dominio.mascota.Caracteristica</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

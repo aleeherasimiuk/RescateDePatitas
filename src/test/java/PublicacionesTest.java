@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
 import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import dominio.asociacion.Asociacion;
@@ -42,7 +43,7 @@ public class PublicacionesTest {
 
   @Test
   void patitasSuciasQuedaMasCerca() {
-    assertEquals(patitasSucias, publicacionUTN.getAsociacionAsignada());
+    assertEquals(patitasSucias.getNombre(), publicacionUTN.getAsociacionAsignada().getNombre());
   }
 
 

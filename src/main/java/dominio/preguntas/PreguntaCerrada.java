@@ -15,8 +15,13 @@ public class PreguntaCerrada extends Pregunta {
   @Column(name="opcion")
   private List<String> opciones;
 
+  public PreguntaCerrada(boolean global, String preguntaDuenio, String preguntaAdoptante, String ...opciones) {
+    super(preguntaDuenio, preguntaAdoptante, global);
+    this.opciones = Arrays.asList(opciones);
+  }
+
   public PreguntaCerrada(String preguntaDuenio, String preguntaAdoptante, String ...opciones) {
-    super(preguntaDuenio, preguntaAdoptante);
+    super(preguntaDuenio, preguntaAdoptante, false);
     this.opciones = Arrays.asList(opciones);
   }
 

@@ -28,7 +28,7 @@ public class ObtenerPreguntas {
   }
 
   private Stream<Pregunta> preguntasGlobales(Function<Pregunta, String> funcion){
-    return preguntasSegun(RepositorioPreguntas.getInstance().todas().stream(), funcion);
+    return preguntasSegun(RepositorioPreguntas.getInstance().todos().stream(), funcion);
   }
 
   private Stream<Pregunta> preguntasSegun(Stream <Pregunta> stream, Function<Pregunta, String> funcion){

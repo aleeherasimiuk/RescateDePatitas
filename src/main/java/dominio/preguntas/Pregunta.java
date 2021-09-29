@@ -19,10 +19,19 @@ public class Pregunta extends PersistentEntity {
   private String preguntaDuenio;
   @Column(name="pregunta_adoptante")
   private String preguntaAdoptante;
+  private boolean global;
 
   protected Pregunta(){}
 
+  public Pregunta(String preguntaDuenio, String preguntaAdoptante, boolean global) {
+    this.global = global;
+    this.preguntaDuenio = preguntaDuenio;
+    this.preguntaAdoptante = preguntaAdoptante;
+  }
+
+
   public Pregunta(String preguntaDuenio, String preguntaAdoptante) {
+    this.global = false;
     this.preguntaDuenio = preguntaDuenio;
     this.preguntaAdoptante = preguntaAdoptante;
   }
@@ -52,5 +61,9 @@ public class Pregunta extends PersistentEntity {
         .filter(r -> r.getPregunta().equals(this))
         .findFirst()
         .orElse(null);
+  }
+
+  public boolean esGlobal() {
+    return global;
   }
 }

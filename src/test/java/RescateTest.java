@@ -58,14 +58,13 @@ public class RescateTest {
   @Test
   void ayerSePerdioPupi() {
     rescatePupi = fixture.getRescatePupi();
-    pedro.registrarRescate(rescatePupi);
-    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Pupi")));
+    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Pupi")));
   }
 
   @Test
   void felixSePerdioHaceMucho() {
     rescateFelix = fixture.getRescateFelix();
-    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Felix")));
+    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Felix")));
   }
 
   @Test

@@ -3,11 +3,15 @@ package dominio.usuarios;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
 
 import dominio.exceptions.DuenioNoPoseeMascota;
 import dominio.mascota.Mascota;
@@ -18,7 +22,7 @@ import dominio.repositorio.RepositorioMascotas;
 @Table(name = "duenios")
 public class Duenio extends Usuario {
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "persona_id")
   private DatosPersona datosPersona;
 
@@ -29,7 +33,7 @@ public class Duenio extends Usuario {
   protected Duenio(){}
 
   @OneToMany
-  @JoinColumn(name = "mascota_id")
+  @JoinColumn(name = "duenio_id")
   private List<Mascota> mascotasRegistradas;
 
   public Duenio(String username, String password, DatosPersona datosPersona) {
@@ -43,9 +47,9 @@ public class Duenio extends Usuario {
     RepositorioMascotas.getINSTANCE().registrar(mascota);
   }
 
-  // TODO: Comparar por otro atributo y no por la referencia a memoria.
   public boolean esMiMascota(Mascota mascota) {
-    return mascotasRegistradas.contains(mascota);
+    mascotasRegistradas.forEach(f -> {System.out.println(f.getApodo());});
+    return mascotasRegistradas.stream().anyMatch(otraMascota -> mascota.getId() == otraMascota.getId());
   }
 
   public void removerMascota(Mascota mascota) {

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import dominio.exceptions.HayPreguntasSinResponder;
 import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import dominio.adopcion.DarEnAdopcion;
@@ -20,9 +21,11 @@ import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioPreguntas;
 import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioAsociaciones;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
+@Disabled
 public class MatcherTest {
 
   private static Fixture fixture = new Fixture();
@@ -38,9 +41,10 @@ public class MatcherTest {
     RepositorioPreguntas.getInstance().vaciar();
     carlos = fixture.getCarlos();
     pupi = fixture.getPupi();
-    carlos.registrarUnaMascota(fixture.getPupi());
+    //carlos.registrarUnaMascota(fixture.getPupi());
     samuel = fixture.getSamuel();
     asociacion = fixture.getColaDeGato();
+    RepositorioAsociaciones.getInstance().registrar(asociacion);
     preguntas = new Pregunta[]{
       new PreguntaBinaria("¿Necesita Patio?", "¿Tiene patio?"),
       new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),

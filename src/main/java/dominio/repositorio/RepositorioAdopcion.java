@@ -12,4 +12,8 @@ public class RepositorioAdopcion extends Repositorio<DarEnAdopcion>{
     return INSTANCE;
   }
 
+  @Override
+  protected Class<DarEnAdopcion> getClassName() {
+    return DarEnAdopcion.class;
+  }
 }

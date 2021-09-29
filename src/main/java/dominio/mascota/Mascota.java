@@ -112,4 +112,5 @@ public class Mascota extends PersistentEntity {
   public Duenio obtenerDuenio() {
     return RepositorioDuenios.getInstance().duenioDe(this);
   }
+
 }
