@@ -5,19 +5,12 @@ import java.time.LocalDate;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
-import dominio.personas.Contacto;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
-import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.Recomendador;
-import dominio.usuarios.Admin;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public class Main {
 

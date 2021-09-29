@@ -10,9 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.FetchMode;
-import org.hibernate.annotations.Fetch;
-
 import dominio.exceptions.DuenioNoPoseeMascota;
 import dominio.mascota.Mascota;
 import dominio.personas.DatosPersona;

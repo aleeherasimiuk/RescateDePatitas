@@ -3,8 +3,6 @@ package dominio.adopcion;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.OneToMany;
-
 import dominio.asociacion.Asociacion;
 import dominio.exceptions.RespuestaInvalida;
 import dominio.preguntas.Pregunta;

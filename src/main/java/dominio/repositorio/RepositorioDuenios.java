@@ -1,7 +1,5 @@
 package dominio.repositorio;
 
-import java.util.Arrays;
-import java.util.List;
 
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;

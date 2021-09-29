@@ -20,7 +20,6 @@ import dominio.preguntas.Pregunta;
 import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioPreguntas;
-import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioDuenios;
