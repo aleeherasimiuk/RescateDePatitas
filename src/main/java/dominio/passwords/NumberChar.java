@@ -1,7 +1,9 @@
 package dominio.passwords;
 
-import dominio.exceptions.password.PasswordWithNumberCharException;
+import javax.persistence.Entity;
 
+import dominio.exceptions.password.PasswordWithNumberCharException;
+@Entity
 public class NumberChar extends RegexValidation{
 
   @Override

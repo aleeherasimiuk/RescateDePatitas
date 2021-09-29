@@ -52,7 +52,6 @@ public class ListaTest {
   }
 
   @Test
-  @Disabled
   void mascotasCastradas() {
     RepositorioCaracteristicas.getINSTANCE().vaciar();
     new Admin("username", "P4ssword").agregarUnaCaracteristica("CASTRADO");

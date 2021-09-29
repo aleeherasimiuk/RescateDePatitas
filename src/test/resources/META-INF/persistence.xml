@@ -39,6 +39,13 @@
         <class>dominio.preguntas.PreguntaBinaria</class>
         <class>dominio.preguntas.Respuesta</class>
         <class>dominio.mascota.Caracteristica</class>
+        <class>dominio.passwords.Validation</class>
+        <class>dominio.passwords.CommonPassword</class>
+        <class>dominio.passwords.LowerChar</class>
+        <class>dominio.passwords.NumberChar</class>
+        <class>dominio.passwords.PasswordLength</class>
+        <class>dominio.passwords.RegexValidation</class>
+        <class>dominio.passwords.UpperChar</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -49,7 +56,7 @@
             <property name="hibernate.connection.password" value="" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <!-- Enable the logging of all the generated SQL statements to the console -->
 
             <property name="hibernate.format_sql" value="true" />

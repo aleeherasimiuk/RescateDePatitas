@@ -1,7 +1,9 @@
 package dominio.passwords;
 
-import dominio.exceptions.password.PasswordWithUpperCharException;
+import javax.persistence.Entity;
 
+import dominio.exceptions.password.PasswordWithUpperCharException;
+@Entity
 public class UpperChar extends RegexValidation{
 
   @Override

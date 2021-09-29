@@ -8,7 +8,9 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -36,6 +38,12 @@ public class ServiciosTest {
   private HogaresAdapter hogaresAdapter;
   private HogaresServiceRefugioDDS service;
   List<Hogar> hogares;
+
+  @BeforeAll
+	static void setUpAll() {
+		Logger logger = Logger.getLogger("org.hibernate");
+    logger.setUseParentHandlers(false);
+	}
 
   @BeforeEach
   void setUp(){

@@ -2,13 +2,13 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dominio.exceptions.HayPreguntasSinResponder;
 import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import dominio.adopcion.DarEnAdopcion;
 import dominio.adopcion.DarEnAdopcionBuilder;
@@ -28,7 +28,7 @@ import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
 
-public class MatcherTest {
+public class MatcherTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
 
   private static Fixture fixture = new Fixture();
   private static Duenio carlos;
@@ -159,6 +159,5 @@ public class MatcherTest {
     assertFalse(solicitud.recomendaciones().contains(publicacion));
 
   }
-
 
 }

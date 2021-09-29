@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithEntityManager;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -82,6 +84,7 @@ public abstract class Repositorio<T>{
 
     query(entityManager -> {
       EntityTransaction transaction = entityManager.getTransaction();
+      
       transaction.begin();
       consumer.accept(entityManager);
       transaction.commit();
@@ -98,8 +101,8 @@ public abstract class Repositorio<T>{
   }
 
   protected <R> R query(Function<EntityManager, R> function){
-
     EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    //EntityManager entityManager = entityManager();
     R result = function.apply(entityManager);
     entityManager.close();
     return result;
