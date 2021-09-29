@@ -121,6 +121,7 @@ class MailerTest {
     assertEquals(mensaje, mailAdopcion.generarMail().getMensaje());
   }
 
+  @Disabled
   @Test
   void mailDeAdopcionAsuntoValido() {
     String asunto ="¡Tenemos noticias!. Conseguimos adoptante para: Pupi";

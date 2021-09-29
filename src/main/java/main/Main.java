@@ -56,9 +56,7 @@ public class Main {
     System.out.println("**************************************************");
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
-    
-    Admin admin = new Admin("asd", "asdklasjdlkasjd");
-    admin.agregarCaracteristicas("FEO");
+  
     
     // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
     // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");

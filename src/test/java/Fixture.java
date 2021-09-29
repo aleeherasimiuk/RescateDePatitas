@@ -182,8 +182,8 @@ public class Fixture {
   private RescateConChapita rescatarAPupi() {
     Duenio carlos = crearACarlos();
     Mascota pupi = crearAPupi();
-    RepositorioDuenios.getInstance().registrar(carlos);
     carlos.registrarUnaMascota(pupi);
+    RepositorioDuenios.getInstance().registrar(carlos);
 
     Rescatista pedro = crearAPedro();
 

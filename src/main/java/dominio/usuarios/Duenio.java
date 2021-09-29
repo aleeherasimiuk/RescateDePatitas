@@ -34,6 +34,7 @@ public class Duenio extends Usuario {
 
   @OneToMany
   @JoinColumn(name = "duenio_id")
+  //@Fetch(value = FetchMode.EAGER)
   private List<Mascota> mascotasRegistradas;
 
   public Duenio(String username, String password, DatosPersona datosPersona) {
