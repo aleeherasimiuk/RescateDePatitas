@@ -10,4 +10,9 @@ public class RepositorioMascotas extends Repositorio<Mascota> {
   public static RepositorioMascotas getINSTANCE() {
     return INSTANCE;
   }
+
+  @Override
+  protected Class<Mascota> getClassName() {
+    return Mascota.class;
+  }
 }

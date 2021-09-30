@@ -42,7 +42,7 @@ public class PublicacionesTest {
 
   @Test
   void patitasSuciasQuedaMasCerca() {
-    assertEquals(patitasSucias, publicacionUTN.getAsociacionAsignada());
+    assertEquals(patitasSucias.getNombre(), publicacionUTN.getAsociacionAsignada().getNombre());
   }
 
 

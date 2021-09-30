@@ -1,6 +1,6 @@
 package dominio.rescate;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -13,7 +13,7 @@ import persistencia.PersistentEntity;
 @Table(name="rescatistas")
 public class Rescatista extends PersistentEntity{
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "datos_persona_id")
   private DatosPersona datosPersona;
 

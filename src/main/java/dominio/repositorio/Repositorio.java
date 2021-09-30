@@ -1,60 +1,112 @@
 package dominio.repositorio;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
-import dominio.util.Lista;
-
-public abstract class Repositorio<T> {
+public abstract class Repositorio<T>{
   
-  protected final Lista<T> repositorio;
-  protected Repositorio(){
-    repositorio = new Lista<T>();
-  }
-
   public void registrar(T t){
-    repositorio.add(t);
+    transaction(entityManager -> entityManager.persist(t));
   }
 
   @SafeVarargs
-  public final void registrar(T... t){ // Si, yo estoy igual de WTF que ustedes
-    repositorio.add(t);
+  public final void registrar(T... t){
+    transaction(entityManager -> {
+      for (T objects : t) {
+        entityManager.persist(objects);
+      }
+    });
+  }
+
+  public void actualizar(T t){
+    transaction(entityManager -> entityManager.merge(t));
   }
 
   public void borrar(T t){
-    repositorio.remove(t);
+    transaction(entityManager -> entityManager.remove(t));
   }
 
-  public T buscar(Predicate<T> condicion){
-    return repositorio.find(condicion);
-  }
-
-  public Lista<T> filtrar(Predicate<T> condicion){
-    return repositorio.filter(condicion);
+  public List<T> filtrar(Predicate<T> condicion){
+    return paraTodos(list -> list.stream().filter(condicion).collect(Collectors.toList()));
   }
 
   public int cantidadRegistros(){
-    return repositorio.size();
+    return query(entityManager -> {
+      return ((Long) entityManager
+        .createQuery("SELECT COUNT(e) FROM "+ getClassName().getSimpleName() + " e")
+        .getSingleResult())
+        .intValue();
+    });
   }
 
   public int contar(Predicate<T> condicion){
-    return repositorio.count(condicion);
-  }
-
-  public boolean existe(Predicate<T> condicion){
-    return repositorio.contains(condicion);
+    return paraTodos(list -> (int) list.stream().filter(condicion).count());
   }
 
   public void vaciar(){
-    repositorio.clear();
+    transaction(entityManager -> {
+      entityManager.createQuery("DELETE FROM " + getClassName().getSimpleName())
+        .executeUpdate();
+    });
   }
 
-  public Lista<T> todas(){
-    return repositorio;
+
+  public List<T> todos(){
+    return paraTodos(list -> list);
   }
 
+  public <R> R paraTodos(Function<List<T>, R> function){
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    List<T> list = (List<T>) entityManager.createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e", getClassName())
+      //.setParameter("table", getEntityName())
+      .getResultList();
+    System.out.println(list.size());
+    R result = function.apply(list);
+    entityManager.close();
+
+    return result;
+  }
+
+
+  @Deprecated
   public void forEach(Consumer<T> consumer){
-    repositorio.forEach(consumer);
+    todos().forEach(consumer);
   }
+
+  protected void transaction(Consumer<EntityManager> consumer){
+
+    query(entityManager -> {
+      EntityTransaction transaction = entityManager.getTransaction();
+      
+      transaction.begin();
+      consumer.accept(entityManager);
+      transaction.commit();
+
+      return null;
+    });
+
+    // EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    // EntityTransaction transaction = entityManager.getTransaction();
+    // transaction.begin();
+    // consumer.accept(entityManager);
+    // transaction.commit();
+    // entityManager.close();
+  }
+
+  protected <R> R query(Function<EntityManager, R> function){
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    //EntityManager entityManager = entityManager();
+    R result = function.apply(entityManager);
+    entityManager.close();
+    return result;
+  }
+
+  protected abstract Class<T> getClassName();
   
 }

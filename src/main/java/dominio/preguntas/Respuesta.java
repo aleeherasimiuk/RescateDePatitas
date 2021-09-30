@@ -1,6 +1,8 @@
 package dominio.preguntas;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -9,7 +11,7 @@ import persistencia.PersistentEntity;
 @Entity
 @Table(name="respuestas")
 public class Respuesta extends PersistentEntity {
-  @ManyToOne
+  @ManyToOne(cascade=CascadeType.MERGE)
   private Pregunta pregunta;
   private String respuesta;
 

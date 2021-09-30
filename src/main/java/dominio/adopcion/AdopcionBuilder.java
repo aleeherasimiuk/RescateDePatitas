@@ -7,6 +7,7 @@ import dominio.asociacion.Asociacion;
 import dominio.exceptions.RespuestaInvalida;
 import dominio.preguntas.Pregunta;
 import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioRespuestas;
 import dominio.usuarios.Duenio;
 
 public abstract class AdopcionBuilder {
@@ -28,7 +29,9 @@ public abstract class AdopcionBuilder {
     if (!pregunta.esRespuestaValida(respuesta))
       throw new RespuestaInvalida(pregunta.getPreguntaDuenio());
 
-    respuestas.add(new Respuesta(pregunta, respuesta));
+    Respuesta resp = new Respuesta(pregunta, respuesta);
+    respuestas.add(resp);
+    //RepositorioRespuestas.getInstance().registrar(resp);
     return this;
   }
 

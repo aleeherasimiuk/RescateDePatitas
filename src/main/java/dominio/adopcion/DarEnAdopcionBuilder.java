@@ -21,7 +21,7 @@ public class DarEnAdopcionBuilder extends AdopcionBuilder {
 
   @Override
   public void validate() {
-    final int cantPreguntasTotal =  getAsociacion().cantidadDePreguntas() + RepositorioPreguntas.getInstance().cantidadRegistros();
+    final int cantPreguntasTotal =  getAsociacion().cantidadDePreguntas() + RepositorioPreguntas.getInstance().globales().size();
     if (cantPreguntasTotal != getRespuestas().size())
       throw new HayPreguntasSinResponder();
   }

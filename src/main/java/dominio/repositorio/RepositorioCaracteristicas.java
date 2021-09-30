@@ -1,25 +1,28 @@
 package dominio.repositorio;
 
-import dominio.exceptions.CaracteristicaRepetida;
 
-public class RepositorioCaracteristicas extends Repositorio<String> {
-	
+import dominio.exceptions.CaracteristicaRepetida;
+import dominio.mascota.Caracteristica;
+
+public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
+
 	private static final RepositorioCaracteristicas INSTANCE = new RepositorioCaracteristicas();
 
-	private RepositorioCaracteristicas(){}
+	protected RepositorioCaracteristicas(){}
 	
 	@Override
-	public void registrar(String caracteristica) {
-		validarCaracteristica(caracteristica);
+	public void registrar(Caracteristica caracteristica) {
+		validarCaracteristica(caracteristica.getNombre());
 		super.registrar(caracteristica);
 	}
 
-	public void borrarCaracteristica(String titulo) {
-		super.repositorio.remove(titulo);
+	public void borrarCaracteristica(Caracteristica caracteristica) {
+		borrar(caracteristica);
 	}
 
-	public boolean existeCaracteristica(String titulo) {
-		return super.repositorio.contains(titulo);
+	// TODO: Refactor
+	public boolean existeCaracteristica(String caracteristica) {
+		return todos().stream().map(Caracteristica::getNombre).anyMatch(c -> c.equals(caracteristica));
 	}
 
 	private void validarCaracteristica(String caracteristica) {
@@ -30,5 +33,10 @@ public class RepositorioCaracteristicas extends Repositorio<String> {
 	public static RepositorioCaracteristicas getINSTANCE() {
 		return INSTANCE;
 	}
+
+	@Override
+  protected Class<Caracteristica> getClassName() {
+    return Caracteristica.class;
+  }
 
 }

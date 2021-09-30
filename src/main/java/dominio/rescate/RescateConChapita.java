@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +25,7 @@ import servicios.mail.MailRescateConChapita;
 @Table(name="rescates_con_chapita")
 public class RescateConChapita extends PersistentEntity {
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
 

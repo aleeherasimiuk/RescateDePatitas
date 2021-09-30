@@ -2,6 +2,8 @@ package dominio.usuarios;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import dominio.mascota.Caracteristica;
 import dominio.repositorio.RepositorioCaracteristicas;
 
 @Entity
@@ -15,11 +17,11 @@ public class Admin extends Usuario{
   }
 
   public void agregarUnaCaracteristica(String caracteristica) {
-    RepositorioCaracteristicas.getINSTANCE().registrar(caracteristica.toUpperCase());
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica(caracteristica.toUpperCase()));
   }
 
   public void eliminarUnaCaracteristica(String titulo) {
-    RepositorioCaracteristicas.getINSTANCE().borrarCaracteristica(titulo);
+    RepositorioCaracteristicas.getINSTANCE().borrarCaracteristica(new Caracteristica(titulo.toUpperCase()));
   }
 
   public void agregarCaracteristicas(String... caracteristicas){

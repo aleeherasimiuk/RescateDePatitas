@@ -26,19 +26,37 @@
         <class>dominio.hogares.Hogar</class>
 
         <!-- Adopciones -->
-        <class>dominio.adopciones.DarEnAdopcion</class>
-        <class>dominio.adopciones.SolicitudAdopcion</class>
+        <class>dominio.adopcion.DarEnAdopcion</class>
+        <class>dominio.adopcion.SolicitudAdopcion</class>
+
+        <class>dominio.rescate.RescateConChapita</class>
+        <class>dominio.rescate.RescateSinChapita</class>
+        <class>dominio.rescate.Rescatista</class>
+        <class>dominio.rescate.DatosRescate</class>
+        <class>dominio.asociacion.Asociacion</class>
+        <class>dominio.preguntas.Pregunta</class>
+        <class>dominio.preguntas.PreguntaCerrada</class>
+        <class>dominio.preguntas.PreguntaBinaria</class>
+        <class>dominio.preguntas.Respuesta</class>
         <class>dominio.mascota.Caracteristica</class>
+        <class>dominio.passwords.Validation</class>
+        <class>dominio.passwords.CommonPassword</class>
+        <class>dominio.passwords.LowerChar</class>
+        <class>dominio.passwords.NumberChar</class>
+        <class>dominio.passwords.PasswordLength</class>
+        <class>dominio.passwords.RegexValidation</class>
+        <class>dominio.passwords.UpperChar</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
 
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://" />
-            <property name="hibernate.connection.username" value="" />
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />
+            <property name="hibernate.connection.username" value="sa" />
             <property name="hibernate.connection.password" value="" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <!-- Enable the logging of all the generated SQL statements to the console -->
 
             <property name="hibernate.format_sql" value="true" />
@@ -47,7 +65,7 @@
             <property name="use_sql_comments" value="true" />
             <!-- Hibernate will put comments inside all generated SQL statements to hint what’s the generated SQL trying to do -->
 
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
             <!--
                 - validate: validate the schema, makes no changes to the database.
                 - update: update the schema.

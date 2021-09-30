@@ -5,20 +5,34 @@ import java.time.LocalDate;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import dominio.mascota.ClaseMascota;
+import dominio.mascota.Mascota;
+import dominio.mascota.Sexo;
+import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.tareas.Recomendador;
+
+import dominio.usuarios.Duenio;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public class Main {
 
   public static void main(String[] args) {
+    Duenio duenio = new Duenio("iancrespiok", "123", new DatosPersona("Crespi","Ian",new Documento(TipoDeDocumento.DNI,"222"),new Contacto("ian","crespi",111111,"hola@hola.com"),LocalDate.now()));
+    Mascota mascota = new Mascota(ClaseMascota.PERRO,"Pancho", "Pancho", 0, Sexo.MACHO, Tamanio.CHICO);
+
+    duenio.registrarUnaMascota(mascota);
+
+    RepositorioDuenios.getInstance().registrar(duenio);
+
+    System.exit(0);
 
     System.out.println("**********************");
     System.out.println("**Iniciando Servidor**");
@@ -53,18 +67,22 @@ public class Main {
     System.out.println("**************************************************");
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
+  
     
+    // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+    // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+    // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+
+    // EntityTransaction transaction = entityManager.getTransaction();
+
+    // transaction.begin();
+    // entityManager.persist(datosPersona);
+    // transaction.commit();
+    // entityManager.close();
+
+    // System.out.println(RepositorioDuenios.getInstance().todos());
     
-    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
 
-    EntityTransaction transaction = entityManager.getTransaction();
-
-    transaction.begin();
-    entityManager.persist(datosPersona);
-    transaction.commit();
-    entityManager.close();
     System.exit(0);
   }
 

@@ -2,6 +2,8 @@ package dominio.rescate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -32,7 +34,7 @@ import servicios.mail.MailRescateSinChapita;
 @Table(name="rescates_sin_chapita")
 public class RescateSinChapita extends PersistentEntity{
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
 
@@ -48,7 +50,7 @@ public class RescateSinChapita extends PersistentEntity{
   @Column(name="descripcion")
   private List<String> caracteristicas_rescate;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "asociacion_asignada_id")
   private Asociacion asociacionAsignada;
   @Enumerated(EnumType.STRING)

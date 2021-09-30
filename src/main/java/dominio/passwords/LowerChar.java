@@ -1,7 +1,9 @@
 package dominio.passwords;
 
-import dominio.exceptions.password.PasswordWithLowerCharException;
+import javax.persistence.Entity;
 
+import dominio.exceptions.password.PasswordWithLowerCharException;
+@Entity
 public class LowerChar extends RegexValidation{
 
   @Override

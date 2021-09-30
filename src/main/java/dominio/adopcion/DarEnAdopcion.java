@@ -2,13 +2,14 @@ package dominio.adopcion;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
+
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
@@ -22,14 +23,14 @@ import servicios.mail.MailAdopcion;
 @Entity
 @Table(name="publicacion_adopcion")
 public class DarEnAdopcion extends PersistentEntity {
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   private Duenio duenio;
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   private Mascota mascota;
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   private Asociacion asociacion;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL)
   @Column(name="respuesta")
   private List<Respuesta> respuestas;
 

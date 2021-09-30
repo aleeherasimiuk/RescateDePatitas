@@ -1,10 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
+import java.util.logging.Logger;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import dominio.usuarios.Usuario;
 
@@ -25,22 +24,34 @@ import dominio.passwords.Validation;
 import dominio.repositorio.RepositorioValidaciones;
 import dominio.usuarios.Admin;
 import org.mindrot.jbcrypt.BCrypt;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-class ValidadorContraseniaTest {
+
+class ValidadorContraseniaTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
 	RepositorioValidaciones repositorioValidaciones = RepositorioValidaciones.getInstance();
-	static CommonPassword commonPassword;
+	//static CommonPassword commonPassword;
+
+
+	@BeforeEach
+	void setUpEach(){
+		withTransaction(() -> {
+
+			entityManager().createNativeQuery(
+				"CREATE TABLE IF NOT EXISTS common_passwords (password VARCHAR(255) NOT NULL);"
+				).executeUpdate();
+
+			entityManager().createNativeQuery(
+				"INSERT INTO common_passwords (password) VALUES ('batman'),('iceman'),('superman'),('orange'),('black'),('andrea'),('thomas')"
+			).executeUpdate();
+		});
+	}
 
 	@BeforeAll
 	static void setUp() {
-		commonPassword = mock(CommonPassword.class);
-		doThrow(CommonPasswordException.class).when(commonPassword).error();
 
-		when(commonPassword.condition(anyString())).thenReturn(true);
-
-		String[] commonPasswords = new String[]{"batman","iceman","superman","orange","black","andrea","thomas"};
-		for (String password : commonPasswords) {
-			when(commonPassword.condition(password)).thenReturn(false);
-		}
+		Logger logger = Logger.getLogger("org.hibernate");
+    logger.setUseParentHandlers(false);
 	}
 
 
@@ -74,49 +85,49 @@ class ValidadorContraseniaTest {
 
 	@Test
 	void batmanNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("batman"));
 	}
 
 	@Test
 	void icemannNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("iceman"));
 	}
 
 	@Test
 	void supermanNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("superman"));
 	}
 
 	@Test
 	void orangeNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("orange"));
 	}
 
 	@Test
 	void blackNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("black"));
 	}
 
 	@Test
 	void andreaNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("andrea"));
 	}
 
 	@Test
 	void thomasNoEsUnaClaveSegura() {
-		usarEstasValidaciones(commonPassword);
+		usarEstasValidaciones(new CommonPassword());
 		assertThrows(CommonPasswordException.class, () -> validar("thomas"));
 	}
 
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
-		usarEstasValidaciones(commonPassword, new PasswordLength(), new LowerChar(), 
+		usarEstasValidaciones(new CommonPassword(), new PasswordLength(), new LowerChar(), 
 			new UpperChar(), new NumberChar());
 		assertDoesNotThrow(() -> validar("123Asd123.0?"));
 	}
