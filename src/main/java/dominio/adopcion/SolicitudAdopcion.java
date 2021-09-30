@@ -1,18 +1,34 @@
 package dominio.adopcion;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.preguntas.Respuesta;
+import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.usuarios.Duenio;
+import persistencia.PersistentEntity;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRecomendacion;
 
-import java.util.List;
+@Entity
+@Table(name="solicitud_adopcion")
+public class SolicitudAdopcion extends PersistentEntity{
+  @OneToMany(cascade=CascadeType.ALL)
+  private List<Respuesta> respuestas;
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private Asociacion asociacion;
+  @OneToOne
+  private Duenio adoptante;
 
-public class SolicitudAdopcion {
-  private final List<Respuesta> respuestas;
-  private final Asociacion asociacion;
-  private final Duenio adoptante;
+  protected SolicitudAdopcion(){}
 
   public SolicitudAdopcion(Duenio adoptante,Asociacion asociacion, List<Respuesta> respuestas) {
     this.respuestas = respuestas;
@@ -34,11 +50,37 @@ public class SolicitudAdopcion {
 
   public void recomendar(List<DarEnAdopcion> recomendaciones, JavaMail javaMail) {
     MailRecomendacion mailer = new MailRecomendacion(adoptante, recomendaciones);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    } catch(EmailException e){
+      System.out.println("Error al enviar el correo" + e.getMessage());
+      // Encolar para la próxima
+    }
   }
 
   public void darDeBaja(){
     RepositorioSolicitudesAdopcion.getInstance().borrar(this);
+  }
+
+  public boolean matcheaCon(DarEnAdopcion publicacionDuenio) {
+    return getRespuestas()
+          .stream()
+          .filter(respuesta -> !respuesta.getPregunta().esAbierta())
+          .allMatch(respuesta -> respuesta.matcheaConAlguna(publicacionDuenio.getRespuestas()));
+  }
+
+  public List<DarEnAdopcion> recomendaciones(){
+
+    RepositorioAdopcion solicitudesDarEnAdopcion = RepositorioAdopcion.getInstance();
+
+    return solicitudesDarEnAdopcion
+     .filtrar(publicacionDuenio -> this.matcheaCon(publicacionDuenio));
+
+    //return solicitudesDarEnAdopcion.todos().stream().filter(publicacionDuenio -> this.matcheaCon(publicacionDuenio)).collect(Collectors.toList());
+
+    // return solicitudesDarEnAdopcion.paraTodos(list -> {
+    //   return list.stream().filter(publicacionDuenio -> this.matcheaCon(publicacionDuenio)).collect(Collectors.toList());
+    // });
   }
 
 }

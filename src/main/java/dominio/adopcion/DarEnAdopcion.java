@@ -1,19 +1,41 @@
 package dominio.adopcion;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import javax.persistence.Table;
+
 import dominio.asociacion.Asociacion;
 import dominio.mascota.Mascota;
 import dominio.preguntas.Respuesta;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.usuarios.Duenio;
+import persistencia.PersistentEntity;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailAdopcion;
 
-public class DarEnAdopcion {
-  private final Duenio duenio;
-  private final Mascota mascota;
-  private final Asociacion asociacion;
-  private final List<Respuesta> respuestas;
+@Entity
+@Table(name="publicacion_adopcion")
+public class DarEnAdopcion extends PersistentEntity {
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private Duenio duenio;
+  @ManyToOne(cascade = CascadeType.MERGE)
+  private Mascota mascota;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Asociacion asociacion;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  @Column(name="respuesta")
+  private List<Respuesta> respuestas;
+
+
+  protected DarEnAdopcion() {}
 
   public DarEnAdopcion(Duenio duenio, Mascota mascota, Asociacion asociacion, List<Respuesta> respuestas) {
     this.duenio = duenio;
@@ -40,7 +62,12 @@ public class DarEnAdopcion {
     adoptante.registrarUnaMascota(mascota);
 
     MailAdopcion mailer = new MailAdopcion(this, adoptante);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    } catch (EmailException e) {
+      System.out.println("Error al enviar el mail de adopción" + e.getMessage());
+      // Encolar para la próxima
+    }
   }
 
   public void darDeBaja(){

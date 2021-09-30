@@ -1,39 +1,28 @@
 package dominio.passwords;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.math.BigInteger;
 
-import dominio.exceptions.FileNotFound;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dominio.exceptions.password.CommonPasswordException;
 
+@Entity
 public class CommonPassword extends Validation{
 
-  private static final String FILENAME = "10k-most-common.txt";
-  private static final String PATH = FileSystems.getDefault().getPath(FILENAME).toString();
-
-
-  private static boolean isCommon(String password, Stream<String> stream) {
-    return stream.anyMatch(elemento -> elemento.contentEquals(password));
+  @Override
+  public boolean condition(String password) {
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    return ((BigInteger) entityManager.createNativeQuery("SELECT COUNT(*) FROM common_passwords p WHERE p.password = :password")
+    .setParameter("password", password)
+    .getResultList().get(0)).intValue() == 0;
   }
 
   @Override
-  protected boolean condition(String password) {
-    try(Stream<String> stream = Files.lines(Paths.get(PATH))) {
-      return !isCommon(password, stream);
-    } catch (IOException e) {
-      throw new FileNotFound();
-    }
-  }
-
-  @Override
-  protected RuntimeException error() {
+  public RuntimeException error() {
     return new CommonPasswordException();
-  }
-
-
-  
+  }  
   
 }

@@ -1,20 +1,44 @@
 package dominio.hogares;
 
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Tamanio;
 import dominio.ubicacion.Coordenadas;
-import dominio.util.Lista;
+import persistencia.PersistentEntity;
 
-public class Hogar {
-  private final String nombre;
-  private final String telefono;
-  private final Lista<ClaseMascota> preferencias;
-  private final Boolean tienePatio;
-  private final Lista<String> caracteristicasEspecificas;
-  private final Coordenadas ubicacion;
+@Entity
+@Table(name="hogares")
+public class Hogar extends PersistentEntity{
+  private String nombre;
+  private String telefono;
+  @ElementCollection
+  @CollectionTable(name = "preferencias", joinColumns=@JoinColumn(name="hogar_id"))
+  @Column(name="tipo")
+  private List<ClaseMascota> preferencias;
+  @Column(name="patio")
+  private Boolean tienePatio;
+
+  @ElementCollection
+  @CollectionTable(name = "caracteristicas_hogares", joinColumns=@JoinColumn(name="hogar_id"))
+  @Column(name="descripcion")
+  private List<String> caracteristicasEspecificas;
+
+  @Embedded
+  private Coordenadas ubicacion;
+
+  @Column(name="tiene_capacidad")
   private Boolean tieneCapacidad;
 
-  public Hogar(String nombre, String telefono, Lista<ClaseMascota> preferencias, Boolean tienePatio, Lista<String> caracteristicasEspecificas,
+  protected Hogar(){}
+
+  public Hogar(String nombre, String telefono, List<ClaseMascota> preferencias, Boolean tienePatio, List<String> caracteristicasEspecificas,
       Coordenadas ubicacion, Boolean tieneCapacidad) {
     this.nombre = nombre;
     this.telefono = telefono;
@@ -24,11 +48,6 @@ public class Hogar {
     this.ubicacion = ubicacion;
     this.tieneCapacidad = tieneCapacidad;
   }
-
-  ////TODO: WTF?
-	//public static Lista<Hogar> getHogares(HogaresService service) {
-  //  return service.getListadoHogares();
-  //}
 
   public Boolean aceptaMascota(ClaseMascota claseMascota, Tamanio tamanio){
     return tieneCapacidad && aceptaClase(claseMascota) && aceptaTamanio(tamanio);
@@ -54,11 +73,11 @@ public class Hogar {
     return telefono;
   }
 
-  public Lista<ClaseMascota> getPreferencias() {
+  public List<ClaseMascota> getPreferencias() {
     return preferencias;
   }
 
-  public Lista<String> getCaracteristicasEspecificas() {
+  public List<String> getCaracteristicasEspecificas() {
     return caracteristicasEspecificas;
   }
 
@@ -74,7 +93,7 @@ public class Hogar {
     return tienePatio;
   }
 
-  public boolean matcheaCaracteristica(Lista<String> caracteristicas) {
+  public boolean matcheaCaracteristica(List<String> caracteristicas) {
     return caracteristicas.containsAll(caracteristicasEspecificas);
   }
 

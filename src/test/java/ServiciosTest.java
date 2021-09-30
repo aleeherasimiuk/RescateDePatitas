@@ -8,7 +8,9 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +23,7 @@ import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 import dominio.util.Lista;
 import servicios.hogares.HogaresAdapter;
 import servicios.hogares.HogaresServiceRefugioDDS;
@@ -35,6 +37,12 @@ public class ServiciosTest {
   private HogaresAdapter hogaresAdapter;
   private HogaresServiceRefugioDDS service;
   List<Hogar> hogares;
+
+  @BeforeAll
+	static void setUpAll() {
+		Logger logger = Logger.getLogger("org.hibernate");
+    logger.setUseParentHandlers(false);
+	}
 
   @BeforeEach
   void setUp(){
@@ -173,7 +181,7 @@ public class ServiciosTest {
 
   Mascota buildRobert(){
     Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
-    new Administrador("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
+    new Admin("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
     robert.agregarUnaCaracteristica("CALMADO");
     robert.agregarUnaCaracteristica("No muerde");
     robert.agregarUnaCaracteristica("tierno");

@@ -1,5 +1,8 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
 import dominio.adopcion.DarEnAdopcion;
 import dominio.adopcion.DarEnAdopcionBuilder;
 import dominio.asociacion.Asociacion;
@@ -16,8 +19,11 @@ import dominio.preguntas.Pregunta;
 import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioPreguntas;
+import dominio.repositorio.RepositorioRescatesConChapita;
+import dominio.repositorio.RepositorioRescatistas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.RescateConChapita;
@@ -30,6 +36,15 @@ public class Fixture {
 
   private final Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
   private final Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
+
+  public Fixture() {
+    // Log only SQL    
+    Logger logger = Logger.getLogger("org.hibernate");
+    logger.setUseParentHandlers(false);
+
+    // Log SQL statements to archive
+
+  }
 
   public Mascota getPupi() {
     return crearAPupi();
@@ -130,7 +145,10 @@ public class Fixture {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789654");
     DatosPersona datosPersona = new DatosPersona("Perez", "Pedro", documento, otroContacto(), stringAFecha("02/02/1996"));
 
-    return new Rescatista(datosPersona, "Calle Falsa 123");
+    Rescatista rescatista = new Rescatista(datosPersona, "Calle Falsa 123");
+    RepositorioRescatistas.getInstance().registrar(rescatista);
+
+    return rescatista;
   }
 
   private Mascota crearAPupi() {
@@ -168,12 +186,14 @@ public class Fixture {
   private RescateConChapita rescatarAPupi() {
     Duenio carlos = crearACarlos();
     Mascota pupi = crearAPupi();
-    RepositorioDuenios.getInstance().registrar(carlos);
     carlos.registrarUnaMascota(pupi);
+    RepositorioDuenios.getInstance().registrar(carlos);
 
-    
-    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
+    Rescatista pedro = crearAPedro();
+
+    DatosRescate datosRescate = new DatosRescate(pedro, new ArrayList<>(), LocalDate.now(), "parece ser un gato siames", buildUTN());
     RescateConChapita rescatePupi = new RescateConChapita(datosRescate, pupi);
+    RepositorioRescatesConChapita.getINSTANCE().registrar(rescatePupi);
     return rescatePupi;
   }
 
@@ -227,31 +247,34 @@ public class Fixture {
   }
   
   private Pregunta tipicaPreguntaGlobal() {
-    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?");    
+    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?", true);    
   }
   
   public DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi(){
-    Asociacion asociacion = getColaDeGato();    
+    Asociacion asociacion = getColaDeGato();
     Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
     Pregunta global = tipicaPreguntaGlobal();
-
-    for (Pregunta pregunta : preguntas) {
-      asociacion.agregarPregunta(pregunta);
-    }
+    
     RepositorioPreguntas.getInstance().vaciar();
     RepositorioPreguntas.getInstance().registrar(global);
+    for (Pregunta pregunta : preguntas) {
+    //  RepositorioPreguntas.getInstance().registrar(pregunta);
+      asociacion.agregarPregunta(pregunta);
+    }
+    
+    //RepositorioAsociaciones.getInstance().registrar(asociacion);
     Duenio sabato = getSabato();
-    Mascota pupi = getPupi();
+    Mascota felix = getFelix();
 
+    sabato.registrarUnaMascota(felix);
     RepositorioDuenios.getInstance().registrar(sabato);
-    sabato.registrarUnaMascota(pupi);
 
-    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(sabato, pupi);
+    DarEnAdopcionBuilder builder = new DarEnAdopcionBuilder(sabato, felix);
     builder.setAsociacion(asociacion);
     builder.responderPregunta(preguntas[0], "SI");
     builder.responderPregunta(preguntas[1], "PERRO");
     builder.responderPregunta(preguntas[2], "Tiene convulsiones");
-    builder.responderPregunta(tipicaPreguntaGlobal(), "SI");
+    builder.responderPregunta(global, "SI");
     DarEnAdopcion publicacion = builder.build();
     
     RepositorioAdopcion.getInstance().registrar(publicacion);

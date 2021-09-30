@@ -1,6 +1,12 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.logging.Logger;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+
 import dominio.usuarios.Usuario;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +22,38 @@ import dominio.passwords.PasswordLength;
 import dominio.passwords.UpperChar;
 import dominio.passwords.Validation;
 import dominio.repositorio.RepositorioValidaciones;
-import dominio.usuarios.Administrador;
+import dominio.usuarios.Admin;
 import org.mindrot.jbcrypt.BCrypt;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-class ValidadorContraseniaTest {
+
+class ValidadorContraseniaTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
 	RepositorioValidaciones repositorioValidaciones = RepositorioValidaciones.getInstance();
+	//static CommonPassword commonPassword;
+
+
+	@BeforeEach
+	void setUpEach(){
+		withTransaction(() -> {
+
+			entityManager().createNativeQuery(
+				"CREATE TABLE IF NOT EXISTS common_passwords (password VARCHAR(255) NOT NULL);"
+				).executeUpdate();
+
+			entityManager().createNativeQuery(
+				"INSERT INTO common_passwords (password) VALUES ('batman'),('iceman'),('superman'),('orange'),('black'),('andrea'),('thomas')"
+			).executeUpdate();
+		});
+	}
+
+	@BeforeAll
+	static void setUp() {
+
+		Logger logger = Logger.getLogger("org.hibernate");
+    logger.setUseParentHandlers(false);
+	}
+
 
 	@DisplayName("1234 es una contraseña muy corta")
 	@Test
@@ -95,13 +128,13 @@ class ValidadorContraseniaTest {
 	@Test
 	void esSeguraUnaClaveAlfanumericaConSimbolos() {
 		usarEstasValidaciones(new CommonPassword(), new PasswordLength(), new LowerChar(), 
-		new UpperChar(), new NumberChar());
+			new UpperChar(), new NumberChar());
 		assertDoesNotThrow(() -> validar("123Asd123.0?"));
 	}
 
 	@Test
 	void testHashPassword(){
-		Usuario usuario = new Administrador("JorgeLanata", "ensaladA10");
+		Usuario usuario = new Admin("JorgeLanata", "ensaladA10");
 		assertTrue (BCrypt.checkpw("ensaladA10",usuario.getPassword()));
 	}
 

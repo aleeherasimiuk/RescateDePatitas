@@ -8,11 +8,17 @@ public class RepositorioValidaciones extends Repositorio<Validation>{
   private RepositorioValidaciones(){}
 
   public void validatePassword(String password){
-    super.repositorio.forEach((validacion) -> validacion.validatePassword(password));
+    
+    todos().stream().filter(Validation::activada).forEach((validacion) -> validacion.validatePassword(password));
   }
 
   public static RepositorioValidaciones getInstance(){
     return INSTANCE;
+  }
+
+  @Override
+  protected Class<Validation> getClassName() {
+    return Validation.class;
   }
   
 }

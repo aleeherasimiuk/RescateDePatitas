@@ -1,5 +1,19 @@
 package dominio.rescate;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import dominio.asociacion.Asociacion;
 import dominio.exceptions.HogarNoAceptaMascota;
 import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
@@ -11,31 +25,55 @@ import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.tareas.ValidadorCaracteristica;
-import dominio.util.Lista;
+import persistencia.PersistentEntity;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateSinChapita;
 
-public class RescateSinChapita {
+@Entity
+@Table(name="rescates_sin_chapita")
+public class RescateSinChapita extends PersistentEntity{
 
-  private final DatosRescate datosRescate;
-  private final Tamanio tamanio;
-  private final ClaseMascota claseMascota;
-  private final Lista<String> caracteristicas;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="rescate_id", referencedColumnName="id")
+  private DatosRescate datosRescate;
 
+  @Enumerated(EnumType.STRING)
+  private Tamanio tamanio;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name="clase_mascota")
+  private ClaseMascota claseMascota;
+  
+  @ElementCollection
+  @CollectionTable(name = "caracteristicas_rescate", joinColumns=@JoinColumn(name="rescate_id"))
+  @Column(name="descripcion")
+  private List<String> caracteristicas_rescate;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "asociacion_asignada_id")
   private Asociacion asociacionAsignada;
+  @Enumerated(EnumType.STRING)
   private EstadoPublicacion estado;
+
+  protected RescateSinChapita() {}
 
   public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
     this.datosRescate = datosRescate;
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
-    caracteristicas = new Lista<String>();
+    caracteristicas_rescate = new ArrayList<String>();
   }
 
   public void confirmarMascotaEncontrada(JavaMail javaMail){
     MailRescateSinChapita mailer = new MailRescateSinChapita(this);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    }catch(EmailException e){
+      System.out.println("Error al enviar el mail" + e.getMessage());
+      // Encolar para la próxima vez
+    }
     datosRescate.confirmarEncuentro();
   }
 
@@ -72,7 +110,7 @@ public class RescateSinChapita {
 
   public void agregarUnaCaracteristica(String caracteristica) {
     new ValidadorCaracteristica().validarCaracteristica(caracteristica);
-    this.caracteristicas.add(caracteristica.toUpperCase());
+    this.caracteristicas_rescate.add(caracteristica.toUpperCase());
   }
 
   public Asociacion getAsociacionAsignada() {
@@ -100,9 +138,9 @@ public class RescateSinChapita {
     return claseMascota;
   }
 
-  public Lista<String> getCaracteristicas() {
-    return caracteristicas;
+  public List<String> getCaracteristicas() {
+    return caracteristicas_rescate;
   }
 
-  
+
 }

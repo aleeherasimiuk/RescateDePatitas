@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Mascota -->
+        <class>dominio.mascota.Mascota</class>
+
+        <!-- Personas -->
+        <class>dominio.personas.DatosPersona</class>
+        <class>dominio.personas.Contacto</class>
+        <class>dominio.personas.Documento</class>
+
+        <!-- Usuarios -->
+        <class>dominio.usuarios.Admin</class>
+        <class>dominio.usuarios.Duenio</class>
+        <class>dominio.usuarios.Usuario</class>
+        <class>dominio.usuarios.Voluntario</class>
+
+        <!-- Hogares -->
+        <class>dominio.hogares.Hogar</class>
+
+        <!-- Adopciones -->
+        <class>dominio.adopciones.DarEnAdopcion</class>
+        <class>dominio.adopciones.SolicitudAdopcion</class>
+        <class>dominio.mascota.Caracteristica</class>
+
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://" />
+            <property name="hibernate.connection.username" value="" />
+            <property name="hibernate.connection.password" value="" />
+
+            <property name="hibernate.show_sql" value="true" />
+            <!-- Enable the logging of all the generated SQL statements to the console -->
+
+            <property name="hibernate.format_sql" value="true" />
+            <!-- Format the generated SQL statement to make it more readable -->
+
+            <property name="use_sql_comments" value="true" />
+            <!-- Hibernate will put comments inside all generated SQL statements to hint what’s the generated SQL trying to do -->
+
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <!--
+                - validate: validate the schema, makes no changes to the database.
+                - update: update the schema.
+                - create: creates the schema, destroying previous data.
+                - create-drop: drop the schema when the SessionFactory is closed explicitly, typically when the application is stopped.
+                - none: does nothing with the schema, makes no changes to the database
+             -->
+             <property name="hibernate.physical_naming_strategy" value="com.vladmihalcea.hibernate.type.util.CamelCaseToSnakeCaseNamingStrategy"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

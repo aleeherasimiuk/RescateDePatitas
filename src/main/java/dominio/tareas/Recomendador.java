@@ -7,11 +7,11 @@ public class Recomendador {
 
   public void enviarRecomendaciones(JavaMail javaMail){
 
-    RepositorioSolicitudesAdopcion repo = RepositorioSolicitudesAdopcion.getInstance();
-    
-    Matcher matcher = new Matcher();
+    RepositorioSolicitudesAdopcion solicitudesAdopcion 
+      = RepositorioSolicitudesAdopcion.getInstance();
 
-    repo.forEach((solicitud) -> solicitud.recomendar(matcher.recomendaciones(solicitud), javaMail));
+    solicitudesAdopcion
+      .forEach((solicitud) -> solicitud.recomendar(solicitud.recomendaciones(), javaMail));
   
   }
   

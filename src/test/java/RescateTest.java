@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
+import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescatesConChapita;
 
@@ -40,8 +41,9 @@ public class RescateTest {
     vladi  = fixture.getVladi();
     utn    = fixture.getUTN();
 
+
     samuel.registrarUnaMascota(vladi);
-    
+    RepositorioDuenios.getInstance().registrar(samuel);
   }
 
   @AfterEach
@@ -58,14 +60,13 @@ public class RescateTest {
   @Test
   void ayerSePerdioPupi() {
     rescatePupi = fixture.getRescatePupi();
-    pedro.registrarRescate(rescatePupi);
-    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Pupi")));
+    assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Pupi")));
   }
 
   @Test
   void felixSePerdioHaceMucho() {
     rescateFelix = fixture.getRescateFelix();
-    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().contains(mascota -> mascota.getApodo().equals("Felix")));
+    assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Felix")));
   }
 
   @Test

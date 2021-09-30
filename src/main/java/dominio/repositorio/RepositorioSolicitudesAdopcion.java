@@ -11,5 +11,10 @@ public class RepositorioSolicitudesAdopcion extends Repositorio<SolicitudAdopcio
   public static RepositorioSolicitudesAdopcion getInstance() {
     return INSTANCE;
   }
+
+  @Override
+  protected Class<SolicitudAdopcion> getClassName() {
+    return SolicitudAdopcion.class;
+  }
   
 }

@@ -1,24 +1,38 @@
 package dominio.rescate;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import dominio.exceptions.HogarNoAceptaMascota;
+import dominio.hogares.Hogar;
 import dominio.mascota.Mascota;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.ubicacion.Coordenadas;
+import persistencia.PersistentEntity;
+import servicios.mail.EmailException;
 import servicios.mail.JavaMail;
 import servicios.mail.MailRescateConChapita;
-import dominio.hogares.Hogar;
 
-import java.time.temporal.ChronoUnit;
-import java.util.List;
+@Entity
+@Table(name="rescates_con_chapita")
+public class RescateConChapita extends PersistentEntity {
 
-public class RescateConChapita {
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name="rescate_id", referencedColumnName="id")
+  private DatosRescate datosRescate;
 
-  private final DatosRescate datosRescate;
-
+  @ManyToOne
   private Mascota mascota;
+
+  protected RescateConChapita(){}
 
   public RescateConChapita(DatosRescate datosRescate, Mascota mascota) {
     this.datosRescate = datosRescate;
@@ -27,7 +41,12 @@ public class RescateConChapita {
 
   public void avisarAlDuenio(JavaMail javaMail){
     MailRescateConChapita mailer = new MailRescateConChapita(this);
-    javaMail.enviarMail(mailer);
+    try{
+      javaMail.enviarMail(mailer);
+    } catch(EmailException e){
+      System.out.println("Error al enviar el mail: " + e.getMessage());
+      // Encolar para la próxima vez
+    }
   }
 
   public void agregarUnaFoto(String url) {
@@ -68,10 +87,6 @@ public class RescateConChapita {
     return mascota != null;
   }
 
-  public void setMascota(Mascota mascota) {
-    this.mascota = mascota;
-  }
-
   public LocalDate getFecha() {
     return datosRescate.getFecha();
   }
@@ -87,7 +102,7 @@ public class RescateConChapita {
   public Contacto datosDeContacto(){
     return getDatosDeRescatista().getContacto();
   }
-  
+
   public DatosPersona getDatosDeRescatista() {
     return datosRescate.getRescatista().getDatosPersona();
   }

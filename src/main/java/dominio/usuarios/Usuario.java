@@ -1,12 +1,23 @@
 package dominio.usuarios;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import dominio.repositorio.RepositorioValidaciones;
+import persistencia.PersistentEntity;
 
-public abstract class Usuario {
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "usuarios")
+public abstract class Usuario extends PersistentEntity {
 
   private String username;
+
+  protected Usuario(){}
 
   public String getUsername() {
     return username;

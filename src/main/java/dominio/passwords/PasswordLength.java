@@ -1,7 +1,9 @@
 package dominio.passwords;
 
-import dominio.exceptions.password.PasswordLengthException;
+import javax.persistence.Entity;
 
+import dominio.exceptions.password.PasswordLengthException;
+@Entity
 public class PasswordLength extends Validation{
 
   @Override
