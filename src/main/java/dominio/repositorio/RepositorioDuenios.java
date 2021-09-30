@@ -31,10 +31,12 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
       
     // });
 
+
     return paraTodos(list -> {
       list.forEach(duenio -> System.out.println(duenio.getDatosPersona().getNombre()));
       return list.stream().filter(duenio -> duenio.esMiMascota(mascota)).findFirst().orElse(null);
     });
+
   }
 
   public static RepositorioDuenios getInstance() {

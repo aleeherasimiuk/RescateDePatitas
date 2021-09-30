@@ -31,7 +31,7 @@ public abstract class AdopcionBuilder {
 
     Respuesta resp = new Respuesta(pregunta, respuesta);
     respuestas.add(resp);
-    RepositorioRespuestas.getInstance().registrar(resp);
+    //RepositorioRespuestas.getInstance().registrar(resp);
     return this;
   }
 

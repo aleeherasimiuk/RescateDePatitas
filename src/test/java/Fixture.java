@@ -258,11 +258,11 @@ public class Fixture {
     RepositorioPreguntas.getInstance().vaciar();
     RepositorioPreguntas.getInstance().registrar(global);
     for (Pregunta pregunta : preguntas) {
-      RepositorioPreguntas.getInstance().registrar(pregunta);
+    //  RepositorioPreguntas.getInstance().registrar(pregunta);
       asociacion.agregarPregunta(pregunta);
     }
     
-    RepositorioAsociaciones.getInstance().registrar(asociacion);
+    //RepositorioAsociaciones.getInstance().registrar(asociacion);
     Duenio sabato = getSabato();
     Mascota felix = getFelix();
 

@@ -97,6 +97,14 @@ public class Mascota extends PersistentEntity {
     return sexo;
   }
 
+  public void setApodo(String apodo) {
+    this.apodo = apodo;
+  }
+
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+
   public String getDescripcionFisica() {
     return descripcionFisica;
   }

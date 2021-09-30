@@ -27,10 +27,10 @@ public class DarEnAdopcion extends PersistentEntity {
   private Duenio duenio;
   @ManyToOne(cascade = CascadeType.MERGE)
   private Mascota mascota;
-  @ManyToOne(cascade = CascadeType.MERGE)
+  @ManyToOne(cascade = CascadeType.ALL)
   private Asociacion asociacion;
 
-  @OneToMany(cascade = CascadeType.MERGE)
+  @OneToMany(cascade = CascadeType.ALL)
   @Column(name="respuesta")
   private List<Respuesta> respuestas;
 

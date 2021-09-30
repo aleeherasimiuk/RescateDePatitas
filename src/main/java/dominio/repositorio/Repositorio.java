@@ -24,6 +24,10 @@ public abstract class Repositorio<T>{
     });
   }
 
+  public void actualizar(T t){
+    transaction(entityManager -> entityManager.merge(t));
+  }
+
   public void borrar(T t){
     transaction(entityManager -> entityManager.remove(t));
   }
@@ -68,6 +72,7 @@ public abstract class Repositorio<T>{
 
     return result;
   }
+
 
   @Deprecated
   public void forEach(Consumer<T> consumer){
