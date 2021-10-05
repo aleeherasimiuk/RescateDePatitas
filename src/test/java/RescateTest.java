@@ -32,11 +32,11 @@ public class RescateTest extends AbstractTest{
   void iniciarRegistro() {
 
     
-    pedro  = fixture.getPedro();
-    samuel = fixture.getSamuel();
+    pedro  = fixture.crearAPedro();
+    samuel = fixture.crearASamuel();
     
-    vladi  = fixture.getVladi();
-    utn    = fixture.getUTN();
+    vladi  = fixture.crearAVladi();
+    utn    = fixture.buildUTN();
 
     samuel.registrarUnaMascota(vladi);
     RepositorioDuenios.getInstance().registrar(samuel);
@@ -50,61 +50,61 @@ public class RescateTest extends AbstractTest{
 
   @Test
   void ayerSePerdioPupi() {
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertTrue(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Pupi")));
   }
 
   @Test
   void felixSePerdioHaceMucho() {
-    rescateFelix = fixture.getRescateFelix();
+    rescateFelix = fixture.rescatarAFelix();
     assertFalse(repoRescates.mascotasEncontradasEnLosUltimos10Dias().stream().anyMatch(mascota -> mascota.getApodo().equals("Felix")));
   }
 
   @Test
   void unDuenioNoConoceLaMascotaDeOtroDuenio() {
-    felix  = fixture.getFelix();
+    felix  = fixture.crearAFelix();
   	assertFalse(samuel.esMiMascota(felix));
   }
 
   @Test
   void siHoySeRescataUnaMascotaDebeEstarRegistradoConFechaDeHoy() {
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals(LocalDate.now(), rescatePupi.getFecha());
   }
 
   @Test
   void elRescatistaEsPedro(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals("Pedro", rescatePupi.getDatosDeRescatista().getNombre());
   }
 
   @Test
   void laMascotaEsChica(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals(Tamanio.CHICO, rescatePupi.getMascota().getTamanio());
   }
 
   @Test
   void laMascotaEsGato(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals(ClaseMascota.GATO, rescatePupi.getMascota().getClase());
   }
 
   @Test
   void laMascotaEstabaEnLaUTN(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals(0, rescatePupi.getLugar().distanciaA(utn));
   }
 
   @Test
   void laMascotaPareceSerUnGatoSiames(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals("parece ser un gato siames",rescatePupi.getDescripcion());
   }
 
   @Test
   void emailDeContacto(){
-    rescatePupi = fixture.getRescatePupi();
+    rescatePupi = fixture.rescatarAPupi();
     assertEquals("robertito@gmail.com",rescatePupi.datosDeContacto().getEmail());
   }
 }

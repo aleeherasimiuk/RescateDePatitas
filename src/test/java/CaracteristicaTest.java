@@ -75,8 +75,8 @@ class CaracteristicaTest {
 	@Test
 	void unaMascotaDeColorRojaSeReconoceComoRoja(){
 		Fixture fixture = new Fixture();
-		Duenio carlos = fixture.getCarlos();
-		Mascota felix = fixture.getFelix();
+		Duenio carlos = fixture.crearACarlos();
+		Mascota felix = fixture.crearAFelix();
 		carlos.registrarUnaMascota(felix);
 		felix.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
 		assertTrue(felix.getCaracteristicas().contains("COLOR-PRIMARIO-ROJO"));
@@ -85,8 +85,8 @@ class CaracteristicaTest {
 	@Test
 	void unaMascotaRojaNoPuedeSerDeOtroColor(){
 		Fixture fixture = new Fixture();
-		Duenio carlos = fixture.getCarlos();
-		Mascota felix = fixture.getFelix();
+		Duenio carlos = fixture.crearACarlos();
+		Mascota felix = fixture.crearAFelix();
 		carlos.registrarUnaMascota(felix);
 		felix.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
 		assertFalse(felix.getCaracteristicas().contains("COLOR-PRIMARIO-AMARILLO"));
@@ -95,7 +95,7 @@ class CaracteristicaTest {
 	@Test
 	void caracteristicaInvalida(){
 		Fixture fixture = new Fixture();
-		Mascota felix = fixture.getFelix();
+		Mascota felix = fixture.crearAFelix();
 		assertThrows(CaracteristicaInvalida.class, () -> felix.agregarUnaCaracteristica("Panza Negra"));
 	}
 

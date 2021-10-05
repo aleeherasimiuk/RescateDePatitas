@@ -33,11 +33,11 @@ public class PublicacionesTest extends AbstractTest{
     repoAsociaciones.vaciar();
 
     Fixture fixture = new Fixture();
-    patitasSucias = fixture.getPatitasSucias();
-    colaDeGato = fixture.getColaDeGato();
+    patitasSucias = fixture.asociacionPatitasSucias();
+    colaDeGato = fixture.asociacionColaDeGato();
     repoAsociaciones.registrar(patitasSucias);
     repoAsociaciones.registrar(colaDeGato);
-    publicacionUTN = fixture.getPublicacionUTN();
+    publicacionUTN = fixture.publicacionMascotaUTN();
     publicacionUTN.asignarAsociacion();
   }
 
@@ -75,7 +75,7 @@ public class PublicacionesTest extends AbstractTest{
   @Test
   void noSePuedePedirUnaAsociacionSiNuncaSeAsigno() {
     Fixture fixture = new Fixture();
-    assertThrows(NoHayAsociacionAsignadaAlRescate.class, () -> fixture.getPublicacionUTN().getAsociacionAsignada());
+    assertThrows(NoHayAsociacionAsignadaAlRescate.class, () -> fixture.publicacionMascotaUTN().getAsociacionAsignada());
   }
 
   @Test
@@ -106,7 +106,7 @@ public class PublicacionesTest extends AbstractTest{
 
   @Test
   void laMascotaDesconocidaEstabaEnLaUTN(){
-    assertEquals(0, new Fixture().getUTN().distanciaA(publicacionUTN.getDatosRescate().getLugar()));
+    assertEquals(0, new Fixture().buildUTN().distanciaA(publicacionUTN.getDatosRescate().getLugar()));
   }
 
   @Test

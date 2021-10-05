@@ -36,12 +36,12 @@ public class MatcherTest extends AbstractTest {
 
   @BeforeEach
   void setUp(){
-    carlos = fixture.getCarlos();
-    pupi = fixture.getPupi();
+    carlos = fixture.crearACarlos();
+    pupi = fixture.crearAPupi();
     carlos.registrarUnaMascota(pupi);
-    samuel = fixture.getSamuel();
+    samuel = fixture.crearASamuel();
     RepositorioDuenios.getInstance().registrar(samuel, carlos);
-    asociacion = fixture.getColaDeGato();
+    asociacion = fixture.asociacionColaDeGato();
     preguntas = new Pregunta[]{
       new PreguntaBinaria("¿Necesita Patio?", "¿Tiene patio?"),
       new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),

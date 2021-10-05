@@ -20,15 +20,15 @@ class HogaresTest extends AbstractTest{
 	@BeforeEach
   void iniciarRegistro() {
     Fixture fixture = new Fixture();
-    somosHogarCarinioso = fixture.getHogarCarinio();
-    elHiltonParaGatos = fixture.getElHiltonParaGatos();
-    elHiltonPerruno = fixture.getElHiltonPerruno();
-    elPequenioHogarPerruno= fixture.getElPequenioHogarPerruno();
-    unHogarAbandonado= fixture.getHogarAbandonado();
+    somosHogarCarinioso = fixture.crearHogarCarinioso();
+    elHiltonParaGatos = fixture.crearHiltonParaGatos();
+    elHiltonPerruno = fixture.crearHiltonPerruno();
+    elPequenioHogarPerruno= fixture.crearPequenioHogarPerruno();
+    unHogarAbandonado= fixture.crearHogarAbandonado();
 
-    pupi   = fixture.getPupi();
-    felix  = fixture.getFelix();
-    vladi  = fixture.getVladi();
+    pupi   = fixture.crearAPupi();
+    felix  = fixture.crearAFelix();
+    vladi  = fixture.crearAVladi();
 	}
 		
 	@Test

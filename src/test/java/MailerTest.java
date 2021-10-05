@@ -33,14 +33,13 @@ class MailerTest extends AbstractTest{
   @BeforeEach
   void setup() {
     publicaciones = new ArrayList<>();
-    rescateConChapita = fixture.getRescatePupi();
-    publicacionMascotaUTN = fixture.getPublicacionUTN();
+    rescateConChapita = fixture.rescatarAPupi();
+    publicacionMascotaUTN = fixture.publicacionMascotaUTN();
     mailRescateConChapita = new MailRescateConChapita(rescateConChapita);
     mailRescateSinChapita = new MailRescateSinChapita(publicacionMascotaUTN);    
     publicacionSabatoDaEnAdopcionAPupi = fixture.publicacionSabatoDaEnAdopcionAPupi();
   
-    sabato = fixture.getSabato();
-    //carlos.registrarUnaMascota(fixture.getPupi());
+    sabato = fixture.crearASabato();
     
     publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
   }
