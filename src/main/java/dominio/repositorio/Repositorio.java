@@ -62,7 +62,6 @@ public abstract class Repositorio<T>{
     List<T> list = (List<T>) entityManager.createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e", getClassName())
       //.setParameter("table", getEntityName())
       .getResultList();
-    //System.out.println(list.size());
     R result = function.apply(list);
     entityManager.close();
 

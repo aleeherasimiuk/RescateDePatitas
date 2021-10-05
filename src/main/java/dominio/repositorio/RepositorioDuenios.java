@@ -31,7 +31,6 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
       )
     );
     TypedQuery<Duenio> q = entityManager.createQuery(query);
-    System.out.println(q.getResultList());
     return q.getSingleResult();
   }
 
