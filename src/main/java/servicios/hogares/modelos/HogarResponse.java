@@ -1,6 +1,6 @@
 package servicios.hogares.modelos;
 
-import dominio.util.Lista;
+import java.util.List;
 
 public class HogarResponse {
   public String nombre;
@@ -9,5 +9,5 @@ public class HogarResponse {
   public Admision admisiones;
   public int lugares_disponibles;
   public boolean patio;
-  public Lista<String> caracteristicas;
+  public List<String> caracteristicas;
 }

@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import dominio.adopcion.DarEnAdopcion;
@@ -30,7 +32,6 @@ import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
-import dominio.util.Lista;
 
 public class Fixture {
 
@@ -178,7 +179,7 @@ public class Fixture {
   }
 
   private RescateConChapita rescatarAFelix() {
-    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
+    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new ArrayList<>(), LocalDate.now().plusDays(-15), "perro negro con mancha blanca en la panza", new Coordenadas(-55., -55.));
     RescateConChapita rescateFelix = new RescateConChapita(datosRescate, crearAFelix());
     return rescateFelix;
   }
@@ -198,7 +199,7 @@ public class Fixture {
   }
 
   private RescateSinChapita publicacionMascotaUTN(){
-    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new Lista<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
+    DatosRescate datosRescate = new DatosRescate(crearAPedro(), new ArrayList<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
     return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
   }
 
@@ -215,21 +216,21 @@ public class Fixture {
   }
   
   private Hogar crearHogarCarinioso() {  	
-  	Lista<ClaseMascota> prefierenCualquierMascota = new Lista<ClaseMascota>(ClaseMascota.PERRO, ClaseMascota.GATO);
+  	List<ClaseMascota> prefierenCualquierMascota = Arrays.asList(ClaseMascota.PERRO, ClaseMascota.GATO);
   	  	
-		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new Lista<String>(), buildUTN(), true);
+		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new ArrayList<>(), buildUTN(), true);
   }
 
   private Hogar crearHiltonPerruno() {  	  	
-		return new Hogar("elHiltonPerruno", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), true, new Lista<String>(), buildUTN(), true);
+		return new Hogar("elHiltonPerruno", "0800-999-112", Arrays.asList(ClaseMascota.PERRO), true, new ArrayList<>(), buildUTN(), true);
   }
 
   private Hogar crearHiltonParaGatos() {  	  	
-		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.GATO), true, new Lista<String>(), buildUTN(), true);
+		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", Arrays.asList(ClaseMascota.GATO), true, new ArrayList<>(), buildUTN(), true);
   }
 
   private Hogar crearPequenioHogarPerruno() {  	  	
-		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", new Lista<ClaseMascota>(ClaseMascota.PERRO), false, new Lista<String>(), buildUTN(), false);
+		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", Arrays.asList(ClaseMascota.PERRO), false, new ArrayList<>(), buildUTN(), false);
   }
 
   private Coordenadas buildUTN(){

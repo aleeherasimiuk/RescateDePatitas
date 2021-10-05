@@ -36,7 +36,6 @@ import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Admin;
-import dominio.util.Lista;
 import servicios.hogares.HogaresAdapter;
 import servicios.hogares.HogaresServiceRefugioDDS;
 import servicios.hogares.modelos.Admision;
@@ -167,16 +166,17 @@ public class ServiciosTest {
     for (String caracteristica : buildRobert().getCaracteristicas()) {
       publicacion.agregarUnaCaracteristica(caracteristica);
     }
-    Lista<Hogar> hogaresPosibles = new Lista<Hogar>(hogaresAdapter.obtenerPosiblesHogaresPara(publicacion,service));
+    List<Hogar> hogaresPosibles = hogaresAdapter.obtenerPosiblesHogaresPara(publicacion,service);
 
-    assertTrue(hogaresPosibles.contains(hogar -> hogar.getNombre().equals("Hogar: #7")));
+    //assertTrue(hogaresPosibles.contains(hogar -> hogar.getNombre().equals("Hogar: #7")));
+    assertTrue(hogaresPosibles.stream().anyMatch(hogar -> hogar.getNombre().equals("Hogar: #7")));
   }
 
   Pagina buildPage(String offset, int total){
     Pagina pagina = new Pagina();
     pagina.total = total;
     pagina.offset = offset;
-    pagina.hogares = new Lista<>();
+    pagina.hogares = new ArrayList<>();
 
     for(int i = 0; i < 10; i++){
       pagina.hogares.add(buildHogar(Integer.parseInt(offset) * i));
@@ -202,7 +202,7 @@ public class ServiciosTest {
     ubicacion.direccion = "Calle falsa " + unNumero;
     hogarResponse.ubicacion = ubicacion;
     String[] caracteristicas = new String[]{"CALMADO", "NO MUERDE", "TIERNO", "AGRESIVO", "PEQUEÑO",  "DUERME MUCHO"};
-    hogarResponse.caracteristicas = new Lista<>();
+    hogarResponse.caracteristicas = new ArrayList<>();
     for(int i = 0; i < unNumero % 4; i++){
       hogarResponse.caracteristicas.add(caracteristicas[i % 6]);
     }

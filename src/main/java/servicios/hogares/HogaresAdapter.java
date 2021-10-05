@@ -1,5 +1,6 @@
 package servicios.hogares;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -8,7 +9,6 @@ import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
 import dominio.rescate.RescateSinChapita;
 import dominio.ubicacion.Coordenadas;
-import dominio.util.Lista;
 import servicios.hogares.modelos.HogarResponse;
 import servicios.hogares.modelos.Pagina;
 
@@ -45,8 +45,8 @@ public class HogaresAdapter{
     return hogares;
   }
 
-  public Lista<Pagina> paginas(HogaresServiceRefugioDDS service){
-    final Lista<Pagina> paginas = new Lista<>();
+  public List<Pagina> paginas(HogaresServiceRefugioDDS service){
+    final List<Pagina> paginas = new ArrayList<>();
 
     int i = 1;
     while (true) {
@@ -68,7 +68,7 @@ public class HogaresAdapter{
   private Hogar convertHogar(HogarResponse hogarResponse) {
     String nombre = hogarResponse.nombre;
     String telefono = hogarResponse.telefono;
-    Lista<ClaseMascota> preferencias = new Lista<>();
+    List<ClaseMascota> preferencias = new ArrayList<>();
 
     if (hogarResponse.admisiones.gatos) {
       preferencias.add(ClaseMascota.GATO);
@@ -79,7 +79,7 @@ public class HogaresAdapter{
     }
 
     Boolean tienePatio = hogarResponse.patio;
-    Lista<String> caracteristicasEspecificas = hogarResponse.caracteristicas;
+    List<String> caracteristicasEspecificas = hogarResponse.caracteristicas;
     Boolean tieneCapacidad = hogarResponse.lugares_disponibles > 0;
     Coordenadas coordenadas = new Coordenadas(hogarResponse.ubicacion.latitud, hogarResponse.ubicacion.longitud);
 
