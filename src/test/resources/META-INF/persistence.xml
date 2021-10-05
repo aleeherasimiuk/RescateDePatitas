@@ -56,7 +56,7 @@
             <property name="hibernate.connection.password" value="" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 
-            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.show_sql" value="true" />
             <!-- Enable the logging of all the generated SQL statements to the console -->
 
             <property name="hibernate.format_sql" value="true" />

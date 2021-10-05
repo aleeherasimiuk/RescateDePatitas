@@ -62,7 +62,7 @@ public abstract class Repositorio<T>{
     List<T> list = (List<T>) entityManager.createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e", getClassName())
       //.setParameter("table", getEntityName())
       .getResultList();
-    System.out.println(list.size());
+    //System.out.println(list.size());
     R result = function.apply(list);
     entityManager.close();
 
@@ -80,7 +80,12 @@ public abstract class Repositorio<T>{
       EntityTransaction transaction = entityManager.getTransaction();
       
       transaction.begin();
-      consumer.accept(entityManager);
+      try{
+        consumer.accept(entityManager);
+      } catch(Exception e){
+        transaction.rollback();
+        throw e;
+      }
       transaction.commit();
 
       return null;

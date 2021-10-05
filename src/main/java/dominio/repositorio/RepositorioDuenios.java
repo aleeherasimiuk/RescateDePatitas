@@ -1,6 +1,16 @@
 package dominio.repositorio;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Fetch;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
 
@@ -10,31 +20,21 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
   private RepositorioDuenios() {}
 
   public Duenio duenioDe(Mascota mascota){
-    //return paraTodos(list -> list.stream().filter(duenio -> duenio.esMiMascota(mascota)).findFirst().orElse(null));
-    //return todos().stream().filter(duenio -> duenio.esMiMascota(mascota)).findFirst().orElse(null);
-    // return query(entityManager -> {
 
-    //   //return (Duenio) entityManager.createNativeQuery("SELECT * FROM " + getClassName().getSimpleName() + " e INNER JOIN " + RepositorioMascotas.getINSTANCE().getClassName().getSimpleName() + " e2 ON e.id = e2.duenio_id WHERE e2.id = " + mascota.getId()).getSingleResult();
-          
-    //   // return entityManager
-    //   //   .createQuery(
-    //   //     "SELECT e FROM " + getClassName().getSimpleName() 
-    //   //     + " e, " 
-    //   //     + RepositorioMascotas.getINSTANCE().getClassName().getSimpleName() 
-    //   //     + " m WHERE m.id = " + mascota.getId() + " and e.id = m.duenio_id", getClassName()).getSingleResult();
-    
-    // //   // List<Duenio> list = entityManager
-    // //   // .createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e, " + RepositorioMascotas.getINSTANCE().getClassName().getSimpleName() + " m WHERE m.id = " + mascota.getId(), getClassName()).getResultList();
-    // //   // list.forEach(duenio -> System.out.println(duenio.getDatosPersona().getNombre()));
-    // //   // return list.get(0);
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Duenio> query = builder.createQuery(Duenio.class);
+    Root<Duenio> root = query.from(Duenio.class);
 
-      
-    // });
 
-    return paraTodos(list -> {
-      list.forEach(duenio -> System.out.println(duenio.getDatosPersona().getNombre()));
-      return list.stream().filter(duenio -> duenio.esMiMascota(mascota)).findFirst().orElse(null);
-    });
+    query.select(root).where(
+      builder.and(
+        builder.equal(root.join("mascotasRegistradas").get("id"), mascota.getId())
+      )
+    );
+    TypedQuery<Duenio> q = entityManager.createQuery(query);
+    System.out.println(q.getResultList());
+    return q.getSingleResult();
   }
 
   public static RepositorioDuenios getInstance() {

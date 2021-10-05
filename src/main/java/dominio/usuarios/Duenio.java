@@ -46,7 +46,7 @@ public class Duenio extends Usuario {
   }
 
   public boolean esMiMascota(Mascota mascota) {
-    mascotasRegistradas.forEach(f -> {System.out.println(f.getApodo());});
+    //mascotasRegistradas.forEach(f -> {System.out.println(f.getApodo());});
     return mascotasRegistradas.stream().anyMatch(otraMascota -> mascota.getId() == otraMascota.getId());
   }
 

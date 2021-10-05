@@ -7,6 +7,7 @@ import dominio.repositorio.RepositorioRescatesConChapita;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import dominio.rescate.RescateConChapita;
@@ -16,7 +17,6 @@ import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Tamanio;
 import dominio.usuarios.Duenio;
-
 
 public class RescateTest {
   Fixture fixture = new Fixture();

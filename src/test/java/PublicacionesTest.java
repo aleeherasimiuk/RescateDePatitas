@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
 import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import dominio.asociacion.Asociacion;
@@ -17,6 +18,7 @@ import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.rescate.RescateSinChapita;
+
 
 public class PublicacionesTest {
 
