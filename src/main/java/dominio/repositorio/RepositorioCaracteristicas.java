@@ -1,6 +1,10 @@
 package dominio.repositorio;
 
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import dominio.exceptions.CaracteristicaRepetida;
 import dominio.mascota.Caracteristica;
 
@@ -20,9 +24,18 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 		borrar(caracteristica);
 	}
 
-	// TODO: Refactor
 	public boolean existeCaracteristica(String caracteristica) {
-		return todos().stream().map(Caracteristica::getNombre).anyMatch(c -> c.equals(caracteristica));
+		return query(entityManager -> {
+
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Long> query = builder.createQuery(Long.class);
+			Root<Caracteristica> root = query.from(Caracteristica.class);
+			query.select(builder.count(root)).where(
+				builder.equal(root.get("nombre"), caracteristica)
+			);
+			return entityManager.createQuery(query).getSingleResult() > 0;
+
+		});
 	}
 
 	private void validarCaracteristica(String caracteristica) {
