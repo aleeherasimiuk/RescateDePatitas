@@ -73,7 +73,7 @@ public abstract class Repositorio<T>{
     todos().forEach(consumer);
   }
 
-  protected void transaction(Consumer<EntityManager> consumer){
+  public void transaction(Consumer<EntityManager> consumer){
 
     query(entityManager -> {
       EntityTransaction transaction = entityManager.getTransaction();

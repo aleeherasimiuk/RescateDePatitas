@@ -113,4 +113,8 @@ public class Mascota extends PersistentEntity {
     return RepositorioDuenios.getInstance().duenioDe(this);
   }
 
+  public void setEdad(int edad) {
+    this.edad = edad;
+  }
+
 }

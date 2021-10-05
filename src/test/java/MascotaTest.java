@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
@@ -54,27 +55,27 @@ public class MascotaTest extends AbstractTest{
 
   @Test
   void firulaisEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), RepositorioDuenios.getInstance().duenioDe(firulais).getUsername());
+    assertEquals(angelGallardo.getUsername(), duenioDe(firulais).getUsername());
   }
 
   @Test
   void totoEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), RepositorioDuenios.getInstance().duenioDe(toto).getUsername());
+    assertEquals(angelGallardo.getUsername(), duenioDe(toto).getUsername());
   }
 
   @Test
   void pityMartinezEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), RepositorioDuenios.getInstance().duenioDe(pityMartinez).getUsername());
+    assertEquals(angelGallardo.getUsername(), duenioDe(pityMartinez).getUsername());
   }
 
   @Test
   void leoPonzioEsDeDonofrio(){
-    assertEquals(rodolfoDonofrio.getUsername(), RepositorioDuenios.getInstance().duenioDe(leoPonzio).getUsername());
+    assertEquals(rodolfoDonofrio.getUsername(), duenioDe(leoPonzio).getUsername());
   }
 
   @Test
   void franquitoArmaniEsDeDonofrio(){
-    assertEquals(rodolfoDonofrio.getUsername(), RepositorioDuenios.getInstance().duenioDe(franquitoArmani).getUsername());
+    assertEquals(rodolfoDonofrio.getUsername(), duenioDe(franquitoArmani).getUsername());
   }
 
   @Test
@@ -85,6 +86,24 @@ public class MascotaTest extends AbstractTest{
   @Test
   void hay2DueniosRegistrados(){
     assertEquals(2, RepositorioDuenios.getInstance().cantidadRegistros());
+  }
+
+  @Test
+  void totoCrecio(){
+    
+    RepositorioMascotas.getINSTANCE().transaction(entityManager -> {
+      Mascota mascota = entityManager.find(Mascota.class, toto.getId());
+      mascota.setEdad(4);
+    });
+
+    PerThreadEntityManagers.getEntityManager().clear();
+    Mascota mascota = PerThreadEntityManagers.getEntityManager().find(Mascota.class, toto.getId());
+    assertEquals(4, mascota.getEdad());
+    
+  }
+
+  Duenio duenioDe(Mascota mascota){
+    return RepositorioDuenios.getInstance().duenioDe(mascota);
   }
 
 }
