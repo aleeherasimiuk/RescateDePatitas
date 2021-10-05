@@ -1,24 +1,10 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.adopcion.DarEnAdopcion;
-import dominio.repositorio.RepositorioAdopcion;
-import dominio.repositorio.RepositorioAsociaciones;
-import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.repositorio.RepositorioDuenios;
-import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioPreguntas;
-import dominio.repositorio.RepositorioRescatesConChapita;
-import dominio.repositorio.RepositorioRescatesSinChapita;
-import dominio.repositorio.RepositorioRescatistas;
-import dominio.repositorio.RepositorioRespuestas;
-import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
@@ -28,26 +14,24 @@ import servicios.mail.MailRecomendacion;
 import servicios.mail.MailRescateConChapita;
 import servicios.mail.MailRescateSinChapita;
 
+class MailerTest extends AbstractTest{
+  private Fixture fixture = new Fixture();
 
+  private MailRescateConChapita mailRescateConChapita;
+  private MailRescateSinChapita mailRescateSinChapita;
+  private MailAdopcion mailAdopcion;
+  private MailRecomendacion mailRecomendacion;
 
-class MailerTest {
-  private static Fixture fixture = new Fixture();
-
-  private static MailRescateConChapita mailRescateConChapita;
-  private static MailRescateSinChapita mailRescateSinChapita;
-  private static MailAdopcion mailAdopcion;
-  private static MailRecomendacion mailRecomendacion;
-
-  private static RescateConChapita rescateConChapita;
-  private static RescateSinChapita publicacionMascotaUTN;
+  private RescateConChapita rescateConChapita;
+  private RescateSinChapita publicacionMascotaUTN;
   
-  private static Duenio sabato;  
+  private Duenio sabato;  
   
-  private static DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi;
-  private static List<DarEnAdopcion> publicaciones;
+  private DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi;
+  private List<DarEnAdopcion> publicaciones;
   
-  @BeforeAll
-  static void setup() {
+  @BeforeEach
+  void setup() {
     publicaciones = new ArrayList<>();
     rescateConChapita = fixture.getRescatePupi();
     publicacionMascotaUTN = fixture.getPublicacionUTN();
@@ -59,25 +43,6 @@ class MailerTest {
     //carlos.registrarUnaMascota(fixture.getPupi());
     
     publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
-  }
-
-  @AfterAll
-  static void tearDown() {
-    RepositorioRescatesConChapita.getINSTANCE().vaciar();
-    RepositorioRescatesSinChapita.getINSTANCE().vaciar();
-    RepositorioAdopcion.getInstance().vaciar();
-    RepositorioRespuestas.getInstance().vaciar();
-    RepositorioAsociaciones.getInstance().vaciar();
-    RepositorioMascotas.getINSTANCE().vaciar();
-    RepositorioDuenios.getInstance().vaciar();
-    RepositorioSolicitudesAdopcion.getInstance().vaciar();
-    RepositorioCaracteristicas.getINSTANCE().vaciar();
-    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
-    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
-    RepositorioPreguntas.getInstance().vaciar();
-    RepositorioRescatistas.getInstance().vaciar();
   }
 
   @Test

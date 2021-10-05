@@ -38,15 +38,6 @@ public class Fixture {
   private final Coordenadas parqueChacabuco   = new Coordenadas(-34.63481134002147, -58.442202384019055);
   private final Coordenadas parqueAvellaneda  = new Coordenadas(-34.64388667313111, -58.47976161190845);
 
-  public Fixture() {
-    // Log only SQL    
-    Logger logger = Logger.getLogger("org.hibernate");
-    logger.setUseParentHandlers(false);
-
-    // Log SQL statements to archive
-
-  }
-
   public Mascota getPupi() {
     return crearAPupi();
   }

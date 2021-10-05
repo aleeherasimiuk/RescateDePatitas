@@ -1,7 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
 import dominio.usuarios.Duenio;
 
-public class MascotaTest {
+public class MascotaTest extends AbstractTest{
 
 
   Duenio angelGallardo;
@@ -50,12 +49,6 @@ public class MascotaTest {
     RepositorioDuenios repo = RepositorioDuenios.getInstance();
 
     repo.registrar(angelGallardo, rodolfoDonofrio);
-  }
-
-  @AfterEach
-  void tearDown(){
-    RepositorioMascotas.getINSTANCE().vaciar();
-    RepositorioDuenios.getInstance().vaciar();
   }
 
 

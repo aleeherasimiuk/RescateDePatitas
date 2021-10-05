@@ -39,6 +39,4 @@ public class ConfigTest {
     assertEquals("hackme", config.getConfig("mail.password"));
   }
 
-
-  
 }
