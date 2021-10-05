@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
+import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescatesConChapita;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,7 @@ public class RescateTest extends AbstractTest{
     utn    = fixture.getUTN();
 
     samuel.registrarUnaMascota(vladi);
+    RepositorioDuenios.getInstance().registrar(samuel);
     
   }
 

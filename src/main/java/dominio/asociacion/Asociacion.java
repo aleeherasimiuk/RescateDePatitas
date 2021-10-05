@@ -19,7 +19,7 @@ public class Asociacion extends PersistentEntity{
   private String nombre;
   @Embedded
   private Coordenadas ubicacion;
-  @OneToMany(cascade=CascadeType.MERGE)
+  @OneToMany(cascade={CascadeType.PERSIST})
   private List<Pregunta> preguntas;
 
   protected Asociacion() {}

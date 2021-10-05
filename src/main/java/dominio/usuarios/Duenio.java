@@ -29,9 +29,8 @@ public class Duenio extends Usuario {
 
   protected Duenio(){}
 
-  @OneToMany
+  @OneToMany(cascade = {CascadeType.ALL})
   @JoinColumn(name = "duenio_id")
-  //@Fetch(value = FetchMode.EAGER)
   private List<Mascota> mascotasRegistradas;
 
   public Duenio(String username, String password, DatosPersona datosPersona) {
@@ -42,7 +41,7 @@ public class Duenio extends Usuario {
 
   public void registrarUnaMascota(Mascota mascota) {
     mascotasRegistradas.add(mascota);
-    RepositorioMascotas.getINSTANCE().registrar(mascota);
+    //RepositorioMascotas.getINSTANCE().registrar(mascota);
   }
 
   public boolean esMiMascota(Mascota mascota) {

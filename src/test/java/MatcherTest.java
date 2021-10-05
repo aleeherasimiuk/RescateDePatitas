@@ -36,7 +36,6 @@ public class MatcherTest extends AbstractTest {
 
   @BeforeEach
   void setUp(){
-    RepositorioPreguntas.getInstance().vaciar();
     carlos = fixture.getCarlos();
     pupi = fixture.getPupi();
     carlos.registrarUnaMascota(pupi);
@@ -50,7 +49,6 @@ public class MatcherTest extends AbstractTest {
     };
 
     for (Pregunta pregunta : preguntas) {
-      RepositorioPreguntas.getInstance().registrar(pregunta);
       asociacion.agregarPregunta(pregunta);
     }
 
@@ -126,9 +124,7 @@ public class MatcherTest extends AbstractTest {
     solicitudBuilder.responderPregunta(preguntas[1], "PERRO");
     solicitudBuilder.responderPregunta(global, "SI");
     SolicitudAdopcion solicitud = solicitudBuilder.build();
-    //RepositorioSolicitudesAdopcion.getInstance().registrar(solicitud);
 
-    //assertTrue(solicitud.recomendaciones().contains(publicacion));
     assertEquals(solicitud.recomendaciones().stream().map(publi -> publi.getMascota().getApodo()).findFirst().orElse(null), "Pupi");
 
   }

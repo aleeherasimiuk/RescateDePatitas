@@ -246,10 +246,8 @@ public class Fixture {
     Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
     Pregunta global = tipicaPreguntaGlobal();
     
-    RepositorioPreguntas.getInstance().vaciar();
     RepositorioPreguntas.getInstance().registrar(global);
     for (Pregunta pregunta : preguntas) {
-      RepositorioPreguntas.getInstance().registrar(pregunta);
       asociacion.agregarPregunta(pregunta);
     }
     
