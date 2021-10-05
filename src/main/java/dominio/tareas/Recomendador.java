@@ -10,7 +10,7 @@ public class Recomendador {
     RepositorioSolicitudesAdopcion solicitudesAdopcion 
       = RepositorioSolicitudesAdopcion.getInstance();
 
-    solicitudesAdopcion
+    solicitudesAdopcion.todos()
       .forEach((solicitud) -> solicitud.recomendar(solicitud.recomendaciones(), javaMail));
   
   }
