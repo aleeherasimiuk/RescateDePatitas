@@ -10,8 +10,6 @@ import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import dominio.adopcion.DarEnAdopcion;
 import dominio.adopcion.DarEnAdopcionBuilder;

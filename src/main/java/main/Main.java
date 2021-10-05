@@ -1,7 +1,4 @@
 package main;
-
-import java.net.ConnectException;
-import java.time.LocalDate;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 

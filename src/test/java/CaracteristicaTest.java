@@ -16,7 +16,6 @@ import dominio.usuarios.Admin;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 
 import dominio.usuarios.Duenio;

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.adopcion.DarEnAdopcion;
-import dominio.repositorio.Repositorio;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioCaracteristicas;
