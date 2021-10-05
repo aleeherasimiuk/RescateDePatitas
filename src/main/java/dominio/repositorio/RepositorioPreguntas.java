@@ -1,7 +1,6 @@
 package dominio.repositorio;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

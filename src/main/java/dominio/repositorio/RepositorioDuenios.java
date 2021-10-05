@@ -24,7 +24,6 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
     CriteriaQuery<Duenio> query = builder.createQuery(Duenio.class);
     Root<Duenio> root = query.from(Duenio.class);
 
-
     query.select(root).where(
       builder.and(
         builder.equal(root.join("mascotasRegistradas").get("id"), mascota.getId())
