@@ -2,13 +2,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
+import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioAsociaciones;
+import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
+import dominio.repositorio.RepositorioPreguntas;
 import dominio.repositorio.RepositorioRescatesConChapita;
+import dominio.repositorio.RepositorioRescatesSinChapita;
+import dominio.repositorio.RepositorioRescatistas;
+import dominio.repositorio.RepositorioRespuestas;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
@@ -46,8 +56,21 @@ public class RescateTest {
 
   @AfterEach
   void resetear() {
-    repoRescates.vaciar();
-    repoMascotas.vaciar();
+    RepositorioRescatesConChapita.getINSTANCE().vaciar();
+    RepositorioRescatesSinChapita.getINSTANCE().vaciar();
+    RepositorioAdopcion.getInstance().vaciar();
+    RepositorioRespuestas.getInstance().vaciar();
+    RepositorioAsociaciones.getInstance().vaciar();
+    RepositorioMascotas.getINSTANCE().vaciar();
+    RepositorioDuenios.getInstance().vaciar();
+    RepositorioSolicitudesAdopcion.getInstance().vaciar();
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    RepositorioPreguntas.getInstance().vaciar();
+    RepositorioRescatistas.getInstance().vaciar();
   }
 
   @Test

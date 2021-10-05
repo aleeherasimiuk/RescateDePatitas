@@ -3,10 +3,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.AfterAll;
+
 import dominio.exceptions.HayPreguntasSinResponder;
 import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
@@ -20,14 +23,21 @@ import dominio.preguntas.Pregunta;
 import dominio.preguntas.PreguntaBinaria;
 import dominio.preguntas.PreguntaCerrada;
 import dominio.repositorio.RepositorioPreguntas;
+import dominio.repositorio.RepositorioRescatesConChapita;
+import dominio.repositorio.RepositorioRescatesSinChapita;
+import dominio.repositorio.RepositorioRescatistas;
+import dominio.repositorio.RepositorioRespuestas;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioAsociaciones;
+import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.repositorio.RepositorioDuenios;
+import dominio.repositorio.RepositorioMascotas;
 import dominio.tareas.ObtenerPreguntas;
 import dominio.usuarios.Duenio;
 
 
-public class MatcherTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
+public class MatcherTest{
 
   private static Fixture fixture = new Fixture();
   private static Duenio carlos;
@@ -61,6 +71,25 @@ public class MatcherTest extends AbstractPersistenceTest implements WithGlobalEn
     RepositorioPreguntas.getInstance().registrar(global);
 
     RepositorioAsociaciones.getInstance().registrar(asociacion);
+  }
+
+  @AfterAll
+  static void tearDown(){
+    RepositorioRescatesConChapita.getINSTANCE().vaciar();
+    RepositorioRescatesSinChapita.getINSTANCE().vaciar();
+    RepositorioAdopcion.getInstance().vaciar();
+    RepositorioRespuestas.getInstance().vaciar();
+    RepositorioAsociaciones.getInstance().vaciar();
+    RepositorioMascotas.getINSTANCE().vaciar();
+    RepositorioDuenios.getInstance().vaciar();
+    RepositorioSolicitudesAdopcion.getInstance().vaciar();
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    RepositorioPreguntas.getInstance().vaciar();
+    RepositorioRescatistas.getInstance().vaciar();
   }
 
   @Test

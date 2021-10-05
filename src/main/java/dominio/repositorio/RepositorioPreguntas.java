@@ -24,4 +24,17 @@ public class RepositorioPreguntas extends Repositorio<Pregunta> {
   public List<Pregunta> globales() {
     return this.todos().stream().filter(pregunta -> pregunta.esGlobal()).collect(Collectors.toList());
   }
+
+  // @Override
+  // public void vaciar(){
+  //   paraTodos(list -> {
+  //     list.forEach(pregunta -> pregunta.vaciar());
+  //     return null;
+  //   });
+    
+  //   transaction(entityManager -> {
+  //     entityManager.createQuery("TRUNCATE " + getClassName().getSimpleName() + " CASCADE")
+  //       .executeUpdate();
+  //   });
+  // }
 }

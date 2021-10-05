@@ -10,17 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
 import dominio.mascota.Mascota;
 import dominio.mascota.Sexo;
 import dominio.mascota.Tamanio;
+import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioAsociaciones;
 import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioDuenios;
+import dominio.repositorio.RepositorioMascotas;
+import dominio.repositorio.RepositorioPreguntas;
+import dominio.repositorio.RepositorioRescatesConChapita;
+import dominio.repositorio.RepositorioRescatesSinChapita;
+import dominio.repositorio.RepositorioRescatistas;
+import dominio.repositorio.RepositorioRespuestas;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Admin;
@@ -56,6 +68,26 @@ public class ServiciosTest {
     
     hogaresAdapter = new HogaresAdapter();
     hogares = hogaresAdapter.hogares(service);
+  }
+
+  
+  @AfterEach
+  void tearDown(){
+    RepositorioRescatesConChapita.getINSTANCE().vaciar();
+    RepositorioRescatesSinChapita.getINSTANCE().vaciar();
+    RepositorioAdopcion.getInstance().vaciar();
+    RepositorioRespuestas.getInstance().vaciar();
+    RepositorioAsociaciones.getInstance().vaciar();
+    RepositorioMascotas.getINSTANCE().vaciar();
+    RepositorioDuenios.getInstance().vaciar();
+    RepositorioSolicitudesAdopcion.getInstance().vaciar();
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    RepositorioPreguntas.getInstance().vaciar();
+    RepositorioRescatistas.getInstance().vaciar();
   }
 
   @Test

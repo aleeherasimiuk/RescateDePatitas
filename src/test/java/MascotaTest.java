@@ -96,6 +96,4 @@ public class MascotaTest {
     assertEquals(2, RepositorioDuenios.getInstance().cantidadRegistros());
   }
 
-  
-  
 }

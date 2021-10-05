@@ -2,9 +2,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import dominio.adopcion.DarEnAdopcion;
+import dominio.repositorio.Repositorio;
+import dominio.repositorio.RepositorioAdopcion;
+import dominio.repositorio.RepositorioAsociaciones;
+import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioDuenios;
+import dominio.repositorio.RepositorioMascotas;
+import dominio.repositorio.RepositorioPreguntas;
+import dominio.repositorio.RepositorioRescatesConChapita;
+import dominio.repositorio.RepositorioRescatesSinChapita;
+import dominio.repositorio.RepositorioRescatistas;
+import dominio.repositorio.RepositorioRespuestas;
+import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
@@ -45,6 +60,25 @@ class MailerTest {
     //carlos.registrarUnaMascota(fixture.getPupi());
     
     publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
+  }
+
+  @AfterAll
+  static void tearDown() {
+    RepositorioRescatesConChapita.getINSTANCE().vaciar();
+    RepositorioRescatesSinChapita.getINSTANCE().vaciar();
+    RepositorioAdopcion.getInstance().vaciar();
+    RepositorioRespuestas.getInstance().vaciar();
+    RepositorioAsociaciones.getInstance().vaciar();
+    RepositorioMascotas.getINSTANCE().vaciar();
+    RepositorioDuenios.getInstance().vaciar();
+    RepositorioSolicitudesAdopcion.getInstance().vaciar();
+    RepositorioCaracteristicas.getINSTANCE().vaciar();
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
+    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    RepositorioPreguntas.getInstance().vaciar();
+    RepositorioRescatistas.getInstance().vaciar();
   }
 
   @Test
