@@ -1,8 +1,12 @@
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import dominio.repositorio.RepositorioAdopcion;
 import dominio.repositorio.RepositorioAsociaciones;
@@ -35,10 +39,11 @@ public abstract class AbstractTest {
     RepositorioDuenios.getInstance().vaciar();
     RepositorioSolicitudesAdopcion.getInstance().vaciar();
     RepositorioCaracteristicas.getINSTANCE().vaciar();
-    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
-    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.createNativeQuery("DELETE FROM OPCION").executeUpdate();
+    entityManager.createNativeQuery("DELETE FROM RESCATES").executeUpdate();
+    entityManager.getTransaction().commit();
     RepositorioPreguntas.getInstance().vaciar();
     RepositorioRescatistas.getInstance().vaciar();
   }
