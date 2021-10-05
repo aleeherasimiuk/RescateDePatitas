@@ -3,6 +3,10 @@ package dominio.repositorio;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import dominio.preguntas.Pregunta;
 
 public class RepositorioPreguntas extends Repositorio<Pregunta> {
@@ -20,9 +24,22 @@ public class RepositorioPreguntas extends Repositorio<Pregunta> {
     return Pregunta.class;
   }
 
-  //TODO: Refactor
   public List<Pregunta> globales() {
-    return this.todos().stream().filter(pregunta -> pregunta.esGlobal()).collect(Collectors.toList());
+
+    return query(entityManager -> {
+
+      CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+      CriteriaQuery<Pregunta> query = builder.createQuery(Pregunta.class);
+      Root<Pregunta> root = query.from(Pregunta.class);
+
+      query.select(root).where(
+        builder.isTrue(root.get("global"))
+      );
+
+      return entityManager.createQuery(query).getResultList();
+    });
+  
+  
   }
 
   // @Override
