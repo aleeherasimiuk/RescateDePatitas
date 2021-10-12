@@ -20,7 +20,7 @@ import dominio.usuarios.Duenio;
 public class MascotaTest extends AbstractTest{
 
 
-  Duenio angelGallardo;
+  Duenio marceloGallardo;
   Duenio rodolfoDonofrio;
 
   Mascota firulais;
@@ -38,34 +38,34 @@ public class MascotaTest extends AbstractTest{
     leoPonzio = new Mascota(ClaseMascota.PERRO, "Leo Ponzio", "Leo", 4, Sexo.MACHO, Tamanio.MEDIANO);
     franquitoArmani = new Mascota(ClaseMascota.PERRO, "Fraco Armani", "Pulpo", 3, Sexo.MACHO, Tamanio.MEDIANO);
 
-    angelGallardo = new Duenio("Gallardo", "9diciembre2018", new DatosPersona("Gallardo", "Marcelo", new Documento(TipoDeDocumento.DNI, "44444444"), new Contacto("Rodolfo", "D'Onofrio", 444444, "rodolf@gmail.com"), LocalDate.now()));
+    marceloGallardo = new Duenio("Gallardo", "9diciembre2018", new DatosPersona("Gallardo", "Marcelo", new Documento(TipoDeDocumento.DNI, "44444444"), new Contacto("Rodolfo", "D'Onofrio", 444444, "rodolf@gmail.com"), LocalDate.now()));
     rodolfoDonofrio = new Duenio("Donofrio", "9diciembre2018", new DatosPersona("Donofrio", "Rodolfo", new Documento(TipoDeDocumento.DNI, "55555555"), new Contacto("Rodolfo", "D'Onofrio", 555555, "rodolf@gmail.com"), LocalDate.now()));
 
-    angelGallardo.registrarUnaMascota(firulais);
-    angelGallardo.registrarUnaMascota(toto);
-    angelGallardo.registrarUnaMascota(pityMartinez);
+    marceloGallardo.registrarUnaMascota(firulais);
+    marceloGallardo.registrarUnaMascota(toto);
+    marceloGallardo.registrarUnaMascota(pityMartinez);
     rodolfoDonofrio.registrarUnaMascota(leoPonzio);
     rodolfoDonofrio.registrarUnaMascota(franquitoArmani);
 
     RepositorioDuenios repo = RepositorioDuenios.getInstance();
 
-    repo.registrar(angelGallardo, rodolfoDonofrio);
+    repo.registrar(marceloGallardo, rodolfoDonofrio);
   }
 
 
   @Test
   void firulaisEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), duenioDe(firulais).getUsername());
+    assertEquals(marceloGallardo.getUsername(), duenioDe(firulais).getUsername());
   }
 
   @Test
   void totoEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), duenioDe(toto).getUsername());
+    assertEquals(marceloGallardo.getUsername(), duenioDe(toto).getUsername());
   }
 
   @Test
   void pityMartinezEsDeGallardo(){
-    assertEquals(angelGallardo.getUsername(), duenioDe(pityMartinez).getUsername());
+    assertEquals(marceloGallardo.getUsername(), duenioDe(pityMartinez).getUsername());
   }
 
   @Test
