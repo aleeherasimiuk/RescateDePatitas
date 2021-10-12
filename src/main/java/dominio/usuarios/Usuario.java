@@ -1,5 +1,6 @@
 package dominio.usuarios;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -11,7 +12,8 @@ import dominio.repositorio.RepositorioValidaciones;
 import persistencia.PersistentEntity;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
 @Table(name = "usuarios")
 public abstract class Usuario extends PersistentEntity {
 
