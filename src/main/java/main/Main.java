@@ -6,16 +6,22 @@ import dominio.tareas.Recomendador;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
+import spark.Spark;
 
 import javax.persistence.EntityManager;
+
 
 public class Main {
 
   public static void main(String[] args) {
 
+
     System.out.println("**********************");
     System.out.println("**Iniciando Servidor**");
     System.out.println("**********************");
+
+    Spark.port(9000);
+    Spark.get("/test", (req, res) -> "Hello World!");
 
     if (args.length > 0 && args[0].equals("run_recomendaciones")) {
 
@@ -46,8 +52,8 @@ public class Main {
     System.out.println("**************************************************");
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
-  
-    
+
+
     // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
     // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
     // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
@@ -60,9 +66,6 @@ public class Main {
     // entityManager.close();
 
     // System.out.println(RepositorioDuenios.getInstance().todos());
-    
-
-    System.exit(0);
   }
 
   private static void runRecomendaciones() {
@@ -79,6 +82,6 @@ public class Main {
   }
 
   private static void runServer() {
-    
+
   }
 }
