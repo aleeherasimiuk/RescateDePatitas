@@ -1,12 +1,17 @@
 package main;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import dominio.tareas.Recomendador;
+import router.Router;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
+import spark.ModelAndView;
 import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import javax.persistence.EntityManager;
 
@@ -21,7 +26,16 @@ public class Main {
     System.out.println("**********************");
 
     Spark.port(9000);
-    Spark.get("/test", (req, res) -> "Hello World!");
+    new Router().setup();
+
+
+    // Spark.get("/test", (req, res) -> "Hello World!");
+
+    // Spark.staticFiles.location("public");
+    // Map<String, Object> model = new HashMap<>();
+
+    // Spark.get("/", (request, response) -> new ModelAndView(model, "index.hbs") ,
+    //   new HandlebarsTemplateEngine());
 
     if (args.length > 0 && args[0].equals("run_recomendaciones")) {
 
