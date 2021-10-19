@@ -23,13 +23,13 @@
     </section>
 
     <section class="mt-10">
-      <form class="flex flex-col" method="POST" action="/login">
+      <form class="flex flex-col" method="POST" action="/signup">
 
-        {{> form_field.hbs id="username" name = "username" for="username" label="Elije un Usuario" type = "text" error = error }}
+        {{> form_field.hbs id="username" name = "username" label="Elije un Usuario" type = "text" error = error }}
   
-        {{> form_field.hbs id="password" name = "password" for="password" label="Elije una contraseña" type = "password" error = error }}
+        {{> form_field.hbs id="password" name = "password" label="Elije una contraseña" type = "password" error = error }}
 
-        {{> form_field.hbs id="password_confirmation" name = "password_confirmation" for="password" label="Repite la contraseña" type = "password" error = error }}
+        {{> form_field.hbs id="password_confirmation" name = "password_confirmation" label="Repite la contraseña" type = "password" error = error }}
 
         {{#if error}}
         <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>

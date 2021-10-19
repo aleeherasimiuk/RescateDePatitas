@@ -17,5 +17,7 @@ public class Router {
     post("/login",
         (request, response) -> LoginController.login(request, response), engineTemplate);
     get("/signup", (request, response) -> LoginController.signup(request, response), engineTemplate);
+
+    get("/signup/step2", (request, response) -> LoginController.personSignup(request, response), engineTemplate);
   }
 }

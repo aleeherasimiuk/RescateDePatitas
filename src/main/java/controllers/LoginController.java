@@ -50,4 +50,10 @@ public class LoginController {
     return new ModelAndView(model, "signup.hbs");
   }
 
+  public static ModelAndView personSignup(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("error", false);
+    return new ModelAndView(model, "person_signup.hbs");
+  }
+
 }

@@ -25,9 +25,9 @@
       <section class="mt-10">
         <form class="flex flex-col" method="POST" action="/login">
 
-          {{> form_field.hbs id="username" name = "username" for="username" label="Usuario" type = "text" error = error }}
+          {{> form_field.hbs id="username" name = "username" label="Usuario" type = "text" error = error }}
 
-          {{> form_field.hbs id="password" name = "password" for="password" label="Contraseña" type = "password" error = error }}
+          {{> form_field.hbs id="password" name = "password" label="Contraseña" type = "password" error = error }}
 
           {{#if error}}
             <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
