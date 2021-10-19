@@ -9,22 +9,25 @@ import spark.Route;
 
 import java.util.HashMap;
 
+import javax.persistence.NoResultException;
+
 public class LoginController {
+  
+
   public static ModelAndView view(Request req, Response res) {
     return new ModelAndView(null, "login.hbs");
   }
 
   public static ModelAndView login(Request req, Response res) {
-    String id = req.queryParams("email");
-    System.out.println(id);
+    final String username = req.queryParams("username");
+    final String password = req.queryParams("password");
+    Duenio duenio;
 
-    // res.redirect("/");
-    String username = req.queryParams("username");
-    String password = req.queryParams("password");
-
-    System.out.println(username);
-
-    Duenio duenio = RepositorioDuenios.getInstance().getDuenioByUsername(username);
+    try{
+      duenio = RepositorioDuenios.getInstance().getDuenioByUsername(username);
+    } catch (NoResultException e){
+      duenio = null;
+    }
 
     HashMap<String, Object> model = new HashMap<>();
 
