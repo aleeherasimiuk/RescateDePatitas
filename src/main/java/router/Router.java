@@ -13,9 +13,8 @@ public class Router {
 
     get("/", (request, response) -> HomeController.view(request, response), engineTemplate);
 		get("/login",
-				(request, response) -> LoginController.view(request, response),
-				engineTemplate);
+				(request, response) -> LoginController.view(request, response), engineTemplate);
     post("/login",
-        (request, response) -> LoginController.login(request, response));
+        (request, response) -> LoginController.login(request, response), engineTemplate);
   }
 }

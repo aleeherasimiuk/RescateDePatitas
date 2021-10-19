@@ -42,7 +42,7 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
     return Duenio.class;
   }
 
-  public Duenio login(String user, String password) {
+  public Duenio getDuenioByUsername(String user) {
     EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
     CriteriaBuilder builder = entityManager.getCriteriaBuilder();
     CriteriaQuery<Duenio> query = builder.createQuery(Duenio.class);
@@ -53,16 +53,6 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
     );
 
     TypedQuery<Duenio> q = entityManager.createQuery(query);
-    Duenio duenio = q.getSingleResult();
-
-    if (duenio==null){
-      throw new RuntimeException("El usuario y/o la contraseña son invalidos");
-    }
-
-    if (!duenio.login(password)){
-      throw new RuntimeException("El usuario y/o la contraseña son invalidos");
-    }
-
-    return duenio;
+    return q.getSingleResult();
   }
 }

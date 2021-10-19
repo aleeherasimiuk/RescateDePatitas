@@ -1,10 +1,13 @@
 package controllers;
 
 import dominio.repositorio.RepositorioDuenios;
+import dominio.usuarios.Duenio;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import java.util.HashMap;
 
 public class LoginController {
   public static ModelAndView view(Request req, Response res) {
@@ -16,17 +19,24 @@ public class LoginController {
     System.out.println(id);
 
     // res.redirect("/");
-    String user = req.queryParams("user");
+    String username = req.queryParams("username");
     String password = req.queryParams("password");
 
-    try {
-      RepositorioDuenios.getInstance().login(user,password);
-      res.status(200);
-    }catch (RuntimeException e){
+    System.out.println(username);
+
+    Duenio duenio = RepositorioDuenios.getInstance().getDuenioByUsername(username);
+
+    HashMap<String, Object> model = new HashMap<>();
+
+    if (duenio == null || !duenio.login(password)){
       res.status(401);
+
+      model.put("error",true);
+      return new ModelAndView(model,"login.hbs");
     }
 
-    return null;// new ModelAndView(null, null);
+    model.put("error",false);
+    return  new ModelAndView(model, "login.hbs");
   }
 
 }

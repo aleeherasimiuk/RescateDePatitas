@@ -75,18 +75,18 @@ public class Main {
     System.out.println("**************************************************");
 
 
-    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
-    Duenio duenio = new Duenio("iancrespiok", "aleputo", datosPersona);
-
-    entityManager = PerThreadEntityManagers.getEntityManager();
-    EntityTransaction transaction = entityManager.getTransaction();
-
-    transaction.begin();
-    entityManager.persist(duenio);
-    transaction.commit();
-    entityManager.close();
+//    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+//    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+//    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+//    Duenio duenio = new Duenio("iancrespiok", "aleputo", datosPersona);
+//
+//    entityManager = PerThreadEntityManagers.getEntityManager();
+//    EntityTransaction transaction = entityManager.getTransaction();
+//
+//    transaction.begin();
+//    entityManager.persist(duenio);
+//    transaction.commit();
+//    entityManager.close();
 
     // System.out.println(RepositorioDuenios.getInstance().todos());
   }
