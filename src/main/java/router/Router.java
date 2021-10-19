@@ -23,9 +23,17 @@ public class Router {
 				(request, response) -> LoginController.view(request, response), engineTemplate);
     post("/login",
         (request, response) -> LoginController.login(request, response), engineTemplate);
-    get("/signup", (request, response) -> LoginController.signup(request, response), engineTemplate);
+    get("/signup", (request, response) -> {
+      Map<String, Object> model = new HashMap<>();
+      model.put("error", false);
+      return new ModelAndView(model, "signup.hbs");
+    }, engineTemplate);
 
-    get("/signup/step2", (request, response) -> LoginController.personSignup(request, response), engineTemplate);
+    get("/signup/step2", (request, response) -> {
+      Map<String, Object> model = new HashMap<>();
+      model.put("error", false);
+      return new ModelAndView(model, "person_signup.hbs");
+    }, engineTemplate);
 
     get("/blah", (request, response) -> {
       
