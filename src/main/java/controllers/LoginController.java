@@ -1,5 +1,6 @@
 package controllers;
 
+import dominio.repositorio.RepositorioDuenios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -15,7 +16,17 @@ public class LoginController {
     System.out.println(id);
 
     // res.redirect("/");
-    return new ModelAndView(null, "login.hbs");
+    String user = req.queryParams("user");
+    String password = req.queryParams("password");
+
+    try {
+      RepositorioDuenios.getInstance().login(user,password);
+      res.status(200);
+    }catch (RuntimeException e){
+      res.status(401);
+    }
+
+    return null;// new ModelAndView(null, null);
   }
 
 }

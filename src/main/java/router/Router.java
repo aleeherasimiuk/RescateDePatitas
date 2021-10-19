@@ -16,7 +16,6 @@ public class Router {
 				(request, response) -> LoginController.view(request, response),
 				engineTemplate);
     post("/login",
-        (request, response) -> LoginController.login(request, response),
-        engineTemplate);
+        (request, response) -> LoginController.login(request, response));
   }
 }

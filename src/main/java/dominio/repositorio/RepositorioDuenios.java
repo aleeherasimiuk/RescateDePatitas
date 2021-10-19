@@ -1,12 +1,12 @@
 package dominio.repositorio;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.mascota.Mascota;
@@ -40,5 +40,29 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
   @Override
   protected Class<Duenio> getClassName() {
     return Duenio.class;
+  }
+
+  public Duenio login(String user, String password) {
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Duenio> query = builder.createQuery(Duenio.class);
+    Root<Duenio> root = query.from(Duenio.class);
+
+    query.select(root).where(
+        builder.equal(root.get("username"),user)
+    );
+
+    TypedQuery<Duenio> q = entityManager.createQuery(query);
+    Duenio duenio = q.getSingleResult();
+
+    if (duenio==null){
+      throw new RuntimeException("El usuario y/o la contraseña son invalidos");
+    }
+
+    if (!duenio.login(password)){
+      throw new RuntimeException("El usuario y/o la contraseña son invalidos");
+    }
+
+    return duenio;
   }
 }
