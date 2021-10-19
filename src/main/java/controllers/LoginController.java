@@ -8,14 +8,16 @@ import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 
 public class LoginController {
-  
 
   public static ModelAndView view(Request req, Response res) {
-    return new ModelAndView(null, "login.hbs");
+    Map<String, Object> model = new HashMap<>();
+    model.put("error", false);
+    return new ModelAndView(model, "login.hbs");
   }
 
   public static ModelAndView login(Request req, Response res) {
@@ -40,6 +42,12 @@ public class LoginController {
 
     model.put("error",false);
     return  new ModelAndView(model, "login.hbs");
+  }
+
+  public static ModelAndView signup(Request request, Response response) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("error", false);
+    return new ModelAndView(model, "signup.hbs");
   }
 
 }

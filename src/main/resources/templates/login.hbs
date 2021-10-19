@@ -18,29 +18,16 @@
 
     <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
       <section>
-        <h3 class="font-bold text-2xl">Bienvenidos a Rescate de Patitas</h3>
-        <p class="text-gray-600 pt-2">Iniciar sesión</p>
+        <h3 class="font-bold text-2xl">Iniciar Sesión</h3>
+        {{!-- <p class="text-gray-600 pt-2">Iniciar sesión</p> --}}
       </section>
 
       <section class="mt-10">
         <form class="flex flex-col" method="POST" action="/login">
-          <div class="mb-6 pt-3 rounded bg-gray-200 {{#if error}}border border-red-500{{/if}}">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Usuario</label>
 
+          {{> form_field.hbs id="username" name = "username" for="username" label="Usuario" type = "text" error = error }}
 
-            <input type="text" id="username"
-                   name="username"
-                   required
-                   class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 focus:border-purple-600 border-gray-300 transition duration-500 px-3 pb-3 ">
-          </div>
-
-          <div class="mb-6 pt-3 rounded bg-gray-200 {{#if error}}border border-red-500{{/if}}">
-            <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Contraseña</label>
-            <input type="password" id="password"
-                   name="password"
-                   required
-                   class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-          </div>
+          {{> form_field.hbs id="password" name = "password" for="password" label="Contraseña" type = "password" error = error }}
 
           {{#if error}}
             <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
@@ -51,23 +38,16 @@
               contraseña?</a>
           </div>
 
-          <button
-                  class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-                  type="submit">Iniciar sesión
-          </button>
+          {{>button.hbs button_name = "Iniciar Sesión"}}
         </form>
       </section>
     </main>
 
     <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-      <p class="text-white">¿No tienes una cuenta? <a href="#" class="font-bold hover:underline">Inicia sesión</a>.</p>
+      <p class="text-white">¿No tienes una cuenta? <a href="/signup" class="font-bold hover:underline">Registrarse</a>.</p>
     </div>
 
-    <footer class="max-w-lg mx-auto flex justify-center text-white">
-      <a href="#" class="hover:underline">Contacto</a>
-      <span class="mx-3">•</span>
-      <a href="#" class="hover:underline">Privacidad</a>
-    </footer>
+    {{> footer.hbs }}
   </div>
 {{/partial}}
 
