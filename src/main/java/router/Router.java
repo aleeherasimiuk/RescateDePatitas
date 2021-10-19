@@ -2,7 +2,14 @@ package router;
 
 import controllers.HomeController;
 import controllers.LoginController;
+import dominio.repositorio.RepositorioCaracteristicas;
+
 import static spark.Spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -19,5 +26,12 @@ public class Router {
     get("/signup", (request, response) -> LoginController.signup(request, response), engineTemplate);
 
     get("/signup/step2", (request, response) -> LoginController.personSignup(request, response), engineTemplate);
+
+    get("/blah", (request, response) -> {
+      
+      Map<String, Object> model = new HashMap<>();
+      model.put("characteristics", RepositorioCaracteristicas.getINSTANCE().todos());
+      return new ModelAndView(model, "add_pet.hbs");
+    } , engineTemplate);
   }
 }

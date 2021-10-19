@@ -1,0 +1,67 @@
+{{#partial "title" }}
+<title>Registrar una Mascota</title>
+<style>
+  .body-bg {
+    background-color: #9921e8;
+    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+  }
+</style>
+{{/partial}}
+
+{{#partial "content"}}
+<div class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+  <header class="max-w-lg mx-auto">
+    <a href="#">
+      <h1 class="text-4xl font-bold text-white text-center">Rescate de Patitas</h1>
+    </a>
+  </header>
+
+  <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+    <section>
+      <h3 class="font-bold text-2xl">Registrar una Mascota</h3>
+      {{!-- <p class="text-gray-600 pt-2">Iniciar sesión</p> --}}
+    </section>
+
+    <section class="mt-10">
+      <form class="flex flex-col" method="POST" action="/home">
+
+        {{> form_field.hbs id="type" name = "type" label="Clase" type = "text" error = error }}
+  
+        {{> form_field.hbs id="name" name = "name" label="Nombre" type = "text" error = error }}
+        {{> form_field.hbs id="nick" name = "nick" label="Apodo" type = "text" error = error }}
+        {{> form_field.hbs id="age" name = "age" label="Edad" type = "number" error = error }}
+        {{> form_field.hbs id="gender" name = "gender" label = "Sexo" type = "text" error = error }}
+        {{> form_field.hbs id="size" name = "gender" label = "Tamaño" type = "text" error = error}}
+        {{> form_field.hbs id="desc" name="desc" label = "Descripción Física" type = "text" error = error}}
+        
+        {{#each characteristics}}
+          {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+        {{/each}}
+
+        <!-- https://tailwindcomponents.com/component/tailwind-file-upload-->
+        <div class="flex items-center justify-center bg-grey-lighter mb-4">
+          <label
+            class="w-64 flex flex-col items-center px-4 py-6 bg-white text-purple-600 rounded-lg shadow-lg tracking-wide uppercase border border-purple-200 cursor-pointer hover:bg-purple-600 hover:text-white">
+            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path
+                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+            </svg>
+            <span class="mt-2 text-base leading-normal">Selecciona un Archivo</span>
+            <input type='file' class="hidden" />
+          </label>
+        </div>
+
+        {{> button.hbs button_name = "Finalizar" }}
+      </form>
+    </section>
+  </main>
+
+  <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+    <p class="text-white">¿Ya tienes una cuenta? <a href="/login" class="font-bold hover:underline">Iniciar Sesión</a>.</p>
+  </div>
+
+  {{> footer.hbs }}
+</div>
+{{/partial}}
+
+{{> base.hbs}}

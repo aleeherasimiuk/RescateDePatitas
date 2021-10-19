@@ -5,10 +5,12 @@ import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import dominio.mascota.Caracteristica;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.tareas.Recomendador;
 import dominio.usuarios.Duenio;
 import router.Router;
@@ -73,6 +75,12 @@ public class Main {
     System.out.println("**************************************************");
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
+
+    // entityManager = PerThreadEntityManagers.getEntityManager();
+    // EntityTransaction transaction = entityManager.getTransaction();
+
+    //RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("Ladra mucho"), new Caracteristica("Es tranquilo"));
+
 
 
   //  Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
