@@ -1,10 +1,16 @@
 package main;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
+import dominio.personas.Contacto;
+import dominio.personas.DatosPersona;
+import dominio.personas.Documento;
+import dominio.personas.TipoDeDocumento;
 import dominio.tareas.Recomendador;
+import dominio.usuarios.Duenio;
 import router.Router;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -14,6 +20,7 @@ import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 
 public class Main {
@@ -68,16 +75,18 @@ public class Main {
     System.out.println("**************************************************");
 
 
-    // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
-
-    // EntityTransaction transaction = entityManager.getTransaction();
-
-    // transaction.begin();
-    // entityManager.persist(datosPersona);
-    // transaction.commit();
-    // entityManager.close();
+//    Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+//    Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+//    DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+//    Duenio duenio = new Duenio("iancrespiok", "aleputo", datosPersona);
+//
+//    entityManager = PerThreadEntityManagers.getEntityManager();
+//    EntityTransaction transaction = entityManager.getTransaction();
+//
+//    transaction.begin();
+//    entityManager.persist(duenio);
+//    transaction.commit();
+//    entityManager.close();
 
     // System.out.println(RepositorioDuenios.getInstance().todos());
   }

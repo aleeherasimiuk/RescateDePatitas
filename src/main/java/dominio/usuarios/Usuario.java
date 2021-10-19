@@ -44,4 +44,8 @@ public abstract class Usuario extends PersistentEntity {
   private String encriptarPassword(String password) {
     return BCrypt.hashpw(password,BCrypt.gensalt(12));
   }
+
+  public Boolean login(String password) {
+    return BCrypt.checkpw(password,this.password);
+  }
 }
