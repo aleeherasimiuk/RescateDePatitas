@@ -1,51 +1,28 @@
-{{#partial "title" }}
-<title>Registrarse</title>
-<style>
-  .body-bg {
-    background-color: #9921e8;
-    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
-  }
-</style>
+{{#partial "form" }}
+
+<form class="flex flex-col" method="POST" action="/signup">
+
+  {{> form_field.hbs id="username" name = "username" label="Elije un Usuario" type = "text" error = error }}
+
+  {{> form_field.hbs id="password" name = "password" label="Elije una contraseña" type = "password" error = error }}
+
+  {{> form_field.hbs id="password_confirmation" name = "password_confirmation" label="Repite la contraseña" type =
+  "password" error = error }}
+
+  {{#if error}}
+  <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
+  {{/if}}
+
+  {{> button.hbs button_name = "Registrarse" }}
+</form>
 {{/partial}}
 
-{{#partial "content"}}
-<div class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
-  <header class="max-w-lg mx-auto">
-    <a href="#">
-      <h1 class="text-4xl font-bold text-white text-center">Rescate de Patitas</h1>
-    </a>
-  </header>
+{{#partial "footer"}}
 
-  <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-    <section>
-      <h3 class="font-bold text-2xl">Registrarse</h3>
-      {{!-- <p class="text-gray-600 pt-2">Iniciar sesión</p> --}}
-    </section>
-
-    <section class="mt-10">
-      <form class="flex flex-col" method="POST" action="/signup">
-
-        {{> form_field.hbs id="username" name = "username" label="Elije un Usuario" type = "text" error = error }}
-  
-        {{> form_field.hbs id="password" name = "password" label="Elije una contraseña" type = "password" error = error }}
-
-        {{> form_field.hbs id="password_confirmation" name = "password_confirmation" label="Repite la contraseña" type = "password" error = error }}
-
-        {{#if error}}
-        <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
-        {{/if}}
-
-        {{> button.hbs button_name = "Registrarse" }}
-      </form>
-    </section>
-  </main>
-
-  <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-    <p class="text-white">¿Ya tienes una cuenta? <a href="/login" class="font-bold hover:underline">Iniciar Sesión</a>.</p>
-  </div>
-
-  {{> footer.hbs }}
+<div class="max-w-lg mx-auto text-center mt-12 mb-6">
+  <p class="text-white">¿Ya tienes una cuenta? <a href="/login" class="font-bold hover:underline">Iniciar Sesión</a>.
+  </p>
 </div>
 {{/partial}}
 
-{{> base.hbs}}
+{{> form_layout.hbs title = "Registrarse" large = false}}
