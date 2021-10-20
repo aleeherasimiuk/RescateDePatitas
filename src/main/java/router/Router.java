@@ -10,9 +10,6 @@ import static spark.Spark.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
-
-import com.github.jknack.handlebars.Handlebars;
 
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -38,7 +35,7 @@ public class Router {
     get("/signup/step2", (request, response) -> {
       Map<String, Object> model = new HashMap<>();
       model.put("error", false);
-      return new ModelAndView(model, "person_signup.hbs");
+      return new ModelAndView(model, "owner.hbs");
     }, engineTemplate);
 
     get("/blah", (request, response) -> {
@@ -49,5 +46,13 @@ public class Router {
       model.put("characteristicsOdd", caracteristicas.subList((caracteristicas.size() + 1) / 2, (caracteristicas.size())));
       return new ModelAndView(model, "add_pet.hbs");
     } , engineTemplate);
+
+    get("/rescatista", (request, response)-> {
+
+      Map<String, Object> model = new HashMap<>();
+      model.put("error", false);
+      return new ModelAndView(model, "rescuer.hbs");
+
+    }, engineTemplate);
   }
 }

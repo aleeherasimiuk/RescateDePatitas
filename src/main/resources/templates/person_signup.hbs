@@ -32,9 +32,12 @@
     {{> form_field.hbs id="contact_phone" name = "contact_phone" label="Teléfono" type = "text" error = error }}
   </div>
 
-  {{#if error}}
+  {{!-- {{#if error}}
   <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
-  {{/if}}
+  {{/if}} --}}
+
+  {{#block "address" }}
+  {{/block}}
 
   <div class="col-span-2">
     <button
