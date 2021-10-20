@@ -16,37 +16,55 @@
     </a>
   </header>
 
-  <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+  <main class="bg-white max-w-5xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
     <section>
       <h3 class="font-bold text-2xl">Registrarse</h3>
       {{!-- <p class="text-gray-600 pt-2">Iniciar sesión</p> --}}
     </section>
 
     <section class="mt-10">
-      <form class="flex flex-col" method="POST" action="/home">
+        <form class="grid grid-cols-2" method="POST" action="/home">
+            <div id="formDatosPersonales" class="mr-5">
+                <div class="mb-6 pt-3 rounded">
+                    <h2 class="text-lg font-medium text-black">Datos Personales</h2>
+                </div>
 
-        {{> form_field.hbs id="fname" name = "fname" label="Nombre" type = "text" error = error }}
-  
-        {{> form_field.hbs id="lname" name = "lname" label="Apellido" type = "text" error = error }}
+                {{> form_field.hbs id="fname" name = "fname" label="Nombre" type = "text" error = error }}
+
+                {{> form_field.hbs id="lname" name = "lname" label="Apellido" type = "text" error = error }}
 
 
-        {{> form_field.hbs id="document_type" name = "document_type" label="Tipo de Documento" type = "text" error = error }}
-        {{> form_field.hbs id="document" name = "document" label="Documento" type = "text" error = error }}
+                {{> form_field.hbs id="document_type" name = "document_type" label="Tipo de Documento" type = "text" error = error }}
+                {{> form_field.hbs id="document" name = "document" label="Documento" type = "text" error = error }}
 
-        {{> form_field.hbs id="birthday" name = "birthday" label="Fecha de Nacimiento" type = "date" error = error }}
-  
-        <p class="text-gray-600 pt-2">¿Con quien nos contactaremos? Podés ser vos o una persona de tu confianza</p>
+                {{> form_field.hbs id="birthday" name = "birthday" label="Fecha de Nacimiento" type = "date" error = error }}
+            </div>
 
-        {{> form_field.hbs id="contact_fname" name = "contact_fname" label="Nombre" type = "text" error = error }}
-        {{> form_field.hbs id="contact_lname" name = "contact_lname" label="Apellido" type = "text" error = error }}
-        {{> form_field.hbs id="contact_email" name = "contact_email" label="Email" type = "email" error = error }}
-        {{> form_field.hbs id="contact_phone" name = "contact_phone" label="Teléfono" type = "text" error = error }}
-        
+            <div id="formDatosContacto">
+                <div class="mb-6 pt-3 rounded">
+                    <h2 class="text-lg font-medium text-black">Datos de Contacto</h2>
+                </div>
+
+                <div class="mb-11 pt-3 rounded">
+                    <p class="text-gray-600">¿Con quien nos contactaremos? Podés ser vos o una persona de tu confianza</p>
+                </div>
+
+                {{> form_field.hbs id="contact_fname" name = "contact_fname" label="Nombre" type = "text" error = error }}
+                {{> form_field.hbs id="contact_lname" name = "contact_lname" label="Apellido" type = "text" error = error }}
+                {{> form_field.hbs id="contact_email" name = "contact_email" label="Email" type = "email" error = error }}
+                {{> form_field.hbs id="contact_phone" name = "contact_phone" label="Teléfono" type = "text" error = error }}
+            </div>
+
         {{#if error}}
         <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
         {{/if}}
 
-        {{> button.hbs button_name = "Finalizar" }}
+        <div class="col-span-2">
+            <button
+                class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                type="submit">Finalizar
+            </button>
+        </div>
       </form>
     </section>
   </main>
