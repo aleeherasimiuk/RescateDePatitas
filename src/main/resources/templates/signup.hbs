@@ -1,6 +1,6 @@
 {{#partial "form" }}
 
-<form class="flex flex-col" method="POST" action="/signup">
+<form class="flex flex-col" method="POST" action="/usuarios/registrar/paso1">
 
   {{> form_field.hbs id="username" name = "username" label="Elije un Usuario" type = "text" error = error }}
 
@@ -10,7 +10,7 @@
   "password" error = error }}
 
   {{#if error}}
-  <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
+  <p class="text-red-500 text-xs italic mb-5">La contraseña es vulnerable, por favor elige una más fuerte</p>
   {{/if}}
 
   {{> button.hbs button_name = "Registrarse" }}

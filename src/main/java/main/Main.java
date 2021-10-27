@@ -6,11 +6,15 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import dominio.mascota.Caracteristica;
+import dominio.passwords.CommonPassword;
+import dominio.passwords.LowerChar;
+import dominio.passwords.UpperChar;
 import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioValidaciones;
 import dominio.tareas.Recomendador;
 import dominio.usuarios.Duenio;
 import router.Router;
@@ -76,8 +80,7 @@ public class Main {
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
 
-    // entityManager = PerThreadEntityManagers.getEntityManager();
-    // EntityTransaction transaction = entityManager.getTransaction();
+
 
     //RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("Ladra mucho"), new Caracteristica("Es tranquilo"));
 

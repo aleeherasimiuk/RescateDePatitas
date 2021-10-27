@@ -2,16 +2,11 @@ package router;
 
 import controllers.HomeController;
 import controllers.LoginController;
-import dominio.mascota.Caracteristica;
-import dominio.repositorio.RepositorioCaracteristicas;
+import controllers.MascotaController;
+import controllers.RescateController;
+import controllers.UserController;
 
 import static spark.Spark.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -21,38 +16,19 @@ public class Router {
 
 		staticFiles.location("public");
 
-    get("/", (request, response) -> HomeController.view(request, response), engineTemplate);
-		get("/login",
-				(request, response) -> LoginController.view(request, response), engineTemplate);
-    post("/login",
-        (request, response) -> LoginController.login(request, response), engineTemplate);
-    get("/signup", (request, response) -> {
-      Map<String, Object> model = new HashMap<>();
-      model.put("error", false);
-      return new ModelAndView(model, "signup.hbs");
-    }, engineTemplate);
+    get("/", HomeController::view, engineTemplate);
+		get("/login", LoginController::view, engineTemplate);
+    post("/login", LoginController::login, engineTemplate);
 
-    get("/signup/step2", (request, response) -> {
-      Map<String, Object> model = new HashMap<>();
-      model.put("error", false);
-      return new ModelAndView(model, "owner.hbs");
-    }, engineTemplate);
+    get("/signup/step1", UserController::viewStep1, engineTemplate);
 
-    get("/blah", (request, response) -> {
-      
-      Map<String, Object> model = new HashMap<>();
-      List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
-      model.put("characteristicsEven", caracteristicas.subList(0, (caracteristicas.size() + 1) / 2));
-      model.put("characteristicsOdd", caracteristicas.subList((caracteristicas.size() + 1) / 2, (caracteristicas.size())));
-      return new ModelAndView(model, "add_pet.hbs");
-    } , engineTemplate);
+    post("/usuarios/registrar/paso1", UserController::signUpStep1, engineTemplate);
+    post("/usuarios/registrar/paso2", UserController::signUpStep2);
 
-    get("/rescatista", (request, response)-> {
+    get("/signup/step2", UserController::viewStep2, engineTemplate);
 
-      Map<String, Object> model = new HashMap<>();
-      model.put("error", false);
-      return new ModelAndView(model, "rescuer.hbs");
+    get("/mascotas/crear", MascotaController::view , engineTemplate);
 
-    }, engineTemplate);
+    get("/rescates/crear", RescateController::view, engineTemplate);
   }
 }
