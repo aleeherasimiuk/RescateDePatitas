@@ -39,6 +39,9 @@
   {{#block "address" }}
   {{/block}}
 
+  {{#block "more_fields"}}
+  {{/block}}
+
   <div class="col-span-2">
     <button
       class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
@@ -46,13 +49,6 @@
     </button>
   </div>
 </form>
-{{/partial}}
-
-{{#partial "footer"}}
-<div class="max-w-lg mx-auto text-center mt-12 mb-6">
-  <p class="text-white">¿Ya tienes una cuenta? <a href="/iniciar-sesion" class="font-bold hover:underline">Iniciar Sesión</a>.
-  </p>
-</div>
 {{/partial}}
 
 {{> form_layout.hbs title ="Registrarse" large = true}}
