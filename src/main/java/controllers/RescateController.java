@@ -13,14 +13,20 @@ import spark.Response;
 public class RescateController {
 
 
-  public static ModelAndView view(Request request, Response response){
+  public static ModelAndView viewWithoutBadge(Request request, Response response){
     Map<String, Object> model = new HashMap<>();
     model.put("error", false);
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("characteristicsEven", caracteristicas.subList(0, (caracteristicas.size() + 1) / 2));
     model.put("characteristicsOdd",
         caracteristicas.subList((caracteristicas.size() + 1) / 2, (caracteristicas.size())));
-    return new ModelAndView(model, "rescuer.hbs");
+    return new ModelAndView(model, "without_badge.hbs");
+  }
+
+  public static ModelAndView viewWithBadge(Request request, Response response){
+    Map<String, Object> model = new HashMap<>();
+    model.put("error", false);
+    return new ModelAndView(model, "with_badge.hbs");
   }
   
 }

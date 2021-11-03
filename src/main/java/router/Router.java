@@ -29,6 +29,7 @@ public class Router {
 
     get("/mascotas/crear", MascotaController::view , engineTemplate);
 
-    get("/rescates/crear", RescateController::view, engineTemplate);
+    get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
+    get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
   }
 }

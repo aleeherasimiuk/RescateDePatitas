@@ -1,0 +1,25 @@
+{{#partial "address"}}
+
+<div class="col-span-2">
+  {{> form_field.hbs id="address" name="address" label = "Domicilio" type = "text" error = error}}
+</div>
+
+{{/partial}}
+
+{{#partial "more_fields"}}
+
+  <div class="col-span-2" id="formDatosRescate">
+    <div class="mb-6 pt-3 rounded">
+      <h2 class="text-lg font-medium text-black">Datos del Rescate</h2>
+    </div>
+
+    {{> form_field.hbs id="res_date" name = "res_date" label="Fecha del Rescate" type = "date" error = error }}
+    {{> form_field.hbs id="res_loc" name = "res_loc" label="Ubicación del rescate" type = "text" error = error}}
+    {{> form_field.hbs id="desc" name = "desc" label="Descripción con la que fue encontrada" type = "text" error = error}}
+
+  </div>
+
+  {{> upload_photo.hbs}}
+
+{{/partial}}
+{{> person_signup.hbs header = "¡Encontré una Mascota!"}}
