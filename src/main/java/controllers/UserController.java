@@ -30,6 +30,10 @@ public class UserController {
   }
 
   public static ModelAndView viewStep2(Request request, Response response) {
+    System.out.println(request.cookie("stepOne"));
+    if(request.cookie("stepOne") != "OK"){
+      response.redirect("/signup/step1");
+    }
     Map<String, Object> model = new HashMap<>();
     model.put("error", false);
     return new ModelAndView(model, "owner.hbs");
@@ -58,6 +62,7 @@ public class UserController {
 
     request.session().attribute("user", usuario);
     request.session().attribute("password", password);
+    response.cookie("stepOne", "OK");
 
     response.redirect("/signup/step2");
     return new ModelAndView(null, "");
