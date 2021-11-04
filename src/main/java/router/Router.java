@@ -7,6 +7,8 @@ import controllers.RescateController;
 import controllers.UserController;
 
 import static spark.Spark.*;
+
+import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -31,5 +33,19 @@ public class Router {
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
+
+    post("/caracteristicas", (request, response) -> {
+      System.out.println(request.queryParams("text"));
+      return "success";
+    });
+
+    get("/caracteristicas", (request, response) -> {
+      return new ModelAndView(null, "caracteristica.hbs");
+    }, engineTemplate);
+
+    delete("/caracteristicas/:texto", (request, response) -> {
+      System.out.println(request.params("texto"));
+      return "success";
+    });
   }
 }

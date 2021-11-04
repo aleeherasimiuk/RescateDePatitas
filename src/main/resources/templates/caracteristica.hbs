@@ -1,0 +1,180 @@
+{{#partial "form" }}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+    function addTask(task, tasks) {
+        const res = [...tasks, { ...task }];
+        $.ajax({
+            url: 'caracteristicas',
+            type: 'POST',
+            data: { text: task.label },
+            async: false,
+            success: response => {
+                console.log('success on add');
+            },
+            error: (xhr, status, error) => {
+                console.log('error on add');
+            }
+        });
+      task.label = '';
+      return res;
+    }
+
+   function removeTask(element) {
+       const texto = element.parentElement.parentElement.getElementsByTagName("div")[0].getElementsByTagName("p")[0].textContent;
+
+       
+       $.ajax({
+           url: `caracteristicas/${texto}`,
+           type: 'DELETE',
+           async: false,
+           success: response => {
+               console.log('success on delete');
+           },
+           error: (xhr, status, error) => {
+               console.log('error on delete');
+           }
+       });
+   }
+
+    function tasksToHTML(tasks, templateId) {
+        const template = document.getElementById(templateId);
+        try {
+            return tasks.map((task) => {
+                const taskSection = document.importNode(template.content.querySelector('.task'), true);
+                const p = taskSection.querySelector('p');
+                p.innerText = task.label;
+                return taskSection.outerHTML;
+            }).reduce((acc, curr) => acc + curr, '');
+        } catch (e) {
+            console.log('holi');
+        }
+    }
+</script>
+
+
+<form class="grid grid-cols-2" method="POST" action={{action}}>
+
+
+    <div class="col-span-2">
+
+
+        <section class="bg-gray-100" x-data="{tasks: [], task: {label: ''}}">
+        
+            <div class="text-center w-full mb-2">
+                <h1 class="text-3xl font-bold text-gray-800 uppercase tracking-tight">Caracteristicas</h1>
+            </div>
+        
+            <div class="flex flex-col">
+                <form x-on:submit.prevent>
+                    <div class="flex flex-row mx-2 items-center">
+                        <div class="flex-grow">
+                            <input class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text" x-model="task.label">
+                        </div>
+                        <div>
+                            <svg class="w-10" x-on:click="tasks = addTask(task, tasks);" xmlns="http://www.w3.org/2000/svg"
+                                x="0px" y="0px" width="64" height="64" viewBox="0 0 172 172" style=" fill:#000000;">
+                                <defs>
+                                    <linearGradient x1="86" y1="8.73438" x2="86" y2="159.25823" gradientUnits="userSpaceOnUse"
+                                        id="color-1_YkkkrbhLBiXM_gr1">
+                                        <stop offset="0" stop-color="#e5b2ca"></stop>
+                                        <stop offset="1" stop-color="#7028e4"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                    style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g fill="url(#color-1_YkkkrbhLBiXM_gr1)">
+                                        <g>
+                                            <path
+                                                d="M86,20.91715c-35.88686,0 -65.08285,29.19599 -65.08285,65.08285c0,35.88686 29.19599,65.08285 65.08285,65.08285c35.88686,0 65.08285,-29.19599 65.08285,-65.08285c0,-35.88686 -29.19599,-65.08285 -65.08285,-65.08285zM86,144.3641c-32.18281,0 -58.3641,-26.18129 -58.3641,-58.3641c0,-32.18281 26.18129,-58.3641 58.3641,-58.3641c32.18281,0 58.3641,26.18129 58.3641,58.3641c0,32.18281 -26.18129,58.3641 -58.3641,58.3641z">
+                                            </path>
+                                            <path
+                                                d="M121.02048,75.58594h-24.60641v-24.60641c-0.01488,-0.88756 -0.38319,-1.73252 -1.02327,-2.34756c-0.64008,-0.61504 -1.49905,-0.94936 -2.3865,-0.92884h-14.00859c-0.88745,-0.02052 -1.74642,0.31379 -2.3865,0.92884c-0.64008,0.61504 -1.00838,1.46 -1.02327,2.34756v24.60641h-24.60641c-0.88762,0.01488 -1.73263,0.38323 -2.34768,1.02339c-0.61505,0.64015 -0.94933,1.49921 -0.92872,2.38672v14.00859c-0.02043,0.88739 0.31393,1.74627 0.92896,2.38628c0.61503,0.64001 1.45994,1.00826 2.34744,1.02315h24.60641v24.60641c0.01488,0.88756 0.38319,1.73252 1.02327,2.34756c0.64008,0.61504 1.49905,0.94936 2.3865,0.92884h14.00859c0.88745,0.02052 1.74642,-0.31379 2.3865,-0.92884c0.64008,-0.61504 1.00838,-1.46 1.02327,-2.34756v-24.60641h24.60641c0.88762,-0.01488 1.73263,-0.38323 2.34768,-1.02339c0.61505,-0.64015 0.94933,-1.49921 0.92872,-2.38672v-14.00859c0.02043,-0.88739 -0.31393,-1.74627 -0.92896,-2.38628c-0.61503,-0.64001 -1.45994,-1.00826 -2.34744,-1.02315zM117.57813,89.69531h-24.57383c-0.88043,-0.00954 -1.72758,0.33598 -2.35021,0.95854c-0.62262,0.62256 -0.96823,1.46968 -0.95878,2.35011v24.57416h-7.39062v-24.57416c0.00945,-0.88043 -0.33615,-1.72755 -0.95878,-2.35011c-0.62262,-0.62256 -1.46978,-0.96808 -2.35021,-0.95854h-24.57383v-7.39062h24.57383c0.88043,0.00954 1.72758,-0.33598 2.35021,-0.95854c0.62262,-0.62256 0.96823,-1.46968 0.95878,-2.35011v-24.57416h7.39063v24.57416c-0.00945,0.88043 0.33615,1.72755 0.95878,2.35011c0.62262,0.62256 1.46978,0.96808 2.35021,0.95854h24.57383z">
+                                            </path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+        
+                    <div class="">
+                        <div id="list-tasks-container" class="flex flex-col-reverse mt-4"
+                            x-html="tasksToHTML(tasks, 'task-template')">
+                        </div>
+                    </div>
+        
+                    <div class="">
+                        <input class="w-full p-2 text-white bg-blue-600 border border-blue-600 rounded" type="submit"
+                            value="Finalizar">
+                    </div>
+                </form>
+            </div>
+        
+            <template id="task-template">
+                <section class="task bg-white my-1">
+                    <label class="flex flex-row items-center p-2 ">
+                        <div id="textContainer" class="flex-grow">
+                            <p id="textElement" class="m-0"></p>
+                        </div>
+                        <div class="w-4">
+                            <svg class="w-4" onclick="removeTask(this);" xmlns="http://www.w3.org/2000/svg"
+                                x="0px" y="0px" width="64" height="64" viewBox="0 0 172 172" style=" fill:#000000;">
+                                <defs>
+                                    <linearGradient x1="105.95469" y1="18.14063" x2="105.95469" y2="161.92188"
+                                        gradientUnits="userSpaceOnUse" id="color-1_Hh9jTMluBjoJ_gr1">
+                                        <stop offset="0" stop-color="#e5b2ca"></stop>
+                                        <stop offset="1" stop-color="#7028e4"></stop>
+                                    </linearGradient>
+                                    <linearGradient x1="1383.59219" y1="69.77422" x2="1383.59219" y2="69.77422"
+                                        gradientUnits="userSpaceOnUse" id="color-2_Hh9jTMluBjoJ_gr2">
+                                        <stop offset="0" stop-color="#e5b2ca"></stop>
+                                        <stop offset="1" stop-color="#7028e4"></stop>
+                                    </linearGradient>
+                                    <linearGradient x1="29818.21563" y1="7.55859" x2="29818.21563" y2="7.55859"
+                                        gradientUnits="userSpaceOnUse" id="color-3_Hh9jTMluBjoJ_gr3">
+                                        <stop offset="0" stop-color="#e5b2ca"></stop>
+                                        <stop offset="1" stop-color="#7028e4"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                    style="mix-blend-mode: normal">
+                                    <path d="M0,172v-172h172v172z" fill="none"></path>
+                                    <g>
+                                        <path
+                                            d="M105.95469,143.34453c1.85533,0 3.35938,-1.50404 3.35938,-3.35937v-66.85156c0,-1.85533 -1.50404,-3.35937 -3.35937,-3.35937c-1.85533,0 -3.35937,1.50404 -3.35937,3.35938v66.85156c0,1.85533 1.50404,3.35938 3.35938,3.35938z"
+                                            fill="url(#color-1_Hh9jTMluBjoJ_gr1)"></path>
+                                        <path
+                                            d="M66.04531,143.34453c1.85533,0 3.35938,-1.50404 3.35938,-3.35937v-66.85156c0,-1.85533 -1.50404,-3.35937 -3.35937,-3.35937c-1.85533,0 -3.35937,1.50404 -3.35937,3.35938v66.85156c0,1.85533 1.50404,3.35938 3.35937,3.35938z"
+                                            fill="url(#color-2_Hh9jTMluBjoJ_gr2)"></path>
+                                        <path
+                                            d="M130.74687,25.29609h-16.39375v-4.3c-0.00833,-7.41787 -6.01963,-13.42917 -13.4375,-13.4375h-29.83125c-7.41787,0.00833 -13.42917,6.01963 -13.4375,13.4375v4.3h-16.39375c-7.41787,0.00833 -13.42917,6.01963 -13.4375,13.4375v18.8125c0,1.85533 1.50404,3.35938 3.35938,3.35938h6.24844v85.73125c0,4.89192 1.72605,9.40155 4.86034,12.69844c3.10105,3.28019 7.4226,5.12887 11.93653,5.10625h63.55938c4.51391,0.0225 8.83541,-1.82616 11.93653,-5.10625c3.1343,-3.29655 4.86034,-7.80652 4.86034,-12.69844v-85.73125h6.24844c1.85533,0 3.35938,-1.50404 3.35938,-3.35937v-18.8125c-0.00833,-7.41787 -6.01963,-13.42917 -13.4375,-13.4375zM64.36562,20.99609c0.00426,-3.7089 3.00985,-6.71449 6.71875,-6.71875h29.83125c3.7089,0.00426 6.71449,3.00985 6.71875,6.71875v4.3h-43.26875zM127.85781,146.63672c0,6.31999 -4.33359,11.08594 -10.07812,11.08594h-63.55938c-5.74453,0 -10.07812,-4.76595 -10.07812,-11.08594v-85.73125h83.71563zM137.46563,54.18672h-102.93125v-15.45312c0.00426,-3.7089 3.00985,-6.71449 6.71875,-6.71875h89.49375c3.7089,0.00426 6.71449,3.00985 6.71875,6.71875z"
+                                            fill="url(#color-3_Hh9jTMluBjoJ_gr3)"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </label>
+                </section>
+            </template>
+        </section>
+
+
+
+
+        <button
+            class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+            type="submit">Finalizar
+        </button>
+    </div>
+</form>
+{{/partial}}
+
+{{> form_layout.hbs title ="Características" large = true header = header}}
