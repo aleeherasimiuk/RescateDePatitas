@@ -54,7 +54,7 @@ public class DatosPersona extends PersistentEntity {
     return fechaNacimiento;
   }
 
-  public int getTelefono() {
+  public String getTelefono() {
     return contacto.getTelefono();
   }
 }

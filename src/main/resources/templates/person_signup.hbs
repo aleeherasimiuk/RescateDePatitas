@@ -9,9 +9,13 @@
 
     {{> form_field.hbs id="lname" name = "lname" label="Apellido" type = "text" error = error }}
 
+    <select name="document_type">
 
-    {{> form_field.hbs id="document_type" name = "document_type" label="Tipo de Documento" type = "text" error = error
-    }}
+      <option value = 0 selected="yes">DNI </option>
+      <option value = 1>LC</option>
+
+    </select>
+    {{> form_field.hbs id="document_type" name = "document_type" label="Tipo de Documento" type = "text" error = error }}
     {{> form_field.hbs id="document" name = "document" label="Documento" type = "text" error = error }}
 
     {{> form_field.hbs id="birthday" name = "birthday" label="Fecha de Nacimiento" type = "date" error = error }}

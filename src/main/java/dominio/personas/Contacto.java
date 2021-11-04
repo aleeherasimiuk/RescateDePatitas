@@ -10,11 +10,11 @@ public class Contacto {
   @Column(name = "apellido_contacto")
   private String apellido;
   @Column(name = "telefono_contacto")
-  private Integer telefono;
+  private String telefono;
   @Column(name = "email_contacto")
   private String email;
 
-  public Contacto(String nombre, String apellido, Integer telefono, String email) {
+  public Contacto(String nombre, String apellido, String telefono, String email) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.telefono = telefono;
@@ -31,7 +31,7 @@ public class Contacto {
     return apellido;
   }
 
-  public int getTelefono() {
+  public String getTelefono() {
     return telefono;
   }
 
