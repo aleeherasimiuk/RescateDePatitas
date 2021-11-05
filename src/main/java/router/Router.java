@@ -11,7 +11,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
   public void setup() {
-    
+
     HandlebarsTemplateEngine engineTemplate = new HandlebarsTemplateEngine();
 
 		staticFiles.location("public");
@@ -28,6 +28,7 @@ public class Router {
     get("/signup/step2", UserController::viewStep2, engineTemplate);
 
     get("/mascotas/crear", MascotaController::view , engineTemplate);
+    post("/mascotas",MascotaController::create, engineTemplate);
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
