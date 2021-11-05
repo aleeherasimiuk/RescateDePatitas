@@ -51,8 +51,15 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
     query.select(root).where(
         builder.equal(root.get("username"),user)
     );
-
     TypedQuery<Duenio> q = entityManager.createQuery(query);
-    return q.getSingleResult();
+    Duenio result = null;
+
+    try{
+      result = q.getSingleResult();
+    }catch (Exception e){
+      return null;
+    }
+
+    return result;
   }
 }

@@ -41,7 +41,12 @@ public class LoginController {
     }
 
     model.put("error",false);
+
+    res.redirect("/");
+
     return  new ModelAndView(model, "login.hbs");
+
+
   }
 
 
