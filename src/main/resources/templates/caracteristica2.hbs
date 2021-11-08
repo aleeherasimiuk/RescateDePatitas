@@ -1,0 +1,64 @@
+{{#partial "form" }}
+
+{{!--
+<hr class="border-0 bg-gray-500 text-gray-500 h-px my-4"> --}}
+
+<div class="mb-6 rounded">
+  <h2 class="text-lg font-medium text-black">Borrar Características</h2>
+</div>
+
+<div class="overflow-x-auto">
+  {{#each caracteristicas}}
+
+  <form method="POST" action="/caracteristicas/borrar/{{nombre}}">
+
+    <div class="relative text-gray-700 mb-6 rounded bg-gray-200">
+      <input class="w-full h-10 pl-3 pr-8 text-base placeholder-black border rounded focus:shadow-outline" disabled
+        type="text" placeholder="{{nombre}}" />
+      <button
+        class="absolute inset-y-0 right-0 flex items-center px-4 font-bold text-white bg-indigo-600 rounded-r-lg bg-purple-600 hover:bg-purple-700"
+        type="submit">Borrar</button>
+    </div>
+
+    {{/each}}
+  </form>
+
+</div>
+
+<div class="mb-6 rounded">
+  <h2 class="text-lg font-medium text-black">Agregar una nueva característica</h2>
+</div>
+
+<form method="POST" action="/caracteristicas/crear/{{nombre}}">
+  {{!-- {{> form_field.hbs id="charact" name = "charact" label="Nombre" type = "text" error = error }}
+  
+  <div class="mb-6 pt-3 rounded bg-gray-200 {{#if error}}border border-red-500{{/if}}">
+    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="{{id}}">{{label}}</label>
+    <input type="{{type}}" id="{{id}}" name="{{name}}" required
+      class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 focus:border-purple-600 border-gray-300 transition duration-500 px-3 pb-3 ">
+  </div> --}}
+
+  <div class="relative text-gray-700 mb-6 rounded bg-gray-200">
+    <input id="addChar" class="bg-gray-200 w-full h-10 pl-3 pr-8 text-base placeholder-gray-600 border-b-4 focus:border-purple-400 border-gray-300 transition duration-500 rounded" type="text"
+      name="char_name" placeholder="Nombre"/>
+    <button
+      class="absolute inset-y-0 right-0 flex items-center px-4 font-bold text-white rounded-r-lg bg-purple-600 hover:bg-purple-700"
+      type="submit">Agregar</button>
+  </div>
+
+  {{!-- <button
+    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+    type="submit">Agregar
+  </button> --}}
+</form>
+
+<button
+  class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+  type="submit">Finalizar
+</button>
+
+
+
+{{/partial}}
+
+{{> form_layout.hbs title ="Características" large = true header = header}}

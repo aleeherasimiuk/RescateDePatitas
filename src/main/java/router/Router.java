@@ -5,8 +5,12 @@ import controllers.LoginController;
 import controllers.MascotaController;
 import controllers.RescateController;
 import controllers.UserController;
+import dominio.repositorio.RepositorioCaracteristicas;
 
 import static spark.Spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -41,6 +45,12 @@ public class Router {
 
     get("/caracteristicas", (request, response) -> {
       return new ModelAndView(null, "caracteristica.hbs");
+    }, engineTemplate);
+
+    get("/caracteristicas2", (request, response) -> {
+      Map<String, Object> model = new HashMap<>();
+      model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
+      return new ModelAndView(model, "caracteristica2.hbs");
     }, engineTemplate);
 
     delete("/caracteristicas/:texto", (request, response) -> {
