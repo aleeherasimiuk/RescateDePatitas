@@ -22,9 +22,8 @@
       return res;
     }
 
-   function removeTask(element) {
+   function removeTask(tasks, element) {
        const texto = element.parentElement.parentElement.getElementsByTagName("div")[0].getElementsByTagName("p")[0].textContent;
-
        
        $.ajax({
            url: `caracteristicas/${texto}`,
@@ -37,6 +36,8 @@
                console.log('error on delete');
            }
        });
+
+       return tasks.filter(task => task.label !== texto);
    }
 
     function tasksToHTML(tasks, templateId) {
@@ -61,17 +62,17 @@
     <div class="col-span-2">
 
 
-        <section class="bg-gray-100" x-data="{tasks: [], task: {label: ''}}">
+        <section x-data="{tasks: [], task: {label: ''}}">
         
             <div class="text-center w-full mb-2">
-                <h1 class="text-3xl font-bold text-gray-800 uppercase tracking-tight">Caracteristicas</h1>
+                <h1 class="text-base font-bold text-gray-800 uppercase tracking-tight">Agregar o quitar características</h1>
             </div>
         
             <div class="flex flex-col">
                 <form x-on:submit.prevent>
                     <div class="flex flex-row mx-2 items-center">
                         <div class="flex-grow">
-                            <input class="border flex-1 mr-3 border-gray-300 p-2 rounded" type="text" x-model="task.label">
+                            <input class="border flex-1 mr-3 border-gray-300 p-2 rounded w-full" type="text" x-model="task.label">
                         </div>
                         <div>
                             <svg class="w-10" x-on:click="tasks = addTask(task, tasks);" xmlns="http://www.w3.org/2000/svg"
@@ -108,22 +109,17 @@
                             x-html="tasksToHTML(tasks, 'task-template')">
                         </div>
                     </div>
-        
-                    <div class="">
-                        <input class="w-full p-2 text-white bg-blue-600 border border-blue-600 rounded" type="submit"
-                            value="Finalizar">
-                    </div>
                 </form>
             </div>
         
             <template id="task-template">
-                <section class="task bg-white my-1">
-                    <label class="flex flex-row items-center p-2 ">
+                <section class="task rounded bg-gray-100 my-1 shadow-lg mr-5 mt-4 mb-2">
+                    <label class="flex flex-row items-center">
                         <div id="textContainer" class="flex-grow">
-                            <p id="textElement" class="m-0"></p>
+                            <p id="textElement" class="mr-5 p-2"></p>
                         </div>
                         <div class="w-4">
-                            <svg class="w-4" onclick="removeTask(this);" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="w-9 mr-9" x-on:click="tasks = removeTask(tasks, this);" xmlns="http://www.w3.org/2000/svg"
                                 x="0px" y="0px" width="64" height="64" viewBox="0 0 172 172" style=" fill:#000000;">
                                 <defs>
                                     <linearGradient x1="105.95469" y1="18.14063" x2="105.95469" y2="161.92188"
@@ -165,9 +161,6 @@
                 </section>
             </template>
         </section>
-
-
-
 
         <button
             class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
