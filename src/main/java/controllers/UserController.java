@@ -95,19 +95,8 @@ public class UserController implements TransactionalOps, WithGlobalEntityManager
           birthday));
 
     RepositorioDuenios.getInstance().registrar(duenio);
-    /*
-    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
-    try{
-      PerThreadEntityManagers.getEntityManager().persist(duenio);
-      PerThreadEntityManagers.getEntityManager().getTransaction().commit();
-    } catch (RuntimeException e) {
-      PerThreadEntityManagers.getEntityManager().getTransaction().rollback();
-    }*/
-    /*
-    withTransaction(() -> {
-      RepositorioDuenios.getInstance().registrar(duenio);
-    });*/
-  response.redirect("/login");
-  return new ModelAndView(null, "");
+
+    response.redirect("/login");
+    return new ModelAndView(null, "");
   }
 }

@@ -1,5 +1,6 @@
 package router;
 
+import controllers.CaracteristicasController;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
@@ -11,6 +12,8 @@ import static spark.Spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -38,24 +41,15 @@ public class Router {
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
 
-    post("/caracteristicas", (request, response) -> {
-      System.out.println(request.queryParams("text"));
-      return "success";
-    });
 
-    get("/caracteristicas", (request, response) -> {
-      return new ModelAndView(null, "caracteristica.hbs");
-    }, engineTemplate);
+    get("/caracteristicas", CaracteristicasController::view, engineTemplate);
 
-    get("/caracteristicas2", (request, response) -> {
-      Map<String, Object> model = new HashMap<>();
-      model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
-      return new ModelAndView(model, "caracteristica2.hbs");
-    }, engineTemplate);
+    post("/caracteristicas/borrar", CaracteristicasController::delete, engineTemplate);
 
-    delete("/caracteristicas/:texto", (request, response) -> {
-      System.out.println(request.params("texto"));
-      return "success";
+    post("/caracteristicas/crear", CaracteristicasController::create, engineTemplate);
+
+    after((request, response) -> {
+      PerThreadEntityManagers.getEntityManager().clear();
     });
   }
 }

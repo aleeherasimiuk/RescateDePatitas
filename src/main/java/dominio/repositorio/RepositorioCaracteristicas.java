@@ -2,6 +2,7 @@ package dominio.repositorio;
 
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -20,8 +21,15 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 		super.registrar(caracteristica);
 	}
 
-	public void borrarCaracteristica(Caracteristica caracteristica) {
-		borrar(caracteristica);
+	public void borrarPorNombre(String caracteristica) {
+		transaction(entityManager -> {
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaDelete<Caracteristica> query = builder.createCriteriaDelete(Caracteristica.class);
+			Root<Caracteristica> root = query.from(Caracteristica.class);
+			
+			query.where(builder.equal(root.get("nombre"), caracteristica));
+			entityManager.createQuery(query).executeUpdate();
+		});
 	}
 
 	public boolean existeCaracteristica(String caracteristica) {
