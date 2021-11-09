@@ -1,9 +1,8 @@
 {{#partial "form"}}
 
-<form class="grid grid-cols-2" id="pet_form" method="POST" action="/home">
+<form class="grid grid-cols-2" id="pet_form" method="POST" action="/mascotas">
 
   <div class="mr-5">
-
 
     {{> form_select_field.hbs id="type" name = "type" label = "Clase" error = error listado = clases form = "pet_form"}}
     {{> form_field.hbs id="name" name = "name" label="Nombre" type = "text" error = error }}
@@ -20,15 +19,19 @@
     {{> form_field.hbs id="desc" name="desc" label = "Descripción Física" type = "text" error = error}}
   </div>
 
+  {{#if hayCaracteristicas}}
+    <p1>Caracteristicas</p1>
+  {{/if}}
+
   <div class="mr-5">
     {{#each characteristicsEven}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
     {{/each}}
   </div>
 
   <div>
     {{#each characteristicsOdd}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
     {{/each}}
   </div>
 

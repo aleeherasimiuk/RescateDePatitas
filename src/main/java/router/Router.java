@@ -28,7 +28,7 @@ public class Router {
     get("/signup/step2", UserController::viewStep2, engineTemplate);
 
     get("/mascotas/crear", MascotaController::view , engineTemplate);
-    post("/mascotas",MascotaController::create, engineTemplate);
+    post("/mascotas",MascotaController::create);
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);

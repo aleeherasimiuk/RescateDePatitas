@@ -1,13 +1,8 @@
 package controllers;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import dominio.mascota.Caracteristica;
-import dominio.mascota.ClaseMascota;
-import dominio.mascota.Sexo;
-import dominio.mascota.Tamanio;
+import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import spark.ModelAndView;
 import spark.Request;
@@ -23,13 +18,38 @@ public class MascotaController {
     model.put("sexos", Sexo.values());
     model.put("tamaños", Tamanio.values());
     model.put("clases", ClaseMascota.values());
+    model.put("hayCaracteristicas", !caracteristicas.isEmpty());
     return new ModelAndView(model, "add_pet.hbs");
   }
 
   public static ModelAndView create(Request request, Response response) {
     Map<String, Object> model = new HashMap<>();
+    ClaseMascota clase = ClaseMascota.valueOf(request.queryParams("type"));
+    String nombre = request.queryParams("name");
+    String apodo = request.queryParams("nick");
+    Integer edad = Integer.valueOf(request.queryParams("age"));
+    Sexo sexo = Sexo.valueOf(request.queryParams("gender"));
+    Tamanio tamanio = Tamanio.valueOf(request.queryParams("size"));
+    List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
+    System.out.println(request.queryParams(caracteristicas.get(0).getNombre()));
 
-    return new ModelAndView(model, "pet.hbs");
+    caracteristicas.forEach(caracteristica -> {
+      System.out.println(caracteristica.getNombre());
+      System.out.println(request.queryParams(caracteristica.getNombre()));
+      /*
+      if(request.queryParams(caracteristica.getNombre()) == "False"){
+        caracteristicas.remove(caracteristica);
+      }*/
+    });
+
+    Mascota mascota = new Mascota(clase, nombre, apodo, edad, sexo, tamanio);
+    caracteristicas.forEach(caracteristica -> {
+      mascota.agregarUnaCaracteristica(caracteristica.getNombre());
+    });
+
+
+
+    return new ModelAndView(model, "");
   }
 
 }
