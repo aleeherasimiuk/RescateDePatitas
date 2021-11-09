@@ -11,7 +11,6 @@ import java.util.List;
 
 import dominio.mascota.*;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -20,7 +19,6 @@ import dominio.hogares.Hogar;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
-import dominio.usuarios.Admin;
 import servicios.hogares.HogaresAdapter;
 import servicios.hogares.HogaresServiceRefugioDDS;
 import servicios.hogares.modelos.Admision;

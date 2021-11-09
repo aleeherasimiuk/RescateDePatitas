@@ -12,7 +12,6 @@ import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.repositorio.RepositorioRescatistas;
 import dominio.repositorio.RepositorioRespuestas;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
-import dominio.usuarios.Admin;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +19,6 @@ import org.junit.jupiter.api.AfterEach;
 
 import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;

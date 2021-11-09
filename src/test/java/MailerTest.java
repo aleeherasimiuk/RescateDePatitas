@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.adopcion.DarEnAdopcion;
-import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioSolicitudesAdopcion;
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.usuarios.Duenio;
