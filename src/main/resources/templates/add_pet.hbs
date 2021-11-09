@@ -11,8 +11,10 @@
   </div>
   <div>
     {{> form_field.hbs id="age" name = "age" label="Edad" type = "number" error = error }}
-    {{> form_select_field.hbs id="gender" name = "gender" label = "Sexo" error = error listado = sexos form = "pet_form"}}
-    {{> form_select_field.hbs id="size" name = "size" label = "Tamaño" error = error listado = tamaños form = "pet_form"}}
+    {{> form_select_field.hbs id="gender" name = "gender" label = "Sexo" error = error listado = sexos form =
+    "pet_form"}}
+    {{> form_select_field.hbs id="size" name = "size" label = "Tamaño" error = error listado = tamaños form =
+    "pet_form"}}
   </div>
 
   <div class="col-span-2">
@@ -20,27 +22,73 @@
   </div>
 
   {{#if hayCaracteristicas}}
-    <div class="col-span-2 mb-6 pt-3 rounded">
-      <h2 class="text-lg font-medium font-bold text-black">Caracteristicas</h2>
-      <h3 class="text-base font-medium text-black">Marque las caracteristicas acorde a su mascota</h3>
-    </div>
+  <div class="col-span-2 mb-6 pt-3 rounded">
+    <h2 class="text-lg font-medium font-bold text-black">Caracteristicas</h2>
+    <h3 class="text-base font-medium text-black">Marque las caracteristicas acorde a su mascota</h3>
+  </div>
 
-    <div class="mr-5">
-      {{#each characteristicsEven}}
-        {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
-      {{/each}}
-    </div>
+  <div class="mr-5">
+    {{#each characteristicsEven}}
+    {{> form_checkbox.hbs name = nombre}}
+    {{!-- <div class="max-w-sm">
+      <label class="inline-flex items-center">
+        <input type="checkbox" class="m-2 rounded border-gray-300 text-purple-600 shadow-sm focus:border-purple-300 w-4 h-4" name = "{{nombre}}"/>
+        {{nombre}}
+      </label>
+    </div> --}}
+    {{/each}}
+  </div>
 
-    <div>
-      {{#each characteristicsOdd}}
-        {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
-      {{/each}}
-    </div>
+  <div>
+    {{#each characteristicsOdd}}
+    {{> form_checkbox.hbs name = nombre}}
+    {{!-- {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }} --}}
+    <!-- <div class="max-w-sm">
+      <label class="inline-flex items-center">
+
+        <input type="checkbox" class="m-2 rounded border-gray-300 text-purple-600 shadow-sm focus:border-purple-300 w-4 h-4" name = "{{nombre}}"/>
+
+        {{!-- <input
+          class="form-checkbox bg-purple-600 w-6 h-6 mr-2 focus:bg-purple-600 focus:ring-opacity-25 border border-gray-300 rounded""
+          type="checkbox" name={{nombre}} /> --}}
+        {{nombre}}
+      </label>
+    </div> -->
+    {{/each}}
+  </div>
   {{/if}}
 
 
 
+
+
+  {{!-- <div class="mb-6 pt-3 rounded bg-gray-200 col-span-2">
+    <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="image">Imagen</label>
+    <input type="file" id="image" name="image" required multiple
+      class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 focus:border-purple-600 border-gray-300 transition duration-500 px-3 pb-3 ">
+  </div> --}}
+
   {{> upload_photo.hbs}}
+
+  {{!-- <style>
+    input[type=file]::-webkit-file-upload-button,
+    input[type=file]::file-selector-button {
+      @apply text-white bg-gray-700 hover: bg-gray-600 font-medium text-sm cursor-pointer border-0 py-2.5 pl-8 pr-4;
+      margin-inline-start: -1rem;
+      margin-inline-end: 1rem;
+    }
+  </style> --}}
+
+
+  {{!-- <label class="text-sm font-medium text-gray-900 block mb-2 col-span-2" for="user_avatar">Upload file</label>
+  --}}
+  {{!-- <input
+    class="col-span-2 block w-full cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-transparent text-sm rounded-lg"
+    aria-describedby="user_avatar_help" id="user_avatar" type="file"> --}}
+
+
+
+
 
   <div class="col-span-2">
     <button

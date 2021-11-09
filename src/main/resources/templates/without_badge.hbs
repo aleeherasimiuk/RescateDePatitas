@@ -38,13 +38,13 @@
 
   <div class="mr-5">
     {{#each characteristicsEven}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
 
   <div>
     {{#each characteristicsOdd}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
 
