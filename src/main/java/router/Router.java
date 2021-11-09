@@ -1,12 +1,21 @@
 package router;
 
+import controllers.CaracteristicasController;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
 import controllers.RescateController;
 import controllers.UserController;
+import dominio.repositorio.RepositorioCaracteristicas;
 
 import static spark.Spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -32,5 +41,16 @@ public class Router {
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
+
+
+    get("/caracteristicas", CaracteristicasController::view, engineTemplate);
+
+    post("/caracteristicas/borrar", CaracteristicasController::delete, engineTemplate);
+
+    post("/caracteristicas/crear", CaracteristicasController::create, engineTemplate);
+
+    after((request, response) -> {
+      PerThreadEntityManagers.getEntityManager().clear();
+    });
   }
 }

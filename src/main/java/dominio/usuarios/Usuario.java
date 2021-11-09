@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import org.mindrot.jbcrypt.BCrypt;
 
 import dominio.repositorio.RepositorioValidaciones;
+import dominio.tareas.ValidadorPassword;
 import persistencia.PersistentEntity;
 
 @Entity
@@ -33,19 +34,10 @@ public abstract class Usuario extends PersistentEntity {
 
   public Usuario(String username, String password) {
     this.username = username;
-    validarPassword(password);
-    this.password = encriptarPassword(password);
+    this.password = new ValidadorPassword().encriptarPassword(password);
   }
 
-  private void validarPassword(String password) {
-    RepositorioValidaciones.getInstance().validatePassword(password);
-  }
-
-  private String encriptarPassword(String password) {
-    return BCrypt.hashpw(password,BCrypt.gensalt(12));
-  }
-
-  public Boolean login(String password) {
-    return BCrypt.checkpw(password,this.password);
+  public Boolean esAdmin(){
+    return false;
   }
 }

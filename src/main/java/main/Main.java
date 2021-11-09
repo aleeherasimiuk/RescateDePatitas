@@ -13,9 +13,11 @@ import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
 import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
+import dominio.repositorio.RepositorioAdministradores;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.repositorio.RepositorioValidaciones;
 import dominio.tareas.Recomendador;
+import dominio.usuarios.Admin;
 import dominio.usuarios.Duenio;
 import router.Router;
 
@@ -83,6 +85,8 @@ public class Main {
 
 
     //RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("Ladra mucho"), new Caracteristica("Es tranquilo"));
+    //RepositorioValidaciones.getInstance().registrar(new CommonPassword(), new UpperChar());
+    //RepositorioAdministradores.getInstance().registrar(new Admin("admin", "admin"));
 
 
 
