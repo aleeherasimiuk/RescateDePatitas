@@ -8,15 +8,13 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import dominio.mascota.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import dominio.hogares.Hogar;
-import dominio.mascota.ClaseMascota;
-import dominio.mascota.Mascota;
-import dominio.mascota.Sexo;
-import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
@@ -44,7 +42,7 @@ public class ServiciosTest extends AbstractTest{
     when(service.obtenerUnaPagina(2)).thenReturn(buildPage("2", 40));
     when(service.obtenerUnaPagina(3)).thenReturn(buildPage("3", 40));
     when(service.obtenerUnaPagina(4)).thenReturn(buildPage("4", 40));
-    
+
     hogaresAdapter = new HogaresAdapter();
     hogares = hogaresAdapter.hogares(service);
   }
@@ -63,7 +61,7 @@ public class ServiciosTest extends AbstractTest{
   @Test
   @DisplayName("El hogar en la posicion 0 no tiene características específicas'")
   void primerHogarNoPoseeCaracteristicasEspecificas(){
-    assertArrayEquals(new String[]{}, hogares.get(0).getCaracteristicasEspecificas().toArray()); 
+    assertArrayEquals(new String[]{}, hogares.get(0).getCaracteristicasEspecificas().toArray());
   }
 
   @Test
@@ -173,12 +171,15 @@ public class ServiciosTest extends AbstractTest{
 
   Mascota buildRobert(){
     Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
-    new Admin("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("CALMADO"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("NO MUERDE"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("TIERNO"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("SE COME LAS MEDIAS"));
     robert.agregarUnaCaracteristica("CALMADO");
     robert.agregarUnaCaracteristica("No muerde");
     robert.agregarUnaCaracteristica("tierno");
     robert.agregarUnaCaracteristica("se come las medias");
     return robert;
   }
-  
+
 }

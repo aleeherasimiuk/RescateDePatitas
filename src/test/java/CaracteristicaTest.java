@@ -30,16 +30,14 @@ class CaracteristicaTest {
 	@BeforeEach
 	void setup() {
 		Admin administrador;
-
-		administrador = new Admin("UnUsuario", "UnaContraseña1");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AZUL");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AMARILLO");
-		administrador.agregarUnaCaracteristica("CASTRADO");
-		administrador.agregarUnaCaracteristica("NO-CASTRADO");
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-ROJO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AZUL"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AMARILLO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("CASTRADO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("NO-CASTRADO"));
 	}
 
-	
+
 	@AfterEach
 	void tearDown() {
 		RepositorioRescatesConChapita.getINSTANCE().vaciar();
@@ -67,8 +65,7 @@ class CaracteristicaTest {
 
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
-		Admin administrador = new Admin("UnAdministrador", "holaqtaltodomuyBarat10");
-		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado");
+		Executable agregarCaracteristica = () -> RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("castrado"));
 		assertThrows(CaracteristicaRepetida.class, agregarCaracteristica);
 	}
 

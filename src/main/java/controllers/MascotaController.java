@@ -4,6 +4,10 @@ import java.util.*;
 
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioMascotas;
+import dominio.repositorio.RepositorioUsuarios;
+import dominio.usuarios.Duenio;
+import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -11,6 +15,11 @@ import spark.Response;
 public class MascotaController {
 
   public static ModelAndView view(Request request, Response response) {
+    if(!authorize(request)){
+      response.status(401);
+      response.redirect("/");
+      return new ModelAndView(null, "");
+    }
     Map<String, Object> model = new HashMap<>();
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("characteristicsEven", caracteristicas.subList(0, (caracteristicas.size() + 1) / 2));
@@ -31,25 +40,26 @@ public class MascotaController {
     Sexo sexo = Sexo.valueOf(request.queryParams("gender"));
     Tamanio tamanio = Tamanio.valueOf(request.queryParams("size"));
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
-    System.out.println(request.queryParams(caracteristicas.get(0).getNombre()));
-
-    caracteristicas.forEach(caracteristica -> {
-      System.out.println(caracteristica.getNombre());
-      System.out.println(request.queryParams(caracteristica.getNombre()));
-      /*
-      if(request.queryParams(caracteristica.getNombre()) == "False"){
-        caracteristicas.remove(caracteristica);
-      }*/
-    });
+    String descripcion = request.queryParams("desc");
 
     Mascota mascota = new Mascota(clase, nombre, apodo, edad, sexo, tamanio);
+    mascota.setDescripcionFisica(descripcion);
     caracteristicas.forEach(caracteristica -> {
-      mascota.agregarUnaCaracteristica(caracteristica.getNombre());
+      if(request.queryParams(caracteristica.getNombre()) != null){
+        mascota.agregarUnaCaracteristica(caracteristica.getNombre());
+      }
     });
 
-
+    Long id = request.session().attribute("session");
+    Duenio duenio = (Duenio) RepositorioUsuarios.getInstance().buscarPorId(id);
+    duenio.registrarUnaMascota(mascota);
 
     return new ModelAndView(model, "");
+  }
+
+  private static boolean authorize(Request req){
+    Long id = req.session().attribute("session");
+    return RepositorioUsuarios.getInstance().buscarPorId(id) != null;
   }
 
 }

@@ -20,20 +20,24 @@
   </div>
 
   {{#if hayCaracteristicas}}
-    <p1>Caracteristicas</p1>
+    <div class="col-span-2 mb-6 pt-3 rounded">
+      <h2 class="text-lg font-medium font-bold text-black">Caracteristicas</h2>
+      <h3 class="text-base font-medium text-black">Marque las caracteristicas acorde a su mascota</h3>
+    </div>
+
+    <div class="mr-5">
+      {{#each characteristicsEven}}
+        {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
+      {{/each}}
+    </div>
+
+    <div>
+      {{#each characteristicsOdd}}
+        {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
+      {{/each}}
+    </div>
   {{/if}}
 
-  <div class="mr-5">
-    {{#each characteristicsEven}}
-    {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
-    {{/each}}
-  </div>
-
-  <div>
-    {{#each characteristicsOdd}}
-    {{> form_checkbox.hbs id= nombre name = nombre label=nombre error = error }}
-    {{/each}}
-  </div>
 
 
   {{> upload_photo.hbs}}
