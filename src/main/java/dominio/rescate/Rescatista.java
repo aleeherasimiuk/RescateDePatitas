@@ -38,7 +38,7 @@ public class Rescatista extends PersistentEntity{
     RepositorioRescatesConChapita.getINSTANCE().registrar(rescate);
   }
 
-  public int getTelefono() {
+  public String getTelefono() {
     return datosPersona.getTelefono();
   }
 }

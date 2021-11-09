@@ -38,8 +38,8 @@ public class MascotaTest extends AbstractTest{
     leoPonzio = new Mascota(ClaseMascota.PERRO, "Leo Ponzio", "Leo", 4, Sexo.MACHO, Tamanio.MEDIANO);
     franquitoArmani = new Mascota(ClaseMascota.PERRO, "Fraco Armani", "Pulpo", 3, Sexo.MACHO, Tamanio.MEDIANO);
 
-    marceloGallardo = new Duenio("Gallardo", "9diciembre2018", new DatosPersona("Gallardo", "Marcelo", new Documento(TipoDeDocumento.DNI, "44444444"), new Contacto("Rodolfo", "D'Onofrio", 444444, "rodolf@gmail.com"), LocalDate.now()));
-    rodolfoDonofrio = new Duenio("Donofrio", "9diciembre2018", new DatosPersona("Donofrio", "Rodolfo", new Documento(TipoDeDocumento.DNI, "55555555"), new Contacto("Rodolfo", "D'Onofrio", 555555, "rodolf@gmail.com"), LocalDate.now()));
+    marceloGallardo = new Duenio("Gallardo", "9diciembre2018", new DatosPersona("Gallardo", "Marcelo", new Documento(TipoDeDocumento.DNI, "44444444"), new Contacto("Rodolfo", "D'Onofrio", "444444", "rodolf@gmail.com"), LocalDate.now()));
+    rodolfoDonofrio = new Duenio("Donofrio", "9diciembre2018", new DatosPersona("Donofrio", "Rodolfo", new Documento(TipoDeDocumento.DNI, "55555555"), new Contacto("Rodolfo", "D'Onofrio", "555555", "rodolf@gmail.com"), LocalDate.now()));
 
     marceloGallardo.registrarUnaMascota(firulais);
     marceloGallardo.registrarUnaMascota(toto);
@@ -90,7 +90,7 @@ public class MascotaTest extends AbstractTest{
 
   @Test
   void totoCrecio(){
-    
+
     RepositorioMascotas.getINSTANCE().transaction(entityManager -> {
       Mascota mascota = entityManager.find(Mascota.class, toto.getId());
       mascota.setEdad(4);
@@ -99,7 +99,7 @@ public class MascotaTest extends AbstractTest{
     PerThreadEntityManagers.getEntityManager().clear();
     Mascota mascota = PerThreadEntityManagers.getEntityManager().find(Mascota.class, toto.getId());
     assertEquals(4, mascota.getEdad());
-    
+
   }
 
   Duenio duenioDe(Mascota mascota){
