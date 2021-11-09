@@ -6,16 +6,13 @@ import controllers.LoginController;
 import controllers.MascotaController;
 import controllers.RescateController;
 import controllers.UserController;
-import dominio.repositorio.RepositorioCaracteristicas;
 
 import static spark.Spark.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -37,7 +34,7 @@ public class Router {
     get("/signup/step2", UserController::viewStep2, engineTemplate);
 
     get("/mascotas/crear", MascotaController::view , engineTemplate);
-    post("/mascotas",MascotaController::create);
+    post("/mascotas",MascotaController::create, engineTemplate);
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
@@ -50,7 +47,18 @@ public class Router {
     post("/caracteristicas/crear", CaracteristicasController::create, engineTemplate);
 
     after((request, response) -> {
+      EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();
+      if(transaction.isActive()) {
+        transaction.commit();
+      }
       PerThreadEntityManagers.getEntityManager().clear();
+    });
+
+    before((request, response) -> {
+      EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();
+      if(!transaction.isActive()) {
+        transaction.begin();
+      }
     });
   }
 }

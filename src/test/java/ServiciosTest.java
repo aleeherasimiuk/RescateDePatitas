@@ -11,8 +11,10 @@ import java.util.List;
 
 import dominio.mascota.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.hogares.Hogar;
 import dominio.repositorio.RepositorioCaracteristicas;
@@ -25,7 +27,6 @@ import servicios.hogares.modelos.Admision;
 import servicios.hogares.modelos.HogarResponse;
 import servicios.hogares.modelos.Pagina;
 import servicios.hogares.modelos.Ubicacion;
-
 public class ServiciosTest extends AbstractTest{
 
   private HogaresAdapter hogaresAdapter;
@@ -34,8 +35,9 @@ public class ServiciosTest extends AbstractTest{
 
 
   @BeforeEach
-  void setUp(){
+  void setup(){
 
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     RepositorioCaracteristicas.getINSTANCE().vaciar();
     service = mock(HogaresServiceRefugioDDS.class);
     when(service.obtenerUnaPagina(1)).thenReturn(buildPage("1", 40));

@@ -5,10 +5,7 @@ import java.util.*;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.repositorio.RepositorioDuenios;
-import dominio.repositorio.RepositorioMascotas;
-import dominio.repositorio.RepositorioUsuarios;
 import dominio.usuarios.Duenio;
-import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -58,6 +55,7 @@ public class MascotaController {
 
     duenio.registrarUnaMascota(mascota);
 
+    response.redirect("/");
     return new ModelAndView(model, "");
   }
 

@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.usuarios.Duenio;
 import dominio.usuarios.Usuario;
 
 public class RepositorioUsuarios extends Repositorio<Usuario>{

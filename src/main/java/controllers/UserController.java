@@ -1,6 +1,5 @@
 package controllers;
 
-import java.awt.image.TileObserver;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -13,9 +12,7 @@ import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioValidaciones;
 import dominio.usuarios.Duenio;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
-import router.Router;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

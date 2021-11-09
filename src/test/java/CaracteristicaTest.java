@@ -20,21 +20,24 @@ import org.junit.jupiter.api.AfterEach;
 
 import dominio.usuarios.Duenio;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
 
 	@BeforeEach
 	void setup() {
-		Admin administrador;
+		PerThreadEntityManagers.getEntityManager().getTransaction().begin();
 		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-ROJO"));
 		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AZUL"));
 		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AMARILLO"));
 		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("CASTRADO"));
 		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("NO-CASTRADO"));
+		PerThreadEntityManagers.getEntityManager().flush();
 	}
 
 
@@ -49,13 +52,15 @@ class CaracteristicaTest {
     RepositorioDuenios.getInstance().vaciar();
     RepositorioSolicitudesAdopcion.getInstance().vaciar();
     RepositorioCaracteristicas.getINSTANCE().vaciar();
-    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    //PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
     PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    //PerThreadEntityManagers.getEntityManager().getTransaction().commit();
     RepositorioPreguntas.getInstance().vaciar();
     RepositorioRescatistas.getInstance().vaciar();
+		PerThreadEntityManagers.getEntityManager().getTransaction().commit();
 	}
+
 
 	@Test
 	void colorPrimarioAmarilloEsUnaCaracteristica() {
