@@ -4,6 +4,7 @@ import java.util.*;
 
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
+import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioUsuarios;
 import dominio.usuarios.Duenio;
@@ -15,7 +16,7 @@ import spark.Response;
 public class MascotaController {
 
   public static ModelAndView view(Request request, Response response) {
-    if(!authorize(request)){
+    if(authorize(request) == null){
       response.status(401);
       response.redirect("/");
       return new ModelAndView(null, "");
@@ -32,6 +33,11 @@ public class MascotaController {
   }
 
   public static ModelAndView create(Request request, Response response) {
+    Duenio duenio = authorize(request);
+    if(duenio == null){
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
     Map<String, Object> model = new HashMap<>();
     ClaseMascota clase = ClaseMascota.valueOf(request.queryParams("type"));
     String nombre = request.queryParams("name");
@@ -50,16 +56,17 @@ public class MascotaController {
       }
     });
 
-    Long id = request.session().attribute("session");
-    Duenio duenio = (Duenio) RepositorioUsuarios.getInstance().buscarPorId(id);
     duenio.registrarUnaMascota(mascota);
 
     return new ModelAndView(model, "");
   }
 
-  private static boolean authorize(Request req){
+  private static Duenio authorize(Request req){
     Long id = req.session().attribute("session");
-    return RepositorioUsuarios.getInstance().buscarPorId(id) != null;
+    if(id == null){
+      return null;
+    }
+    return RepositorioDuenios.getInstance().buscarPorId(id);
   }
 
 }

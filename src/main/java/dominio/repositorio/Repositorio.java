@@ -106,6 +106,11 @@ public abstract class Repositorio<T>{
     return result;
   }
 
+  public T buscarPorId(Long id){
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    return entityManager.find(getClassName(), id);
+  }
+
   protected abstract Class<T> getClassName();
   
 }

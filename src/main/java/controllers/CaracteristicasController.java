@@ -25,6 +25,11 @@ public class CaracteristicasController {
   }
 
   public static ModelAndView delete(Request request, Response response){
+    if(!authorize(request)){
+      response.status(401);
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
     final String value = request.queryParams("name");
     System.out.println("Borrando: " + value);
     RepositorioCaracteristicas.getINSTANCE().borrarPorNombre(value);
@@ -33,6 +38,11 @@ public class CaracteristicasController {
   }
 
   public static ModelAndView create(Request request, Response response){
+    if(!authorize(request)){
+      response.status(401);
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
     final String value = request.queryParams("name");
     RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica(value));
     System.out.println("Borrando: " + value);

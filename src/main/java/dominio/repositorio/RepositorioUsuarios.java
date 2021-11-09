@@ -40,11 +40,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario>{
     return result;
   }
 
-  public Usuario buscarPorId(Long id){
-    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    return entityManager.find(Usuario.class, id);
-  }
-
   @Override
   protected Class<Usuario> getClassName() {
     return Usuario.class;
