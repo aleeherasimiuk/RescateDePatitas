@@ -47,8 +47,17 @@ public class RescateController {
 
   public static ModelAndView viewWithBadge(Request request, Response response) {
     Map<String, Object> model = buildModel();
-    model.put("action", "/rescates/crear/" + request.params("id"));
+    String id = request.params("id");
+    model.put("action", "/rescates/crear/" + id);
     model.put("error", false);
+
+    Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(Long.valueOf(id));
+    if(mascota == null) {
+      response.status(404);
+      response.redirect("/");
+      return new ModelAndView(null, "");
+    }
+
     return new ModelAndView(model, "with_badge.hbs");
   }
 
@@ -94,6 +103,11 @@ public class RescateController {
     final DatosPersona datosPersona = PersonFetcher.getPersona(request);
     final Long id = Long.valueOf(request.params("id"));
     final Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(id);
+    if(mascota == null) {
+      response.status(404);
+      response.redirect("/");
+      return new ModelAndView(null, "");
+    }
 
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     final LocalDate fecha = LocalDate.parse(request.queryParams("res_date"), formatter);
