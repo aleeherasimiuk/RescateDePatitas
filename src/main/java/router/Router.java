@@ -48,7 +48,7 @@ public class Router {
     post("/rescates/crear", RescateController::withoutBadge, engineTemplate);
     
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
-
+    post("rescates/crear/:id", RescateController::withBadge, engineTemplate);
 
     get("/caracteristicas", CaracteristicasController::view, engineTemplate);
 
