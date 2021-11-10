@@ -56,6 +56,7 @@ public class Router {
 
     after((request, response) -> {
       EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();
+      PerThreadEntityManagers.getEntityManager().flush();
       PerThreadEntityManagers.getEntityManager().clear();
       if(transaction.isActive()) {
         transaction.commit();
