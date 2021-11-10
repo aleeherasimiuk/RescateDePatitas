@@ -25,6 +25,7 @@ public class Router {
     get("/", HomeController::view, engineTemplate);
 		get("/login", LoginController::view, engineTemplate);
     post("/login", LoginController::login, engineTemplate);
+    get("/logout", LoginController::logout, engineTemplate); // TODO: pasar a POST/DELETE
 
     get("/signup/step1", UserController::viewStep1, engineTemplate);
 
@@ -48,10 +49,10 @@ public class Router {
 
     after((request, response) -> {
       EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();
+      PerThreadEntityManagers.getEntityManager().clear();
       if(transaction.isActive()) {
         transaction.commit();
       }
-      PerThreadEntityManagers.getEntityManager().clear();
     });
 
     before((request, response) -> {
