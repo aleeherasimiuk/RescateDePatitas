@@ -1,5 +1,5 @@
 {{#partial "form" }}
-<form class="grid grid-cols-2" method="POST" action={{action}} id="form_person_signup">
+<form class="grid grid-cols-2" method="POST" action={{action}} id="form_person_signup" {{#if multipart}}enctype="multipart/form-data"{{/if}}>
   <div id="formDatosPersonales" class="mr-5">
     <div class="mb-6 pt-3 rounded">
       <h2 class="text-lg font-medium text-black">Datos Personales</h2>

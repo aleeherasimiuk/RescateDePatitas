@@ -120,7 +120,7 @@ public class ServiciosTest extends AbstractTest{
   void elSeptimoAceptaLaPublicacionDeRobert(){
 
     Fixture f = new Fixture();
-    RescateSinChapita publicacion = new RescateSinChapita(new DatosRescate(f.crearAPedro(), new ArrayList<>(), LocalDate.now(), "", f.buildUTN()), Tamanio.CHICO, ClaseMascota.PERRO);
+    RescateSinChapita publicacion = new RescateSinChapita(new DatosRescate(f.crearAPedro(), new ArrayList<>(), LocalDate.now(), "", f.buildUTN()), Tamanio.CHICO, ClaseMascota.PERRO, Sexo.MACHO);
     for (String caracteristica : buildRobert().getCaracteristicas()) {
       publicacion.agregarUnaCaracteristica(caracteristica);
     }

@@ -45,6 +45,8 @@ public class Router {
     post("/mascotas",MascotaController::create, engineTemplate);
 
     get("/rescates/crear", RescateController::viewWithoutBadge, engineTemplate);
+    post("/rescates/crear", RescateController::withoutBadge, engineTemplate);
+    
     get("/rescates/crear/:id", RescateController::viewWithBadge, engineTemplate);
 
 

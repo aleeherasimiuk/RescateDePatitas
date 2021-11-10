@@ -70,26 +70,12 @@ public class UserController implements TransactionalOps, WithGlobalEntityManager
   }
 
   public static ModelAndView signUpStep2(Request request, Response response) {
-    String user = request.session().attribute("user");
-    String password = request.session().attribute("password");
-    String fName = request.queryParams("fname");
-    String lName = request.queryParams("lname");
-    String document = request.queryParams("document");
-    String contactFName = request.queryParams("contact_fname");
-    String contactLName = request.queryParams("contact_lname");
-    String contactEmail = request.queryParams("contact_email");
-    String contactPhone = request.queryParams("contact_phone");
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate birthday = LocalDate.parse(request.queryParams("birthday"),formatter);
-    TipoDeDocumento tipoDeDocumento = TipoDeDocumento.valueOf(request.queryParams("document_type"));
+    final String user = request.session().attribute("user");
+    final String password = request.session().attribute("password");
+    
+    final DatosPersona datosPersona = PersonFetcher.getPersona(request);
 
-    System.out.println(tipoDeDocumento);
-
-    Duenio duenio = new Duenio(user, password,
-        new DatosPersona(lName,fName,
-          new Documento(tipoDeDocumento,document),
-          new Contacto(contactFName,contactLName,contactPhone,contactEmail),
-          birthday));
+    final Duenio duenio = new Duenio(user, password, datosPersona);
 
     RepositorioDuenios.getInstance().registrar(duenio);
 
