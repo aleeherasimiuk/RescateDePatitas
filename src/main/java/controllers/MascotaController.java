@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Stream;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -54,8 +55,7 @@ public class MascotaController {
     long maxFileSize = 100000000;
     long maxRequestSize = 100000000;
     int fileSizeThreshold = 1024;
-    request.attribute("org.eclipse.jetty.multipartConfig",
-        new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileSizeThreshold));
+    request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileSizeThreshold));
     System.out.println(request.queryParams("type"));
     ClaseMascota clase = ClaseMascota.valueOf(request.queryParams("type"));
     String nombre = request.queryParams("name");
@@ -65,18 +65,7 @@ public class MascotaController {
     Tamanio tamanio = Tamanio.valueOf(request.queryParams("size"));
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     String descripcion = request.queryParams("desc");
-    InputStream fotos = getFotos(request);
-
-    try {
-      // TODO: hay que revisar como guardar las imaganes correctamente en un directorio existente, revisar si es relative o absolute
-      final OutputStream fos = new FileOutputStream("images/" + nombre + ".jpg");
-      IOUtils.copy(fotos, fos);
-      fos.flush();
-      fos.close();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-      response.redirect("/error");
-    }
+    String imageURL = fetchImageURL(request);
 
     Mascota mascota = new Mascota(clase, nombre, apodo, edad, sexo, tamanio);
     mascota.setDescripcionFisica(descripcion);
@@ -85,6 +74,8 @@ public class MascotaController {
         mascota.agregarUnaCaracteristica(caracteristica.getNombre());
       }
     });
+
+    mascota.agregarUnaFoto(imageURL);
 
     duenio.registrarUnaMascota(mascota);
 
@@ -100,23 +91,26 @@ public class MascotaController {
     return RepositorioDuenios.getInstance().buscarPorId(id);
   }
 
-  private static InputStream getFotos(Request req) {
-    String location = "imagenes";
-    long maxFileSize = 100000000;
-    long maxRequestSize = 100000000;
-    int fileSizeThreshold = 1024;
-    req.attribute("org.eclipse.jetty.multipartConfig",
-        new MultipartConfigElement(location, maxFileSize, maxRequestSize, fileSizeThreshold));
+  private static String fetchImageURL(Request req) {
+    String url = null;
+    File uploadDir = new File("uploads");
     try {
-      Part part = req.raw().getPart("photos");
+      final Part part = req.raw().getPart("photos");
       System.out.println("leyendo archivo => " + req.raw().getPart("photos").getSubmittedFileName());
-      return part.getInputStream();
+      final InputStream inputStream = part.getInputStream();
+      final String imageID = UUID.randomUUID().toString();
+      final String[] splitted = part.getSubmittedFileName().split("\\.");
+      final String fileExtension = splitted[splitted.length - 1];
+      url = uploadDir.toPath().toString() + "/" + imageID + "." + fileExtension;
+      final OutputStream fos = new FileOutputStream(url);
+      IOUtils.copy(inputStream, fos);
+      fos.flush();
+      fos.close();
     } catch (IOException | ServletException e) {
-      // Todo excepciones personalizadas
       e.printStackTrace();
     }
 
-    return null;
+    return url;
   }
 
 }

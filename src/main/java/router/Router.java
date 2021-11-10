@@ -9,6 +9,8 @@ import controllers.UserController;
 
 import static spark.Spark.*;
 
+import java.io.File;
+
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -21,6 +23,11 @@ public class Router {
     HandlebarsTemplateEngine engineTemplate = new HandlebarsTemplateEngine();
 
 		staticFiles.location("public");
+    File uploadDir = new File("uploads");
+    if (!uploadDir.exists()) {
+      uploadDir.mkdir();
+    }
+    staticFiles.externalLocation("uploads");
 
     get("/", HomeController::view, engineTemplate);
 		get("/login", LoginController::view, engineTemplate);
