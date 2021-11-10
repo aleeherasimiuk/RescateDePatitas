@@ -15,6 +15,7 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Router {
@@ -55,6 +56,13 @@ public class Router {
     post("/caracteristicas/borrar", CaracteristicasController::delete, engineTemplate);
 
     post("/caracteristicas/crear", CaracteristicasController::create, engineTemplate);
+
+    notFound((req, res) ->  {
+      res.redirect("/404");
+      return new ModelAndView(null, "");
+    });
+
+    get("/404", (req, res) ->  new ModelAndView(null, "404.hbs"), engineTemplate);
 
     after((request, response) -> {
       EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();
