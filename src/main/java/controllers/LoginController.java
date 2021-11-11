@@ -37,6 +37,7 @@ public class LoginController {
     } catch (NoResultException e){
       res.status(401);
       model.put("error", true);
+      model.put("logged",false);
       return new ModelAndView(model, "login.hbs");
     }
 
@@ -51,6 +52,7 @@ public class LoginController {
     }
 
     model.put("error",false);
+    model.put("logged",true);
 
     req.session().attribute("session", usuario.getId());
 
