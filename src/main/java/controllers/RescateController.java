@@ -27,6 +27,7 @@ import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
 import dominio.usuarios.Duenio;
 import servicios.hogares.modelos.Ubicacion;
+import servicios.mail.JavaMail;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -125,7 +126,9 @@ public class RescateController {
     final RescateConChapita rescateConChapita = new RescateConChapita(datosRescate, mascota);
 
     RepositorioRescatesConChapita.getINSTANCE().registrar(rescateConChapita);
-
+    
+    rescateConChapita.avisarAlDuenio(new JavaMail());
+  
     response.redirect("/");
     return new ModelAndView(null, "");
   }

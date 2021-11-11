@@ -17,8 +17,8 @@ case $1 in
     docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven clean
     ;;
   all)
-    docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven clean
-    docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven -Pbuild -Dmaven.test.skip package
+    docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven clean
+    docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven -Pbuild -Dmaven.test.skip package
     docker exec -it rescate_de_patitas_app java -jar /home/target/RescatePatitas-jar-with-dependencies.jar
     ;;
   reset_db)
