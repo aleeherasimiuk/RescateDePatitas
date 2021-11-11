@@ -19,6 +19,7 @@ public class CaracteristicasController {
       return new ModelAndView(null, "");
     }
     Map<String, Object> model = new HashMap<>();
+    model.put("logged", true);
     model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
     return new ModelAndView(model, "characteristics.hbs");
   }
@@ -51,6 +52,6 @@ public class CaracteristicasController {
 
   private static boolean authorize(Request req){
     Long id = req.session().attribute("session");
-    return RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
+    return id != null && RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
   }
 }
