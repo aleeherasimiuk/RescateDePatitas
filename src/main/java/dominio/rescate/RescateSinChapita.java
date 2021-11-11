@@ -20,6 +20,7 @@ import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
 import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import dominio.hogares.Hogar;
 import dominio.mascota.ClaseMascota;
+import dominio.mascota.Sexo;
 import dominio.mascota.Tamanio;
 import dominio.personas.Contacto;
 import dominio.repositorio.RepositorioAsociaciones;
@@ -37,6 +38,9 @@ public class RescateSinChapita extends PersistentEntity{
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="rescate_id", referencedColumnName="id")
   private DatosRescate datosRescate;
+
+  @Enumerated(EnumType.STRING)
+  private Sexo sexo;
 
   @Enumerated(EnumType.STRING)
   private Tamanio tamanio;
@@ -58,11 +62,12 @@ public class RescateSinChapita extends PersistentEntity{
 
   protected RescateSinChapita() {}
 
-  public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota) {
+  public RescateSinChapita(DatosRescate datosRescate, Tamanio tamanio, ClaseMascota claseMascota, Sexo sexo) {
     this.datosRescate = datosRescate;
     this.estado = EstadoPublicacion.PENDIENTE;
     this.claseMascota = claseMascota;
     this.tamanio = tamanio;
+    this.sexo = sexo;
     caracteristicas_rescate = new ArrayList<String>();
   }
 

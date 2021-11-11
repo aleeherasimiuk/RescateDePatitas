@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.logging.Logger;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -24,14 +25,13 @@ import dominio.passwords.Validation;
 import dominio.repositorio.RepositorioValidaciones;
 import dominio.usuarios.Admin;
 import org.mindrot.jbcrypt.BCrypt;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 
 class ValidadorContraseniaTest extends AbstractPersistenceTest implements WithGlobalEntityManager{
 	RepositorioValidaciones repositorioValidaciones = RepositorioValidaciones.getInstance();
-	//static CommonPassword commonPassword;
-
 
 	@BeforeEach
 	void setUpEach(){
@@ -45,6 +45,13 @@ class ValidadorContraseniaTest extends AbstractPersistenceTest implements WithGl
 				"INSERT INTO common_passwords (password) VALUES ('batman'),('iceman'),('superman'),('orange'),('black'),('andrea'),('thomas')"
 			).executeUpdate();
 		});
+
+		PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+	}
+
+	@AfterEach
+	void teardown(){
+		PerThreadEntityManagers.getEntityManager().getTransaction().commit();
 	}
 
 	@BeforeAll

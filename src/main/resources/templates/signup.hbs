@@ -1,0 +1,36 @@
+{{#partial "form" }}
+
+<form class="flex flex-col" method="POST" action="/usuarios/registrar/paso1">
+
+  {{> form_field.hbs id="username" name = "username" label="Elije un Usuario" type = "text" error = error }}
+
+  {{> form_field.hbs id="password" name = "password" label="Elije una contraseña" type = "password" error = error }}
+
+  {{> form_field.hbs id="password_confirmation" name = "password_confirmation" label="Repite la contraseña" type =
+  "password" error = error }}
+
+  {{#if usuario_existente}}
+    <p class="text-red-500 text-xs italic mb-5">El usuario ya existe en nuestro sistema, prueba <a href="/login">iniciando sesion</a></p>
+  {{/if}}
+
+  {{#if contrasenias_no_coinciden}}
+  <p class="text-red-500 text-xs italic mb-5">Las contraseñas no coinciden</p>
+  {{/if}}
+
+  {{#if contrasenia_vulnerable}}
+    <p class="text-red-500 text-xs italic mb-5">La contraseña es vulnerable, por favor elige una más fuerte</p>
+  {{/if}}
+
+  {{> button.hbs button_name = "Registrarse" }}
+</form>
+{{/partial}}
+
+{{#partial "footer"}}
+
+<div class="max-w-lg mx-auto text-center mt-12 mb-6">
+  <p class="text-white">¿Ya tienes una cuenta? <a href="/login" class="font-bold hover:underline">Iniciar Sesión</a>.
+  </p>
+</div>
+{{/partial}}
+
+{{> form_layout.hbs title = "Registrarse" large = false header = "¡Bienvenido!"}}

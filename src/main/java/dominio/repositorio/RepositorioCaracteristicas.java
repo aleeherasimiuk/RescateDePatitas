@@ -1,9 +1,13 @@
 package dominio.repositorio;
 
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.exceptions.CaracteristicaRepetida;
 import dominio.mascota.Caracteristica;
@@ -20,8 +24,15 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 		super.registrar(caracteristica);
 	}
 
-	public void borrarCaracteristica(Caracteristica caracteristica) {
-		borrar(caracteristica);
+	public void borrarPorNombre(String caracteristica) {
+		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaDelete<Caracteristica> query = builder.createCriteriaDelete(Caracteristica.class);
+		Root<Caracteristica> root = query.from(Caracteristica.class);
+		
+		query.where(builder.equal(root.get("nombre"), caracteristica.toUpperCase()));
+		entityManager.createQuery(query).executeUpdate();
+		
 	}
 
 	public boolean existeCaracteristica(String caracteristica) {
@@ -31,7 +42,7 @@ public class RepositorioCaracteristicas extends Repositorio<Caracteristica> {
 			CriteriaQuery<Long> query = builder.createQuery(Long.class);
 			Root<Caracteristica> root = query.from(Caracteristica.class);
 			query.select(builder.count(root)).where(
-				builder.equal(root.get("nombre"), caracteristica)
+				builder.equal(root.get("nombre"), caracteristica.toUpperCase())
 			);
 			return entityManager.createQuery(query).getSingleResult() > 0;
 

@@ -7,6 +7,7 @@ import dominio.exceptions.HayPreguntasSinResponder;
 import dominio.exceptions.RespuestaInvalida;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.adopcion.DarEnAdopcion;
 import dominio.adopcion.DarEnAdopcionBuilder;
@@ -35,7 +36,10 @@ public class MatcherTest extends AbstractTest {
   private Pregunta global;
 
   @BeforeEach
-  void setUp(){
+  void setup(){
+
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+
     carlos = fixture.crearACarlos();
     pupi = fixture.crearAPupi();
     carlos.registrarUnaMascota(pupi);

@@ -7,6 +7,7 @@ import dominio.repositorio.RepositorioMascotas;
 import dominio.repositorio.RepositorioRescatesConChapita;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.rescate.RescateConChapita;
 import dominio.rescate.Rescatista;
@@ -29,7 +30,9 @@ public class RescateTest extends AbstractTest{
   Coordenadas utn;
 
   @BeforeEach
-  void iniciarRegistro() {
+  void setup() {
+
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
 
     
     pedro  = fixture.crearAPedro();

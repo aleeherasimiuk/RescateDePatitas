@@ -1,8 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.adopcion.DarEnAdopcion;
 import dominio.rescate.RescateConChapita;
@@ -14,7 +17,8 @@ import servicios.mail.MailRecomendacion;
 import servicios.mail.MailRescateConChapita;
 import servicios.mail.MailRescateSinChapita;
 
-class MailerTest extends AbstractTest{
+
+class MailerTest{
   private Fixture fixture = new Fixture();
 
   private MailRescateConChapita mailRescateConChapita;
@@ -32,6 +36,7 @@ class MailerTest extends AbstractTest{
   
   @BeforeEach
   void setup() {
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     publicaciones = new ArrayList<>();
     rescateConChapita = fixture.rescatarAPupi();
     publicacionMascotaUTN = fixture.publicacionMascotaUTN();
@@ -44,11 +49,16 @@ class MailerTest extends AbstractTest{
     publicaciones.add(publicacionSabatoDaEnAdopcionAPupi);
   }
 
+  @AfterEach
+  void tearDown(){
+    PerThreadEntityManagers.getEntityManager().getTransaction().rollback();
+  }
+
   @Test
   void rescatistaDePupiMensajeValido() {
     String mensaje = "Hola! Roberto\nEstamos muy contentos de anunciarte que encontramos al dueño de una mascota que encontraste\n\nRoberto Gimenez se contactará con vos para continuar con el proceso";
     mailRescateSinChapita = new MailRescateSinChapita(publicacionMascotaUTN);
-    assertEquals(mensaje, mailRescateSinChapita.generarMail().getMensaje());    
+    assertEquals(mensaje, mailRescateSinChapita.generarMail().getMensaje());   
   }
 
   @Test

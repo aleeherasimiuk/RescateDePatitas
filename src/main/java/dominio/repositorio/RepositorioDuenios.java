@@ -1,6 +1,5 @@
 package dominio.repositorio;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -40,5 +39,26 @@ public class RepositorioDuenios extends Repositorio<Duenio>{
   @Override
   protected Class<Duenio> getClassName() {
     return Duenio.class;
+  }
+
+  public Duenio getDuenioByUsername(String user) {
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Duenio> query = builder.createQuery(Duenio.class);
+    Root<Duenio> root = query.from(Duenio.class);
+
+    query.select(root).where(
+        builder.equal(root.get("username"),user)
+    );
+    TypedQuery<Duenio> q = entityManager.createQuery(query);
+    Duenio result = null;
+
+    try{
+      result = q.getSingleResult();
+    }catch (Exception e){
+      return null;
+    }
+
+    return result;
   }
 }

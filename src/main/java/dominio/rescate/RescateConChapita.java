@@ -75,7 +75,7 @@ public class RescateConChapita extends PersistentEntity {
     return datosRescate.getLugar();
   }
 
-  public int telefonoDeContacto() {
+  public String telefonoDeContacto() {
     return datosRescate.getRescatista().getTelefono();
   }
 

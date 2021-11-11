@@ -1,9 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.hogares.Hogar;
 import dominio.mascota.Mascota;
+
 
 class HogaresTest extends AbstractTest{
 	
@@ -18,7 +20,9 @@ class HogaresTest extends AbstractTest{
   Mascota vladi;
   
 	@BeforeEach
-  void iniciarRegistro() {
+	@Override
+  void setup() {
+		PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     Fixture fixture = new Fixture();
     somosHogarCarinioso = fixture.crearHogarCarinioso();
     elHiltonParaGatos = fixture.crearHiltonParaGatos();

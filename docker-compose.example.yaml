@@ -8,10 +8,14 @@ services:
       - repository:/var/maven/.m2
     environment:
       - MAVEN_CONFIG=/var/maven/.m2
+    ports:
+      - 80:9000
     tty: true
     command: bash -c "mvn -Duser.home=/var/maven dependency:resolve && bash"
     depends_on:
       - db
+    ports:
+      - 80:9000
   db:
     image: mariadb:10.5.12
     volumes:
