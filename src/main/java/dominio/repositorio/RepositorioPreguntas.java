@@ -2,9 +2,12 @@ package dominio.repositorio;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.preguntas.Pregunta;
 
@@ -25,32 +28,15 @@ public class RepositorioPreguntas extends Repositorio<Pregunta> {
 
   public List<Pregunta> globales() {
 
-    return query(entityManager -> {
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Pregunta> query = builder.createQuery(Pregunta.class);
+    Root<Pregunta> root = query.from(Pregunta.class);
 
-      CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-      CriteriaQuery<Pregunta> query = builder.createQuery(Pregunta.class);
-      Root<Pregunta> root = query.from(Pregunta.class);
+    query.select(root).where(
+      builder.isTrue(root.get("global"))
+    );
 
-      query.select(root).where(
-        builder.isTrue(root.get("global"))
-      );
-
-      return entityManager.createQuery(query).getResultList();
-    });
-  
-  
+    return entityManager.createQuery(query).getResultList();
   }
-
-  // @Override
-  // public void vaciar(){
-  //   paraTodos(list -> {
-  //     list.forEach(pregunta -> pregunta.vaciar());
-  //     return null;
-  //   });
-    
-  //   transaction(entityManager -> {
-  //     entityManager.createQuery("TRUNCATE " + getClassName().getSimpleName() + " CASCADE")
-  //       .executeUpdate();
-  //   });
-  // }
 }

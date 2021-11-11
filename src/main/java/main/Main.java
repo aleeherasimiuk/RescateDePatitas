@@ -1,21 +1,36 @@
 package main;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-
 import dominio.tareas.Recomendador;
+import router.Router;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
+import spark.Spark;
 
 import javax.persistence.EntityManager;
+
 
 public class Main {
 
   public static void main(String[] args) {
 
+
     System.out.println("**********************");
     System.out.println("**Iniciando Servidor**");
     System.out.println("**********************");
+
+    Spark.port(9000);
+    new Router().setup();
+
+
+    // Spark.get("/test", (req, res) -> "Hello World!");
+
+    // Spark.staticFiles.location("public");
+    // Map<String, Object> model = new HashMap<>();
+
+    // Spark.get("/", (request, response) -> new ModelAndView(model, "index.hbs") ,
+    //   new HandlebarsTemplateEngine());
 
     if (args.length > 0 && args[0].equals("run_recomendaciones")) {
 
@@ -46,23 +61,29 @@ public class Main {
     System.out.println("**************************************************");
     System.out.println("**Se estableció la conexión con la Base de Datos**");
     System.out.println("**************************************************");
-  
-    
-    // Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
-    // Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
-    // DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
 
-    // EntityTransaction transaction = entityManager.getTransaction();
 
-    // transaction.begin();
-    // entityManager.persist(datosPersona);
-    // transaction.commit();
-    // entityManager.close();
+
+    //RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("Ladra mucho"), new Caracteristica("Es tranquilo"));
+    //RepositorioValidaciones.getInstance().registrar(new CommonPassword(), new UpperChar());
+    //RepositorioAdministradores.getInstance().registrar(new Admin("admin", "admin"));
+
+
+
+  //  Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");
+  //  Documento documento = new Documento(TipoDeDocumento.DNI, "42255284");
+  //  DatosPersona datosPersona = new DatosPersona("Herasimiuk","Alexis", documento,contacto, LocalDate.now());
+  //  Duenio duenio = new Duenio("iancrespiok", "kirchneristadecorazon", datosPersona);
+
+  //  entityManager = PerThreadEntityManagers.getEntityManager();
+  //  EntityTransaction transaction = entityManager.getTransaction();
+
+  //  transaction.begin();
+  //  entityManager.persist(duenio);
+  //  transaction.commit();
+  //  entityManager.close();
 
     // System.out.println(RepositorioDuenios.getInstance().todos());
-    
-
-    System.exit(0);
   }
 
   private static void runRecomendaciones() {
@@ -79,6 +100,6 @@ public class Main {
   }
 
   private static void runServer() {
-    
+
   }
 }

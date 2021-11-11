@@ -41,7 +41,7 @@ public class Mascota extends PersistentEntity {
 
   @ElementCollection
   @CollectionTable(name = "caracteristicas_mascota", joinColumns=@JoinColumn(name="mascota_id"))
-  @Column(name="descripcion")
+  @Column(name="descripcion") // TODO: ??????????????????
   private List<String> caracteristicas;
 
   @Column(name="descripcion")

@@ -61,7 +61,7 @@ public class Fixture {
 
     return new Duenio("samuKpo123", "Vladiteamo1", datosPersona);
   }
-  
+
   public Duenio crearASabato() {
     Documento documento = new Documento(TipoDeDocumento.DNI, "21789651");
     DatosPersona datosPersona = new DatosPersona("Perez", "Sabato", documento, unContacto(),
@@ -99,11 +99,11 @@ public class Fixture {
   }
 
   public Contacto unContacto() {
-    return new Contacto("Federico", "Bal", 1180700542, "fedebal@gmail.com");
+    return new Contacto("Federico", "Bal", "1180700542", "fedebal@gmail.com");
   }
 
   public Contacto otroContacto() {
-    return new Contacto("Roberto", "Gimenez", 1180700543, "robertito@gmail.com");
+    return new Contacto("Roberto", "Gimenez", "1180700543", "robertito@gmail.com");
   }
 
   public RescateConChapita rescatarAFelix() {
@@ -128,7 +128,7 @@ public class Fixture {
 
   public RescateSinChapita publicacionMascotaUTN(){
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new ArrayList<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
-    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
+    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO, Sexo.HEMBRA);
   }
 
   public Asociacion asociacionPatitasSucias(){
@@ -139,25 +139,25 @@ public class Fixture {
     return new Asociacion("Cola de Gato", parqueChacabuco);
   }
 
-  public Hogar crearHogarAbandonado() {  	
-		return new Hogar("HogarAbandonado", "0800-999-111", null, false, null, buildUTN(), false);  	
+  public Hogar crearHogarAbandonado() {
+		return new Hogar("HogarAbandonado", "0800-999-111", null, false, null, buildUTN(), false);
   }
-  
-  public Hogar crearHogarCarinioso() {  	
+
+  public Hogar crearHogarCarinioso() {
   	List<ClaseMascota> prefierenCualquierMascota = Arrays.asList(ClaseMascota.PERRO, ClaseMascota.GATO);
-  	  	
+
 		return new Hogar("somosHogarCarinioso", "0800-999-111", prefierenCualquierMascota, false, new ArrayList<>(), buildUTN(), true);
   }
 
-  public Hogar crearHiltonPerruno() {  	  	
+  public Hogar crearHiltonPerruno() {
 		return new Hogar("elHiltonPerruno", "0800-999-112", Arrays.asList(ClaseMascota.PERRO), true, new ArrayList<>(), buildUTN(), true);
   }
 
-  public Hogar crearHiltonParaGatos() {  	  	
+  public Hogar crearHiltonParaGatos() {
 		return new Hogar("elHiltonParaMascotasGatunas", "0800-999-112", Arrays.asList(ClaseMascota.GATO), true, new ArrayList<>(), buildUTN(), true);
   }
 
-  public Hogar crearPequenioHogarPerruno() {  	  	
+  public Hogar crearPequenioHogarPerruno() {
 		return new Hogar("elPequenioHogarParaPerritos", "0800-999-112", Arrays.asList(ClaseMascota.PERRO), false, new ArrayList<>(), buildUTN(), false);
   }
 
@@ -171,24 +171,24 @@ public class Fixture {
         new PreguntaCerrada("¿Que clase de mascota es?", "¿Que clase de mascota desea?", "PERRO", "GATO"),
         new Pregunta("¿Qué enfermedades tiene la mascota?", null)
       };
-    
+
     return preguntas;
   }
-  
+
   private Pregunta tipicaPreguntaGlobal() {
-    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?", true);    
+    return new PreguntaBinaria("¿Duerme en la cama?", "¿Puede dormir en la cama?", true);
   }
-  
+
   public DarEnAdopcion publicacionSabatoDaEnAdopcionAPupi(){
     Asociacion asociacion = asociacionColaDeGato();
     Pregunta preguntas[] = tresPreguntasTipicasDeAdopcion();
     Pregunta global = tipicaPreguntaGlobal();
-    
+
     RepositorioPreguntas.getInstance().registrar(global);
     for (Pregunta pregunta : preguntas) {
       asociacion.agregarPregunta(pregunta);
     }
-    
+
     RepositorioAsociaciones.getInstance().registrar(asociacion);
     Duenio sabato = crearASabato();
     Mascota felix = crearAFelix();
@@ -203,9 +203,9 @@ public class Fixture {
     builder.responderPregunta(preguntas[2], "Tiene convulsiones");
     builder.responderPregunta(global, "SI");
     DarEnAdopcion publicacion = builder.build();
-    
+
     RepositorioAdopcion.getInstance().registrar(publicacion);
-    
-    return publicacion;    
+
+    return publicacion;
   }
 }

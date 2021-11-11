@@ -1,0 +1,53 @@
+{{#partial "form" }}
+<form class="grid grid-cols-2" method="POST" action={{action}} id="form_person_signup" {{#if multipart}}enctype="multipart/form-data"{{/if}}>
+  <div id="formDatosPersonales" class="mr-5">
+    <div class="mb-6 pt-3 rounded">
+      <h2 class="text-lg font-medium text-black">Datos Personales</h2>
+    </div>
+
+    {{> form_field.hbs id="fname" name = "fname" label="Nombre" type = "text" error = error }}
+
+    {{> form_field.hbs id="lname" name = "lname" label="Apellido" type = "text" error = error }}
+
+    {{> form_select_field.hbs id="document_type" name = "document_type" label = "Tipo de Documento" error = error listado = tiposDocumento form = "form_person_signup"}}
+
+    {{> form_field.hbs id="document" name = "document" label="Documento" type = "text" error = error }}
+
+    {{> form_field.hbs id="birthday" name = "birthday" label="Fecha de Nacimiento" type = "date" error = error }}
+  </div>
+
+  <div id="formDatosContacto">
+    <div class="mb-6 pt-3 rounded">
+      <h2 class="text-lg font-medium text-black">Datos de Contacto</h2>
+    </div>
+
+    <div class="mb-11 pt-3 rounded">
+      <p class="text-gray-600">¿Con quien nos contactaremos? Podés ser vos o una persona de tu confianza</p>
+    </div>
+
+    {{> form_field.hbs id="contact_fname" name = "contact_fname" label="Nombre" type = "text" error = error }}
+    {{> form_field.hbs id="contact_lname" name = "contact_lname" label="Apellido" type = "text" error = error }}
+    {{> form_field.hbs id="contact_email" name = "contact_email" label="Email" type = "email" error = error }}
+    {{> form_field.hbs id="contact_phone" name = "contact_phone" label="Teléfono" type = "text" error = error }}
+  </div>
+
+  {{!-- {{#if error}}
+  <p class="text-red-500 text-xs italic">Usuario o contraseña incorrecta</p>
+  {{/if}} --}}
+
+  {{#block "address" }}
+  {{/block}}
+
+  {{#block "more_fields"}}
+  {{/block}}
+
+  <div class="col-span-2">
+    <button
+      class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+      type="submit">Finalizar
+    </button>
+  </div>
+</form>
+{{/partial}}
+
+{{> form_layout.hbs title ="Registrarse" large = true header = header}}
