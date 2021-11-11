@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.repositorio.RepositorioDuenios;
 import dominio.usuarios.Duenio;
 import spark.ModelAndView;
 import spark.Request;
@@ -17,12 +16,13 @@ import spark.Response;
 public class MascotaController {
 
   public static ModelAndView view(Request request, Response response) {
-    if(authorize(request) == null){
+    if(Auth.authorize(request) == null){
       response.status(401);
-      response.redirect("/");
+      response.redirect("/login");
       return new ModelAndView(null, "");
     }
     Map<String, Object> model = new HashMap<>();
+    model.put("logged", true);
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("characteristicsEven", caracteristicas.subList(0, (caracteristicas.size() + 1) / 2));
     model.put("characteristicsOdd", caracteristicas.subList((caracteristicas.size() + 1) / 2, (caracteristicas.size())));
@@ -34,7 +34,7 @@ public class MascotaController {
   }
 
   public static ModelAndView create(Request request, Response response) throws IOException, ServletException {
-    final Duenio duenio = authorize(request);
+    final Duenio duenio = Auth.authorize(request);
     if(duenio == null){
       response.redirect("/login");
       return new ModelAndView(null, "");
@@ -69,14 +69,6 @@ public class MascotaController {
 
     response.redirect("/");
     return new ModelAndView(model, "");
-  }
-
-  private static Duenio authorize(Request req){
-    Long id = req.session().attribute("session");
-    if(id == null){
-      return null;
-    }
-    return RepositorioDuenios.getInstance().buscarPorId(id);
   }
 
 }

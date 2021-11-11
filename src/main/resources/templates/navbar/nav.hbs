@@ -4,10 +4,10 @@
     <div class="w-full flex items-center justify-between">
 
 
-      <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+      <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="/">
         {{!-- <img class="mr-3 h-10" src="/paw_print.svg" /> --}}
-        <svg class="w-9 mr-2 inline-block align-middle" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 172 172"
-          style=" fill:#000000;">
+        <svg class="w-9 mr-2 inline-block align-middle" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50"
+          height="50" viewBox="0 0 172 172" style=" fill:#000000;">
           <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
             stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none"
             font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -22,25 +22,35 @@
         Rescate de Patitas
       </a>
 
-      <div class="flex w-1/2 justify-end content-center">
+      <div class="flex w-3/4 justify-end content-center">
 
-          <!-- Botones -->
-          <div class="flex w-1/2 justify-end content-center">
-              <div class="flex flex-row">
-                  {{#if logged}}
-                      <div class="bg-white mr-5 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                          <a href="/mascotas/crear">Registrar Mascota</a>
-                      </div>
-                  {{else}}
-                      <div class="bg-white mr-5 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                          <a href="/login">Iniciar Sesión</a>
-                      </div>
+        <!-- Botones -->
+        <div class="flex w-3/4 justify-end content-center">
+          <div class="flex flex-row">
 
-                      <div class="bg-white mr-5 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                          <a href="/signup">Registrarse</a>
-                      </div>
-                  {{/if}}
-              </div>
+            <div class="mx-5">
+              <a href="/rescates/crear">¡Encontré a una mascota perdida!</a>
+            </div>
+
+            {{#if logged}}
+
+            <div class="mx-5">
+              <a href="/mascotas/crear">¡Quiero registrar a mi Mascota!</a>
+            </div>
+            <div class="mx-5">
+              <a href="/logout">Salir</a>
+            </div>
+
+            {{else}}
+
+            <div class="mx-5">
+              <a href="/login">Iniciar Sesión</a>
+            </div>
+
+
+            {{/if}}
+          </div>
+        </div>
 
       </div>
     </div>

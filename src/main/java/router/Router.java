@@ -1,15 +1,19 @@
 package router;
 
+import controllers.Auth;
 import controllers.CaracteristicasController;
 import controllers.HomeController;
 import controllers.LoginController;
 import controllers.MascotaController;
 import controllers.RescateController;
 import controllers.UserController;
+import dominio.usuarios.Duenio;
 
 import static spark.Spark.*;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityTransaction;
 
@@ -62,7 +66,13 @@ public class Router {
       return new ModelAndView(null, "");
     });
 
-    get("/404", (req, res) ->  new ModelAndView(null, "404.hbs"), engineTemplate);
+    get("/404", (req, res) ->  {
+      
+      final Map<String, Object> model = new HashMap<>();
+      model.put("error", false);
+      model.put("logged", Auth.authorize(req) != null? true : false);
+      return new ModelAndView(model, "404.hbs");
+    }, engineTemplate);
 
     after((request, response) -> {
       EntityTransaction transaction = PerThreadEntityManagers.getEntityManager().getTransaction();

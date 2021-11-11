@@ -25,6 +25,7 @@ import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
+import dominio.usuarios.Duenio;
 import servicios.hogares.modelos.Ubicacion;
 import spark.ModelAndView;
 import spark.Request;
@@ -35,6 +36,7 @@ public class RescateController {
   public static ModelAndView viewWithoutBadge(Request request, Response response) {
     Map<String, Object> model = buildModel();
     model.put("error", false);
+    model.put("logged", Auth.authorize(request) != null? true : false);
 
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("hayCaracteristicas", !caracteristicas.isEmpty());
@@ -50,11 +52,12 @@ public class RescateController {
     String id = request.params("id");
     model.put("action", "/rescates/crear/" + id);
     model.put("error", false);
+    model.put("logged", Auth.authorize(request) != null? true : false);
 
     Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(Long.valueOf(id));
     if(mascota == null) {
       response.status(404);
-      response.redirect("/");
+      response.redirect("/404");
       return new ModelAndView(null, "");
     }
 
@@ -104,8 +107,8 @@ public class RescateController {
     final Long id = Long.valueOf(request.params("id"));
     final Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(id);
     if(mascota == null) {
-      response.status(404);
-      response.redirect("/");
+      //response.status(404);
+      response.redirect("/404", 404);
       return new ModelAndView(null, "");
     }
 

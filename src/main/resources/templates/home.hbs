@@ -1,5 +1,35 @@
+{{#partial "title" }}
+<title>{{title}}</title>
+<style>
+  .body-bg {
+    background-color: #9921e8;
+    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+  }
+
+</style>
+{{/partial}}
+
 {{#partial "content"}}
-  <p>Tas logueado papa!</p>
+<div class="body-bg min-h-screen pt-6 md:pt-10 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+
+
+  <header class="max-w-lg mx-auto">
+
+    <nav>
+      {{>navbar/header.hbs}}
+    </nav>
+
+    <a href="#">
+      <h1 class="text-4xl font-bold text-white text-center">{{header}}</h1>
+    </a>
+  </header>
+
+  <section>
+    
+  </section>
+
+  {{!-- {{> footer.hbs }} --}}
+</div>
 {{/partial}}
 
 {{> base.hbs}}
