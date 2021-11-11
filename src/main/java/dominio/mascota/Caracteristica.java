@@ -11,7 +11,7 @@ public class Caracteristica extends PersistentEntity{
   private String nombre;
 
   public Caracteristica(String nombre) {
-    this.nombre = nombre;
+    this.nombre = nombre.toUpperCase();
   }
 
   protected Caracteristica(){}

@@ -17,6 +17,7 @@ import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioMascotas;
 import dominio.usuarios.Duenio;
 
+
 public class MascotaTest extends AbstractTest{
 
 
@@ -30,7 +31,9 @@ public class MascotaTest extends AbstractTest{
   Mascota franquitoArmani;
 
   @BeforeEach
-  void setUp(){
+  void setup(){
+
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
 
     firulais = new Mascota(ClaseMascota.PERRO, "Firulais", "Firu", 6, Sexo.MACHO, Tamanio.GRANDE);
     toto = new Mascota(ClaseMascota.GATO, "Toto", "Tot", 3, Sexo.MACHO, Tamanio.MEDIANO);
@@ -86,20 +89,6 @@ public class MascotaTest extends AbstractTest{
   @Test
   void hay2DueniosRegistrados(){
     assertEquals(2, RepositorioDuenios.getInstance().cantidadRegistros());
-  }
-
-  @Test
-  void totoCrecio(){
-
-    RepositorioMascotas.getINSTANCE().transaction(entityManager -> {
-      Mascota mascota = entityManager.find(Mascota.class, toto.getId());
-      mascota.setEdad(4);
-    });
-
-    PerThreadEntityManagers.getEntityManager().clear();
-    Mascota mascota = PerThreadEntityManagers.getEntityManager().find(Mascota.class, toto.getId());
-    assertEquals(4, mascota.getEdad());
-
   }
 
   Duenio duenioDe(Mascota mascota){

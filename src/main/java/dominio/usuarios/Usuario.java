@@ -5,10 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-
-import org.mindrot.jbcrypt.BCrypt;
-
-import dominio.repositorio.RepositorioValidaciones;
 import dominio.tareas.ValidadorPassword;
 import persistencia.PersistentEntity;
 

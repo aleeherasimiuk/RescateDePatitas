@@ -1,40 +1,44 @@
 {{#partial "form"}}
 
-<form class="grid grid-cols-2" method="POST" action="/home">
-
+<form class="grid grid-cols-2" id="pet_form" method="POST" action="/mascotas" enctype="multipart/form-data">
   <div class="mr-5">
-
-    {{> form_field.hbs id="type" name = "type" label="Clase" type = "text" error = error }}
+    {{> form_select_field.hbs id="type" name = "type" label = "Clase" error = error listado = clases form = "pet_form"}}
     {{> form_field.hbs id="name" name = "name" label="Nombre" type = "text" error = error }}
     {{> form_field.hbs id="nick" name = "nick" label="Apodo" type = "text" error = error }}
-
   </div>
+
   <div>
     {{> form_field.hbs id="age" name = "age" label="Edad" type = "number" error = error }}
-    {{> form_field.hbs id="gender" name = "gender" label = "Sexo" type = "text" error = error }}
-    {{> form_field.hbs id="size" name = "gender" label = "Tamaño" type = "text" error = error}}
+    {{> form_select_field.hbs id="gender" name = "gender" label = "Sexo" error = error listado = sexos form =
+    "pet_form"}}
+    {{> form_select_field.hbs id="size" name = "size" label = "Tamaño" error = error listado = tamaños form =
+    "pet_form"}}
   </div>
 
   <div class="col-span-2">
     {{> form_field.hbs id="desc" name="desc" label = "Descripción Física" type = "text" error = error}}
   </div>
 
+  {{#if hayCaracteristicas}}
+  <div class="col-span-2 mb-6 pt-3 rounded">
+    <h2 class="text-lg font-medium font-bold text-black">Caracteristicas</h2>
+    <h3 class="text-base font-medium text-black">Marque las caracteristicas acorde a su mascota</h3>
+  </div>
+
   <div class="mr-5">
     {{#each characteristicsEven}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
 
   <div>
     {{#each characteristicsOdd}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
-
-
-  {{> upload_photo.hbs}}
-
+  {{/if}}
   <div class="col-span-2">
+    {{> upload_photo.hbs name = "photos"}}
     <button
       class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
       type="submit">Finalizar

@@ -8,26 +8,23 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import dominio.mascota.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.hogares.Hogar;
-import dominio.mascota.ClaseMascota;
-import dominio.mascota.Mascota;
-import dominio.mascota.Sexo;
-import dominio.mascota.Tamanio;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.rescate.DatosRescate;
 import dominio.rescate.RescateSinChapita;
-import dominio.usuarios.Admin;
 import servicios.hogares.HogaresAdapter;
 import servicios.hogares.HogaresServiceRefugioDDS;
 import servicios.hogares.modelos.Admision;
 import servicios.hogares.modelos.HogarResponse;
 import servicios.hogares.modelos.Pagina;
 import servicios.hogares.modelos.Ubicacion;
-
 public class ServiciosTest extends AbstractTest{
 
   private HogaresAdapter hogaresAdapter;
@@ -36,15 +33,16 @@ public class ServiciosTest extends AbstractTest{
 
 
   @BeforeEach
-  void setUp(){
+  void setup(){
 
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     RepositorioCaracteristicas.getINSTANCE().vaciar();
     service = mock(HogaresServiceRefugioDDS.class);
     when(service.obtenerUnaPagina(1)).thenReturn(buildPage("1", 40));
     when(service.obtenerUnaPagina(2)).thenReturn(buildPage("2", 40));
     when(service.obtenerUnaPagina(3)).thenReturn(buildPage("3", 40));
     when(service.obtenerUnaPagina(4)).thenReturn(buildPage("4", 40));
-    
+
     hogaresAdapter = new HogaresAdapter();
     hogares = hogaresAdapter.hogares(service);
   }
@@ -63,7 +61,7 @@ public class ServiciosTest extends AbstractTest{
   @Test
   @DisplayName("El hogar en la posicion 0 no tiene características específicas'")
   void primerHogarNoPoseeCaracteristicasEspecificas(){
-    assertArrayEquals(new String[]{}, hogares.get(0).getCaracteristicasEspecificas().toArray()); 
+    assertArrayEquals(new String[]{}, hogares.get(0).getCaracteristicasEspecificas().toArray());
   }
 
   @Test
@@ -122,7 +120,7 @@ public class ServiciosTest extends AbstractTest{
   void elSeptimoAceptaLaPublicacionDeRobert(){
 
     Fixture f = new Fixture();
-    RescateSinChapita publicacion = new RescateSinChapita(new DatosRescate(f.crearAPedro(), new ArrayList<>(), LocalDate.now(), "", f.buildUTN()), Tamanio.CHICO, ClaseMascota.PERRO);
+    RescateSinChapita publicacion = new RescateSinChapita(new DatosRescate(f.crearAPedro(), new ArrayList<>(), LocalDate.now(), "", f.buildUTN()), Tamanio.CHICO, ClaseMascota.PERRO, Sexo.MACHO);
     for (String caracteristica : buildRobert().getCaracteristicas()) {
       publicacion.agregarUnaCaracteristica(caracteristica);
     }
@@ -173,12 +171,15 @@ public class ServiciosTest extends AbstractTest{
 
   Mascota buildRobert(){
     Mascota robert = new Mascota(ClaseMascota.PERRO, "Roberto", "Robert", 4, Sexo.MACHO, Tamanio.CHICO);
-    new Admin("username", "P4sword").agregarCaracteristicas("CALMADO", "NO MUERDE", "TIERNO", "SE COME LAS MEDIAS");
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("CALMADO"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("NO MUERDE"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("TIERNO"));
+    RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("SE COME LAS MEDIAS"));
     robert.agregarUnaCaracteristica("CALMADO");
     robert.agregarUnaCaracteristica("No muerde");
     robert.agregarUnaCaracteristica("tierno");
     robert.agregarUnaCaracteristica("se come las medias");
     return robert;
   }
-  
+
 }

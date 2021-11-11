@@ -10,6 +10,7 @@ import dominio.exceptions.NoHayAsociacionAsignadaAlRescate;
 import dominio.exceptions.YaHayUnaAsociacionAsignada;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import dominio.asociacion.Asociacion;
 import dominio.mascota.ClaseMascota;
@@ -27,8 +28,10 @@ public class PublicacionesTest extends AbstractTest{
   private Asociacion colaDeGato;
   private RescateSinChapita publicacionUTN;
 
+  @Override
   @BeforeEach
   void setup(){
+    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     repoPublicaciones.vaciar();
     repoAsociaciones.vaciar();
 

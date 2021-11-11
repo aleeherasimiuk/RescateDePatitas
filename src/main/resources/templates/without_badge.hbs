@@ -13,8 +13,11 @@
       <h2 class="text-lg font-medium text-black">Datos de la Mascota</h2>
     </div>
 
-    {{> form_field.hbs id="class" name = "class" label="Clase" type = "text" error = error }}
-    {{> form_field.hbs id="size" name = "size" label="Tamaño" type = "text" error = error }}
+    {{> form_select_field.hbs id="class" name = "class" label = "Clase" error = error listado = clases }}
+    {{> form_select_field.hbs id="size" name = "size" label = "Tamaño" error = error listado = tamaños }}
+    {{> form_select_field.hbs id="gender" name = "gender" label = "Sexo" error = error listado = sexos }}
+    
+    
   </div>
 
   <div id="formDatosContacto">
@@ -22,14 +25,21 @@
       <h2 class="text-lg font-medium text-black">Datos del Rescate</h2>
     </div>
 
-    {{> form_field.hbs id="res_date" name = "res_date" label="Fecha del Rescate" type = "date" error = error }}
+    <div class="mb-6 pt-3 rounded bg-gray-200 {{#if error}}border border-red-500{{/if}}">
+      <label class="block text-gray-700 text-sm font-bold mb-1 ml-3" for="res_date">Fecha del Rescate</label>
+      <input type="date" id="res_date" name="res_date" required
+        class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 focus:border-purple-600 border-gray-300 transition duration-500 px-3 pb-3 ">
+    </div>
     {{> form_field.hbs id="res_loc" name = "res_loc" label="Ubicación del rescate" type = "text" error = error}}
 
-  </div>
 
-  <div class="col-span-2">
-    {{> form_field.hbs id="desc" name = "desc" label="Descripción con la que fue encontrada" type = "text" error = error
-    }}
+
+    <div class="mb-6 pt-3 rounded bg-gray-200 {{#if error}}border border-red-500{{/if}}">
+      <label class="block text-gray-700 text-sm font-bold mb-1 ml-3" for="desc">Descripción con la que fue encontradae</label>
+      <input type="text" id="desc" name="desc" required
+        class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 focus:border-purple-600 border-gray-300 transition duration-500 px-3 pb-3 ">
+    </div>
+
   </div>
 
   <div class="mb-6 pt-3 rounded col-span-2">
@@ -38,17 +48,19 @@
 
   <div class="mr-5">
     {{#each characteristicsEven}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
 
   <div>
     {{#each characteristicsOdd}}
-    {{> form_field.hbs id= nombre name = nombre label=nombre type = "text" error = error }}
+    {{> form_checkbox.hbs name = nombre}}
     {{/each}}
   </div>
 
-  {{> upload_photo.hbs}}
+  <div class="col-span-2">
+    {{> upload_photo.hbs name = "photos"}}
+  </div>
 
 {{/partial}}
-{{> person_signup.hbs header = "¡Encontré una Mascota!"}}
+{{> person_signup.hbs header = "¡Encontré una Mascota!" multipart = true action="/rescates/crear"}}

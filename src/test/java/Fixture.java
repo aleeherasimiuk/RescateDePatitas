@@ -128,7 +128,7 @@ public class Fixture {
 
   public RescateSinChapita publicacionMascotaUTN(){
     DatosRescate datosRescate = new DatosRescate(crearAPedro(), new ArrayList<>(), LocalDate.now().minusDays(1), "parece ser un gato siames", buildUTN());
-    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO);
+    return new RescateSinChapita(datosRescate, Tamanio.CHICO, ClaseMascota.GATO, Sexo.HEMBRA);
   }
 
   public Asociacion asociacionPatitasSucias(){

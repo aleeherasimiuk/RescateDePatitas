@@ -6,26 +6,28 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 public abstract class Repositorio<T>{
   
   public void registrar(T t){
-    transaction(entityManager -> entityManager.persist(t));
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    entityManager.persist(t);
   }
 
   @SafeVarargs
   public final void registrar(T... t){
-    transaction(entityManager -> {
-      for (T objects : t) {
-        entityManager.persist(objects);
-      }
-    });
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    for (T objects : t) {
+      entityManager.persist(objects);
+    }
+    
   }
 
   public void borrar(T t){
-    transaction(entityManager -> entityManager.remove(t));
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    entityManager.remove(t);
   }
 
   public List<T> filtrar(Predicate<T> condicion){
@@ -45,11 +47,9 @@ public abstract class Repositorio<T>{
     return paraTodos(list -> (int) list.stream().filter(condicion).count());
   }
 
-  public void vaciar(){
-    transaction(entityManager -> {
-      entityManager.createQuery("DELETE FROM " + getClassName().getSimpleName())
-        .executeUpdate();
-    });
+  public void vaciar() {
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    entityManager.createQuery("DELETE FROM " + getClassName().getSimpleName()).executeUpdate();
   }
 
 
@@ -57,13 +57,14 @@ public abstract class Repositorio<T>{
     return paraTodos(list -> list);
   }
 
-  public <R> R paraTodos(Function<List<T>, R> function){
+  public <R> R paraTodos(Function<List<T>, R> function) {
     EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    List<T> list = (List<T>) entityManager.createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e", getClassName())
-      //.setParameter("table", getEntityName())
-      .getResultList();
+    List<T> list = (List<T>) entityManager
+        .createQuery("SELECT e FROM " + getClassName().getSimpleName() + " e", getClassName())
+        // .setParameter("table", getEntityName())
+        .getResultList();
     R result = function.apply(list);
-    entityManager.close();
+    // entityManager.close();
 
     return result;
   }
@@ -73,37 +74,18 @@ public abstract class Repositorio<T>{
     todos().forEach(consumer);
   }
 
-  public void transaction(Consumer<EntityManager> consumer){
-
-    query(entityManager -> {
-      EntityTransaction transaction = entityManager.getTransaction();
-      
-      transaction.begin();
-      try{
-        consumer.accept(entityManager);
-      } catch(Exception e){
-        transaction.rollback();
-        throw e;
-      }
-      transaction.commit();
-
-      return null;
-    });
-
-    // EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    // EntityTransaction transaction = entityManager.getTransaction();
-    // transaction.begin();
-    // consumer.accept(entityManager);
-    // transaction.commit();
-    // entityManager.close();
-  }
 
   protected <R> R query(Function<EntityManager, R> function){
     EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
     //EntityManager entityManager = entityManager();
     R result = function.apply(entityManager);
-    entityManager.close();
+    //entityManager.close();
     return result;
+  }
+
+  public T buscarPorId(Long id){
+    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+    return entityManager.find(getClassName(), id);
   }
 
   protected abstract Class<T> getClassName();

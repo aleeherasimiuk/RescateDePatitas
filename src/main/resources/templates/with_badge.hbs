@@ -19,7 +19,9 @@
 
   </div>
 
-  {{> upload_photo.hbs}}
+  <div class="col-span-2">
+    {{> upload_photo.hbs name="photos"}}
+  </div>
 
 {{/partial}}
-{{> person_signup.hbs header = "¡Encontré una Mascota!"}}
+{{> person_signup.hbs header = "¡Encontré una Mascota!" multipart=true action= action }}

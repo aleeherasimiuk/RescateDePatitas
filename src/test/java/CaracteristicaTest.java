@@ -12,7 +12,6 @@ import dominio.repositorio.RepositorioRescatesSinChapita;
 import dominio.repositorio.RepositorioRescatistas;
 import dominio.repositorio.RepositorioRespuestas;
 import dominio.repositorio.RepositorioSolicitudesAdopcion;
-import dominio.usuarios.Admin;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,22 +23,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+
 class CaracteristicaTest {
 	RepositorioCaracteristicas repoCaracteristica = RepositorioCaracteristicas.getINSTANCE();
 
 	@BeforeEach
 	void setup() {
-		Admin administrador;
-
-		administrador = new Admin("UnUsuario", "UnaContraseña1");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-ROJO");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AZUL");
-		administrador.agregarUnaCaracteristica("COLOR-PRIMARIO-AMARILLO");
-		administrador.agregarUnaCaracteristica("CASTRADO");
-		administrador.agregarUnaCaracteristica("NO-CASTRADO");
+		PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-ROJO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AZUL"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("COLOR-PRIMARIO-AMARILLO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("CASTRADO"));
+		RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("NO-CASTRADO"));
+		PerThreadEntityManagers.getEntityManager().flush();
 	}
 
-	
+
 	@AfterEach
 	void tearDown() {
 		RepositorioRescatesConChapita.getINSTANCE().vaciar();
@@ -51,13 +50,15 @@ class CaracteristicaTest {
     RepositorioDuenios.getInstance().vaciar();
     RepositorioSolicitudesAdopcion.getInstance().vaciar();
     RepositorioCaracteristicas.getINSTANCE().vaciar();
-    PerThreadEntityManagers.getEntityManager().getTransaction().begin();
+    //PerThreadEntityManagers.getEntityManager().getTransaction().begin();
     PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM OPCION").executeUpdate();
     PerThreadEntityManagers.getEntityManager().createNativeQuery("DELETE FROM RESCATES").executeUpdate();
-    PerThreadEntityManagers.getEntityManager().getTransaction().commit();
+    //PerThreadEntityManagers.getEntityManager().getTransaction().commit();
     RepositorioPreguntas.getInstance().vaciar();
     RepositorioRescatistas.getInstance().vaciar();
+		PerThreadEntityManagers.getEntityManager().getTransaction().commit();
 	}
+
 
 	@Test
 	void colorPrimarioAmarilloEsUnaCaracteristica() {
@@ -67,8 +68,7 @@ class CaracteristicaTest {
 
 	@Test
 	void alAgregarUnaCaracteristicaConElMismoNombreDeUnaExistenteRompe() {
-		Admin administrador = new Admin("UnAdministrador", "holaqtaltodomuyBarat10");
-		Executable agregarCaracteristica = () -> administrador.agregarUnaCaracteristica("castrado");
+		Executable agregarCaracteristica = () -> RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("castrado"));
 		assertThrows(CaracteristicaRepetida.class, agregarCaracteristica);
 	}
 

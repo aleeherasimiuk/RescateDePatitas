@@ -1,14 +1,11 @@
 package controllers;
 
-import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioUsuarios;
 import dominio.tareas.ValidadorPassword;
-import dominio.usuarios.Duenio;
 import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.Route;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,26 +30,29 @@ public class LoginController {
     final String username = req.queryParams("username");
     final String password = req.queryParams("password");
     Usuario usuario;
+    HashMap<String, Object> model = new HashMap<>();
 
     try{
       usuario = RepositorioUsuarios.getInstance().buscarPorNombreDeUsuario(username);
     } catch (NoResultException e){
-      usuario = null;
+      res.status(401);
+      model.put("error", true);
+      model.put("logged",false);
+      return new ModelAndView(model, "login.hbs");
     }
 
     System.out.println(usuario.getUsername());
 
-    HashMap<String, Object> model = new HashMap<>();
     ValidadorPassword validator = new ValidadorPassword();
 
-    if (usuario == null || !validator.login(password, usuario.getPassword())){
+    if (!validator.login(password, usuario.getPassword())){
       res.status(401);
-
       model.put("error",true);
       return new ModelAndView(model,"login.hbs");
     }
 
     model.put("error",false);
+    model.put("logged",true);
 
     req.session().attribute("session", usuario.getId());
 
@@ -62,10 +62,9 @@ public class LoginController {
 
   }
 
-  public ModelAndView logout(Request req, Response res){
+  public static ModelAndView logout(Request req, Response res){
     req.session().removeAttribute("session");
     res.redirect("/");
     return new ModelAndView(null, "");
   }
-
 }

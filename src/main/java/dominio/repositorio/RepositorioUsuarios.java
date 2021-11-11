@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import dominio.usuarios.Duenio;
 import dominio.usuarios.Usuario;
 
 public class RepositorioUsuarios extends Repositorio<Usuario>{
@@ -38,11 +37,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario>{
     }
 
     return result;
-  }
-
-  public Usuario buscarPorId(Long id){
-    EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-    return entityManager.find(Usuario.class, id);
   }
 
   @Override

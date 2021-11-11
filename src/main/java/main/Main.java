@@ -1,34 +1,14 @@
 package main;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-
-import dominio.mascota.Caracteristica;
-import dominio.passwords.CommonPassword;
-import dominio.passwords.LowerChar;
-import dominio.passwords.UpperChar;
-import dominio.personas.Contacto;
-import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
-import dominio.personas.TipoDeDocumento;
-import dominio.repositorio.RepositorioAdministradores;
-import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.repositorio.RepositorioValidaciones;
 import dominio.tareas.Recomendador;
-import dominio.usuarios.Admin;
-import dominio.usuarios.Duenio;
 import router.Router;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
-import spark.ModelAndView;
 import spark.Spark;
-import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 
 public class Main {

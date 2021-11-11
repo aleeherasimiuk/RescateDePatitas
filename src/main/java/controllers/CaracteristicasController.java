@@ -1,6 +1,5 @@
 package controllers;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +19,17 @@ public class CaracteristicasController {
       return new ModelAndView(null, "");
     }
     Map<String, Object> model = new HashMap<>();
+    model.put("logged", true);
     model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
     return new ModelAndView(model, "characteristics.hbs");
   }
 
   public static ModelAndView delete(Request request, Response response){
+    if(!authorize(request)){
+      response.status(401);
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
     final String value = request.queryParams("name");
     System.out.println("Borrando: " + value);
     RepositorioCaracteristicas.getINSTANCE().borrarPorNombre(value);
@@ -33,6 +38,11 @@ public class CaracteristicasController {
   }
 
   public static ModelAndView create(Request request, Response response){
+    if(!authorize(request)){
+      response.status(401);
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
     final String value = request.queryParams("name");
     RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica(value));
     System.out.println("Borrando: " + value);
@@ -42,6 +52,6 @@ public class CaracteristicasController {
 
   private static boolean authorize(Request req){
     Long id = req.session().attribute("session");
-    return RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
+    return id != null && RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
   }
 }

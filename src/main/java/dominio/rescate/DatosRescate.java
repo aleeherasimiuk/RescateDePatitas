@@ -22,7 +22,7 @@ import persistencia.convertidores.ConvertidorLocalDate;
 @Table(name="rescates")
 public class DatosRescate extends PersistentEntity{
   
-  @ManyToOne(cascade = CascadeType.MERGE)
+  @ManyToOne(cascade = CascadeType.ALL)
   private Rescatista rescatista;
   @ElementCollection
   @CollectionTable(name = "fotos_rescate", joinColumns=@JoinColumn(name="rescate_id"))
