@@ -26,7 +26,6 @@ public class LoginController {
       res.redirect("/");
     }
 
-
     final String username = req.queryParams("username");
     final String password = req.queryParams("password");
     Usuario usuario;

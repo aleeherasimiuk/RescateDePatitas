@@ -2,7 +2,6 @@ package controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +24,6 @@ import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
-import dominio.usuarios.Duenio;
-import servicios.hogares.modelos.Ubicacion;
 import servicios.mail.JavaMail;
 import spark.ModelAndView;
 import spark.Request;

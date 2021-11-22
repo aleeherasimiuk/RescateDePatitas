@@ -34,7 +34,7 @@ public class MascotaController {
   }
 
   public static ModelAndView create(Request request, Response response) throws IOException, ServletException {
-    final Duenio duenio = Auth.authorize(request);
+    final Duenio duenio = (Duenio) Auth.authorize(request);
     if(duenio == null){
       response.redirect("/login");
       return new ModelAndView(null, "");

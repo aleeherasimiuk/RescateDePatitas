@@ -1,12 +1,12 @@
 package controllers;
 
-import dominio.repositorio.RepositorioDuenios;
-import dominio.usuarios.Duenio;
+import dominio.repositorio.RepositorioUsuarios;
+import dominio.usuarios.Usuario;
 import spark.Request;
 
 public class Auth {
-  public static Duenio authorize(Request req){
+  public static Usuario authorize(Request req){
     Long id = req.session().attribute("session");
-    return id == null? null : RepositorioDuenios.getInstance().buscarPorId(id);
+    return id == null? null : RepositorioUsuarios.getInstance().buscarPorId(id);
   }
 }

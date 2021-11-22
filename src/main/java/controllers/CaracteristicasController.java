@@ -5,7 +5,6 @@ import java.util.Map;
 
 import dominio.mascota.Caracteristica;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.repositorio.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -52,6 +51,6 @@ public class CaracteristicasController {
 
   private static boolean authorize(Request req){
     Long id = req.session().attribute("session");
-    return id != null && RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
+    return id != null && Auth.authorize(req).esAdmin();
   }
 }

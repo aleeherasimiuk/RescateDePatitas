@@ -11,7 +11,7 @@ import spark.Response;
 public class HomeController {
   public static ModelAndView view(Request req, Response res) {
 
-		final Duenio duenio = Auth.authorize(req);
+		final Duenio duenio = (Duenio) Auth.authorize(req);
 		final Map<String, Object> model = new HashMap<>();
 		if(duenio == null) {
 			model.put("logged", false);
