@@ -31,9 +31,8 @@ public class LoginController {
     Usuario usuario;
     HashMap<String, Object> model = new HashMap<>();
 
-    try{
-      usuario = RepositorioUsuarios.getInstance().buscarPorNombreDeUsuario(username);
-    } catch (NoResultException e){
+    usuario = RepositorioUsuarios.getInstance().buscarPorNombreDeUsuario(username);
+    if(usuario == null){
       res.status(401);
       model.put("error", true);
       model.put("logged",false);

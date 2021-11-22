@@ -61,6 +61,8 @@ public class Router {
 
     post("/caracteristicas/crear", CaracteristicasController::create, engineTemplate);
 
+    get("/perfil/mascotas", MascotaController::viewPets, engineTemplate);
+
     notFound((req, res) ->  {
       res.redirect("/404");
       return new ModelAndView(null, "");

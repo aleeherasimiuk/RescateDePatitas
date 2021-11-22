@@ -71,4 +71,16 @@ public class MascotaController {
     return new ModelAndView(model, "");
   }
 
+  public static ModelAndView viewPets(Request request, Response response){
+    final Duenio duenio = (Duenio) Auth.authorize(request);
+    if(duenio == null){
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
+    final Map<String, Object> model = new HashMap<>();
+    model.put("logged", true);
+    model.put("pets", duenio.mascotas());
+    return new ModelAndView(model, "pets.hbs");
+  }
+
 }

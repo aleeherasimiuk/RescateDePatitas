@@ -1,0 +1,35 @@
+<div class="antialiased text-gray-900" style="display:grid;height:100vh;place-items:center">
+  <div>
+    <img src="/{{fotoPerfil}}" class="w-full object-cover object-center rounded-lg shadow-md">
+
+    <div class="relative px-4 -mt-16">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="flex items-baseline">
+          <div class="text-gray-600 uppercase text-xs font-semibold tracking-wider">{{clase}}</div>
+        </div>
+
+        <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{nombre}}</h4>
+
+        {{#if apodo = nombre}}
+        <!-- Cómo se hace el !=? xD-->
+
+        {{^}}
+        <div class="mt-1">{{apodo}}</div>
+        {{/if}}
+        
+        <div class="w-full">
+          {{descripcionFisica}}
+        </div>
+
+
+        <div class="mt-4 text-gray-600 uppercase text-xs font-semibold tracking-wider">
+          {{sexo}} &bull; {{edad}} años
+        </div>
+        <div class="text-right mt-4">
+          <a href="#">Ver QR</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
