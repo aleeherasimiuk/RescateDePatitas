@@ -78,6 +78,9 @@ public class UserController implements TransactionalOps, WithGlobalEntityManager
     final Duenio duenio = new Duenio(user, password, datosPersona);
 
     RepositorioDuenios.getInstance().registrar(duenio);
+    
+    request.session().removeAttribute("user");
+    request.session().removeAttribute("password");
 
     response.redirect("/login");
     return new ModelAndView(null, "");
