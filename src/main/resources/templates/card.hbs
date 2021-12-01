@@ -17,21 +17,28 @@
         <div class="mt-1">{{apodo}}</div>
         {{/if}}
 
-        <div class="w-auto">
-            {{descripcionFisica}}
+        <div class="w-auto flex">
+          <div class="w-3/4">
+            <span>
+              {{descripcionFisica}}
+            </span>
+          </div>
+          <div id="{{id}}" class="w-1/4" align="center">
+          </div>
         </div>
 
 
         <div class="mt-4 text-gray-600 uppercase text-xs font-semibold tracking-wider">
           {{sexo}} &bull; {{edad}} años
         </div>
-        <div id="{{id}}" class="text-right mt-4">
-          <a href="#">Ver QR</a>
-        </div>
 
         <script>
           const id = {{id}};
-          new QRCode(document.getElementById(id), "http://ec2-3-135-165-57.us-east-2.compute.amazonaws.com/rescates/crear/{{id}}");
+          new QRCode(document.getElementById(id), {
+            text: "http://ec2-3-135-165-57.us-east-2.compute.amazonaws.com/rescates/crear/{{id}}",
+            width: 200,
+            height: 200,
+          });
         </script>
       </div>
     </div>
