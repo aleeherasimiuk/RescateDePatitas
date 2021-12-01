@@ -1,7 +1,10 @@
 package main;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+
+import dominio.repositorio.RepositorioAdministradores;
 import dominio.tareas.Recomendador;
+import dominio.usuarios.Admin;
 import router.Router;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -66,8 +69,9 @@ public class Main {
 
     //RepositorioCaracteristicas.getINSTANCE().registrar(new Caracteristica("Ladra mucho"), new Caracteristica("Es tranquilo"));
     //RepositorioValidaciones.getInstance().registrar(new CommonPassword(), new UpperChar());
-    //RepositorioAdministradores.getInstance().registrar(new Admin("admin", "admin"));
-
+    // entityManager.getTransaction().begin();
+    // RepositorioAdministradores.getInstance().registrar(new Admin("admin", "admin"));
+    // entityManager.getTransaction().commit();
 
 
   //  Contacto contacto = new Contacto("Ian", "Crespi",12 ,"crespi.ian@gmail.com");

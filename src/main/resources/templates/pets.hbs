@@ -27,10 +27,15 @@
 
   <section>
 
-    <div class="grid-cols-3">
-      {{#each pets}}
-        {{> card.hbs url = url nickname = nickname name = name type = type}}
-      {{/each}}
+    <div class="grid grid-cols-2">
+      
+        {{#each mascotas}}
+          <div class="mt-4">
+            {{> card.hbs url = url nickname = nickname name = name type = type}}
+          </div>
+        {{/each}}
+      
+
     </div>
 
   </section>
@@ -39,4 +44,4 @@
 </div>
 {{/partial}}
 
-{{> base.hbs}}
+{{> base.hbs  logged = logged admin = admin}}

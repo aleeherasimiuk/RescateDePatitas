@@ -19,6 +19,7 @@ public class CaracteristicasController {
     }
     Map<String, Object> model = new HashMap<>();
     model.put("logged", true);
+    model.put("admin", true);
     model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
     return new ModelAndView(model, "characteristics.hbs");
   }
