@@ -1,5 +1,5 @@
 <div class="antialiased text-gray-900" style="display:grid;height:100vh;place-items:center">
-  <div>
+  <div class="w-3/4 mt-20">
     <img src="/{{fotoPerfil}}" class="w-full object-cover object-center rounded-lg shadow-md">
 
     <div class="relative px-4 -mt-16">
@@ -16,21 +16,23 @@
         {{^}}
         <div class="mt-1">{{apodo}}</div>
         {{/if}}
-        
-        <div class="w-full">
-          <textarea readonly style="resize: none;" class="w-full">
+
+        <div class="w-auto">
             {{descripcionFisica}}
-          </textarea>
         </div>
 
 
         <div class="mt-4 text-gray-600 uppercase text-xs font-semibold tracking-wider">
           {{sexo}} &bull; {{edad}} años
         </div>
-        <div class="text-right mt-4">
+        <div id="{{id}}" class="text-right mt-4">
           <a href="#">Ver QR</a>
         </div>
 
+        <script>
+          const id = {{id}};
+          new QRCode(document.getElementById(id), "http://ec2-3-135-165-57.us-east-2.compute.amazonaws.com/rescates/crear/{{id}}");
+        </script>
       </div>
     </div>
   </div>
