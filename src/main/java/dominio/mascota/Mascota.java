@@ -117,4 +117,12 @@ public class Mascota extends PersistentEntity {
     this.edad = edad;
   }
 
+  public String getFotoPerfil(){
+    return fotos.get(0);
+  }
+
+  public List<String> getFotos() {
+    return fotos;
+  }
+
 }

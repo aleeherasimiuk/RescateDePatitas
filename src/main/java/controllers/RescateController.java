@@ -2,7 +2,6 @@ package controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +24,7 @@ import dominio.rescate.RescateConChapita;
 import dominio.rescate.RescateSinChapita;
 import dominio.rescate.Rescatista;
 import dominio.ubicacion.Coordenadas;
-import dominio.usuarios.Duenio;
-import servicios.hogares.modelos.Ubicacion;
+import dominio.usuarios.Usuario;
 import servicios.mail.JavaMail;
 import spark.ModelAndView;
 import spark.Request;
@@ -37,7 +35,14 @@ public class RescateController {
   public static ModelAndView viewWithoutBadge(Request request, Response response) {
     Map<String, Object> model = buildModel();
     model.put("error", false);
-    model.put("logged", Auth.authorize(request) != null? true : false);
+    Usuario usuario = Auth.authorize(request);
+    if(usuario != null){
+      model.put("logged", true);
+      model.put("admin", usuario.esAdmin());
+    } else{
+      model.put("logged", false);
+      model.put("admin", false);
+    }
 
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("hayCaracteristicas", !caracteristicas.isEmpty());
@@ -53,7 +58,15 @@ public class RescateController {
     String id = request.params("id");
     model.put("action", "/rescates/crear/" + id);
     model.put("error", false);
-    model.put("logged", Auth.authorize(request) != null? true : false);
+    Usuario usuario = Auth.authorize(request);
+    if(usuario != null){
+      model.put("logged", true);
+      model.put("admin", usuario.esAdmin());
+    } else{
+      model.put("logged", false);
+      model.put("admin", false);
+    }
+    
 
     Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(Long.valueOf(id));
     if(mascota == null) {

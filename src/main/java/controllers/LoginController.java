@@ -23,18 +23,16 @@ public class LoginController {
   public static ModelAndView login(Request req, Response res) {
 
     if(req.session().attribute("session") != null){
-      res.redirect("/");
+      res.redirect("/perfil/mascotas");
     }
-
 
     final String username = req.queryParams("username");
     final String password = req.queryParams("password");
     Usuario usuario;
     HashMap<String, Object> model = new HashMap<>();
 
-    try{
-      usuario = RepositorioUsuarios.getInstance().buscarPorNombreDeUsuario(username);
-    } catch (NoResultException e){
+    usuario = RepositorioUsuarios.getInstance().buscarPorNombreDeUsuario(username);
+    if(usuario == null){
       res.status(401);
       model.put("error", true);
       model.put("logged",false);
@@ -53,10 +51,15 @@ public class LoginController {
 
     model.put("error",false);
     model.put("logged",true);
+    model.put("admin", usuario.esAdmin());
 
     req.session().attribute("session", usuario.getId());
 
-    res.redirect("/");
+    if(usuario.esAdmin()){
+      res.redirect("/caracteristicas");
+    } else {
+      res.redirect("/perfil/mascotas");
+    }
 
     return new ModelAndView(model, "home.hbs");
 
@@ -64,7 +67,7 @@ public class LoginController {
 
   public static ModelAndView logout(Request req, Response res){
     req.session().removeAttribute("session");
-    res.redirect("/");
+    res.redirect("/login");
     return new ModelAndView(null, "");
   }
 }

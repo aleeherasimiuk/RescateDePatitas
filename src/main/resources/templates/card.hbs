@@ -1,0 +1,45 @@
+<div class="antialiased text-gray-900" style="display:grid;place-items:center">
+  <div class="<!--w-3/4--> mt-10">
+    <img src="/{{fotoPerfil}}" class="w-full object-cover object-center rounded-lg shadow-md" style="max-height: 300px; max-width: 550px">
+
+    <div class="relative px-4 -mt-16">
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="flex items-baseline">
+          <div class="text-gray-600 uppercase text-xs font-semibold tracking-wider">{{clase}}</div>
+        </div>
+
+        <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{nombre}}</h4>
+
+        {{#if apodo = nombre}}
+        <!-- Cómo se hace el !=? xD-->
+
+        {{^}}
+        <div class="mt-1">{{apodo}}</div>
+        {{/if}}
+
+        <div class="w-auto flex">
+          <div class="w-3/4">
+            <span>
+              <p class="h-full" style="inline-size: 200px;overflow: hidden;">{{descripcionFisica}}</p>
+            </span>
+          </div>
+          <div id="{{id}}" class="w-1/4" align="center">
+          </div>
+        </div>
+
+
+        <div class="mt-4 text-gray-600 uppercase text-xs font-semibold tracking-wider">
+          {{sexo}} &bull; {{edad}} años
+        </div>
+
+        <script>
+          new QRCode(document.getElementById({{ id }}), {
+            text: "http://ec2-3-135-165-57.us-east-2.compute.amazonaws.com/rescates/crear/{{id}}",
+            width: 200,
+            height: 200,
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

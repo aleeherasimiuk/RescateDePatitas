@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import dominio.mascota.*;
 import dominio.repositorio.RepositorioCaracteristicas;
 import dominio.usuarios.Duenio;
+import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -34,7 +35,7 @@ public class MascotaController {
   }
 
   public static ModelAndView create(Request request, Response response) throws IOException, ServletException {
-    final Duenio duenio = Auth.authorize(request);
+    final Duenio duenio = (Duenio) Auth.authorize(request);
     if(duenio == null){
       response.redirect("/login");
       return new ModelAndView(null, "");
@@ -67,8 +68,44 @@ public class MascotaController {
 
     duenio.registrarUnaMascota(mascota);
 
-    response.redirect("/");
+    response.redirect("/perfil/mascotas");
     return new ModelAndView(model, "");
+  }
+
+  public static ModelAndView viewPets(Request request, Response response){
+    final Usuario usuario = Auth.authorize(request);
+    
+    if(usuario == null){
+      response.redirect("/login");
+      return new ModelAndView(null, "");
+    }
+    
+    if(usuario.esAdmin()){
+      response.status(404);
+      response.redirect("/404");
+      return new ModelAndView(null, "");
+    }
+    
+    final Duenio duenio = (Duenio) usuario;
+    
+    final Map<String, Object> model = new HashMap<>();
+    model.put("logged", true);
+    model.put("admin", false);
+    final List<Mascota> mascotas = duenio.mascotas();
+
+    if(mascotas.isEmpty()){
+      response.redirect("/mascotas/crear");
+      return new ModelAndView(null, "");
+    }
+
+    if(mascotas.isEmpty()){
+      model.put("empty", true);
+    } else {
+      model.put("empty", false);
+      model.put("mascotas", mascotas);
+    }
+
+    return new ModelAndView(model, "pets.hbs");
   }
 
 }

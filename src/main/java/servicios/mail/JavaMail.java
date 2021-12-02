@@ -61,7 +61,8 @@ public class JavaMail {
 
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail.getDestinatario()));
       message.setSubject(mail.getAsunto());
-      message.setText(mail.getMensaje());
+      //message.setText(mail.getMensaje());
+      message.setContent(mail.getMensaje(), "text/html");
 
       Transport transport = session.getTransport("smtp");
       transport.connect(emisor, password);

@@ -53,4 +53,8 @@ public class Duenio extends Usuario {
     mascotasRegistradas.remove(mascota);
     RepositorioMascotas.getINSTANCE().borrar(mascota);
   }
+
+  public List<Mascota> mascotas(){
+    return mascotasRegistradas;
+  }
 }

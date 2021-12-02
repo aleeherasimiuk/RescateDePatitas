@@ -1,13 +1,9 @@
 package controllers;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import dominio.personas.Contacto;
 import dominio.personas.DatosPersona;
-import dominio.personas.Documento;
 import dominio.personas.TipoDeDocumento;
 import dominio.repositorio.RepositorioDuenios;
 import dominio.repositorio.RepositorioValidaciones;
@@ -78,6 +74,9 @@ public class UserController implements TransactionalOps, WithGlobalEntityManager
     final Duenio duenio = new Duenio(user, password, datosPersona);
 
     RepositorioDuenios.getInstance().registrar(duenio);
+    
+    request.session().removeAttribute("user");
+    request.session().removeAttribute("password");
 
     response.redirect("/login");
     return new ModelAndView(null, "");

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import dominio.mascota.Caracteristica;
 import dominio.repositorio.RepositorioCaracteristicas;
-import dominio.repositorio.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -20,6 +19,7 @@ public class CaracteristicasController {
     }
     Map<String, Object> model = new HashMap<>();
     model.put("logged", true);
+    model.put("admin", true);
     model.put("caracteristicas", RepositorioCaracteristicas.getINSTANCE().todos());
     return new ModelAndView(model, "characteristics.hbs");
   }
@@ -52,6 +52,6 @@ public class CaracteristicasController {
 
   private static boolean authorize(Request req){
     Long id = req.session().attribute("session");
-    return id != null && RepositorioUsuarios.getInstance().buscarPorId(id).esAdmin();
+    return id != null && Auth.authorize(req).esAdmin();
   }
 }

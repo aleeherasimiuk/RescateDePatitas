@@ -6,12 +6,12 @@ import dominio.adopcion.DarEnAdopcion;
 import dominio.mascota.Mascota;
 import dominio.usuarios.Duenio;
 
-public class MailRecomendacion extends Mailer{
+public class MailRecomendacion extends Mailer {
 
   private final Duenio adoptante;
   private final List<DarEnAdopcion> publicaciones;
 
-  public MailRecomendacion(Duenio adoptante, List<DarEnAdopcion> publicaciones){
+  public MailRecomendacion(Duenio adoptante, List<DarEnAdopcion> publicaciones) {
     this.adoptante = adoptante;
     this.publicaciones = publicaciones;
   }
@@ -25,28 +25,31 @@ public class MailRecomendacion extends Mailer{
   protected String mensaje() {
 
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append("Hola!\n")
-      .append("Sabemos que estás buscando adoptar a una mascota\n")
-      .append("Por eso te traemos las que mejor se adaptan a tus comodidades y preferencias\n\n");
+    stringBuilder.append("Hola " + adoptante.getDatosPersona().getContacto().getNombre() + "!<br>")
+        .append("Sabemos que estás buscando adoptar a una mascota<br>")
+        .append("Por eso te traemos las que mejor se adaptan a tus comodidades y preferencias<br>");
 
     for (DarEnAdopcion publicacion : publicaciones) {
 
       Mascota mascota = publicacion.getMascota();
-      stringBuilder.append(mascota.getNombre()).append('\n')
-                   .append(mascota.getEdad()).append(" años\n\n");
+      stringBuilder.append("Nombre: ").append(mascota.getNombre()).append("<br>").append("Edad: ")
+          .append(mascota.getEdad()).append(" años<br>");
 
-      stringBuilder.append("Caracteristicas: \n");
+      stringBuilder.append("Caracteristicas: <br>");
 
       List<String> caracteristicas = mascota.getCaracteristicas();
 
       caracteristicas.forEach(caracteristica -> {
-        stringBuilder.append('\t').append(caracteristica).append('\n');
+        stringBuilder.append('-').append(caracteristica).append("<br>");
       });
 
-      stringBuilder.append("\n\n\n");
-      
+      if(!mascota.getFotos().isEmpty()){
+        stringBuilder.append("<br><img width=300 src=" + mascota.getFotoPerfil() + ">");
+      }
+      stringBuilder.append("<br><br><br>");
+
     }
-    
+
     return stringBuilder.toString();
   }
 
@@ -54,5 +57,5 @@ public class MailRecomendacion extends Mailer{
   protected String asunto() {
     return "¡Hey!. ¡Tenemos algunas recomendaciones para vos!";
   }
-  
+
 }
