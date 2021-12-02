@@ -2,6 +2,21 @@
 
 ## Trabajo Práctico - GRUPO 7 - Diseño de Sistemas - 2021 - Jueves Mañana
 
+### Resumen
+
+El siguiente trabajo consiste en una aplicación web que permita a una persona registrarse como dueño de una o varias mascotas. La asociación enviará al dueño una chapita con un código QR que identifica unívocamente a la mascota, y en el caso de que se pierda la mascota, el rescatista pueda identificar al dueño mediante el escaneo del código QR.
+Además el sistema debe permitir la publicación de mascotas en adopción, así como también la solicitud de adopción por parte de algún adoptante. En estas publicaciones se harán preguntas sobre las preferencias del adoptante, o las características del animal; para luego ejecutar un algoritmo de recomendaciones que permita matchear mascota con adoptante. En el caso de que el dueño no pueda tener a la mascota, el sistema deberá proveer de información acerca de hogares que estén dispuestos a recibir a la mascota mediante el uso de una API Rest. Además las publicaciones deben ser aprobadas por voluntarios de asociaciones registradas en el sistema. Por último, los administradores del sistema deberán poder elegir qué características son las que se les preguntarán a los dueños o rescatistas sobre el animal, así como también decidir cuáles validaciones sobre la seguridad de las contraseñas se harán.
+
+Para el desarrollo del trabajo práctico se deberán utilizar, de ser necesario, patrones de diseños vistos durante la cursada para realizar el modelo de objetos; consultar una API Rest; realizar tests unitarios y mockear aquellos componentes que interactúan con sistemas externos; realizar tareas programadas (cronjobs) para enviar mails de recomendaciones; realizar el modelo de datos teniendo en cuenta las formas normales así como también la performance de las consultas; implementar persistencia mediante el uso de un motor de base de datos relacional; realizar las vistas de algunos casos de uso de la aplicación; realizar los controladores de la aplicación; realizar un deploy de la aplicación en algún proveedor PaaS o IaaS. 
+
+Bibliotecas Utilizadas:
+
+- Spark
+- Hibernate/JPA
+- JavaMail
+- Retrofit
+- JUnit5
+
 | ALUMNO                            | LEGAJO        |               
 | ----------------------------------|:-------------:|
 | Alexis Herasimiuk                 | 167.251-4     |
@@ -21,8 +36,25 @@ Ayudante: fedekiwo
 ![diagramaDeClases](https://imgur.com/bpTYOPe.jpg)
 
 
+# Diagrama de Entidad - Relación
+![DER](diagramas/DER.jpg)
+
+
 
 ----
+# Galería
+
+![login](gallery/login.png)
+![signup1](gallery/signup1.png)
+![signup2](gallery/signup2.png)
+![pet](gallery/pet.png)
+![pets](gallery/pets.png)
+![resque1](gallery/resque1.png)
+![resque2](gallery/resque2.png)
+![characteristics](gallery/characteristics.png)
+![404](gallery/404.png)
+
+
 
 # Ejecutar con Docker
 
@@ -73,16 +105,17 @@ El script `run.sh` contiene las siguientes opciones:
 - install: Instala las dependencias
 - package: Compila el proyecto
 - all: Todas las anteriores
-- reset_db: Elimina la db si existe y la vuelve a crear
+- bootstrap: Levanta el servidor llenando con datos iniciales.
+- recomendations: Envía las recomendaciones a los usuarios.
 
 
 ```sh
 chmod +x run.sh ## Una única vez
-docker-compose up ## Construye y levanta los contenedores
+docker-compose up -d## Construye y levanta los contenedores
 
-# En otra terminal
-./run.sh reset_db ## Elimina la db si existe, y la crea
-./run.sh all ## Compila y ejecuta el proyecto
+./run.sh bootstrap ## Compila y ejecuta el proyecto llenándolo con los datos iniciales
+./run.sh all ## Compila y ejecuta el servidor sin realizar nada maś
+./run.sh recomendations ## Envía las recomendaciones a los usuarios
 ```
 
 ## Arrancar o detener el contenedor
@@ -91,6 +124,5 @@ docker-compose up ## Construye y levanta los contenedores
 docker-compose stop
 docker-compose start
 ```
-
 
 
