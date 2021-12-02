@@ -7,7 +7,6 @@ import controllers.LoginController;
 import controllers.MascotaController;
 import controllers.RescateController;
 import controllers.UserController;
-import dominio.usuarios.Duenio;
 
 import static spark.Spark.*;
 

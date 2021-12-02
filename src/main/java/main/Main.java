@@ -1,6 +1,5 @@
 package main;
 import java.time.LocalDate;
-import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import dominio.adopcion.DarEnAdopcion;
@@ -41,7 +40,6 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import servicios.mail.JavaMail;
 import spark.Spark;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 
 

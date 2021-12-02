@@ -10,8 +10,6 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.NoResultException;
-
 public class LoginController {
 
   public static ModelAndView view(Request req, Response res) {

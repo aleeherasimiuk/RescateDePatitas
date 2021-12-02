@@ -89,7 +89,7 @@ public class RescateController {
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     final Sexo sexo = Sexo.valueOf(request.queryParams("gender"));
     final LocalDate fecha = LocalDate.parse(request.queryParams("res_date"), formatter);
-    final String loc = request.queryParams("res_loc");
+    //final String loc = request.queryParams("res_loc");
     final String desc = request.queryParams("desc");
     final String address = request.queryParams("address");
     final List<String> images = ImageFetcher.fetchImageURL(request);

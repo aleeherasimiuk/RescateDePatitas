@@ -3,7 +3,6 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import dominio.usuarios.Duenio;
 import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
