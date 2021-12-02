@@ -36,8 +36,13 @@ public class RescateController {
     Map<String, Object> model = buildModel();
     model.put("error", false);
     Usuario usuario = Auth.authorize(request);
-    model.put("logged", usuario != null? true : false);
-    model.put("admin", usuario.esAdmin());
+    if(usuario != null){
+      model.put("logged", true);
+      model.put("admin", usuario.esAdmin());
+    } else{
+      model.put("logged", false);
+      model.put("admin", false);
+    }
 
     List<Caracteristica> caracteristicas = RepositorioCaracteristicas.getINSTANCE().todos();
     model.put("hayCaracteristicas", !caracteristicas.isEmpty());
@@ -54,8 +59,14 @@ public class RescateController {
     model.put("action", "/rescates/crear/" + id);
     model.put("error", false);
     Usuario usuario = Auth.authorize(request);
-    model.put("logged", usuario != null? true : false);
-    model.put("admin", usuario.esAdmin());
+    if(usuario != null){
+      model.put("logged", true);
+      model.put("admin", usuario.esAdmin());
+    } else{
+      model.put("logged", false);
+      model.put("admin", false);
+    }
+    
 
     Mascota mascota = RepositorioMascotas.getINSTANCE().buscarPorId(Long.valueOf(id));
     if(mascota == null) {

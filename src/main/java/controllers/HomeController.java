@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dominio.usuarios.Duenio;
+import dominio.usuarios.Usuario;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -11,7 +12,7 @@ import spark.Response;
 public class HomeController {
   public static ModelAndView view(Request req, Response res) {
 
-		final Duenio duenio = (Duenio) Auth.authorize(req);
+		final Usuario duenio = Auth.authorize(req);
 		final Map<String, Object> model = new HashMap<>();
 		if(duenio == null) {
 			model.put("logged", false);

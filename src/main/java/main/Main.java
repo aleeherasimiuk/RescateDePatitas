@@ -132,7 +132,7 @@ public class Main {
 
     RepositorioDuenios.getInstance().registrar(duenio2);
 
-    Contacto contacto3 = new Contacto("Fede", "Kiwo","133456789" ,"roberroberxD@gmail.com");
+    Contacto contacto3 = new Contacto("Fede", "Kiwo","133456789" ,"fedekiwo@gmail.com");
     Documento documento3 = new Documento(TipoDeDocumento.DNI, "4355384");
     DatosPersona datosPersona3 = new DatosPersona("Kiwo","Fede", documento3, contacto3, LocalDate.now().minusYears(25));
     Duenio duenio3 = new Duenio("fede", "fede", datosPersona3);
