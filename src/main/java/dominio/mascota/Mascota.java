@@ -121,4 +121,8 @@ public class Mascota extends PersistentEntity {
     return fotos.get(0);
   }
 
+  public List<String> getFotos() {
+    return fotos;
+  }
+
 }

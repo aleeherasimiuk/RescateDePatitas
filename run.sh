@@ -16,6 +16,14 @@ case $1 in
   clean)
     docker exec -it rescate_de_patitas_app mvn -Duser.home=/var/maven clean
     ;;
+  recomendations)
+    docker exec -it rescate_de_patitas_app java -jar /home/target/RescatePatitas-jar-with-dependencies.jar run_recomendaciones
+    ;;
+  bootstrap)
+    docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven clean
+    docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven -Pbuild -Dmaven.test.skip package
+    docker exec -it rescate_de_patitas_app java -jar /home/target/RescatePatitas-jar-with-dependencies.jar bootstrap
+    ;;
   all)
     docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven clean
     docker exec -it rescate_de_patitas_app mvn --quiet -Duser.home=/var/maven -Pbuild -Dmaven.test.skip package
